@@ -1,0 +1,10 @@
+node_modules
+*.DS_Store
+temp
+temp_*
+test*
+# .webserviceconfig.json
+*.zip
+.main
+src/exit
+package-lock.json

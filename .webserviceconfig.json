@@ -1,0 +1,30 @@
+{
+   "dev": {
+      "ftp": {
+         "root": "",
+         "host": "",
+         "user": "",
+         "pass": "",
+         "secure": ""
+      }
+   },
+   "process-files": {
+      "js": {
+         "babel": true,
+         "uglify": true,
+         "to-browser": {
+            "require": "./.library/"
+         }
+      },
+      "css": {
+         "autoprefixer": true,
+         "uglifycss": true
+      },
+      "html": true,
+      "htaccess": true,
+      "php": true,
+      "exclude-files": []
+   },
+   "source": "./src/",
+   "to": "./.main/"
+}
