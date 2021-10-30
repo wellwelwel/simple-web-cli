@@ -32,6 +32,7 @@
 <br />
 
 ### ➖ Utilizando
+>   Uma vez iniciado o processo com `npm start` ou `yarn start`, o evento ocorre ao **salvar qualquer arquivo**.
 
 <!-- HTML -->
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="24" /> `HTML`
@@ -135,7 +136,7 @@
 
 <!-- Substituição de Textos -->
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gulp/gulp-plain.svg" width="24" /> ` Substituição de Textos`
->  * Nos **PHP** e **Apache** é possível criar o código com de fácil leitura e, ao compilar, substituí-las. Por exemplo:
+>  * Nas linguagens **PHP** e **Apache** é possível criar o código com de fácil leitura e, ao compilar, substituí-las. Por exemplo:
 > 
 >     <ins>`.webservicereplace.json`</ins>
 >     
