@@ -8,7 +8,7 @@ const exec = require('../../modules/execShellCommand');
 
 (async () => {
 
-   await exec('npm link ./.library'); /* link local packages */
+   await exec(`npm run reset --silent`, { stdio: 'inherit' });
    await watchClose();
    
    console.clear();
