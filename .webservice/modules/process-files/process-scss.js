@@ -16,6 +16,7 @@ async function processCSS(file) {
 
    const _ = file.split('/').pop().substr(0, 1) === '_' ? true : false;
    const fileType = file.split('.').pop().toLowerCase();
+   const tempDIR = `temp_${(new Date()).valueOf().toString()}`;
 
    if (_ && fileType === 'scss') {
       
@@ -23,46 +24,41 @@ async function processCSS(file) {
       const filename =  file.split('/').pop().replace(/_/, '').replace(/.scss/, '');
       
       for (const file in files) {
-         
-         if (files[file].split('/').pop().substr(0, 1) !== '_') {
-            
-            const regex = RegExp(`@import.*?${filename}`, 'gim');
-            const content = await fs.readFile(files[file], 'utf8');
-            const isValid = regex.exec(content);
+      
+         const regex = RegExp(`@import.*?${filename}`, 'gim');
+         const content = await fs.readFile(files[file], 'utf8');
+         const isValid = !!content.match(regex);
 
-            if (isValid) processCSS(files[file]);
-         }
+         if (isValid) processCSS(files[file]);
       }
+
+      return;
    }
-   else {
 
-      const tempDIR = `temp_${(new Date()).valueOf().toString()}`;
+   try {
+      
+      const tempCSS = file.replace(source, tempDIR).replace('.scss', '.css');
+      const tempPath = path(file.replace(source, tempDIR));
+      const final = tempCSS.replace(tempDIR, to);
+      const process = !no_process(fileType === 'scss' ? tempCSS.replace('.css', '.scss') : tempCSS);
 
-      try {
-   
-         const tempCSS = file.replace(source, tempDIR).replace('.scss', '.css');
-         const tempPath = path(file.replace(source, tempDIR));
-         const final = tempCSS.replace(tempDIR, to);
-         const process = !no_process(fileType === 'scss' ? tempCSS.replace('.css', '.scss') : tempCSS);
+      createDir([ tempPath, tempPath.replace(tempDIR, to) ]);
 
-         createDir([ tempPath, tempPath.replace(tempDIR, to) ]);
-   
-         if (fileType === 'scss') await exec(`npx sass "${file}":"${tempCSS}" --no-source-map${process_files.css.uglifycss && process ? ' --style compressed' : ''}`);
-         else if (fileType === 'css') await fs.copyFile(file, tempCSS);
+      if (fileType === 'scss') await exec(`npx sass "${file}":"${tempCSS}" --no-source-map${process_files.css.uglifycss && process ? ' --style compressed' : ''}`);
+      else if (fileType === 'css') await fs.copyFile(file, tempCSS);
 
-         if (process && process_files.css.autoprefixer) await exec(`AUTOPREFIXER_GRID=autoplace npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
-   
-         const uglified = process_files.css.uglifycss && process ? uglifycss.processFiles([tempCSS], { uglyComments: true }) : await fs.readFile(tempCSS, 'utf8');
-         await fs.writeFile(final, uglified);
-      }
-      catch(e) {
-         
-         console.log(`${sh.reset}${sh.red}${e}`);
-      }
-      finally {
-   
-         if (_fs.existsSync(tempDIR)) rimraf(tempDIR, () => { });
-      }
+      if (process && process_files.css.autoprefixer) await exec(`AUTOPREFIXER_GRID=autoplace npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
+
+      const uglified = process_files.css.uglifycss && process ? uglifycss.processFiles([tempCSS], { uglyComments: true }) : await fs.readFile(tempCSS, 'utf8');
+      await fs.writeFile(final, uglified);
+   }
+   catch(e) {
+      
+      console.log(`${sh.reset}${sh.red}${e}`);
+   }
+   finally {
+
+      if (_fs.existsSync(tempDIR)) rimraf(tempDIR, () => { });
    }
 }
 

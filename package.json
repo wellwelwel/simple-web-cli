@@ -29,7 +29,7 @@
       "postcss-cli": "^8.3.0",
       "rimraf": "^3.0.2",
       "sass": "^1.29.0",
-      "uglify-es": "^3.3.9",
+      "uglify-js": "^3.14.2",
       "uglifycss": "^0.0.25",
       "web": "file:.library"
    },
