@@ -136,14 +136,14 @@
 
 <!-- Substituição de Textos -->
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gulp/gulp-plain.svg" width="24" /> ` Substituição de Textos`
->  * Nas linguagens **PHP** e **Apache** é possível criar o código com de fácil leitura e, ao compilar, substituir os *strings* específicados. Por exemplo:
+>  * Nas linguagens **PHP** e **Apache** é possível criar um código de fácil leitura e, ao compilar, substituir os *strings* específicados. Por exemplo:
 > 
 >     <ins>`.webservicereplace.json`</ins>
 >     
 >     ```json
 >     {
 >        "strings": {
->           "*unsafe*": {
+>           "*token*": {
 >              "dev": "0cfcda42c340dad5616e0b7449a5634b"
 >           },
 >           "*site-name*": {
@@ -156,7 +156,7 @@
 >`ENTRADA`
 >```php
 ><?
->   $_POST['*unsafe*'];
+>   $_POST['*token*'];
 >   $site = '*site-name*';
 >```
 >
@@ -181,7 +181,7 @@
 >`Editores`  
 >
 > ✅ [**Visual Studio Code**](https://code.visualstudio.com/Download)  
-> ❎ **Outros** *(as funcionalidades principais dependem apenas do `Terminal`, porém, outros editores podem não ser compatíveis com sugestões de módulos locais)*  
+> ❎ **Outros** *(as funcionalidades dependem apenas do `Terminal`, porém, outros editores podem não ser compatíveis com sugestões de módulos locais)*  
 >
 
 >
