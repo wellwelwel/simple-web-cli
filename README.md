@@ -136,7 +136,7 @@
 
 <!-- Substituição de Textos -->
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gulp/gulp-plain.svg" width="24" /> ` Substituição de Textos`
->  * Nas linguagens **PHP** e **Apache** é possível criar um código de fácil leitura e, ao compilar, substituir os *strings* específicados. Por exemplo:
+>  * Nas linguagens **PHP** e **Apache** é possível criar um código de fácil leitura e ao compilar, substituir os *strings* específicados. Por exemplo:
 > 
 >     <ins>`.webservicereplace.json`</ins>
 >     
