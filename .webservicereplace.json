@@ -3,19 +3,15 @@
       "html": true,
       "php": true,
       "phtml": true,
-      "scss": false,
-      "css": false,
+      "scss": true,
+      "css": true,
       "htaccess": true,
       "js": true,
       "sql": false,
       "others": false
    },
    "strings": {
-      "*domain-name*": {
-         "dev": "",
-         "build": ""
-      },
-      "*url*": {
+      "*your-string*": {
          "dev": "",
          "build": ""
       }

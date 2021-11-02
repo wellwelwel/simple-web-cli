@@ -49,7 +49,7 @@ const post_process = async (options = { }) => {
          let new_content = content;
    
          for (const string in get_replaces.strings) {
-      
+
             if (
                string.split('*').length !== 3 ||
                string.substring(0, 1) !== '*' ||

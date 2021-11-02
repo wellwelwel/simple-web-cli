@@ -10,13 +10,15 @@ const exec = require('../execShellCommand');
 const listFiles = require('../listFiles');
 const path = require('../get-path');
 const no_process = require('./no-process');
+const postProcess = require('./post-process-replace');
 
 const requiredResources = process_files.js['to-browser'].require;
 const packageName = JSON.parse(_fs.readFileSync('.library/package.json', 'utf8'));
 
-async function recursive_require(file) {
+async function recursive_require(file, replace) {
 
-   let content = await fs.readFile(file, 'utf8');
+   // let content = await fs.readFile(file, 'utf8');
+   let content = await postProcess({ src: file, response: true, local: replace });
    const requireds = content.match(/require\(.*?\);/gim);
    
    for (const required in requireds) {
@@ -48,7 +50,7 @@ async function recursive_require(file) {
       if (typeof isModule !== 'boolean') current = current.replace(RegExp(`const\\s${isModule}\\s=\\s|module.*?;`, 'gm'), '').trim();
 
       /* Recursive Library */
-      if (regex.test(current)) current = await recursive_require(require);
+      if (regex.test(current)) current = await recursive_require(require, replace);
 
       content = content.replace(requireds[required], current);
    }
@@ -56,7 +58,7 @@ async function recursive_require(file) {
    return content;
 }
 
-async function processJS(file) {
+async function processJS(file, local = false, replace = 'dev') {
 
    const _ = /\.library/.test(file) ? true : false;
 
@@ -69,7 +71,7 @@ async function processJS(file) {
       for (const file in files) {
 
          const content = await fs.readFile(files[file], 'utf8');
-         if (regex.test(content)) processJS(files[file]);
+         if (regex.test(content)) processJS(files[file], local);
       }
 
       return;
@@ -77,16 +79,17 @@ async function processJS(file) {
 
    /* ------------------------------------------------------------- */
 
+   const localTo = !local ? to : local;
    const tempDIR = `temp_${(new Date()).valueOf().toString()}`;
    const pre = file.replace(source, tempDIR);
    const tempJS = path(pre);
-   const final = file.replace(source, to);
+   const final = file.replace(source, localTo);
 
-   createDir([ tempDIR, tempJS, tempJS.replace(tempDIR, to) ]);
+   createDir([ tempDIR, tempJS, tempJS.replace(tempDIR, localTo) ]);
 
    async function pre_process() {
 
-      const content = await recursive_require(file);
+      const content = await recursive_require(file, replace);
 
       /* Final Build File */
       await fs.writeFile(pre, content);

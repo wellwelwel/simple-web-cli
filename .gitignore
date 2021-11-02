@@ -3,8 +3,9 @@ node_modules
 temp
 temp_*
 test*
-# .webserviceconfig.json
 *.zip
 .main
+.release
 src/exit
 package-lock.json
+yarn.lock

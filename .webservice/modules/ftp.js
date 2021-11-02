@@ -9,11 +9,8 @@ const client = new Client();
 const privateCachedAccess = { };
 const publicCachedAccess = { };
 
-const log = (event) => console.log(`${sh.reset}↘️  ${sh.dim}${event}\n`);
-
 async function reconnect(file) {
    
-   console.log(`${sh.dim}↩️   Reconnecting${sh.reset}${type(file)} ...`);
    await connect();
 }
 
@@ -46,7 +43,7 @@ async function connect(access = false) {
    }
    catch(err) {
    
-      console.log(`${sh.reset}${sh.red}${err}`);
+      client.error = `${sh.reset}${sh.red}${err}`;
       return false;
    }
 }
@@ -64,19 +61,16 @@ async function send(file, waiting) {
       await client.uploadFrom(file, `${privateCachedAccess.root}/${receiver}`);
       timer = setTimeout(() => {
 
-         if (!waiting.scheduling.started) {
-         
-            clearTimeout(timer);
-            log(' Done');
-         }
+         if (!waiting.scheduling.started) clearTimeout(timer);
       });
+
+      return true;
    }
    catch(err) {
 
       try {
 
          /* Tenta criar diretório antes de enviar os arquivos */
-
          const receiver = file.replace(`${to}/`, '');
    
          if (client.closed) await reconnect(file);
@@ -87,16 +81,15 @@ async function send(file, waiting) {
          await client.uploadFromDir(`${to}/${dir}`, `${privateCachedAccess.root}/${dir}`);
          timer = setTimeout(() => {
 
-            if (!waiting.scheduling.started) {
-            
-               clearTimeout(timer);
-               log(' Done');
-            }
+            if (!waiting.scheduling.started) clearTimeout(timer);
          });
+
+         return true;
       }
       catch(err) {
 
-         console.log(`${sh.dim}${sh.red}${err}`);
+         client.error = `${sh.dim}${sh.red}${err}`;
+         return false;
       }
    }
 }
@@ -110,11 +103,12 @@ async function remove(file, isDir = false) {
       if (client.closed) await reconnect(file);
 
       (!isDir) ? await client.remove(`${privateCachedAccess.root}/${receiver}`) : await client.removeDir(`${privateCachedAccess.root}/${receiver}`);
-      console.log(`${sh.reset}↙️  ${sh.dim} Removed\n`);
+      return true;
    }
    catch(err) {
 
-      console.log(`${sh.dim}${sh.red}${err}`);
+      client.error = `${sh.dim}${sh.red}${err}`;
+      return false;
    }
 }
 
@@ -127,10 +121,12 @@ async function deploy() {
       await client.uploadFromDir(`${to}`, `${privateCachedAccess.root}/`);
 
       client.close();
+      return true;
    }
    catch(err) {
 
-      console.log(`${sh.dim}${sh.red}${err}`);
+      client.error = `${sh.dim}${sh.red}${err}`;
+      return false;
    }
 }
 

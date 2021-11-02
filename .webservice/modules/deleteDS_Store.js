@@ -1,9 +1,5 @@
 "use strict";
 
-const glob = require('glob');
-const rimraf = require('rimraf');
+const exec = require('./execShellCommand');
 
-module.exports = () => glob('*.DS_Store', { }, (err, files) => {
-      
-   if (files.length > 0) rimraf('.DS_Store', () => { });
-});
+module.exports = async () => await exec('find . -name ".DS_Store" -type f -delete');

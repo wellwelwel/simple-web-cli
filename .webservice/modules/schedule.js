@@ -43,7 +43,7 @@ class Schedule {
       };
 
       /* Starts attendance */
-      this.start = function(options) {
+      this.start = async function(options) {
 
          const set_options = {
 
@@ -87,6 +87,9 @@ class Schedule {
                      
                      this.scheduling.started = false;
                      clearInterval(waiting);
+
+                     if (this.scheduling?.file) delete this.scheduling.file;
+                     if (this.scheduling?.copying) delete this.scheduling.copying;
                   }
                }
             }, set_options.timeInterval);
@@ -98,7 +101,7 @@ class Schedule {
             for (const key in queuing) setTimeout(async () => await queuing[key].service(), timer += set_options.timeInterval);
          };
 
-         set_options.type === 'recursive' === true ? recursive() : timeInterval();
+         set_options.type === 'recursive' === true ? await recursive() : timeInterval();
       };
    };
 }

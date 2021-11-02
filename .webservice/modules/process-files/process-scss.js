@@ -11,8 +11,9 @@ const createDir = require('../create-dir');
 const path = require('../get-path');
 const listFiles = require('../listFiles');
 const no_process = require('./no-process');
+const postProcess = require('./post-process-replace');
 
-async function processCSS(file) {
+async function processCSS(file, local = false, replace = 'dev') {
 
    const _ = file.split('/').pop().substr(0, 1) === '_' ? true : false;
    const fileType = file.split('.').pop().toLowerCase();
@@ -29,23 +30,27 @@ async function processCSS(file) {
          const content = await fs.readFile(files[file], 'utf8');
          const isValid = !!content.match(regex);
 
-         if (isValid) processCSS(files[file]);
+         if (isValid) processCSS(files[file], local, replace);
       }
 
       return;
    }
 
    try {
-      
+
+      const localTo = !local ? to : local;
       const tempCSS = file.replace(source, tempDIR).replace('.scss', '.css');
       const tempPath = path(file.replace(source, tempDIR));
-      const final = tempCSS.replace(tempDIR, to);
+      const final = tempCSS.replace(tempDIR, localTo);
       const process = !no_process(fileType === 'scss' ? tempCSS.replace('.css', '.scss') : tempCSS);
 
-      createDir([ tempPath, tempPath.replace(tempDIR, to) ]);
+      createDir([ tempPath, tempPath.replace(tempDIR, localTo) ]);
 
       if (fileType === 'scss') await exec(`npx sass "${file}":"${tempCSS}" --no-source-map${process_files.css.uglifycss && process ? ' --style compressed' : ''}`);
       else if (fileType === 'css') await fs.copyFile(file, tempCSS);
+
+      let content = await postProcess({ src: tempCSS, response: true, local: replace });
+      await fs.writeFile(tempCSS, content);
 
       if (process && process_files.css.autoprefixer) await exec(`AUTOPREFIXER_GRID=autoplace npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
 

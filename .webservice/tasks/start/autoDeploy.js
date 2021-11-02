@@ -1,13 +1,15 @@
 "use strict";
 
 const fs = require('fs-extra');
-const { sh, type } = require('../../modules/sh');
+const fsep = require('fs-extra').promises;
+const { sh, type, draft } = require('../../modules/sh');
 const FTP = require('../../modules/ftp');
 const { dev, source, to, process_files } = require('../../modules/config');
 const createDir = require('../../modules/create-dir');
 const empty = require('../../modules/empty');
 const isConnected = require('../../modules/check-connection');
 const listFiles = require('../../modules/listFiles');
+const deleteDS_Store = require('../../modules/deleteDS_Store');
 const watch = require('node-watch').default;
 const processCSS = require('../../modules/process-files/process-scss');
 const processJS = require('../../modules/process-files/process-js');
@@ -17,13 +19,32 @@ const processHTACCESS = require('../../modules/process-files/process-htaccess');
 const postProcess = require('../../modules/process-files/post-process-replace');
 const no_process = require('../../modules/process-files/no-process');
 const Schedule = require('../../modules/schedule');
+const mime = require('mime-types');
 
 module.exports = async () => {
+   
+   const loading = {
+      
+      ftp: new draft('', `dots`, false),
+      building: new draft('', `dots`, false),
+      status: new draft('', `dots`, false),
+      deploy: new draft('', `dots`, false),
+   };
+
+   console.log();
+
+   loading.ftp.start();
+   loading.ftp.string = `${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`;
 
    const { host, user, pass, root, secure } = dev.ftp;
    const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
    const conn = pre_connect ? await FTP.connect({ host: host, user: user, pass: pass, root: root, secure: secure }) : false;
-   if (!conn) FTP.client.close();
+   if (!conn) {
+      
+      FTP.client.close();
+      loading.ftp.stop(0, `${sh.dim}${sh.bold}FTP:${sh.reset} No connected`);
+   }
+   else loading.ftp.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.dim}Connected`);
 
    const deploy = new Schedule();
    const watcherSource = watch(source, { recursive: true });
@@ -32,10 +53,14 @@ module.exports = async () => {
 
    const onSrc = async (event, file) => {
 
-      if (fs.existsSync(`${source}/exit`)) {
+      if (!!file.match(/DS_Store/)) {
          
-         fs.unlinkSync(`${source}/exit`);
+         await deleteDS_Store();
+         return;
+      }
 
+      if (file === `${source}/exit`) {
+         
          FTP.client.close();
          watcherSource.close();
          watcherMain.close();
@@ -46,6 +71,14 @@ module.exports = async () => {
 
       const isDir = file.split('/').pop().includes('.') ? false : true;
       if (event == 'update' && isDir) return;
+
+      /* Verificar se o item já está em processamento */
+      if (!deploy.scheduling?.file) deploy.scheduling.file = file;
+      else if (deploy.scheduling.file === file) return;
+
+      loading.building.message('');
+      loading.status.message('');
+      loading.deploy.message('');
       
       const fileType = file.split('.').pop().toLowerCase();
       const finalFile = file.replace(source, to);
@@ -53,14 +86,18 @@ module.exports = async () => {
       let pathFile = file.split('/'); pathFile.pop(); pathFile = pathFile.join('/');
       
       if (event === 'update') {
+
+         loading.building.start();
+         loading.building.string = `Building ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
          
          /* pre processed files */
-         const logBuilding = () => console.log(`${sh.reset}${sh.dim}↗️   Building from "${sh.bold}${type(file)}${file}${sh.reset}${sh.dim}" ...`);
-         deploy.queue(logBuilding);
-         deploy.start();
+         const mimetype = `${mime.lookup(file)}`;
+         const isValid = /plain|text|application|false/.test(mimetype) ? true : false;
+         const check_file_content = isValid ? await fsep.readFile(file, 'utf8') : await fsep.readFile(file);
 
-         if (fileType === 'js') processJS(file);
-         else if (fileType === 'scss' || fileType === 'css') processCSS(file);
+         if (empty(check_file_content)) await fs.copyFile(file, finalFile);
+         else if (fileType === 'js') await processJS(file);
+         else if (fileType === 'scss' || fileType === 'css') await processCSS(file);
          else {
          
             /* post process */
@@ -72,19 +109,20 @@ module.exports = async () => {
             /* specials */
             if (!no_process(file)) {
 
-               if (fileType === 'php' || fileType === 'phtml') minified = processPHP(original);
-               else if (fileType === 'html')  minified = processHTML(original);
-               else if (fileType === 'htaccess')  minified = processHTACCESS(original);
+               if (fileType === 'php' || fileType === 'phtml') minified = await processPHP(original);
+               else if (fileType === 'html')  minified = await processHTML(original);
+               else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
             }
    
-            fs.writeFile(finalFile, !minified ? original : minified);
+            await fs.writeFile(finalFile, !minified ? original : minified);
          }
+
+         loading.building.stop(1);
       }
       else if (event === 'remove') {
 
-         const logBuilding = () => console.log(`${sh.reset}${sh.dim}↖️   Removed from "${sh.bold}${type(file)}${file}${sh.reset}${sh.dim}" ...`);
-         deploy.queue(logBuilding); 
-         deploy.start();
+         loading.building.start();
+         loading.building.string = `Removed ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
 
          if (isDir) fs.rmSync(finalFile, { recursive: true, force: true });
          else {
@@ -95,42 +133,70 @@ module.exports = async () => {
                if (fs.existsSync(finalFile.replace('.scss', '.css'))) fs.unlinkSync(finalFile.replace('.scss', '.css'));
             }
          }
+
+         loading.building.stop(1);
       }
    }
    
    watcherSource.on('change', (event, file) => onSrc(event, file));
   
    watcherMain.on('change', async (event, file) => {
+
+      if (!!file.match(/DS_Store/)) {
+         
+         await deleteDS_Store();
+         return;
+      }
       
       const connected = await isConnected();
 
       async function deployFile() {
 
+         loading.status.start();
+         loading.deploy.start();
+      
          /* shows file or directory that is in attendance */
          if (event == 'update') {
 
-            console.log(`${sh.reset}${sh.dim}↗️   Copied to "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}${sh.dim}"`);
-            if (connected && conn) console.log(`${sh.reset}${sh.dim}↗️   Deploying to "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root)}${sh.reset}${sh.dim}" ...`);
+            loading.status.stop(1, `Copied ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
+            
+            if (connected && conn) loading.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root)}${sh.reset}"`;
          }
          else {
             
-            console.log(`${sh.reset}${sh.dim}↖️   Removed from "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}${sh.dim}"`);
-            if (connected && conn) console.log(`${sh.reset}${sh.dim}↖️   Removing from "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root)}${sh.reset}${sh.dim}" ...`);
+            loading.status.stop(1, `Removed ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
+            if (connected && conn) loading.deploy.string = `Removing ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root)}${sh.reset}"`;
          }
          
-         if (connected && conn) event == 'update' ? await FTP.send(file, deploy) : await FTP.remove(file, isDir);
-         else if (!conn) console.log();
-         else if (!connected) console.log(`${sh.reset}${sh.dim}${sh.red}❕  No connection\n`);
+         if (connected && conn) {
+            
+            const action = event == 'update' ? await FTP.send(file, deploy) : await FTP.remove(file, isDir);
+            loading.deploy.stop(!!action ? 1 : 0, FTP.client.error);
+         }
+         else if (!conn) loading.deploy.stop(0, `${sh.dim}${sh.bold}Deploying:${sh.reset} No connection established`);
+         else if (!connected) loading.deploy.stop(0, `${sh.dim}${sh.bold}Deploying:${sh.reset} No connection established`);
       }
-
+      
       const isDir = file.split('/').pop().includes('.') ? false : true;
       if (event == 'update' && isDir) return;
-
+      
+      /* Verificar se o item já está em processamento */
+      if (!deploy.scheduling?.copying) deploy.scheduling.copying = file;
+      else if (deploy.scheduling.copying === file) return;
+      
       deploy.queue(deployFile, file);
-      deploy.start();
+      await deploy.start();
+
+      loading.status.stop(1);
    });
 
    watcherModules.on('change', async (event, file) => {
+
+      if (!!file.match(/DS_Store/)) {
+         
+         await deleteDS_Store();
+         return;
+      }
 
       const isDir = file.split('/').pop().includes('.') ? false : true;
       if (event == 'update' && isDir) return;
@@ -145,7 +211,7 @@ module.exports = async () => {
          const file_dependence = fs.readFileSync(dependence, 'utf8');
          const to_process = !!file_dependence.match(required);
 
-         to_process && onSrc('update', dependence);
+         to_process && await onSrc('update', dependence);
       }
    });
 

@@ -29,7 +29,7 @@ module.exports = {
       'init-declarations': [ 2, 'never', { ignoreForLoopInit: true } ],
       'spaced-comment': [ 2, 'always', { exceptions: [ '+-=*' ] } ],
       'key-spacing': [ 1, { beforeColon: false, mode: 'strict' } ],
-      'no-console': [ 1, { allow: [ 'warn', 'error', 'clear' ] } ],
+      'no-console': [ 1, { allow: [ 'warn', 'error', 'clear', 'draft' ] } ],
       'no-mixed-operators': [ 2, { allowSamePrecedence: true } ],
       'no-multiple-empty-lines': [ 2, { max: 1, maxEOF: 0 } ],
       'no-duplicate-imports': [ 1, { includeExports: true } ],
