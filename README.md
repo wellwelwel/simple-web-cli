@@ -32,7 +32,7 @@
 <br />
 
 ### ➖ Utilizando
->   Uma vez iniciado o processo com `npm start` ou `yarn start`, o evento ocorre ao **salvar qualquer arquivo**.
+>   Uma vez iniciado o processo com `npm start` ou `yarn start`, o evento ocorre ao **salvar qualquer arquivo** dentro do diretório `src`.
 
 <!-- HTML -->
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="24" /> `HTML`
