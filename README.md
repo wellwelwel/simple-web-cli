@@ -144,10 +144,12 @@
 >     {
 >        "strings": {
 >           "*token*": {
->              "dev": "0cfcda42c340dad5616e0b7449a5634b"
+>              "dev": "0cfcda42c340dad5616e0b7449a5634b",
+>              "build": "0cfcda42c340dad5616e0b7449a5634b"
 >           },
 >           "*site-name*": {
->              "dev": "weslley.io"
+>              "dev": "dev.weslley.io",
+>              "build": "weslley.io"
 >           }
 >        }
 >     }
@@ -160,7 +162,12 @@
 >   $site = '*site-name*';
 >```
 >
->`SAÍDA`
+>`SAÍDA DEV`
+>```php
+><?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
+>```
+>
+>`SAÍDA BUILD`
 >```php
 ><?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
 >```
