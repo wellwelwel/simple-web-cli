@@ -97,10 +97,23 @@ async function processJS(file, local = false, replace = 'dev') {
 
    async function process() {
 
+      let error = false;
+
       if (no_process(pre)) return;
 
-      if (process_files.js.babel) await exec(`npx babel "${pre}" -o "${pre}"`); // Babel
-      if (process_files.js.uglify) await exec(`npx uglifyjs "${pre}" -o "${pre}" -c -m`); // Uglify
+      if (process_files.js.babel) {
+         
+         const request = await exec(`npx --quiet babel "${pre}" -o "${pre}"`); // Babel
+         if (!request) error = true;
+      }
+      
+      if (process_files.js.uglify) {
+         
+         const request = await exec(`npx --quiet uglifyjs "${pre}" -o "${pre}" -c -m`); // Uglify
+         if (!request) error = true;
+      }
+
+      return error;
    }
 
    async function post_process() {
@@ -110,21 +123,14 @@ async function processJS(file, local = false, replace = 'dev') {
    }
 
    /* ------------------------------------------------------------- */
-
-   try {
       
-      await pre_process();
-      await process();
-      await post_process();
-   }
-   catch(e) {
-      
-      console.log(`${sh.reset}${sh.red}${e}`);
-   }
-   finally {
+   await pre_process();
+   const request = await process();
+   await post_process();
 
-      if (_fs.existsSync(tempDIR)) rimraf(tempDIR, () => { });
-   }
+   if (_fs.existsSync(tempDIR)) rimraf(tempDIR, () => { });
+
+   return !request;
 }
 
 module.exports = processJS;

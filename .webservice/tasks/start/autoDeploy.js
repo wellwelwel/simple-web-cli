@@ -18,6 +18,7 @@ const processHTML = require('../../modules/process-files/process-html');
 const processHTACCESS = require('../../modules/process-files/process-htaccess');
 const postProcess = require('../../modules/process-files/post-process-replace');
 const no_process = require('../../modules/process-files/no-process');
+const path = require('../../modules/get-path');
 const Schedule = require('../../modules/schedule');
 const mime = require('mime-types');
 
@@ -36,13 +37,17 @@ module.exports = async () => {
    loading.ftp.start();
    loading.ftp.string = `${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`;
 
+   loading.building.message(`${sh.dim}${sh.blue}◼${sh.reset}${sh.dim} Builder: ${sh.reset}${sh.blue}ready`);
+   loading.status.message(`${sh.dim}${sh.blue}◼${sh.reset}${sh.dim} Status: ${sh.reset}${sh.blue}ready`);
+   loading.deploy.message(`${sh.dim}${sh.blue}◼${sh.reset}${sh.dim} Deploy: ${sh.reset}${sh.blue}ready`);
+
    const { host, user, pass, root, secure } = dev.ftp;
    const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
    const conn = pre_connect ? await FTP.connect({ host: host, user: user, pass: pass, root: root, secure: secure }) : false;
    if (!conn) {
       
       FTP.client.close();
-      loading.ftp.stop(0, `${sh.dim}${sh.bold}FTP:${sh.reset} No connected`);
+      loading.ftp.stop(0, `${sh.dim}${sh.bold}FTP:${sh.reset}${sh.dim} No connected`);
    }
    else loading.ftp.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.dim}Connected`);
 
@@ -89,15 +94,31 @@ module.exports = async () => {
 
          loading.building.start();
          loading.building.string = `Building ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
+
+         let status = 1;
          
          /* pre processed files */
          const mimetype = `${mime.lookup(file)}`;
          const isValid = /plain|text|application|false/.test(mimetype) ? true : false;
          const check_file_content = isValid ? await fsep.readFile(file, 'utf8') : await fsep.readFile(file);
 
-         if (empty(check_file_content)) await fs.copyFile(file, finalFile);
-         else if (fileType === 'js') await processJS(file);
-         else if (fileType === 'scss' || fileType === 'css') await processCSS(file);
+         if (empty(check_file_content)) {
+            
+            createDir(path(finalFile));
+            await fs.copyFile(file, finalFile);
+         }
+         else if (fileType === 'js') {
+            
+            const request = await processJS(file);
+
+            if (!request) status = 0;
+         }
+         else if (fileType === 'scss' || fileType === 'css') {
+            
+            const request = await processCSS(file);
+
+            if (!request) status = 0;
+         }
          else {
          
             /* post process */
@@ -117,7 +138,8 @@ module.exports = async () => {
             await fs.writeFile(finalFile, !minified ? original : minified);
          }
 
-         loading.building.stop(1);
+         loading.building.stop(status);
+
       }
       else if (event === 'remove') {
 
@@ -157,9 +179,8 @@ module.exports = async () => {
       
          /* shows file or directory that is in attendance */
          if (event == 'update') {
-
-            loading.status.stop(1, `Copied ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
             
+            loading.status.stop(1, `Copied ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
             if (connected && conn) loading.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root)}${sh.reset}"`;
          }
          else {
@@ -173,8 +194,8 @@ module.exports = async () => {
             const action = event == 'update' ? await FTP.send(file, deploy) : await FTP.remove(file, isDir);
             loading.deploy.stop(!!action ? 1 : 0, FTP.client.error);
          }
-         else if (!conn) loading.deploy.stop(0, `${sh.dim}${sh.bold}Deploying:${sh.reset} No connection established`);
-         else if (!connected) loading.deploy.stop(0, `${sh.dim}${sh.bold}Deploying:${sh.reset} No connection established`);
+         else if (!conn) loading.deploy.stop(0, `${sh.dim}${sh.bold}Deploying:${sh.reset}${sh.dim} No connection established`);
+         else if (!connected) loading.deploy.stop(0, `${sh.dim}${sh.bold}Deploying:${sh.reset}${sh.dim} No connection established`);
       }
       
       const isDir = file.split('/').pop().includes('.') ? false : true;

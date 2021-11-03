@@ -5,7 +5,6 @@ const _fs = require('fs');
 const rimraf = require('rimraf');
 const uglifycss = require('uglifycss');
 const exec = require('../execShellCommand');
-const { sh } = require('../sh');
 const { source, to, process_files } = require('../config');
 const createDir = require('../create-dir');
 const path = require('../get-path');
@@ -36,35 +35,33 @@ async function processCSS(file, local = false, replace = 'dev') {
       return;
    }
 
-   try {
+   const localTo = !local ? to : local;
+   const tempCSS = file.replace(source, tempDIR).replace('.scss', '.css');
+   const tempPath = path(file.replace(source, tempDIR));
+   const final = tempCSS.replace(tempDIR, localTo);
+   const process = !no_process(fileType === 'scss' ? tempCSS.replace('.css', '.scss') : tempCSS);
 
-      const localTo = !local ? to : local;
-      const tempCSS = file.replace(source, tempDIR).replace('.scss', '.css');
-      const tempPath = path(file.replace(source, tempDIR));
-      const final = tempCSS.replace(tempDIR, localTo);
-      const process = !no_process(fileType === 'scss' ? tempCSS.replace('.css', '.scss') : tempCSS);
+   createDir([ tempPath, tempPath.replace(tempDIR, localTo) ]);
 
-      createDir([ tempPath, tempPath.replace(tempDIR, localTo) ]);
+   let request;
 
-      if (fileType === 'scss') await exec(`npx sass "${file}":"${tempCSS}" --no-source-map${process_files.css.uglifycss && process ? ' --style compressed' : ''}`);
-      else if (fileType === 'css') await fs.copyFile(file, tempCSS);
+   if (fileType === 'scss') {
 
-      let content = await postProcess({ src: tempCSS, response: true, local: replace });
-      await fs.writeFile(tempCSS, content);
-
-      if (process && process_files.css.autoprefixer) await exec(`AUTOPREFIXER_GRID=autoplace npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
-
-      const uglified = process_files.css.uglifycss && process ? uglifycss.processFiles([tempCSS], { uglyComments: true }) : await fs.readFile(tempCSS, 'utf8');
-      await fs.writeFile(final, uglified);
+      request = await exec(`npx sass --quiet "${file}":"${tempCSS}" --no-source-map${process_files.css.uglifycss && process ? ' --style compressed' : ''}`);
    }
-   catch(e) {
-      
-      console.log(`${sh.reset}${sh.red}${e}`);
-   }
-   finally {
+   else if (fileType === 'css') await fs.copyFile(file, tempCSS);
 
-      if (_fs.existsSync(tempDIR)) rimraf(tempDIR, () => { });
-   }
+   let content = await postProcess({ src: tempCSS, response: true, local: replace });
+   await fs.writeFile(tempCSS, content);
+
+   if (process && process_files.css.autoprefixer) await exec(`AUTOPREFIXER_GRID=autoplace npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
+
+   const uglified = process_files.css.uglifycss && process ? uglifycss.processFiles([tempCSS], { uglyComments: true }) : await fs.readFile(tempCSS, 'utf8');
+   await fs.writeFile(final, uglified);
+
+   if (_fs.existsSync(tempDIR)) rimraf(tempDIR, () => { });
+
+   return request;
 }
 
 module.exports = processCSS;

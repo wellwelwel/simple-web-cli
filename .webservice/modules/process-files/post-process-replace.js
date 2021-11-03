@@ -35,7 +35,6 @@ const post_process = async (options = { }) => {
       }
       catch(e) {
 
-         console.log(e);
          return false;
       }
    };
@@ -50,15 +49,7 @@ const post_process = async (options = { }) => {
    
          for (const string in get_replaces.strings) {
 
-            if (
-               string.split('*').length !== 3 ||
-               string.substring(0, 1) !== '*' ||
-               string.substring(string.length, string.length - 1) !== '*'
-            ) {
-
-               console.log(`String inválida: ${string}\nInicie e termine a string a ser substituída com *\nExemplo: *domain-name*`);
-            }
-            else {
+            if (string.split('*').length === 3 && string.substring(0, 1) === '*' && string.substring(string.length, string.length - 1) === '*') {
 
                const regex = RegExp(string.replace(/\*/gim, '\\\*'), 'gim');
                if (get_replaces.strings[string][local]) new_content = new_content.replace(regex, get_replaces.strings[string][local]);
@@ -68,10 +59,7 @@ const post_process = async (options = { }) => {
          if (!!new_content) content = new_content;
       }
    }
-   catch(e) {
-      
-      console.log(e);
-   }
+   catch(e) { }
    finally {
       
       if (response === true) return content

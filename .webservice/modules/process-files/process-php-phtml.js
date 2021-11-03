@@ -75,7 +75,6 @@ const processPHP = content => {
    catch(e) {
       
       /* Em caso de erro, será retornado o conteúdo original */
-      console.log('Error: ', e);
    }
    finally {
       
