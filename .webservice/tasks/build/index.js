@@ -5,7 +5,6 @@ const fs = require('fs-extra').promises;
 const _fs = require('fs-extra');
 const { sh, draft } = require('../../modules/sh');
 const watchClose = require('../../modules/watch-close');
-const now = require('../../modules/now');
 const listFiles = require('../../modules/listFiles');
 const archiver = require('archiver');
 const deleteDS_Store = require('../../modules/deleteDS_Store');

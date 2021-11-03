@@ -32,7 +32,7 @@ async function processCSS(file, local = false, replace = 'dev') {
          if (isValid) processCSS(files[file], local, replace);
       }
 
-      return;
+      return true;
    }
 
    const localTo = !local ? to : local;
@@ -49,7 +49,12 @@ async function processCSS(file, local = false, replace = 'dev') {
 
       request = await exec(`npx sass --quiet "${file}":"${tempCSS}" --no-source-map${process_files.css.uglifycss && process ? ' --style compressed' : ''}`);
    }
-   else if (fileType === 'css') await fs.copyFile(file, tempCSS);
+   else if (fileType === 'css') {
+      
+      await fs.copyFile(file, tempCSS);
+      
+      request = true;
+   }
 
    let content = await postProcess({ src: tempCSS, response: true, local: replace });
    await fs.writeFile(tempCSS, content);

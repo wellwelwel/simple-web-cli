@@ -98,16 +98,7 @@ module.exports = async () => {
          let status = 1;
          
          /* pre processed files */
-         const mimetype = `${mime.lookup(file)}`;
-         const isValid = /plain|text|application|false/.test(mimetype) ? true : false;
-         const check_file_content = isValid ? await fsep.readFile(file, 'utf8') : await fsep.readFile(file);
-
-         if (empty(check_file_content)) {
-            
-            createDir(path(finalFile));
-            await fs.copyFile(file, finalFile);
-         }
-         else if (fileType === 'js') {
+         if (fileType === 'js') {
             
             const request = await processJS(file);
 
