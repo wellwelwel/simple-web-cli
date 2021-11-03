@@ -3,7 +3,7 @@
 >  Um simples WebService para automatizar o desenvolvimento nas linguagens HTML, CSS, JavaScript e PHP utilizando conexão FTP para enviar os arquivos automaticamente ao servidor final.  
 
 ### ➖ Inicialização
-* **`npm i`** ou **`yarn`** para baixar as dependências
+* **`npm i`** ou **`yarn --ignore-engines`** para baixar as dependências
 * **`npm start`** ou **`yarn start`** para iniciar o webservice
 
 ### ➖ Desenvolvimento
