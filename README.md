@@ -162,12 +162,12 @@
 >   $site = '*site-name*';
 >```
 >
->`SAÍDA DEV`
+>`SAÍDA DEV (npm start | yarn start)`
 >```php
 ><?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
 >```
 >
->`SAÍDA BUILD`
+>`SAÍDA BUILD (npm run build | yarn build)`
 >```php
 ><?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
 >```
