@@ -1,5 +1,4 @@
 /**
- * 
  * @param {string} element
  * @param {*} baseElement - HTML | Node Element
  * @return {HTMLElement} s - HTMLElement

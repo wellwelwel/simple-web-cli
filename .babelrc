@@ -2,9 +2,7 @@
    "minified": true,
    "comments": false,
    "presets": [
-      [
-         "@babel/preset-env",
-         {
+      [ "@babel/preset-env", {
             "exclude": [
                "transform-regenerator"
             ]

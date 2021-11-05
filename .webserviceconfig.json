@@ -5,7 +5,7 @@
          "host": "",
          "user": "",
          "pass": "",
-         "secure": ""
+         "secure": true
       }
    },
    "process-files": {
