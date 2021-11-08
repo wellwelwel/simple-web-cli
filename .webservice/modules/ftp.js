@@ -1,6 +1,6 @@
 "use strict";
 
-const { sh, type } = require('./sh');
+const { sh } = require('./sh');
 const { to } = require('./config');
 const { Client } = require("basic-ftp");
 const isConnected = require('./check-connection');
@@ -49,8 +49,6 @@ async function connect(access = false) {
 }
 
 async function send(file, waiting) {
-
-   let timer;
 
    try {
       
