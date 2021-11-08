@@ -59,9 +59,15 @@ async function send(file, waiting) {
       if (client.closed) await reconnect(file);
 
       await client.uploadFrom(file, `${privateCachedAccess.root}/${receiver}`);
-      timer = setTimeout(() => {
+      await new Promise(async resolve => {
 
-         if (!waiting.scheduling.started) clearTimeout(timer);
+         const timer = setInterval(resolve);
+
+         if (!waiting.scheduling.started) {
+            
+            clearInterval(timer);
+            resolve();
+         }
       });
 
       return true;
@@ -79,11 +85,17 @@ async function send(file, waiting) {
          const dir = arrDir.join('/');
 
          await client.uploadFromDir(`${to}/${dir}`, `${privateCachedAccess.root}/${dir}`);
-         timer = setTimeout(() => {
+         await new Promise(async resolve => {
 
-            if (!waiting.scheduling.started) clearTimeout(timer);
+            const timer = setInterval(resolve);
+   
+            if (!waiting.scheduling.started) {
+               
+               clearInterval(timer);
+               resolve();
+            }
          });
-
+   
          return true;
       }
       catch(err) {
@@ -112,30 +124,11 @@ async function remove(file, isDir = false) {
    }
 }
 
-async function deploy() {
-   
-   try {
-
-      if (client.closed) await reconnect(file);
-
-      await client.uploadFromDir(`${to}`, `${privateCachedAccess.root}/`);
-
-      client.close();
-      return true;
-   }
-   catch(err) {
-
-      client.error = `${sh.dim}${sh.red}${err}`;
-      return false;
-   }
-}
-
 module.exports = {
 
    client,
    publicCachedAccess,
    connect,
    send,
-   remove,
-   deploy
+   remove
 };
