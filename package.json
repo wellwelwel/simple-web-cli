@@ -1,5 +1,5 @@
 {
-   "name": "webservice",
+   "name": "basic-web",
    "version": "2.0.0",
    "deion": "",
    "main": ".webservice/tasks/start/index.js",
