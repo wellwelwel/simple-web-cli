@@ -18,6 +18,7 @@ const createDir = require('../../modules/create-dir');
 const postProcess = require('../../modules/process-files/post-process-replace');
 const glob = require('glob');
 const rimraf = require('rimraf');
+const sep = require('path').sep;
 
 (async () => {
 
@@ -51,7 +52,7 @@ const rimraf = require('rimraf');
             const fileType = file.split('.').pop().toLowerCase();
             const finalFile = file.replace(source, to);
       
-            let pathFile = file.split('/'); pathFile.pop(); pathFile = pathFile.join('/');
+            let pathFile = file.split(sep); pathFile.pop(); pathFile = pathFile.join(sep);
                
             /* pre processed files */   
             if (fileType === 'js') await processJS(file, to, 'build');
@@ -113,7 +114,7 @@ const rimraf = require('rimraf');
             if (files.length > 0) rimraf('temp_*', () => { });
          });
          
-         if (_fs.existsSync(`${source}/exit`)) await fs.unlink(`${source}/exit`);
+         if (_fs.existsSync(`${source}${sep}exit`)) await fs.unlink(`${source}${sep}exit`);
          if (_fs.existsSync(to)) await fs.rm(to, { recursive: true, force: true });
 
          loading.stop(1);

@@ -6,7 +6,8 @@
          "user": "",
          "pass": "",
          "secure": true
-      }
+      },
+      "is-windows-server": false
    },
    "process-files": {
       "js": {

@@ -9,6 +9,7 @@ const createDir = require('../create-dir');
 const exec = require('../execShellCommand');
 const listFiles = require('../listFiles');
 const path = require('../get-path');
+const { normalize, sep } = require('path');
 const no_process = require('./no-process');
 const postProcess = require('./post-process-replace');
 
@@ -17,14 +18,13 @@ const packageName = JSON.parse(_fs.readFileSync('.library/package.json', 'utf8')
 
 async function recursive_require(file, replace) {
 
-   // let content = await fs.readFile(file, 'utf8');
    let content = await postProcess({ src: file, response: true, local: replace });
    const requireds = content.match(/require\(.*?\);/gim);
    
    for (const required in requireds) {
 
       let fixPath = requireds[required].replace(/\.\.\//gim, '').replace('./', '');
-      const origins = requiredResources.split('/');
+      const origins = requiredResources.split(sep);
       if (origins.length > 1) origins.forEach(folder => fixPath = fixPath.replace(folder, ''));
       else fixPath = fixPath.replace(requiredResources, '');
 
@@ -32,9 +32,9 @@ async function recursive_require(file, replace) {
       const requiredName = regex.exec(fixPath)[2].replace(RegExp(packageName.name.replace(/\//, '\\/'), 'gim'), '');
       const exist_require = () => {
 
-         const required_path = `${requiredResources}/${requiredName}`;
+         const required_path = normalize(`${requiredResources}${sep}${requiredName}`);
 
-         if (_fs.existsSync(`${required_path}/index.js`)) return `${required_path}/index.js`;
+         if (_fs.existsSync(`${required_path}${sep}index.js`)) return `${required_path}${sep}index.js`;
          
          throw(`O arquivo "${requiredName}" não foi encontrado na biblioteca`);
       };
@@ -64,7 +64,7 @@ async function processJS(file, local = false, replace = 'dev') {
 
    if (_) {
 
-      const filename =  file.split('/').pop().replace(/.js/, '');
+      const filename =  file.split(sep).pop().replace(/.js/, '');
       const regex = RegExp(`require.*?${filename}`);
       const files = await listFiles(source, 'js', requiredResources);
 

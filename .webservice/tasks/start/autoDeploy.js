@@ -1,7 +1,6 @@
 "use strict";
 
 const fs = require('fs-extra');
-const fsep = require('fs-extra').promises;
 const { sh, type, draft } = require('../../modules/sh');
 const FTP = require('../../modules/ftp');
 const { dev, source, to, process_files } = require('../../modules/config');
@@ -18,9 +17,8 @@ const processHTML = require('../../modules/process-files/process-html');
 const processHTACCESS = require('../../modules/process-files/process-htaccess');
 const postProcess = require('../../modules/process-files/post-process-replace');
 const no_process = require('../../modules/process-files/no-process');
-const path = require('../../modules/get-path');
+const sep = require('path').sep;
 const Schedule = require('../../modules/schedule');
-const mime = require('mime-types');
 
 module.exports = async () => {
    
@@ -64,7 +62,7 @@ module.exports = async () => {
          return;
       }
 
-      if (file === `${source}/exit`) {
+      if (file === `${source}${sep}exit`) {
          
          FTP.client.close();
          watcherSource.close();
@@ -74,7 +72,7 @@ module.exports = async () => {
          return;
       }
 
-      const isDir = file.split('/').pop().includes('.') ? false : true;
+      const isDir = file.split(sep).pop().includes('.') ? false : true;
       if (event == 'update' && isDir) return;
 
       /* Verificar se o item já está em processamento */
@@ -88,7 +86,7 @@ module.exports = async () => {
       const fileType = file.split('.').pop().toLowerCase();
       const finalFile = file.replace(source, to);
 
-      let pathFile = file.split('/'); pathFile.pop(); pathFile = pathFile.join('/');
+      let pathFile = file.split(sep); pathFile.pop(); pathFile = pathFile.join(sep);
       
       if (event === 'update') {
 
@@ -189,7 +187,7 @@ module.exports = async () => {
          else if (!connected) loading.deploy.stop(0, `${sh.dim}${sh.bold}Deploying:${sh.reset}${sh.dim} No connection established`);
       }
       
-      const isDir = file.split('/').pop().includes('.') ? false : true;
+      const isDir = file.split(sep).pop().includes('.') ? false : true;
       if (event == 'update' && isDir) return;
       
       /* Verificar se o item já está em processamento */
@@ -210,7 +208,7 @@ module.exports = async () => {
          return;
       }
 
-      const isDir = file.split('/').pop().includes('.') ? false : true;
+      const isDir = file.split(sep).pop().includes('.') ? false : true;
       if (event == 'update' && isDir) return;
 
       const library = file.replace(/(\.library\/)|(\/index.js)/gim, '', file);

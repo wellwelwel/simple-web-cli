@@ -1,9 +1,11 @@
 "use strict";
 
 const { sh } = require('./sh');
-const { to } = require('./config');
+const { to, dev } = require('./config');
 const { Client } = require("basic-ftp");
 const isConnected = require('./check-connection');
+const serverOSNormalize = dev['is-windows-server'] ? require('path').win32.normalize : require('path').posix.normalize;
+const { normalize, sep } = require('path');
 
 const client = new Client();
 const privateCachedAccess = { };
@@ -56,11 +58,11 @@ async function send(file, waiting) {
 
       client.error = false;
       
-      const receiver = file.replace(`${to}/`, '');
+      const receiver = file.replace(`${to}${sep}`, '');
 
       if (client.closed) await reconnect(file);
 
-      await client.uploadFrom(file, `${privateCachedAccess.root}/${receiver}`);
+      await client.uploadFrom(file, serverOSNormalize(`${privateCachedAccess.root}${sep}${receiver}`));
       await new Promise(async resolve => {
 
          const timer = setInterval(resolve);
@@ -79,14 +81,14 @@ async function send(file, waiting) {
       try {
 
          /* Tenta criar diretório antes de enviar os arquivos */
-         const receiver = file.replace(`${to}/`, '');
+         const receiver = file.replace(`${to}${sep}`, '');
    
          if (client.closed) await reconnect(file);
 
-         const arrDir = receiver.split('/'); arrDir.pop();
-         const dir = arrDir.join('/');
+         const arrDir = receiver.split(sep); arrDir.pop();
+         const dir = arrDir.join(sep);
 
-         await client.uploadFromDir(`${to}/${dir}`, `${privateCachedAccess.root}/${dir}`);
+         await client.uploadFromDir(normalize(`${to}${sep}${dir}`), serverOSNormalize(`${privateCachedAccess.root}${sep}${dir}`));
          await new Promise(async resolve => {
 
             const timer = setInterval(resolve);
@@ -114,11 +116,11 @@ async function remove(file, isDir = false) {
 
       client.error = false;
 
-      const receiver = file.replace(`${to}/`, '');
+      const receiver = file.replace(`${to}${sep}`, '');
 
       if (client.closed) await reconnect(file);
 
-      (!isDir) ? await client.remove(`${privateCachedAccess.root}/${receiver}`) : await client.removeDir(`${privateCachedAccess.root}/${receiver}`);
+      (!isDir) ? await client.remove(normalize(`${privateCachedAccess.root}${sep}${receiver}`)) : await client.removeDir(serverOSNormalize(`${privateCachedAccess.root}${sep}${receiver}`));
       return true;
    }
    catch(err) {

@@ -2,4 +2,9 @@
 
 const exec = require('./execShellCommand');
 
-module.exports = async () => await exec('find . -name ".DS_Store" -type f -delete');
+module.exports = async () => {
+
+   if (!process.platform === 'darwin') return;
+
+   await exec('find . -name ".DS_Store" -type f -delete');
+};
