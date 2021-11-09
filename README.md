@@ -1,6 +1,6 @@
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" width="24" /> WEBSERVICE
+# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" width="24" /> BASIC-WEB
 
->  Um simples WebService para automatizar o desenvolvimento nas linguagens HTML, CSS, JavaScript e PHP utilizando conexão FTP para enviar os arquivos automaticamente ao servidor final.  
+>  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS, JavaScript e PHP utilizando conexão FTP para enviar os arquivos finais automaticamente para o servidor final.  
 
 ### ➖ Inicialização
 * **`npm i`** ou **`yarn --ignore-engines`** para baixar as dependências
