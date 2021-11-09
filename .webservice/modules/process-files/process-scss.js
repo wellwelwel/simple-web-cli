@@ -57,10 +57,10 @@ async function processCSS(file, local = false, replace = 'dev') {
       request = true;
    }
 
-   let content = await postProcess({ src: tempCSS, response: true, local: replace });
+   let content = `/* autoprefixer grid: autoplace */ ${await postProcess({ src: tempCSS, response: true, local: replace })}`;
    await fs.writeFile(tempCSS, content);
 
-   if (process && process_files.css.autoprefixer) await exec(`AUTOPREFIXER_GRID=autoplace npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
+   if (process && process_files.css.autoprefixer) await exec(`npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
 
    const uglified = process_files.css.uglifycss && process ? uglifycss.processFiles([tempCSS], { uglyComments: true }) : await fs.readFile(tempCSS, 'utf8');
    await fs.writeFile(final, uglified);
