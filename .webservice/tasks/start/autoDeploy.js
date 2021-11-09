@@ -19,6 +19,7 @@ const postProcess = require('../../modules/process-files/post-process-replace');
 const no_process = require('../../modules/process-files/no-process');
 const sep = require('path').sep;
 const Schedule = require('../../modules/schedule');
+const serverOSNormalize = require('../../modules/server-os-normalize');
 
 module.exports = async () => {
    
@@ -170,12 +171,12 @@ module.exports = async () => {
          if (event == 'update') {
             
             loading.status.stop(1, `Copied ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
-            if (connected && conn) loading.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root)}${sh.reset}"`;
+            if (connected && conn) loading.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
          }
          else {
             
             loading.status.stop(1, `Removed ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
-            if (connected && conn) loading.deploy.string = `Removing ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root)}${sh.reset}"`;
+            if (connected && conn) loading.deploy.string = `Removing ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
          }
          
          if (connected && conn) {
