@@ -181,7 +181,7 @@
 >
 > ✅ **macOS**  
 > ✅ **Linux**  
-> 🚫 **Windows**  
+> ✅ **Windows**  
 >
 
 >
