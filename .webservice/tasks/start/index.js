@@ -24,7 +24,7 @@ const timer = time => {
 
 (async () => {
 
-   console.log(sh.clear);
+   // console.log(sh.clear);
    const starting = new draft(` Starting${sh.dim}${sh.yellow} ... ${sh.reset}${sh.bright}`, 'circle');
    const time_elapsed = new draft(``, 'dots', false);
 

@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const createDir = require('./create-dir.js');
+const path = require('path').normalize;
 
 const config = JSON.parse(fs.readFileSync('.webserviceconfig.json', 'utf8'));
 
@@ -21,9 +22,11 @@ if (!config?.dev || !config?.dev?.ftp || typeof config?.dev?.ftp?.root !== 'stri
 const { dev } = config;
 const process_files = config['process-files'];
 
-let source = config.source.replace('./', '');
-let to = config.to.replace('./', '');
-let required = process_files.js['to-browser'].require.replace('./', '');
+let source = path(config.source.replace('./', ''));
+let to = path(config.to.replace('./', ''));
+let required = path(process_files.js['to-browser'].require.replace('./', ''));
+
+console.log(source, to, required);
 
 if (source.substring(source.length - 1, source.length) === '/') source = source.substring(0, source.length - 1);
 if (to.substring(to.length - 1, to.length) === '/') to = to.substring(0, to.length - 1);
