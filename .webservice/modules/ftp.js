@@ -9,12 +9,14 @@ const client = new Client();
 const privateCachedAccess = { };
 const publicCachedAccess = { };
 
-async function reconnect(file) {
+async function reconnect() {
    
    await connect();
 }
 
 async function connect(access = false) {
+
+   client.error = false;
 
    if (access !== false) {
 
@@ -51,6 +53,8 @@ async function connect(access = false) {
 async function send(file, waiting) {
 
    try {
+
+      client.error = false;
       
       const receiver = file.replace(`${to}/`, '');
 
@@ -107,6 +111,8 @@ async function send(file, waiting) {
 async function remove(file, isDir = false) {
 
    try {
+
+      client.error = false;
 
       const receiver = file.replace(`${to}/`, '');
 
