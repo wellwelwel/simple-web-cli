@@ -1,10 +1,10 @@
 "use strict";
 
 const { sh } = require('./sh');
-const { to, dev } = require('./config');
+const { to } = require('./config');
 const { Client } = require("basic-ftp");
 const isConnected = require('./check-connection');
-const serverOSNormalize = dev['is-windows-server'] ? require('path').win32.normalize : require('path').posix.normalize;
+const serverOSNormalize = require('./server-os-normalize');
 const { normalize, sep } = require('path');
 
 const client = new Client();
