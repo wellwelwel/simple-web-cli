@@ -8,20 +8,21 @@ const exec = require('../execShellCommand');
 const { source, to, process_files } = require('../config');
 const createDir = require('../create-dir');
 const path = require('../get-path');
+const { sep } = require('path');
 const listFiles = require('../listFiles');
 const no_process = require('./no-process');
 const postProcess = require('./post-process-replace');
 
 async function processCSS(file, local = false, replace = 'dev') {
 
-   const _ = file.split('/').pop().substr(0, 1) === '_' ? true : false;
+   const _ = file.split(sep).pop().substr(0, 1) === '_' ? true : false;
    const fileType = file.split('.').pop().toLowerCase();
    const tempDIR = `temp_${(new Date()).valueOf().toString()}`;
 
    if (_ && fileType === 'scss') {
       
       const files = await listFiles(source, 'scss');
-      const filename =  file.split('/').pop().replace(/_/, '').replace(/.scss/, '');
+      const filename =  file.split(sep).pop().replace(/_/, '').replace(/.scss/, '');
       
       for (const file in files) {
       
@@ -56,10 +57,10 @@ async function processCSS(file, local = false, replace = 'dev') {
       request = true;
    }
 
-   let content = await postProcess({ src: tempCSS, response: true, local: replace });
+   let content = `/* autoprefixer grid: autoplace */ ${await postProcess({ src: tempCSS, response: true, local: replace })}`;
    await fs.writeFile(tempCSS, content);
 
-   if (process && process_files.css.autoprefixer) await exec(`AUTOPREFIXER_GRID=autoplace npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
+   if (process && process_files.css.autoprefixer) await exec(`npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
 
    const uglified = process_files.css.uglifycss && process ? uglifycss.processFiles([tempCSS], { uglyComments: true }) : await fs.readFile(tempCSS, 'utf8');
    await fs.writeFile(final, uglified);

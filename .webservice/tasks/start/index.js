@@ -10,6 +10,7 @@ const fs = require('fs-extra').promises;
 const _fs = require('fs');
 const rimraf = require('rimraf');
 const deleteDS_Store = require('../../modules/deleteDS_Store');
+const sep = require('path').sep;
 
 let i = 0;
 const timer = time => {
@@ -40,7 +41,7 @@ const timer = time => {
       
    await deleteDS_Store();
    if (_fs.existsSync('temp')) await fs.rm('temp', { recursive: true, force: true });
-   if (_fs.existsSync(`${source}/exit`)) await fs.unlink(`${source}/exit`);
+   if (_fs.existsSync(`${source}/exit`)) await fs.unlink(`${source}${sep}exit`);
    
    const success = await autoDeploy();
 

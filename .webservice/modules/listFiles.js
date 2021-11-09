@@ -1,4 +1,5 @@
 const fs = require('fs').promises;
+const sep = require('path').sep;
 
 class ListFiles {
 
@@ -39,10 +40,10 @@ class ListFiles {
                
          for (const file in filesList) {
             
-            const stat = await fs.stat(`${directory}/${filesList[file]}`);
+            const stat = await fs.stat(`${directory}${sep}${filesList[file]}`);
             if (this.excludeDir.includes(directory)) return false;
-            else if (stat.isDirectory()) await this.getFiles(`${directory}/${filesList[file]}`, type);
-            else if (this.isTypeExpected(filesList[file], type)) this.files.push(`${directory}/${filesList[file]}`);
+            else if (stat.isDirectory()) await this.getFiles(`${directory}${sep}${filesList[file]}`, type);
+            else if (this.isTypeExpected(filesList[file], type)) this.files.push(`${directory}${sep}${filesList[file]}`);
          }
          
          return this.files;

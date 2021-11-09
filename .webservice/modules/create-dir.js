@@ -1,4 +1,5 @@
 const fs = require('fs-extra');
+const normalize = require('path').normalize;
 
 module.exports = (directory) => {
    
@@ -8,6 +9,7 @@ module.exports = (directory) => {
    
    directorys.forEach(dir => {
 
+      dir = normalize(dir);
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
    });
 }
