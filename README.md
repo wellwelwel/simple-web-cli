@@ -143,7 +143,8 @@ Options Indexes FollowSymLinks MultiViews
 
 <!-- Substituição de Textos -->
 ### Substituição de Textos
-  * É possível criar um código de fácil leitura e ao compilar, substituir os textos específicados. Por exemplo:
+   * É possível criar um código de fácil leitura e ao compilar, substituir os textos específicados. Por exemplo:
+   > ##### *- funciona em qualquer linguagem que estiver habilitada em `.web-replace.json`*
  
    <ins>`.web-replace.json`</ins>
    
