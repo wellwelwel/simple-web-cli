@@ -1,16 +1,19 @@
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" width="24" /> simple-web
 
 >  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando conexão FTP para enviar os arquivos processados automaticamente para o servidor final.  
+<hr />
 
-### ➖ Inicialização
+### - Inicialização
 * **`npm i`** ou **`yarn --ignore-engines`** para baixar as dependências
 * **`npm start`** ou **`yarn start`** para iniciar o serviço
+<hr />
 
-### ➖ Desenvolvimento
+### - Desenvolvimento
 * **`scr`** é o diretório de desenvolvimento
 * **`.main`** é o diretório com o código compilado
+<hr />
 
-### ➖ Configurando o FTP
+### - Configurando o FTP
 * No arquivo **`.web-config.json`**, basta inserir as informações de acesso:
 ```json
    "ftp": {
@@ -25,156 +28,160 @@
 
 * Supondo que o diretório **`root`** seja <ins>`/var/www`</ins>, a entrada e saída dos diretórios seria:
 
-   ➖ **Desenvolvimento:** <ins>`src/html/index.html`</ins>  
-   ➖ **Distribuição:** <ins>`.main/html/index.html`</ins>  
-   ➖ **FTP:** <ins>`/var/www/html/index.html`</ins>  
+   + **Desenvolvimento:** <ins>`src/html/index.html`</ins>  
+   + **Distribuição:** <ins>`.main/html/index.html`</ins>  
+   + **FTP:** <ins>`/var/www/html/index.html`</ins>  
+<hr />
 
-<br />
+### - Utilizando
+   * Uma vez iniciado o processo com `npm start` ou `yarn start`, o evento ocorre ao **salvar qualquer arquivo** dentro do diretório `src`.
+<hr />
 
-### ➖ Utilizando
->   Uma vez iniciado o processo com `npm start` ou `yarn start`, o evento ocorre ao **salvar qualquer arquivo** dentro do diretório `src`.
+### - Exemplos
+<hr />
 
 <!-- HTML -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="24" /> `HTML`
->`ENTRADA`
->```html
->   <div>
->      <h1>Título</h1>
->      <p>Parágrafo</p>
->   </div>
->```
->`SAÍDA`
->```html
->   <div><h1>Título</h1><p>Parágrafo</p></div>
->```
-<br />
+### HTML
+`ENTRADA`
+```html
+   <div>
+      <h1>Título</h1>
+      <p>Parágrafo</p>
+   </div>
+```
+`SAÍDA`
+```html
+   <div><h1>Título</h1><p>Parágrafo</p></div>
+```
+<hr />
 
 <!-- CSS -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="24" /> `CSS` <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" width="24" /> `Sass`
->`ENTRADA`
->```css
->   div {
->      display: flex;
->   }
->```
->`SAÍDA`
->```css
->   div{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}
->```
-<br />
+### CSS | Sass
+`ENTRADA`
+```css
+   div {
+      display: flex;
+   }
+```
+`SAÍDA`
+```css
+   div{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}
+```
+<hr />
 
 <!-- JS -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="24" /> `JavaScript`
->`ENTRADA`
->```javascript
->   (() => {
->      require('web/selector');
->
->      const element = s('body');
->      const inElement = sEl(element, 'div');
->      const elements = sAll('.class');
->      const elementsInElement = sElAll(element, '.class');
->   })();
->```
->`SAÍDA`
->```javascript
->   "use strict";!function(){var e,c,l,r,t=(e="body",document.querySelector(e));c="div",t.querySelector(c),l=".class",document.querySelectorAll(l),r=".class",t.querySelectorAll(r)}();
->```
-<br />
+### JavaScript
+`ENTRADA`
+```javascript
+   (() => {
+      require('web/selector');
+
+      const element = s('body');
+      const inElement = sEl(element, 'div');
+      const elements = sAll('.class');
+      const elementsInElement = sElAll(element, '.class');
+   })();
+```
+`SAÍDA`
+```javascript
+   "use strict";!function(){var e,c,l,r,t=(e="body",document.querySelector(e));c="div",t.querySelector(c),l=".class",document.querySelectorAll(l),r=".class",t.querySelectorAll(r)}();
+```
+<hr />
 
 <!-- PHP -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" width="36" /> `PHP` | `PHTML`
->`ENTRADA`
->```php
-><?
->   $var = 'texto'
->?>
->
-><div>
->   <?=$var?>
-></div>
->```
->`SAÍDA`
->```php
->  <?php $var='texto'?><div><?=$var?></div>
->```
+### PHP | PHTML
+`ENTRADA`
+```php
+<?
+   $var = 'texto'
+?>
+
+<div>
+   <?=$var?>
+</div>
+```
+`SAÍDA`
+```php
+  <?php $var='texto'?><div><?=$var?></div>
+```
+<hr />
 
 <!-- .htaccess -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg" width="42" /> `Apache (.htaccess, php.ini)`
->`ENTRADA`
->```apache
-># comment
-><Directory /var/www/>
->   # another comment
->   Options Indexes FollowSymLinks MultiViews
-></Directory>
->```
->`SAÍDA`
->```apache
-><Directory /var/www/>
->Options Indexes FollowSymLinks MultiViews
-></Directory>
->```
-<br />
+### Apache (.htaccess, php.ini)
+`ENTRADA`
+```apache
+# comment
+<Directory /var/www/>
+   # another comment
+   Options Indexes FollowSymLinks MultiViews
+</Directory>
+```
+`SAÍDA`
+```apache
+<Directory /var/www/>
+Options Indexes FollowSymLinks MultiViews
+</Directory>
+```
+<hr />
 
 <!-- others -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" width="24" /> `Arquivos gerais`
-> * Apenas envia o arquivo original para os diretórios de saída
-<br />
+### Arquivos gerais
+ * Apenas envia o arquivo original para os diretórios de saída
+<hr />
 
 <!-- Local Modules -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="24" /> `Módulos Locais`
->  * No **JavaScript Web**, é possível importar módulos locais salvos dentro dos arquivos, por exemplo:
-> 
->     <ins>`.library/meu-script/index.js`</ins>
->     
->     ```javascript
->        require('web/meu-script'); /* para importação completa do arquivo */
->        const meu_script = require('web/meu-script'); /* para importar o módulo em uma variável */
->     ```
-<br />
+### Módulos Locais
+  * No **JavaScript Web**, é possível importar módulos locais salvos dentro dos arquivos, por exemplo:
+
+   <ins>`.library/meu-script/index.js`</ins>
+   
+   ```javascript
+      require('web/meu-script'); /* para importação completa do arquivo */
+      const meu_script = require('web/meu-script'); /* para importar o módulo em uma variável */
+   ```
+<hr />
 
 <!-- Substituição de Textos -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gulp/gulp-plain.svg" width="24" /> ` Substituição de Textos`
->  * Nas linguagens **PHP** e **Apache** é possível criar um código de fácil leitura e ao compilar, substituir os *strings* específicados. Por exemplo:
-> 
->     <ins>`.web-replace.json`</ins>
->     
->     ```json
->     {
->        "strings": {
->           "*token*": {
->              "dev": "0cfcda42c340dad5616e0b7449a5634b",
->              "build": "0cfcda42c340dad5616e0b7449a5634b"
->           },
->           "*site-name*": {
->              "dev": "dev.weslley.io",
->              "build": "weslley.io"
->           }
->        }
->     }
->     ```
->
->`ENTRADA`
->```php
-><?
->   $_POST['*token*'];
->   $site = '*site-name*';
->```
->
->`SAÍDA DEV (npm start | yarn start)`
->```php
-><?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
->```
->
->`SAÍDA BUILD (npm run build | yarn build)`
->```php
-><?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
->```
-<br />
+### Substituição de Textos
+  * Nas linguagens **PHP** e **Apache** é possível criar um código de fácil leitura e ao compilar, substituir os *strings* específicados. Por exemplo:
+ 
+   <ins>`.web-replace.json`</ins>
+   
+   ```json
+   {
+      "strings": {
+         "*token*": {
+            "dev": "0cfcda42c340dad5616e0b7449a5634b",
+            "build": "0cfcda42c340dad5616e0b7449a5634b"
+         },
+         "*site-name*": {
+            "dev": "dev.weslley.io",
+            "build": "weslley.io"
+         }
+      }
+   }
+   ```
+
+   `ENTRADA`
+   ```php
+   <?
+      $_POST['*token*'];
+      $site = '*site-name*';
+   ```
+
+   `SAÍDA DEV (npm start | yarn start)`
+   ```php
+   <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
+   ```
+
+   `SAÍDA BUILD (npm run build | yarn build)`
+   ```php
+   <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
+   ```
+<hr />
 
 <!-- Compatibilidade -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/putty/putty-plain.svg" width="24" /> `Compatibilidade`
+### - Compatibilidade
 
 >
 >`Sistemas Operacionais`  
@@ -199,6 +206,6 @@
 >- [x] [**Path Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
 >- [x] [**Visual Studio IntelliCode** - *Microsoft*](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
 >
-<br />
 
-#### __Feito com *dor* e *sofrimento* em noites frias por [Weslley Araújo](https://github.com/wellwelwel) 🫀__
+
+#### __Feito com *dor* e *sofrimento* em noites frias por [Weslley Araújo](https://github.com/wellwelwel) 🖤__
