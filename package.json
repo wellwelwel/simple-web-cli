@@ -8,7 +8,7 @@
       "build": "node .web/tasks/build"
    },
    "keywords": [],
-   "author": "weslley.io",
+   "author": "https://github.com/wellwelwel/simple-web",
    "license": "MIT",
    "dependencies": {
       "@babel/cli": "^7.16.0",
