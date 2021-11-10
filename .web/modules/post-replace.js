@@ -8,9 +8,9 @@ const get_post_replace = async () => {
       strings: false
    };
 
-   if (!fse.existsSync('.webservicereplace.json')) return post_replaces;
+   if (!fse.existsSync('.web-replace.json')) return post_replaces;
 
-   const set_post_replaces = JSON.parse(fse.readFileSync('.webservicereplace.json', 'utf8'));
+   const set_post_replaces = JSON.parse(fse.readFileSync('.web-replace.json', 'utf8'));
 
    if (set_post_replaces?.strings) if (Object.keys(set_post_replaces.strings).length > 0) post_replaces.strings = set_post_replaces.strings;
    if (set_post_replaces?.config) post_replaces.config = set_post_replaces?.config;

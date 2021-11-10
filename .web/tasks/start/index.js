@@ -32,7 +32,7 @@ const timer = time => {
    console.log();
 
    await watchClose();
-   await exec('npm link ./.library'); /* link local packages */
+   await exec('npm link .library --save-dev'); /* link local packages */
    
    glob('temp_*', { }, (err, files) => {
       

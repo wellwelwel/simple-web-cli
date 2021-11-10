@@ -1,11 +1,11 @@
 {
-   "name": "basic-web",
+   "name": "simple-web",
    "version": "2.0.0",
    "deion": "",
-   "main": ".webservice/tasks/start/index.js",
+   "main": ".web/tasks/start/index.js",
    "scripts": {
-      "start": "node .webservice/tasks/start",
-      "build": "node .webservice/tasks/build"
+      "start": "node .web/tasks/start",
+      "build": "node .web/tasks/build"
    },
    "keywords": [],
    "author": "weslley.io",

@@ -1,17 +1,17 @@
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" width="24" /> basic-web
+# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" width="24" /> simple-web
 
->  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS, JavaScript e PHP utilizando conexão FTP para enviar os arquivos finais automaticamente para o servidor final.  
+>  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando conexão FTP para enviar os arquivos processados automaticamente para o servidor final.  
 
 ### ➖ Inicialização
 * **`npm i`** ou **`yarn --ignore-engines`** para baixar as dependências
-* **`npm start`** ou **`yarn start`** para iniciar o webservice
+* **`npm start`** ou **`yarn start`** para iniciar o serviço
 
 ### ➖ Desenvolvimento
 * **`scr`** é o diretório de desenvolvimento
 * **`.main`** é o diretório com o código compilado
 
 ### ➖ Configurando o FTP
-* No arquivo **`.webserviceconfig.json`**, basta inserir as informações de acesso:
+* No arquivo **`.web-config.json`**, basta inserir as informações de acesso:
 ```json
    "ftp": {
       "root": "_DIRETORIO_RAIZ_",
@@ -138,7 +138,7 @@
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gulp/gulp-plain.svg" width="24" /> ` Substituição de Textos`
 >  * Nas linguagens **PHP** e **Apache** é possível criar um código de fácil leitura e ao compilar, substituir os *strings* específicados. Por exemplo:
 > 
->     <ins>`.webservicereplace.json`</ins>
+>     <ins>`.web-replace.json`</ins>
 >     
 >     ```json
 >     {

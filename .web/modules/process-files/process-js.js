@@ -13,7 +13,7 @@ const { normalize, sep } = require('path');
 const no_process = require('./no-process');
 const postProcess = require('./post-process-replace');
 
-const requiredResources = process_files.js['to-browser'].require;
+const requiredResources = process_files.js.require;
 const packageName = JSON.parse(_fs.readFileSync('.library/package.json', 'utf8'));
 
 async function recursive_require(file, replace) {

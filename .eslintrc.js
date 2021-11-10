@@ -1,3 +1,8 @@
+/*
+* As configurações mais comuns em padrões de projetos
+* Configure conforme sua necessidade
+*/
+
 module.exports = {
 
    parserOptions: {
@@ -26,7 +31,7 @@ module.exports = {
       'space-before-function-paren': [ 2, { anonymous: 'always', named: 'never', asyncArrow: 'always' } ],
       'lines-between-class-members': [ 1, 'always', { exceptAfterSingleLine: true } ],
       'no-extra-boolean-cast': [ 2, { enforceForLogicalOperands: true } ],
-      'init-declarations': [ 2, 'never', { ignoreForLoopInit: true } ],
+      'init-declarations': [ 2, 'always' ],
       'spaced-comment': [ 2, 'always', { exceptions: [ '+-=*' ] } ],
       'key-spacing': [ 1, { beforeColon: false, mode: 'strict' } ],
       'no-console': [ 1, { allow: [ 'warn', 'error', 'clear', 'info' ] } ],
@@ -46,7 +51,7 @@ module.exports = {
       'space-in-parens': [ 1, 'never' ],
       'eol-last': [ 1, 'never' ],
       'no-mixed-spaces-and-tabs': 1,
-      'no-trailing-spaces': 1,
+      'no-trailing-spaces': [ 1, { ignoreComments: true, skipBlankLines: true } ],
       'no-unused-vars': 1,
       'object-curly-spacing': [ 1, 'always' ],
       'space-unary-ops': 2,

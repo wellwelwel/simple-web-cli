@@ -9,3 +9,4 @@ test*
 src/exit
 package-lock.json
 yarn.lock
+.env

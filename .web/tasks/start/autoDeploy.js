@@ -214,7 +214,7 @@ module.exports = async () => {
 
       const library = file.replace(/(\.library\/)|(\/index.js)/gim, '', file);
       const required = RegExp(`require.*?${library}`, 'gim');
-      const requiredResources = process_files.js['to-browser'].require;
+      const requiredResources = process_files.js.require;
       const js = await listFiles(source, 'js', requiredResources);
 
       for (const dependence of js) {

@@ -12,10 +12,7 @@
    "process-files": {
       "js": {
          "babel": true,
-         "uglify": true,
-         "to-browser": {
-            "require": "./.library/"
-         }
+         "uglify": true
       },
       "css": {
          "autoprefixer": true,
