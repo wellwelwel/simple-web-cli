@@ -143,7 +143,7 @@ Options Indexes FollowSymLinks MultiViews
 
 <!-- Substituição de Textos -->
 ### Substituição de Textos
-  * Nas linguagens **PHP** e **Apache** é possível criar um código de fácil leitura e ao compilar, substituir os *strings* específicados. Por exemplo:
+  * É possível criar um código de fácil leitura e ao compilar, substituir os textos específicados. Por exemplo:
  
    <ins>`.web-replace.json`</ins>
    
