@@ -207,5 +207,4 @@ Options Indexes FollowSymLinks MultiViews
 >- [x] [**Visual Studio IntelliCode** - *Microsoft*](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
 >
 
-
 #### __Feito com *dor* e *sofrimento* em noites frias por [Weslley Araújo](https://github.com/wellwelwel) 🖤__
