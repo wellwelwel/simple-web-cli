@@ -24,7 +24,7 @@
       "secure": true
    }
 ```
-> ##### *caso não seja inserido nenhum acesso, ele criará o projeto normalmente, apenas ignorando o envio FTP*
+> ##### *- caso não seja inserido nenhum acesso, ele criará o projeto normalmente, apenas ignorando o envio FTP* <br /> *- se o FTP não possuir certificação SSL, utilize `"explict"` em `"secure"`*
 
 * Supondo que o diretório **`root`** seja <ins>`/var/www`</ins>, a entrada e saída dos diretórios seria:
 
@@ -186,16 +186,16 @@ Options Indexes FollowSymLinks MultiViews
 >
 >`Sistemas Operacionais`  
 >
-> ✅ **macOS**  
-> ✅ **Linux**  
-> ✅ **Windows**  
+>- [x] **macOS**  
+>- [x] **Linux**  
+>- [x] **Windows**  
 >
 
 >
 >`Editores`  
 >
-> ✅ [**Visual Studio Code**](https://code.visualstudio.com/Download)  
-> ❎ **Outros** *(as funcionalidades dependem apenas do `Terminal`, porém, outros editores podem não ser compatíveis com sugestões de módulos locais)*  
+>- [x] [**Visual Studio Code**](https://code.visualstudio.com/Download)  
+>- [x] **Outros** *(as funcionalidades dependem apenas do `Terminal`, porém, outros editores podem não ser compatíveis com sugestões de módulos locais)*  
 >
 
 >
