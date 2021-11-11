@@ -1,4 +1,4 @@
-# <img src="https://weslley.io/media/simple-web.svg" width="24" /> simple-web
+# <img src="https://weslley.io/media/simple-web-2.svg" width="24" /> simple-web
 
 >  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando conexão FTP para enviar os arquivos processados automaticamente para o servidor final.  
 <hr />
