@@ -10,3 +10,4 @@ src/exit
 package-lock.json
 yarn.lock
 .env
+.web-config.json
