@@ -25,20 +25,13 @@ module.exports = async () => {
    
    const loading = {
       
-      ftp: new draft('', `dots`, false),
-      building: new draft('', `dots`, false),
-      status: new draft('', `dots`, false),
-      deploy: new draft('', `dots`, false),
+      ftp: new draft('', `circle`, false)
    };
 
    console.log();
 
    loading.ftp.start();
    loading.ftp.string = `${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`;
-
-   loading.building.message(`${sh.dim}${sh.blue}◼${sh.reset}${sh.dim} Builder: ${sh.reset}${sh.blue}ready`);
-   loading.status.message(`${sh.dim}${sh.blue}◼${sh.reset}${sh.dim} Status: ${sh.reset}${sh.blue}ready`);
-   loading.deploy.message(`${sh.dim}${sh.blue}◼${sh.reset}${sh.dim} Deploy: ${sh.reset}${sh.blue}ready`);
 
    const { host, user, pass, root, secure } = dev.ftp;
    const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
@@ -80,9 +73,7 @@ module.exports = async () => {
       if (!deploy.scheduling?.file) deploy.scheduling.file = file;
       else if (deploy.scheduling.file === file) return;
 
-      loading.building.message('');
-      loading.status.message('');
-      loading.deploy.message('');
+      const log = { building: new draft('', `dots`, false) };
       
       const fileType = file.split('.').pop().toLowerCase();
       const finalFile = file.replace(source, to);
@@ -91,8 +82,8 @@ module.exports = async () => {
       
       if (event === 'update') {
 
-         loading.building.start();
-         loading.building.string = `Building ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
+         log.building.start();
+         log.building.string = `Building ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
 
          let status = 1;
          
@@ -128,13 +119,13 @@ module.exports = async () => {
             await fs.writeFile(finalFile, !minified ? original : minified);
          }
 
-         loading.building.stop(status);
+         log.building.stop(status);
 
       }
       else if (event === 'remove') {
 
-         loading.building.start();
-         loading.building.string = `Removed ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
+         log.building.start();
+         log.building.string = `Removed ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
 
          if (isDir) fs.rmSync(finalFile, { recursive: true, force: true });
          else {
@@ -146,7 +137,7 @@ module.exports = async () => {
             }
          }
 
-         loading.building.stop(1);
+         log.building.stop(1);
       }
    }
    
@@ -164,28 +155,30 @@ module.exports = async () => {
 
       async function deployFile() {
 
-         loading.status.start();
-         loading.deploy.start();
+         const log = { status: new draft('', `dots`, false) };
+         if (connected && conn) log.deploy = new draft('', `dots`, false);
+
+         log.status.start();
+         log?.deploy && log.deploy.start();
       
          /* shows file or directory that is in attendance */
          if (event == 'update') {
             
-            loading.status.stop(1, `Copied ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
-            if (connected && conn) loading.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
+            log.status.stop(1, `Copied ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
+            if (connected && conn) log.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
          }
          else {
             
-            loading.status.stop(1, `Removed ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
-            if (connected && conn) loading.deploy.string = `Removing ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
+            log.status.stop(1, `Removed ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
+            if (connected && conn) log.deploy.string = `Removing ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
          }
          
          if (connected && conn) {
-            
+
             const action = event == 'update' ? await FTP.send(file, deploy) : await FTP.remove(file, isDir);
-            loading.deploy.stop(!!action ? 1 : 0, FTP.client.error);
+
+            log.deploy.stop(!!action ? 1 : 0, FTP.client.error);
          }
-         else if (!conn) loading.deploy.stop(0, `${sh.dim}${sh.bold}Deploying:${sh.reset}${sh.dim} No connection established`);
-         else if (!connected) loading.deploy.stop(0, `${sh.dim}${sh.bold}Deploying:${sh.reset}${sh.dim} No connection established`);
       }
       
       const isDir = file.split(sep).pop().includes('.') ? false : true;
@@ -197,8 +190,6 @@ module.exports = async () => {
       
       deploy.queue(deployFile, file);
       await deploy.start();
-
-      loading.status.stop(1);
    });
 
    watcherModules.on('change', async (event, file) => {
