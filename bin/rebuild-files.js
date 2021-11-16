@@ -21,7 +21,7 @@ try {
       stage.package = true;
    }
 
-   if (stage.package) fse.writeFileSync('.package.json', buildJSON(package));
+   if (stage.package) fse.writeFileSync('package.json', buildJSON(package));
 } catch (error) {
 
    console.warn('It was unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/package.json and insert "browserslist" manually\n');
@@ -83,8 +83,7 @@ try {
       
       babelrc.presets[0].push({ exclude: [ 'transform-regenerator' ] });
       if (!stage.babelrc) stage.babelrc = true;
-   }
-   else if (arrays.exclude && !arrays.transformRegenerator) {
+   } else if (arrays.exclude && !arrays.transformRegenerator) {
    
       const excludeIndex = babelrc.presets[0].findIndex(item => item.exclude);
    

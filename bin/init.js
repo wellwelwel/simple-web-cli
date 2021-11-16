@@ -59,7 +59,7 @@
       fse.appendFileSync(normalize('./.gitignore'), `${EOL}${toIgnore.join(EOL)}`);
    }
 
-   require('rebuild-files');
+   require('../bin/rebuild-files.js');
 
    /* Call to script */
    if (typeof alloweds[arg] === 'string') require(alloweds[arg]);
