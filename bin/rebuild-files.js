@@ -18,7 +18,19 @@ try {
    if (!package?.browserslist) {
       
       package.browserslist = '> 0%';
-      stage.package = true;
+      if (!stage.package) stage.package = true;
+   }
+
+   if (!package?.devDependencies) {
+      
+      package.devDependencies = { };
+      if (!stage.package) stage.package = true;
+   }
+
+   if (!package?.devDependencies?.web) {
+      
+      package.devDependencies.web = 'file:.library';
+      if (!stage.package) stage.package = true;
    }
 
    if (stage.package) fse.writeFileSync('package.json', buildJSON(package));

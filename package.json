@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "2.0.17",
+  "version": "2.0.18",
   "deion": "",
   "main": "./bin/init.js",
   "scripts": {
