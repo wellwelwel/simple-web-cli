@@ -36,7 +36,7 @@ try {
    if (stage.package) fse.writeFileSync('package.json', buildJSON(package));
 } catch (error) {
 
-   console.warn('It was unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/package.json and insert "browserslist" manually\n');
+   console.warn('It was unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/package.json and insert "browserslist" and local dependence "web" manually\n');
    console.error(error);
 }
 
