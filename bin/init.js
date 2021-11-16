@@ -14,7 +14,6 @@
       ],
       files: [
 
-         '.library/package.json',
          '.web-config.json',
          '.web-replace.json',
          '.babelrc',
@@ -31,6 +30,12 @@
    if (!alloweds[arg]) {
 
       console.error(`Command "${arg}" not found.${EOL}Use "init", "start" or "build".${EOL}`);
+      return;
+   }
+
+   if (args.length > 1) {
+
+      console.error(`Only use one command per time.${EOL}`);
       return;
    }
 
