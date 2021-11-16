@@ -1,6 +1,6 @@
 {
   "name": "simple-web-pro",
-  "version": "2.0.0-cli-10",
+  "version": "2.0.0-cli-11",
   "deion": "",
   "main": ".web/tasks/start/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "node .web/tasks/build"
   },
   "bin": {
-    "simple-web": "./bin/init.js",
+    "web": "./bin/init.js",
     "init": "./bin/init.js",
     "start": "./bin/init.js",
     "build": "./bin/init.js"
