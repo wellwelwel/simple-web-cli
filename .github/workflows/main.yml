@@ -1,8 +1,5 @@
 name: create-config.json
-on:
-  push:
-    branches:
-      - *
+on: push
 jobs:
   creating-config:
     runs-on: ubuntu-latest
