@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-(async () => {
+(() => {
 
    const fs = require('fs');
    const { EOL } = require('os');
@@ -11,6 +11,7 @@
       ],
       files: [
 
+         '.library/package.json',
          '.web-config.json',
          '.web-replace.json',
          '.babelrc',
@@ -23,12 +24,12 @@
       if (!fs.existsSync(`./${require}`)) fs.mkdirSync(`./${require}`);
    });
 
-   requires.files.forEach(async require => {
+   requires.files.forEach(require => {
 
-      if (!fs.existsSync(`./${require}`)) await fs.copyFile(`../${require}`, `./${require}`);
+      if (!fs.existsSync(`./${require}`)) fs.copyFileSync(`${__dirname}/../${require}`, `./${require}`);
    });
 
-   if (!fs.existsSync('./.gitignore')) await fs.copyFile('../.gitignore', './.gitignore');
+   if (!fs.existsSync('./.gitignore')) fs.copyFileSync(`${__dirname}/../.gitignore`, './.gitignore');
    else {
 
       const toIgnore = [
