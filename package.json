@@ -1,6 +1,6 @@
 {
   "name": "simple-web-pro",
-  "version": "2.0.0-cli-6",
+  "version": "2.0.0-cli-7",
   "deion": "",
   "main": ".web/tasks/start/index.js",
   "scripts": {
@@ -10,8 +10,8 @@
   "bin": {
     "simple-web": "./bin/init.js",
     "init": "./bin/init.js",
-    "start": "./bin/start.js",
-    "build": "./bin/build.js"
+    "start": "./bin/init.js",
+    "build": "./bin/init.js"
   },
   "keywords": [],
   "author": "https://github.com/wellwelwel/simple-web",
