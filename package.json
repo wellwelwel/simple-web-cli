@@ -1,6 +1,6 @@
 {
   "name": "simple-web-pro",
-  "version": "2.0.0",
+  "version": "2.0.0-cli",
   "deion": "",
   "main": ".web/tasks/start/index.js",
   "scripts": {
