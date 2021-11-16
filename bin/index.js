@@ -19,11 +19,7 @@
       ]
    };
 
-   requires.dirs.forEach(require => {
-
-      if (!fs.existsSync(`./${require}`)) fs.mkdirSync(`./${require}`);
-   });
-
+   requires.dirs.forEach(require => fs.copySync(`${__dirname}/../${require}`, `./${require}`, { overwrite: false }));
    requires.files.forEach(require => {
 
       if (!fs.existsSync(`./${require}`)) fs.copyFileSync(`${__dirname}/../${require}`, `./${require}`);
@@ -36,7 +32,8 @@
 
          '.main',
          '.release',
-         'src/exit'
+         'src/exit',
+         '.web-config.json'
       ];
 
       fs.appendFileSync('./.gitignore', `${EOL}${toIgnore.join(EOL)}`);
