@@ -36,7 +36,7 @@ try {
    if (stage.package) fse.writeFileSync('package.json', buildJSON(package));
 } catch (error) {
 
-   console.warn('It was unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/package.json and insert "browserslist" and local dependence "web" manually\n');
+   console.warn('Unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/package.json and insert "browserslist" and local dependence "web" manually\n');
    console.error(error);
 }
 
@@ -106,6 +106,6 @@ try {
    if (stage.babelrc) fse.writeFileSync('.babelrc', buildJSON(babelrc));
 } catch (error) {
    
-   console.warn('It was unable to get the needed resources into .babelrc.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/.babelrc and insert manually\n');
+   console.warn('Unable to get the needed resources into .babelrc.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/.babelrc and insert missing JSON values manually\n');
    console.error(error);
 }
