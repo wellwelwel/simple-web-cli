@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 (() => {
    
-   require('./init');
+   require('init');
    require('../.web/tasks/start');
 })();
