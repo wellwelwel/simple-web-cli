@@ -1,39 +1,48 @@
 {
-   "name": "simple-web",
-   "version": "2.0.0",
-   "deion": "",
-   "main": ".web/tasks/start/index.js",
-   "scripts": {
-      "start": "node .web/tasks/start",
-      "build": "node .web/tasks/build"
-   },
-   "keywords": [],
-   "author": "https://github.com/wellwelwel/simple-web",
-   "license": "MIT",
-   "dependencies": {
-      "@babel/cli": "^7.16.0",
-      "@babel/core": "^7.16.0",
-      "@babel/preset-env": "^7.16.0",
-      "archiver": "^5.3.0",
-      "autoprefixer": "^10.4.0",
-      "basic-ftp": "^4.6.6",
-      "draftlog": "^1.0.13",
-      "eslint": "^8.1.0",
-      "file-type": "^16.5.3",
-      "fs-extra": "^10.0.0",
-      "glob": "^7.2.0",
-      "mime-types": "^2.1.33",
-      "node-watch": "^0.7.2",
-      "postcss-cli": "^9.0.1",
-      "rimraf": "^3.0.2",
-      "sass": "^1.43.4",
-      "uglify-js": "^3.14.3",
-      "uglifycss": "^0.0.29"
-   },
-   "browserslist": [
-      "> 0%"
-   ],
-   "devDependencies": {
-      "web": "file:.library"
-   }
+  "name": "simple-web-pro",
+  "version": "2.0.0",
+  "deion": "",
+  "main": ".web/tasks/start/index.js",
+  "scripts": {
+    "start": "node .web/tasks/start",
+    "build": "node .web/tasks/build"
+  },
+  "keywords": [],
+  "author": "https://github.com/wellwelwel/simple-web",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "archiver": "^5.3.0",
+    "autoprefixer": "^10.4.0",
+    "basic-ftp": "^4.6.6",
+    "draftlog": "^1.0.13",
+    "eslint": "^8.1.0",
+    "file-type": "^16.5.3",
+    "fs-extra": "^10.0.0",
+    "glob": "^7.2.0",
+    "mime-types": "^2.1.33",
+    "node-watch": "^0.7.2",
+    "postcss-cli": "^9.0.1",
+    "rimraf": "^3.0.2",
+    "sass": "^1.43.4",
+    "uglify-js": "^3.14.3",
+    "uglifycss": "^0.0.29"
+  },
+  "browserslist": [
+    "> 0%"
+  ],
+  "devDependencies": {
+    "web": "file:.library"
+  },
+  "description": ">  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando conexão FTP para enviar os arquivos processados automaticamente para o servidor final.   <hr />",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wellwelwel/webservice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wellwelwel/webservice/issues"
+  },
+  "homepage": "https://github.com/wellwelwel/webservice#readme"
 }
