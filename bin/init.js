@@ -4,7 +4,7 @@
    const fse = require('fs-extra');
    const { EOL } = require('os');
    const [ ,, ...args ] = process.argv;
-   const arg = args[0].replace(/-/g, '');
+   const arg = args[0]?.replace(/-/g, '') || 'init';
    const normalize = require('path').normalize;
    const requires = {
 
