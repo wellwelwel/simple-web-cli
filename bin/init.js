@@ -39,6 +39,4 @@
 
       fse.appendFileSync(normalize('./.gitignore'), `${EOL}${toIgnore.join(EOL)}`);
    }
-   
-   require('../.web/tasks/start');
 })();
