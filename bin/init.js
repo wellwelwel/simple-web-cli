@@ -45,7 +45,7 @@
    });
    if (!fse.existsSync(normalize('./.web-config.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resource.json`), normalize('./.web-config.json'));
 
-   if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.gitignore`), normalize('./.gitignore'));
+   if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/_gitignore`), normalize('./.gitignore'));
    else {
 
       let gitignore = fse.readFileSync(normalize('./.gitignore'), 'utf-8');
