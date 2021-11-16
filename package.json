@@ -1,11 +1,17 @@
 {
   "name": "simple-web-pro",
-  "version": "2.0.0",
+  "version": "2.0.0-cli-17",
   "deion": "",
-  "main": ".web/tasks/start/index.js",
+  "main": "./bin/init.js",
   "scripts": {
     "start": "node .web/tasks/start",
     "build": "node .web/tasks/build"
+  },
+  "bin": {
+    "simple-web": "./bin/init.js",
+    "init": "./bin/init.js",
+    "start": "./bin/init.js",
+    "build": "./bin/init.js"
   },
   "keywords": [],
   "author": "https://github.com/wellwelwel/simple-web",
@@ -36,13 +42,13 @@
   "devDependencies": {
     "web": "file:.library"
   },
-  "description": ">  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando conexão FTP para enviar os arquivos processados automaticamente para o servidor final.   <hr />",
+  "description": "A simple compiler to automate the development in HTML, CSS, JavaScript and PHP languages using FTP connection to deploy the processed files automatically to the final server.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wellwelwel/webservice.git"
+    "url": "git+https://github.com/wellwelwel/simple-web.git"
   },
   "bugs": {
-    "url": "https://github.com/wellwelwel/webservice/issues"
+    "url": "https://github.com/wellwelwel/simple-web/issues"
   },
-  "homepage": "https://github.com/wellwelwel/webservice#readme"
+  "homepage": "https://github.com/wellwelwel/simple-web#readme"
 }
