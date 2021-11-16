@@ -14,7 +14,6 @@
       ],
       files: [
 
-         '.web-config.json',
          '.web-replace.json',
          '.babelrc',
          '.eslintrc.js'
@@ -44,6 +43,7 @@
 
       if (!fse.existsSync(normalize(`./${require}`))) fse.copyFileSync(normalize(`${__dirname}/../${require}`), normalize(`./${require}`));
    });
+   if (!fse.existsSync(normalize('./.web-config.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resource.json`), normalize('./.web-config.json'));
 
    if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.gitignore`), normalize('./.gitignore'));
    else {

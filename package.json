@@ -1,6 +1,6 @@
 {
   "name": "simple-web-pro",
-  "version": "2.0.0-cli-15",
+  "version": "2.0.0-cli-16",
   "deion": "",
   "main": "./bin/init.js",
   "scripts": {
