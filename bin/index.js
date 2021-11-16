@@ -1,8 +1,9 @@
 #! /usr/bin/env node
 (() => {
 
-   const fs = require('fs');
+   const fse = require('fs-extra');
    const { EOL } = require('os');
+   const normalize = require('path').normalize;
    const requires = {
 
       dirs: [
@@ -19,13 +20,13 @@
       ]
    };
 
-   requires.dirs.forEach(require => fs.copySync(`${__dirname}/../${require}`, `./${require}`, { overwrite: false }));
+   requires.dirs.forEach(require => fse.copySync(normalize(`${__dirname}/../${require}`), normalize(`./${require}`), { overwrite: false }));
    requires.files.forEach(require => {
 
-      if (!fs.existsSync(`./${require}`)) fs.copyFileSync(`${__dirname}/../${require}`, `./${require}`);
+      if (!fse.existsSync(normalize(`./${require}`))) fse.copyFileSync(normalize(`${__dirname}/../${require}`), normalize(`./${require}`));
    });
 
-   if (!fs.existsSync('./.gitignore')) fs.copyFileSync(`${__dirname}/../.gitignore`, './.gitignore');
+   if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.gitignore`), normalize('./.gitignore'));
    else {
 
       const toIgnore = [
@@ -36,7 +37,7 @@
          '.web-config.json'
       ];
 
-      fs.appendFileSync('./.gitignore', `${EOL}${toIgnore.join(EOL)}`);
+      fse.appendFileSync(normalize('./.gitignore'), `${EOL}${toIgnore.join(EOL)}`);
    }
    
    require('../.web/tasks/start');
