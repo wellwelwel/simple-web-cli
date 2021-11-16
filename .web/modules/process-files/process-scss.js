@@ -57,7 +57,7 @@ async function processCSS(file, local = false, replace = 'dev') {
       request = true;
    }
 
-   let content = `/* autoprefixer grid: autoplace */ ${await postProces({ src: tempCSS, response: true, local: replace })}`;
+   let content = `/* autoprefixer grid: autoplace */ ${await postProcess({ src: tempCSS, response: true, local: replace })}`;
    await fs.writeFile(tempCSS, content);
 
    if (process && process_files.css.autoprefixer) await exec(`npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
