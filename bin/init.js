@@ -48,6 +48,7 @@
    if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.gitignore`), normalize('./.gitignore'));
    else {
 
+      let gitignore = fse.readFileSync(normalize('./.gitignore'), 'utf-8');
       const toIgnore = [
 
          '.main',
@@ -56,7 +57,14 @@
          '.web-config.json'
       ];
 
-      fse.appendFileSync(normalize('./.gitignore'), `${EOL}${toIgnore.join(EOL)}`);
+      toIgnore.forEach(ignore => {
+
+         const regex = RegExp(ignore, 'gm');
+         
+         if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
+      });
+
+      fse.writeFileSync(normalize('./.gitignore'), gitignore);
    }
 
    require('../bin/rebuild-files.js');
