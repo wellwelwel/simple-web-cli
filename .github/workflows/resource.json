@@ -21,7 +21,10 @@
       "html": true,
       "htaccess": true,
       "php": true,
-      "exclude-files": []
+      "exclude-files": [
+         ".min.css",
+         ".min.js"
+      ]
    },
    "source": "./src/",
    "to": "./.main/"
