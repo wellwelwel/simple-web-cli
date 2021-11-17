@@ -1,17 +1,17 @@
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" width="24" /> simple-web
 
->  A simple compiler able to automate the following programming languages: HTML, CSS/Sass, JavaScript and PHP. Utilizing FTP connection in order to adress the final server automatically.  
+>  A simple compiler to automate the development in the HTML, CSS/Sass, JavaScript and PHP languages using the FTP connection to deploy files processed automatically to the final server.  
 
-### ➖ Startup
+### ➖ Initialization
 * **`npm i`** or **`yarn --ignore-engines`** to download the dependencies
-* **`npm start`** or **`yarn start`** to launch simple-service
+* **`npm start`** or **`yarn start`** to start the service
 
-### ➖ Devlopment
-* **`scr`** devlopment directory
-* **`.main`** compiled code directory
+### ➖ Development
+* **`scr`** is the directory of development
+* **`.main`** is the directory with the compiled code
 
 ### ➖ Configuring the FTP
-* In the file **`.webserviceconfig.json`**, is only needed to insert the acess info:
+* In the file **`.webserviceconfig.json`**, just insert the acess info:
 ```json
    "ftp": {
       "root": "_ROOT_DIRECTORY_",
@@ -21,18 +21,18 @@
       "secure": true
    }
 ```
-> ##### *- in case that the acess isn't inputed, the project will still be created, only ignoring the FTP connection*  <br />  *- if the FTP haven't a SSL certificate, use `"explict"` on `"secure"`*
+> ##### *- if no access is entered, it will create the project normally, just ignoring the FTP upload*  <br />  *- if the FTP lack SSL certification, use `"explict"` in `"secure"`*
 
-* Supposing that the directory **`root`** is <ins>`/var/www`</ins>, the input and output would be:
+* Assuming the directory **`root`** is <ins>`/var/www`</ins>, the input and output of the directories would be:
 
-   ➖ **Devlopment:** <ins>`src/html/index.html`</ins>  
+   ➖ **Development:** <ins>`src/html/index.html`</ins>  
    ➖ **Distribution:** <ins>`.main/html/index.html`</ins>  
    ➖ **FTP:** <ins>`/var/www/html/index.html`</ins>  
 
 <br />
 
-### ➖ Utilizing
->   Once you start the process with `npm start` or `yarn start`, the event occurs when **saving any file** in the directory `src`.
+### ➖ Using
+>   Once the process is started with `npm start` or `yarn start`, the event occurs by **saving any file** in the directory `src`.
 
 <br />
 
@@ -127,27 +127,27 @@
 
 <!-- others -->
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" width="24" /> ` General Files `
-> * The original file is only sent to the output directories
+> * Only uploads the original file to the output directories
 
 <br />
 
 <!-- Local Modules -->
 # <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="24" /> `Local Modules`
->  * In **JavaScript Web**, is possible to adress local modules saved in files beforehand, as following:
+>  * In **JavaScript Web**, it is possible to import local modules saved within files, for example:
 > 
 >     <ins>`.library/my-script/index.js`</ins>
 >     
 >     ```javascript
->        require('web/my-script'); /* importing a full file */
->        const meu_script = require('web/my-script'); /* importing the module from a variable */
+>        require('web/my-script'); /* for full import of the file */
+>        const meu_script = require('web/my-script'); /* to import the module into a variable */
 >     ```
 
 <br />
 
-<!-- Text Replacing  -->
-# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gulp/gulp-plain.svg" width="24" /> ` Text Replacing `
->  * In **PHP** and **Apache** is possible to create an easy-to-read code that, when compiled, replaces the especified *strings*. See example:
-> ##### *- works in every language that `.web-replace.json` is enabled*
+<!-- Text Replacement  -->
+# <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gulp/gulp-plain.svg" width="24" /> ` Text Replacement `
+>  * It is possible to create a code easy to read, and by compiling, replace the specified texts. For example:
+> ##### *- runs in any language that is enabled in* `.web-replace.json`
 > 
 >     <ins>`.webservicereplace.json`</ins>
 >     
@@ -200,7 +200,7 @@
 >`Code Editors`  
 >
 > ✅ [**Visual Studio Code**](https://code.visualstudio.com/Download)  
-> ✅ **Others** *(the main functions will rely on the `Integrated Terminal`, therefore, some editors may be incompatible with local suggestion modules)*  
+> ✅ **Others** *(functionality relies only on the ` Terminal`, however, other editors may not be compatible with local module suggestions)*  
 >
 
 >
@@ -214,4 +214,4 @@
 
 <br />
 
-#### __Made under cold nights of *pain* and *suffering* by [Weslley Araújo](https://github.com/wellwelwel) 🖤__
+#### __Made with *sadness* and *sorrow* in cold nights by [Weslley Araújo](https://github.com/wellwelwel) 🖤__
