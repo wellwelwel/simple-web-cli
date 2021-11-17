@@ -1,4 +1,5 @@
 const fse = require('fs-extra');
+const { execSync } = require('child_process');
 
 const readJSON = file => JSON.parse(fse.readFileSync(file, 'utf-8'));
 const buildJSON = obj => JSON.stringify(obj, null, 2);
@@ -44,6 +45,9 @@ try {
    console.error(error);
 
    if (!stage.error) stage.error = true;
+} finally {
+
+   if (stage.npm_i) execSync('npm i');
 }
 
 /* .babelrc */
