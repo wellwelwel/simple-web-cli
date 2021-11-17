@@ -27,6 +27,6 @@
       if (fs.existsSync(dest)) return;
    
       fs.writeFileSync(dest, fs.readFileSync(src, 'utf-8'));
-      execSync(commands().join(' && '), { stdio: 'inherit' });
+      execSync(commands(dest).join(' && '), { stdio: 'inherit' });
    });
 })();
