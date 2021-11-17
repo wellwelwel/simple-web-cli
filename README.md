@@ -4,8 +4,12 @@
 <hr />
 
 ### - Inicialização
-* **`npm i`** ou **`yarn --ignore-engines`** para baixar as dependências
-* **`npm start`** ou **`yarn start`** para iniciar o serviço
+- Local
+>* **`npm i simple-web-cli`** ou **`yarn add simple-web-cli`** para baixar as dependências
+>* **`npx simple-web`** ou **`yarn simple-web`** para iniciar o serviço
+- Global
+>* **`npm i simple-web-cli -g`** ou **`yarn global add simple-web-cli`** para baixar as dependências
+>* **`simple-web`** para iniciar o serviço
 <hr />
 
 ### - Desenvolvimento
@@ -34,7 +38,7 @@
 <hr />
 
 ### - Utilizando
-   * Uma vez iniciado o processo com `npm start` ou `yarn start`, o evento ocorre ao **salvar qualquer arquivo** dentro do diretório `src`.
+   * Uma vez iniciado o processo, o evento ocorre ao **salvar qualquer arquivo** dentro do diretório `src`.
 <hr />
 
 ### - Exemplos
@@ -170,12 +174,12 @@ Options Indexes FollowSymLinks MultiViews
       $site = '*site-name*';
    ```
 
-   `SAÍDA DEV (npm start | yarn start)`
+   `SAÍDA DEV (npx simple-web | yarn simple-web)`
    ```php
    <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
    ```
 
-   `SAÍDA BUILD (npm run build | yarn build)`
+   `SAÍDA BUILD (npx simple-web build | yarn simple-web build)`
    ```php
    <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
    ```
