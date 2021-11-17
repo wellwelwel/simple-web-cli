@@ -9,7 +9,8 @@ const babelrc = readJSON('.babelrc');
 const stage = {
 
    package: false,
-   babelrc: false
+   babelrc: false,
+   error: false
 };
 
 /* package.json */
@@ -38,6 +39,8 @@ try {
 
    console.warn('Unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/package.json and insert "browserslist" and local dependence "web" manually\n');
    console.error(error);
+
+   if (!stage.error) stage.error = true;
 }
 
 /* .babelrc */
@@ -108,4 +111,8 @@ try {
    
    console.warn('Unable to get the needed resources into .babelrc.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/.babelrc and insert missing JSON values manually\n');
    console.error(error);
+
+   if (!stage.error) stage.error = true;
 }
+
+if (stage.error) return;
