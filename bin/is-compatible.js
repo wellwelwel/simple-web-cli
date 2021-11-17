@@ -11,7 +11,7 @@ var isCompatible = function isCompatible() {
          current:process.version.split(".") || ["v0","0"]
       };
       
-      return node.minimun >= parseFloat("".concat(node.current[0].replace(/[^0-9]/, ""), ".").concat(node.current[1] || 0));
+      return parseFloat("".concat(node.current[0].replace(/[^0-9]/, ""), ".").concat(node.current[1] || 0)) >= node.minimun;
    }
    catch (error) {
       
