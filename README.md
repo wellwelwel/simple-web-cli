@@ -1,6 +1,6 @@
 # <img src="https://weslley.io/media/simple-web-11.svg" width="32" /> simple-web
 
->  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando conexão FTP para enviar os arquivos processados automaticamente para o servidor final.  
+  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando conexão FTP para enviar os arquivos processados automaticamente para o servidor final.  
 <hr />
 
 ### - Inicialização
@@ -187,9 +187,9 @@ Options Indexes FollowSymLinks MultiViews
 
 <!-- Comandos -->
 ### Comandos
-   * `(npm|yarn) simple-web` ou `(npm|yarn) simple-web start`: prepara o ambiente e inicia o serviço
-   * `(npm|yarn) simple-web init`: prepara o ambiente sem iniciar o serviço
-   * `(npm|yarn) simple-web buid`: compila todo o conteúdo do diretório `src` e compacta para o arquivo `release.zip`
+   * `(npx|yarn) simple-web` ou `(npx|yarn) simple-web start`: prepara o ambiente e inicia o serviço
+   * `(npx|yarn) simple-web init`: prepara o ambiente sem iniciar o serviço
+   * `(npx|yarn) simple-web buid`: compila todo o conteúdo do diretório `src` e compacta para o arquivo `release.zip`
 <hr />
 
 <!-- Compatibilidade -->
