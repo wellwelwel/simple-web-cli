@@ -4,7 +4,7 @@
    const { EOL } = require('os');
    const rebuildFiles = require('../bin/rebuild-files.js');
    const [ ,, ...args ] = process.argv;
-   const arg = args[0]?.replace(/-/g, '') || 'init';
+   const arg = args[0]?.replace(/-/g, '') || 'start';
    const normalize = require('path').normalize;
    const requires = {
 
