@@ -13,7 +13,16 @@
     "start": "./bin/init.js",
     "build": "./bin/init.js"
   },
-  "keywords": [],
+  "keywords": [
+    "web", "webpack", "web-pack", "webservice", "web-service",
+    "web-post", "web-process", "web-cli",
+    "starter-kit",
+    "node", "nodejs", "node-js", "javascript", "commonjs", "common-js", "css", "css3", "sass", "scss", "html", "html5", "php",
+    "automation", "compiler", "build", "web-automation", "web-compiler", "web-build",
+    "library", "local-library", "local-modules", "web-modules",
+    "ftp", "ftp-client", "web-ftp",
+    "simple", "simpleweb", "simple-web", "simple-web-cli"
+  ],
   "author": "https://github.com/wellwelwel/simple-web",
   "license": "MIT",
   "dependencies": {
