@@ -10,7 +10,8 @@ const stage = {
 
    package: false,
    babelrc: false,
-   error: false
+   error: false,
+   npm_i: false
 };
 
 /* package.json */
@@ -26,12 +27,14 @@ try {
       
       package.devDependencies = { };
       if (!stage.package) stage.package = true;
+      if (!stage.npm_i) stage.npm_i = true;
    }
 
    if (!package?.devDependencies?.web) {
       
       package.devDependencies.web = 'file:.library';
       if (!stage.package) stage.package = true;
+      if (!stage.npm_i) stage.npm_i = true;
    }
 
    if (stage.package) fse.writeFileSync('package.json', buildJSON(package));
@@ -116,3 +119,8 @@ try {
 }
 
 if (stage.error) return;
+if (stage.npm_i) {
+   
+   console.warn('Run "npm i" to import local modules');
+   return;
+}
