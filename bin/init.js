@@ -3,6 +3,7 @@
 
    const fse = require('fs-extra');
    const { EOL } = require('os');
+   const rebuildFiles = require('../bin/rebuild-files.js');
    const [ ,, ...args ] = process.argv;
    const arg = args[0]?.replace(/-/g, '') || 'init';
    const normalize = require('path').normalize;
@@ -67,8 +68,6 @@
       fse.writeFileSync(normalize('./.gitignore'), gitignore);
    }
 
-   require('../bin/rebuild-files.js');
-
-   /* Call to script */
-   if (typeof alloweds[arg] === 'string') require(alloweds[arg]);
+   if (!rebuildFiles()) return;
+   if (typeof alloweds[arg] === 'string') require(alloweds[arg]); /* Calls to script */
 })();
