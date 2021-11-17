@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "2.0.25",
+  "version": "2.0.26",
   "deion": "",
   "main": "./bin/init.js",
   "scripts": {
@@ -14,14 +14,14 @@
     "build": "./bin/init.js"
   },
   "keywords": [
-    "web", "webpack", "web-pack", "webservice", "web-service",
-    "web-post", "web-process", "web-cli",
-    "starter-kit",
-    "node", "nodejs", "node-js", "javascript", "commonjs", "common-js", "css", "css3", "sass", "scss", "html", "html5", "php",
-    "automation", "compiler", "build", "web-automation", "web-compiler", "web-build",
-    "library", "local-library", "local-modules", "web-modules",
+    "web", "webpack", "webservice",
+    "web-post", "web-process", "web-post-process",
+    "node", "nodejs", "javascript", "commonjs", "css", "sass", "scss", "html", "php",
+    "automation", "compiler", "build", "bundle", "web-automation", "web-compiler", "web-build", "web-bundle",
+    "library", "local-library", "local-modules", "web-modules", "commonjs-modules",
     "ftp", "ftp-client", "web-ftp",
-    "simple", "simpleweb", "simple-web", "simple-web-cli"
+    "browser", "require", "require-browser", "require-commonjs",
+    "simpleweb", "simple-web", "simple-web-cli"
   ],
   "author": "https://github.com/wellwelwel/simple-web",
   "license": "MIT",
