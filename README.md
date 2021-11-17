@@ -174,15 +174,22 @@ Options Indexes FollowSymLinks MultiViews
       $site = '*site-name*';
    ```
 
-   `SAÍDA DEV (npx simple-web | yarn simple-web)`
+   `SAÍDA DEV (npx simple-web | yarn simple-web | simple-web)`
    ```php
    <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
    ```
 
-   `SAÍDA BUILD (npx simple-web build | yarn simple-web build)`
+   `SAÍDA BUILD (npx simple-web build | yarn simple-web build | simple-web build)`
    ```php
    <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
    ```
+<hr />
+
+<!-- Comandos -->
+### Comandos
+   * `(npm|yarn) simple-web` ou `(npm|yarn) simple-web start`: prepara o ambiente e inicia o serviço
+   * `(npm|yarn) simple-web init`: prepara o ambiente sem iniciar o serviço
+   * `(npm|yarn) simple-web buid`: compila todo o conteúdo do diretório `src` e compacta para o arquivo `release.zip`
 <hr />
 
 <!-- Compatibilidade -->
