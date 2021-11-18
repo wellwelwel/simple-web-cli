@@ -3,7 +3,7 @@
    const { execSync } = require('child_process');
    const fs = require('fs');
    const { EOL } = require('os');
-   const commands = require('modules/commands');
+   const commands = require('./modules/commands');
    
    /* On missing, recreats the default resources */
    (() => {
