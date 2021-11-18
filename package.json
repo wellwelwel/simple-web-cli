@@ -1,28 +1,42 @@
 {
   "name": "simple-web-cli",
-  "version": "2.0.28",
-  "deion": "",
+  "version": "2.0.29",
   "main": "./bin/init.js",
   "scripts": {
     "start": "node .web/tasks/start",
     "build": "node .web/tasks/build"
   },
   "bin": {
-    "simple-web": "./bin/init.js",
-    "init": "./bin/init.js",
-    "start": "./bin/init.js",
-    "build": "./bin/init.js"
+    "simple-web": "bin/init.js",
+    "init": "bin/init.js",
+    "start": "bin/init.js",
+    "build": "bin/init.js"
   },
   "keywords": [
-    "web", "webpack", "webservice",
-    "web-post", "web-process", "web-post-process",
-    "node", "nodejs", "javascript", "commonjs", "css", "sass", "scss", "html", "php",
-    "automation", "compiler", "build", "bundle", "web-automation", "web-compiler", "web-build", "web-bundle",
-    "library", "local-library", "local-modules", "web-modules", "commonjs-modules",
-    "ftp", "ftp-client", "web-ftp",
-    "browser", "require", "require-browser", "require-commonjs",
-    "simpleweb", "simple-web", "simple-web-cli"
+    "automation",
+    "browser",
+    "build",
+    "bundle",
+    "commonjs",
+    "commonjs-modules",
+    "compiler",
+    "ftp",
+    "local-library",
+    "local-modules",
+    "require",
+    "require-browser",
+    "require-commonjs",
+    "simple-web",
+    "web-automation",
+    "web-build",
+    "web-bundle",
+    "web-compiler",
+    "web-ftp",
+    "web-modules",
+    "web-require",
+    "webpack"
   ],
+  "preferGlobal": true,
   "author": "https://github.com/wellwelwel/simple-web",
   "license": "MIT",
   "dependencies": {
@@ -32,8 +46,6 @@
     "archiver": "^5.3.0",
     "autoprefixer": "^10.4.0",
     "basic-ftp": "^4.6.6",
-    "draftlog": "^1.0.13",
-    "eslint": "^8.1.0",
     "file-type": "^16.5.3",
     "fs-extra": "^10.0.0",
     "glob": "^7.2.0",
@@ -49,6 +61,8 @@
     "> 0%"
   ],
   "devDependencies": {
+    "draftlog": "^1.0.13",
+    "eslint": "^8.1.0",
     "web": "file:.library"
   },
   "description": "A simple compiler to automate the development in HTML, CSS, JavaScript and PHP languages using FTP connection to deploy the processed files automatically to the final server.",
@@ -59,5 +73,20 @@
   "bugs": {
     "url": "https://github.com/wellwelwel/simple-web/issues"
   },
-  "homepage": "https://github.com/wellwelwel/simple-web#readme"
+  "homepage": "https://github.com/wellwelwel/simple-web#readme",
+  "workspaces": [
+    "src/*"
+  ],
+  "files": [
+    "bin",
+    ".library",
+    ".web"
+  ],
+  "directories": {
+    "bin": "./bin",
+    "lib": "./.library"
+  },
+  "engines": {
+    "node": "^14.15.0 || >=16"
+  }
 }
