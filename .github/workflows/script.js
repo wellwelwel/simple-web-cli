@@ -10,7 +10,8 @@
 
       const files = [
    
-         { dest: '.web-config.json', src: `${__dirname}/resource.json` }
+         { dest: '.web-config.json', src: `${__dirname}/resources/_web-config.json` },
+         { dest: '.web-replace.json', src: `${__dirname}/resources/_web-replace.json` },
       ];
    
       files.forEach(file => {
