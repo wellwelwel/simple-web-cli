@@ -24,6 +24,9 @@
       "exclude-files": [
          ".min.css",
          ".min.js"
+      ],
+      "exclude-requires": [
+         ".jsx"
       ]
    },
    "source": "./src/",
