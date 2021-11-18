@@ -33,7 +33,8 @@
       const blacklist = [
    
          'src',
-         '.library'
+         '.library',
+         '.library/my'
       ];
       const dest = '.gitignore';
       
