@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "2.0.29",
+  "version": "2.1.29",
   "main": "./bin/init.js",
   "scripts": {
     "start": "node .web/tasks/start",
