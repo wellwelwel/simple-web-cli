@@ -27,9 +27,12 @@ const sep = require('path').sep;
 
    await deleteDS_Store();
 
-   const to = '.release';
-   const final = to.replace(/\./, '');
-   
+   if (!process.env?.level) process.env.level = 0;
+   if (!process.env?.output) process.env.output = '.release';
+
+   const to = process.env.output;
+   const final = to.replace(/^\./, '');
+
    await watchClose();
    
    try {
@@ -38,24 +41,30 @@ const sep = require('path').sep;
 
          const files = await listFiles(source);
          const types = [];
-
+         
          for (const file of files) {
-
+            
             const type = `.${file.split('.').pop()}`;
             if (!types.includes(type)) types.push(type);
          }
-
+         
          const loading = new draft(`Compiling ${sh.bold}${sh.blue}${files.length}${sh.reset} files ${sh.italic}${sh.cyan}[ ${types.join(', ')} ]`);
+         
+         if (files.length === 0) {
+            
+            loading.stop(1, 'Nothing to compile');
+            return;
+         }
 
          for (const file of files) {
-            
+
             const fileType = file.split('.').pop().toLowerCase();
             const finalFile = file.replace(source, to);
       
             let pathFile = file.split(sep); pathFile.pop(); pathFile = pathFile.join(sep);
                
             /* pre processed files */   
-            if (fileType === 'js') await processJS(file, to, 'build');
+            if (fileType === 'js') await processJS(file, to, 'build', false);
             else if (fileType === 'scss' || fileType === 'css') await processCSS(file, to, 'build');
             else {
             
@@ -91,18 +100,25 @@ const sep = require('path').sep;
       }
       
       async function gerarDeploy() {
-      
+
          const loading = new draft(`Compressing built files`);
-      
-         const files = await listFiles(to);
-         const output = _fs.createWriteStream(`${final}.zip`);
-         const archive = archiver('zip', { zlib: { level: 9 } });
 
-         archive.pipe(output);
-         for (const file of files) archive.file(file, { name: file });
-         await archive.finalize();
-
-         loading.stop(1, `Successfully compressed into: ${sh.underscore}${sh.blue}${sh.bold}./${final}.zip`);
+         try {
+            
+            const files = await listFiles(to) || [];   
+            const output = _fs.createWriteStream(`${final}.zip`);
+            const archive = archiver('zip', { zlib: { level: process.env.level } });
+   
+            archive.pipe(output);
+            for (const file of files) archive.file(file, { name: file });
+            await archive.finalize();
+   
+            loading.stop(1, `Successfully compressed into: ${sh.underscore}${sh.blue}${sh.bold}./${final}.zip`);
+         }
+         catch (error) {
+            
+            loading.stop(1, `Nothing to compress`);
+         }
       }
       
       async function clearTemp() {

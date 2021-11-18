@@ -25,16 +25,38 @@
       start: '../.web/tasks/start',
       build: '../.web/tasks/build'
    };
+   const runBefore = {
+
+      init: () => { },
+      start: () => { },
+      build: () => {
+
+         const extend = { };
+
+         args.forEach(cli => {
+
+            const splitCli = cli.split('=');
+
+            extend[splitCli[0].replace(/-/g, '')] = splitCli[1];
+         });
+
+         if (extend?.level) {
+
+            if (!isNaN(extend.level)) {
+
+               if (extend.level < 0) extend.level = 0;
+               else if (extend.level > 9) extend.level = 9;
+            }
+         }
+
+         process.env.level = parseInt(extend?.level) || 0;
+         process.env.output = extend?.output || '.release';
+      }
+   };
 
    if (!alloweds[arg]) {
 
       console.error(`Command "${arg}" not found.${EOL}Use "init", "start" or "build".${EOL}`);
-      return;
-   }
-
-   if (args.length > 1) {
-
-      console.error(`Only use one command per time.${EOL}`);
       return;
    }
 
@@ -43,9 +65,11 @@
 
       if (!fse.existsSync(normalize(`./${require}`))) fse.copyFileSync(normalize(`${__dirname}/../${require}`), normalize(`./${require}`));
    });
-   if (!fse.existsSync(normalize('./.web-config.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resource.json`), normalize('./.web-config.json'));
 
-   if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/_gitignore`), normalize('./.gitignore'));
+   if (!fse.existsSync(normalize('./.web-config.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-config.json`), normalize('./.web-config.json'));
+   if (!fse.existsSync(normalize('./.web-replace.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-replace.json`), normalize('./.web-config.json'));
+   if (!fse.existsSync(normalize('./.eslintignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_eslintignore`), normalize('./.eslintignore'));
+   if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
    else {
 
       let gitignore = fse.readFileSync(normalize('./.gitignore'), 'utf-8');
@@ -68,5 +92,10 @@
    }
 
    if (!rebuildFiles()) return;
-   if (typeof alloweds[arg] === 'string') require(alloweds[arg]); /* Calls to script */
+   if (typeof alloweds[arg] === 'string') {
+   
+      if (args.length > 1) runBefore[arg]();
+
+      require(alloweds[arg]); /* Calls to script */
+   }
 })();
