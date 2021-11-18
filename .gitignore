@@ -12,5 +12,3 @@ yarn.lock
 .env
 .web-config.json
 .web-replace.json
-.library/my
-src
