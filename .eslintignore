@@ -1,0 +1,8 @@
+.github
+.library
+.main
+.release
+.web
+bin
+tests
+*.min.js

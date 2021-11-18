@@ -1,8 +1,8 @@
 node_modules
 *.DS_Store
-temp
 temp_*
-test*
+tests/*
+*.test*
 *.zip
 .main
 .release
@@ -11,3 +11,6 @@ package-lock.json
 yarn.lock
 .env
 .web-config.json
+.web-replace.json
+src
+.library
