@@ -1,0 +1,14 @@
+node_modules
+*.DS_Store
+temp_*
+tests/*
+*.test*
+*.zip
+.main
+.release
+src/exit
+package-lock.json
+yarn.lock
+.env
+.web-config.json
+.web-replace.json
