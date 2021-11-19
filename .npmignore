@@ -1,3 +1,4 @@
 .github/workflows/*.js
 .github/workflows/*.yml
 .github/workflows/modules/*.js
+tests

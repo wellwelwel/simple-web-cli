@@ -1,7 +1,7 @@
 node_modules
 *.DS_Store
 temp_*
-tests/*
+tests
 *.test*
 *.zip
 .main
