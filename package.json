@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "2.1.30",
+  "version": "2.1.31",
   "main": "./bin/init.js",
   "scripts": {
     "start": "node .web/tasks/start",
@@ -77,15 +77,6 @@
   "workspaces": [
     "src/*"
   ],
-  "files": [
-    "bin",
-    ".library",
-    ".web"
-  ],
-  "directories": {
-    "bin": "./bin",
-    "lib": "./.library"
-  },
   "engines": {
     "node": "^14.15.0 || >=16"
   }
