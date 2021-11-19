@@ -14,7 +14,6 @@
       ],
       files: [
 
-         '.web-replace.json',
          '.babelrc',
          '.eslintrc.js'
       ]
@@ -66,8 +65,9 @@
       if (!fse.existsSync(normalize(`./${require}`))) fse.copyFileSync(normalize(`${__dirname}/../${require}`), normalize(`./${require}`));
    });
 
+   if (!fse.existsSync(normalize('./package.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_package.json`), normalize('./package.json'));
    if (!fse.existsSync(normalize('./.web-config.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-config.json`), normalize('./.web-config.json'));
-   if (!fse.existsSync(normalize('./.web-replace.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-replace.json`), normalize('./.web-config.json'));
+   if (!fse.existsSync(normalize('./.web-replace.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-replace.json`), normalize('./.web-replace.json'));
    if (!fse.existsSync(normalize('./.eslintignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_eslintignore`), normalize('./.eslintignore'));
    if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
    else {
