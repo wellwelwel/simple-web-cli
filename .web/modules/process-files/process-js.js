@@ -3,7 +3,6 @@
 const fs = require('fs-extra').promises;
 const _fs = require('fs-extra');
 const rimraf = require('rimraf');
-const { sh } = require('../sh');
 const { source, to, process_files } = require('../config');
 const createDir = require('../create-dir');
 const exec = require('../execShellCommand');

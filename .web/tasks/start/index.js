@@ -18,7 +18,7 @@ const sep = require('path').sep;
    const starting = new draft(`Starting${sh.dim}${sh.yellow} ... ${sh.reset}${sh.bright}`, 'circle');
 
    await watchClose();
-   await exec('npm link .library --save-dev'); /* link local packages */
+   await exec(`cd ${__dirname} && npm link .library --save-dev`); /* link local packages */
    
    glob('temp_*', { }, (err, files) => {
       

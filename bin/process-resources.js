@@ -1,6 +1,8 @@
-(() => {
+(async () => {
 
    const fse = require('fs-extra');
+   const exec = require('../.web/modules/execShellCommand');
+   const { sh, draft } = require('../.web/modules/sh');
    const { EOL } = require('os');
    const rebuildFiles = require('../bin/rebuild-files.js');
    const [ ,, ...args ] = process.argv;
@@ -65,7 +67,16 @@
       if (!fse.existsSync(normalize(`./${require}`))) fse.copyFileSync(normalize(`${__dirname}/../${require}`), normalize(`./${require}`));
    });
 
-   if (!fse.existsSync(normalize('./package.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_package.json`), normalize('./package.json'));
+   if (!fse.existsSync(normalize('./package.json'))) {
+      
+      console.log(sh.clear);
+
+      const importing = new draft('Importing required local modules');
+
+      fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_package.json`), normalize('./package.json'));         
+      await exec('npm i');
+      importing.stop(1);
+   }
    if (!fse.existsSync(normalize('./.web-config.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-config.json`), normalize('./.web-config.json'));
    if (!fse.existsSync(normalize('./.web-replace.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-replace.json`), normalize('./.web-replace.json'));
    if (!fse.existsSync(normalize('./.eslintignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_eslintignore`), normalize('./.eslintignore'));
@@ -91,7 +102,7 @@
       fse.writeFileSync(normalize('./.gitignore'), gitignore);
    }
 
-   if (!rebuildFiles()) return;
+   if (!await rebuildFiles()) return;
    if (typeof alloweds[arg] === 'string') {
    
       if (args.length > 1) runBefore[arg]();
