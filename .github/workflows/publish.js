@@ -45,6 +45,6 @@ const orderJSON = (obj, space) => {
    package.publishConfig = git.publishConfig;
    package.repository = git.repository;
 
-   buildJSON();
+   buildJSON(dest);
    execSync(commands(dest, false).join(' && '), { stdio: 'inherit' });
 })();
