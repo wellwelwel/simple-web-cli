@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "2.1.37",
+  "version": "2.1.38",
   "main": "./bin/init.js",
   "scripts": {
     "start": "node .web/tasks/start",
@@ -50,6 +50,7 @@
     "glob": "^7.2.0",
     "mime-types": "^2.1.33",
     "node-watch": "^0.7.2",
+    "package-json": "^7.0.0",
     "postcss-cli": "^9.0.1",
     "rimraf": "^3.0.2",
     "sass": "^1.43.4",
