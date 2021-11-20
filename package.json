@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "2.1.39",
+  "version": "2.1.40",
   "main": "./bin/init.js",
   "scripts": {
     "start": "node .web/tasks/start",
@@ -69,7 +69,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wellwelwel/simple-web.git"
+    "url": "git://github.com/wellwelwel/simple-web.git"
   },
   "bugs": {
     "url": "https://github.com/wellwelwel/simple-web/issues"
