@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const fs = require('fs-extra').promises;
 const _fs = require('fs-extra');
@@ -11,11 +11,12 @@ const path = require('../get-path');
 const { normalize, sep } = require('path');
 const no_process = require('./no-process');
 const postProcess = require('./post-process-replace');
+const vReg = require('../vReg');
 
 const requiredResources = process_files.js.require;
 const packageName = JSON.parse(_fs.readFileSync('.library/package.json', 'utf8'));
 
-async function recursive_require(file, replace, log) {
+async function recursive_require(file, replace) {
 
    let content = await postProcess({ src: file, response: true, local: replace });
    const requireds = content.match(/require\(.*?\);/gim);
@@ -29,7 +30,7 @@ async function recursive_require(file, replace, log) {
          if (origins.length > 1) origins.forEach(folder => fixPath = fixPath.replace(folder, ''));
          else fixPath = fixPath.replace(requiredResources, '');
    
-         const regex = /(require\(['"`])(.+?)(['"`]\);)/;
+         const regex = /(require\([''`])(.+?)([''`]\);)/;
          const requiredName = regex.exec(fixPath)[2].replace(RegExp(packageName.name.replace(/\//, '\\/'), 'gim'), '');
          const exist_require = () => {
    
@@ -37,7 +38,7 @@ async function recursive_require(file, replace, log) {
    
             if (_fs.existsSync(`${required_path}${sep}index.js`)) return `${required_path}${sep}index.js`;
             
-            throw(`O arquivo "${requiredName}" não foi encontrado na biblioteca`);
+            throw(`O arquivo '${requiredName}' não foi encontrado na biblioteca`);
          };
 
          const require = exist_require();
@@ -52,20 +53,17 @@ async function recursive_require(file, replace, log) {
          if (typeof isModule !== 'boolean') current = current.replace(RegExp(`const\\s${isModule}\\s=\\s|module.*?;`, 'gm'), '').trim();
 
          /* Recursive Library */
-         if (regex.test(current)) current = await recursive_require(require, replace, log);
+         if (regex.test(current)) current = await recursive_require(require, replace);
 
          content = content.replace(requireds[required], current);
       }
-      catch (e) {
-   
-         log && console.error(e);
-      }
+      catch (e) { }
    }
    
    return content;
 }
 
-async function processJS(file, local = false, replace = 'dev', log = true) {
+async function processJS(file, local = false, replace = 'dev') {
 
    const _ = /\.library/.test(file) ? true : false;
 
@@ -96,7 +94,22 @@ async function processJS(file, local = false, replace = 'dev', log = true) {
 
    async function pre_process() {
 
-      const content = await recursive_require(file, replace, log);
+      const exclude_files = process_files['exclude-requires'] || false;
+      let result = false;
+
+      if (exclude_files) {
+         
+         for (const exclude of exclude_files) {
+   
+            if (vReg(exclude).test(file)) {
+               
+               result = true;
+               break;
+            }
+         }
+      }
+
+      const content = !result ? await recursive_require(file, replace) : await postProcess({ src: file, response: true, local: replace });
 
       /* Final Build File */
       await fs.writeFile(pre, content);
@@ -110,13 +123,13 @@ async function processJS(file, local = false, replace = 'dev', log = true) {
 
       if (process_files.js.babel) {
          
-         const request = await exec(`npx --quiet babel "${pre}" -o "${pre}"`); // Babel
+         const request = await exec(`npx --quiet babel '${pre}' -o '${pre}'`); // Babel
          if (!request) error = true;
       }
       
       if (process_files.js.uglify) {
          
-         const request = await exec(`npx --quiet uglifyjs "${pre}" -o "${pre}" -c -m`); // Uglify
+         const request = await exec(`npx --quiet uglifyjs '${pre}' -o '${pre}' -c -m`); // Uglify
          if (!request) error = true;
       }
 
