@@ -1,11 +1,14 @@
-module.exports = file => {
+module.exports = (file, push = true) => {
       
-   return [
+   const commands = [
 
       'git config --local user.name github-actions',
       'git config --local user.email "github-actions@github.com"',
       `git add --force ${file}`,
       `git commit -am "Update ${file}"`,
-      'git push'
    ];
+
+   push && commands.push('git push');
+
+   return commands;
 };

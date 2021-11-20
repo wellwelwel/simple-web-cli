@@ -1,0 +1,10 @@
+{
+  "name": "@wellwelwel/simple-web",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wellwelwel/simple-web.git"
+  }
+}
