@@ -1,4 +1,4 @@
-name: create-config.json
+name: CI
 on:
   push:
     branches:
