@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "16"
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: 'http://npm.pkg.github.com'
           scope: '@wellwelwel'
       - run: node .github/workflows/publish.js
       - run: npm config set strict-ssl false
