@@ -28,6 +28,6 @@ jobs:
           npm version patch
       - run: node .github/workflows/publish.js
       - run: npm publish || exit 0
-      - run: 'git reset --hard origin origin/${{ github.ref }}'
+      - run: 'git reset --hard origin/${{ github.ref.refs.heads }}'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
