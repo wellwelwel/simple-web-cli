@@ -1,4 +1,4 @@
-name: create-config.json
+name: CI
 on:
   push:
     branches:
@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: "16"
           registry-url: 'http://npm.pkg.github.com'
-          scope: '@wellwelwel'
+          scope: '@${{ github.actor }}'
       - run: |
           git config --local user.name github-actions
           git config --local user.email "github-actions@github.com"
