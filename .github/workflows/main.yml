@@ -2,7 +2,6 @@ name: create-config.json
 on:
   push:
     branches:
-      # - '*'
       - main
 jobs:
   creating-config:
@@ -12,7 +11,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - run: node .github/workflows/script.js
+      - run: node .github/workflows/check-files.js
   publishing-package:
     runs-on: ubuntu-latest
     steps:
