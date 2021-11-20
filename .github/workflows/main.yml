@@ -28,6 +28,9 @@ jobs:
           npm version patch
       - run: node .github/workflows/publish.js
       - run: npm publish || exit 0
-      - run: git reset --hard origin/${GITHUB_REF##*/}
+      - name: Extracting current branch name
+        shell: bash
+        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
+      - run: 'git reset --hard origin/' $BRANCH_NAME
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
