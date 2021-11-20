@@ -1,5 +1,7 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
+const { EOL } = require('os');
+const commands = require('./modules/commands');
 const readJSON = file => JSON.parse(fs.readFileSync(file, 'utf-8'));
 const buildJSON = obj => orderJSON(obj, 2);
 const orderJSON = (obj, space) => {
