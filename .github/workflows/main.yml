@@ -24,5 +24,6 @@ jobs:
           scope: '@wellwelwel'
       - run: node .github/workflows/publish.js
       - run: npm publish
+      - run: git reset --hard
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
