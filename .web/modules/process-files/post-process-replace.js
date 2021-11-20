@@ -1,6 +1,7 @@
 const fse = require('fs-extra');
 const fsep = require('fs-extra').promises;
 const post_replace = require('../post-replace');
+const empty = require('../empty');
 const mime = require('mime-types');
 
 const post_process = async (options = { }) => {
@@ -52,7 +53,16 @@ const post_process = async (options = { }) => {
             if (string.split('*').length === 3 && string.substring(0, 1) === '*' && string.substring(string.length, string.length - 1) === '*') {
 
                const regex = RegExp(string.replace(/\*/gim, '\\\*'), 'gim');
-               if (get_replaces.strings[string][local]) new_content = new_content.replace(regex, get_replaces.strings[string][local]);
+               let stringToReplace = get_replaces?.strings[string][local];
+
+               if (!stringToReplace || empty(stringToReplace)) {
+
+                  if (local === 'dev' && !empty(get_replaces.strings[string]['build'])) stringToReplace = get_replaces.strings[string]['build'];
+                  else if (local === 'build' && !empty(get_replaces.strings[string]['dev'])) stringToReplace = get_replaces.strings[string]['dev'];
+                  else stringToReplace = '';
+               }
+
+               if (stringToReplace || empty(stringToReplace)) new_content = new_content.replace(regex, stringToReplace);
             }
          }
    
