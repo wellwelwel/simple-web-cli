@@ -25,8 +25,9 @@ jobs:
       - run: |
           git config --local user.name github-actions
           git config --local user.email "github-actions@github.com"
-          npm version patch && ng build --prod
+          npm version patch
       - run: node .github/workflows/publish.js
-      - run: npm publish
+      - run: npm publish || exit 0
+      - run: 'git reset --hard origin origin/${{ github.head_ref }}'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
