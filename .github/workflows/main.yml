@@ -22,15 +22,5 @@ jobs:
           node-version: "16"
           registry-url: 'http://npm.pkg.github.com'
           scope: '@${{ github.actor }}'
-      - run: |
-          git config --local user.name github-actions
-          git config --local user.email "github-actions@github.com"
-          npm version patch
       - run: node .github/workflows/publish.js
-      - run: npm publish || exit 0
-      - name: Extracting current branch name
-        shell: bash
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
-      - run: 'git reset --hard origin/' $BRANCH_NAME
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm publish
