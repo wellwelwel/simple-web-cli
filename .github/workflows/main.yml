@@ -23,5 +23,6 @@ jobs:
           registry-url: 'http://npm.pkg.github.com'
           scope: '@wellwelwel'
       - run: node .github/workflows/publish.js
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

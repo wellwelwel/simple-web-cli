@@ -7,9 +7,8 @@ module.exports = (file, publish = false) => {
          'npm version patch',
          'git config --local user.name github-actions',
          'git config --local user.email "github-actions@github.com"',
-         `git add --force ${file}`,
-         `git commit -am "Update ${file}"`,
-         `npm publish`,
+         `git add ${file}`,
+         `git commit -am "Update ${file}"`
       ];
    }
 
