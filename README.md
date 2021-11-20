@@ -1,73 +1,110 @@
-# <img src="https://weslley.io/media/simple-web-11.svg" width="32" /> simple-web
+<p align="center">
+ <img width="100px" src="https://weslley.io/media/simple-web-11.svg" align="center" alt="simple-web" />
+ <h1 align="center">simple-web</h1>
+ <p align="center">A simple compiler to automate the development in the HTML, CSS/Sass, JavaScript and PHP languages using the FTP connection to deploy files processed automatically to the final server.</p>
+</p>
 
-  Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando conexão FTP para enviar os arquivos processados automaticamente para o servidor final.  
-<hr />
+<p align="center">
+   <a href="/README.md">English</a>
+   ·
+   <a href="/README_pt-BR.md">Português</a>
+</p>
 
-### - Inicialização
+## Install
 - Local
->* **`npm i simple-web-cli`** ou **`yarn add simple-web-cli`** para baixar as dependências
->* **`npx simple-web`** ou **`yarn simple-web`** para iniciar o serviço
+```shell
+   npm i simple-web-cli  # to download the dependencies
+```
+```shell
+   npx simple-web  # to start the service
+```
+
 - Global
->* **`npm i simple-web-cli -g`** ou **`yarn global add simple-web-cli`** para baixar as dependências
->* **`simple-web`** para iniciar o serviço
+```shell
+   npm i simple-web-cli -g  # to download the dependencies
+```
+```shell
+   simple-web  # to start the service
+```
 <hr />
 
-### - Desenvolvimento
-* **`scr`** é o diretório de desenvolvimento
-* **`.main`** é o diretório com o código compilado
+### - Development
+* **`scr`** is the directory of development
+* **`.main`** is the directory with the compiled code
 <hr />
 
-### - Configurando o FTP
-* No arquivo **`.web-config.json`**, basta inserir as informações de acesso:
+<!-- Commands -->
+### - Commands
+   * `npx simple-web` or `npx simple-web start`: prepares the environment and starts the service
+   * `npx simple-web init`: prepares the environment without starting the service
+   * `npx simple-web buid`: compiles the contents from `src` and zips it to `release.zip`
+<hr />
+
+### - Configuring the FTP
+* In the file **`.web-config.json`**, just insert the acess infos:
 ```json
    "ftp": {
-      "root": "_DIRETORIO_RAIZ_",
+      "root": "_ROOT_DIRECTORY_",
       "host": "_IP_",
-      "user": "_USUARIO_",
-      "pass": "_SENHA_",
+      "user": "_USER_",
+      "pass": "_PASSWORD_",
       "secure": true
    }
 ```
-> ##### *- caso não seja inserido nenhum acesso, ele criará o projeto normalmente, apenas ignorando o envio FTP* <br /> *- se o FTP não possuir certificação SSL, utilize `"explict"` em `"secure"`*
 
-* Supondo que o diretório **`root`** seja <ins>`/var/www`</ins>, a entrada e saída dos diretórios seria:
+* Assuming the **`root`** directory is <ins>`/var/www`</ins>, the input and output of the directories would be:
 
-   + **Desenvolvimento:** <ins>`src/html/index.html`</ins>  
-   + **Distribuição:** <ins>`.main/html/index.html`</ins>  
-   + **FTP:** <ins>`/var/www/html/index.html`</ins>  
+   - **Development:** <ins>`src/html/index.html`</ins>  
+   - **Distribution:** <ins>`.main/html/index.html`</ins>  
+   - **FTP:** <ins>`/var/www/html/index.html`</ins>  
+
+> ##### *- If no access is entered, it will create the project normally, just ignoring the FTP upload*  <br />  *- If the FTP doesn't use SSL certification, set `"explict"` in `"secure"`*
 <hr />
 
-### - Utilizando
-   * Uma vez iniciado o processo, o evento ocorre ao **salvar qualquer arquivo** dentro do diretório `src`.
+<!-- Local Modules -->
+### - Local Modules
+  * In **JavaScript** (web), it's possible to import local modules saved into `.library`, for example:
+ 
+   <ins>`.library/my-script/index.js`</ins>
+   
+   ```javascript
+      require('web/my-script'); /* for entire file import */
+      const my_script = require('web/my-script'); /* to import the module into a variable */
+   ```
 <hr />
 
-### - Exemplos
-<hr />
+### - Using
+   * Once the process is started, the event occurs by **saving any file** into `src`.
+<br />
+
+<p align="center">
+<h2 align="center"><img src="https://weslley.io/media/simple-web-2.svg" width="20" /> Some Examples <img src="https://weslley.io/media/simple-web-2.svg" width="20" /></h2>
+</p>
 
 <!-- HTML -->
 ### HTML
-`ENTRADA`
+`INPUT`
 ```html
    <div>
-      <h1>Título</h1>
-      <p>Parágrafo</p>
+      <h1>Title</h1>
+      <p>Paragraph</p>
    </div>
 ```
-`SAÍDA`
+`OUTPUT`
 ```html
-   <div><h1>Título</h1><p>Parágrafo</p></div>
+   <div><h1>Title</h1><p>Paragraph</p></div>
 ```
 <hr />
 
 <!-- CSS -->
 ### CSS | Sass
-`ENTRADA`
+`INPUT` 
 ```css
    div {
       display: flex;
    }
 ```
-`SAÍDA`
+`OUTPUT`
 ```css
    div{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}
 ```
@@ -75,7 +112,7 @@
 
 <!-- JS -->
 ### JavaScript
-`ENTRADA`
+`INPUT`
 ```javascript
    (() => {
       require('web/selector');
@@ -86,7 +123,7 @@
       const elementsInElement = sElAll(element, '.class');
    })();
 ```
-`SAÍDA`
+`OUTPUT`
 ```javascript
    "use strict";!function(){var e,c,l,r,t=(e="body",document.querySelector(e));c="div",t.querySelector(c),l=".class",document.querySelectorAll(l),r=".class",t.querySelectorAll(r)}();
 ```
@@ -94,25 +131,25 @@
 
 <!-- PHP -->
 ### PHP | PHTML
-`ENTRADA`
+`INPUT`
 ```php
 <?
-   $var = 'texto'
+   $var = 'text'
 ?>
 
 <div>
    <?=$var?>
 </div>
 ```
-`SAÍDA`
+`OUTPUT`
 ```php
-  <?php $var='texto'?><div><?=$var?></div>
+  <?php $var='text'?><div><?=$var?></div>
 ```
 <hr />
 
 <!-- .htaccess -->
 ### Apache (.htaccess, php.ini)
-`ENTRADA`
+`INPUT`
 ```apache
 # comment
 <Directory /var/www/>
@@ -120,7 +157,7 @@
    Options Indexes FollowSymLinks MultiViews
 </Directory>
 ```
-`SAÍDA`
+`OUTPUT`
 ```apache
 <Directory /var/www/>
 Options Indexes FollowSymLinks MultiViews
@@ -128,27 +165,10 @@ Options Indexes FollowSymLinks MultiViews
 ```
 <hr />
 
-<!-- others -->
-### Arquivos gerais
- * Apenas envia o arquivo original para os diretórios de saída
-<hr />
-
-<!-- Local Modules -->
-### Módulos Locais
-  * No **JavaScript Web**, é possível importar módulos locais salvos dentro dos arquivos, por exemplo:
-
-   <ins>`.library/meu-script/index.js`</ins>
-   
-   ```javascript
-      require('web/meu-script'); /* para importação completa do arquivo */
-      const meu_script = require('web/meu-script'); /* para importar o módulo em uma variável */
-   ```
-<hr />
-
-<!-- Substituição de Textos -->
-### Substituição de Textos
-   * É possível criar um código de fácil leitura e ao compilar, substituir os textos específicados. Por exemplo:
-   > ##### *- funciona em qualquer linguagem que estiver habilitada em `.web-replace.json`*
+<!-- Text Replacement  -->
+### Strings Replacement
+   * You can create an easy to read code and on compiling, replace the specified strings, for example:
+   > ##### *- works for any language that is enabled in `.web-replace.json`*
  
    <ins>`.web-replace.json`</ins>
    
@@ -167,36 +187,34 @@ Options Indexes FollowSymLinks MultiViews
    }
    ```
 
-   `ENTRADA`
+   `INPUT`
    ```php
    <?
       $_POST['*token*'];
       $site = '*site-name*';
    ```
 
-   `SAÍDA DEV (npx simple-web | yarn simple-web | simple-web)`
+   `OUTPUT DEV (npx simple-web)`
    ```php
    <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
    ```
 
-   `SAÍDA BUILD (npx simple-web build | yarn simple-web build | simple-web build)`
+   `OUTPUT BUILD (npx simple-web build)`
    ```php
    <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
    ```
 <hr />
 
-<!-- Comandos -->
-### Comandos
-   * `(npx|yarn) simple-web` ou `(npx|yarn) simple-web start`: prepara o ambiente e inicia o serviço
-   * `(npx|yarn) simple-web init`: prepara o ambiente sem iniciar o serviço
-   * `(npx|yarn) simple-web buid`: compila todo o conteúdo do diretório `src` e compacta para o arquivo `release.zip`
+<!-- others -->
+### Miscellaneous Files
+ * Only uploads the original file to the output directories
 <hr />
 
-<!-- Compatibilidade -->
-### - Compatibilidade
+<!-- Compatibility -->
+### - Compatibility
 
 >
->`Sistemas Operacionais`  
+>`Operational Systems`  
 >
 >- [x] **macOS**  
 >- [x] **Linux**  
@@ -204,14 +222,14 @@ Options Indexes FollowSymLinks MultiViews
 >
 
 >
->`Editores`  
+>`Code Editors`  
 >
 >- [x] [**Visual Studio Code**](https://code.visualstudio.com/Download)  
->- [x] **Outros** *(as funcionalidades dependem apenas do `Terminal`, porém, outros editores podem não ser compatíveis com sugestões de módulos locais)*  
+>- [x] **Others** *(the features depend only on ` Terminal`, however, other editors may not suggest local modules intellisense)*  
 >
 
 >
->`Extensões Recomendadas (VSCode)` <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" width="12" />
+>`Recomended Extensions (VSCode)` <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" width="12" />
 >
 >- [x] [**ESLint** - *Dirk Baeumer*](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 >- [x] [**npm Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
@@ -219,4 +237,7 @@ Options Indexes FollowSymLinks MultiViews
 >- [x] [**Visual Studio IntelliCode** - *Microsoft*](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
 >
 
-#### __Feito com *dor* e *sofrimento* em noites frias por [Weslley Araújo](https://github.com/wellwelwel) 🖤__
+>- [x] Translate: [**SrLaco**](https://github.com/SrLaco)
+>- [x] Review: [**micaele-mags**](https://github.com/micaele-mags)
+
+#### __Made with *sadness* and *sorrow* in could nights by [Weslley Araújo](https://github.com/wellwelwel)__ 🖤
