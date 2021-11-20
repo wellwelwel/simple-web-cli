@@ -56,10 +56,13 @@
    };
 
    if (!alloweds[arg]) {
-
+      
       console.error(`Command "${arg}" not found.${EOL}Use "init", "start" or "build".${EOL}`);
       return;
    }
+
+   console.log(sh.clear);
+   const importing = new draft('Importing required local modules');
 
    requires.dirs.forEach(require => fse.copySync(normalize(`${__dirname}/../${require}`), normalize(`./${require}`), { overwrite: false }));
    requires.files.forEach(require => {
@@ -69,40 +72,41 @@
 
    if (!fse.existsSync(normalize('./package.json'))) {
       
-      console.log(sh.clear);
-
-      const importing = new draft('Importing required local modules');
 
       fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_package.json`), normalize('./package.json'));         
       await exec('npm i');
-      importing.stop(1);
    }
    if (!fse.existsSync(normalize('./.web-config.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-config.json`), normalize('./.web-config.json'));
    if (!fse.existsSync(normalize('./.web-replace.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-replace.json`), normalize('./.web-replace.json'));
    if (!fse.existsSync(normalize('./.eslintignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_eslintignore`), normalize('./.eslintignore'));
    if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
    else {
-
+      
       let gitignore = fse.readFileSync(normalize('./.gitignore'), 'utf-8');
       const toIgnore = [
-
+         
          '.main',
          '.release',
          'src/exit',
          '.web-config.json'
       ];
-
+      
       toIgnore.forEach(ignore => {
-
+         
          const regex = RegExp(ignore, 'gm');
          
          if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
       });
-
+      
       fse.writeFileSync(normalize('./.gitignore'), gitignore);
    }
+   
+   const rebuilded = await rebuildFiles();
+   
+   importing.stop(1);
 
-   if (!await rebuildFiles()) return;
+   if (!rebuilded) return;
+
    if (typeof alloweds[arg] === 'string') {
    
       if (args.length > 1) runBefore[arg]();
