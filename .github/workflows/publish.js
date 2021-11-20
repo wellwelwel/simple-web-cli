@@ -27,6 +27,7 @@ const orderJSON = (obj, space) => {
 
 (() => {
    
+   const dest = 'package.json';
    const git = {
    
       name: '@wellwelwel/simple-web',
@@ -38,12 +39,12 @@ const orderJSON = (obj, space) => {
          url: 'git://github.com/wellwelwel/simple-web.git'
       }
    };
-   const package = readJSON('package.json');
+   const package = readJSON(dest);
 
    package.name = git.name;
    package.publishConfig = git.publishConfig;
    package.repository = git.repository;
 
-   buildJSON('package.json');
+   buildJSON();
    execSync(commands(dest, false).join(' && '), { stdio: 'inherit' });
 })();
