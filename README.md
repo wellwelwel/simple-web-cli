@@ -240,4 +240,4 @@ Options Indexes FollowSymLinks MultiViews
 >- [x] Translate: [**SrLaco**](https://github.com/SrLaco)
 >- [x] Review: [**micaele-mags**](https://github.com/micaele-mags)
 
-#### __Made with *sadness* and *sorrow* in could nights by [Weslley Araújo](https://github.com/wellwelwel)__ 🖤
+#### __Made with *sadness* and *sorrow* in rainy nights by [Weslley Araújo](https://github.com/wellwelwel)__ 🖤
