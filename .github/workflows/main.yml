@@ -23,7 +23,7 @@ jobs:
           registry-url: 'http://npm.pkg.github.com'
           scope: '@wellwelwel'
       - run: node .github/workflows/publish.js
-      - run: npm config set strict-ssl false
+      # - run: npm config set strict-ssl false
       # - run: npm install
       - run: npm publish
         env:
