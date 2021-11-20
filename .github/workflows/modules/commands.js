@@ -1,14 +1,24 @@
-module.exports = (file, push = true) => {
+module.exports = (file, publish = false) => {
+
+   if (publish) {
       
-   const commands = [
+      return [
+
+         'npm version patch',
+         'git config --local user.name github-actions',
+         'git config --local user.email "github-actions@github.com"',
+         `git add --force ${file}`,
+         `git commit -am "Update ${file}"`,
+         `npm publish`,
+      ];
+   }
+
+   return [
 
       'git config --local user.name github-actions',
       'git config --local user.email "github-actions@github.com"',
       `git add --force ${file}`,
       `git commit -am "Update ${file}"`,
+      'git push',
    ];
-
-   push && commands.push('git push');
-
-   return commands;
 };
