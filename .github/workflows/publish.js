@@ -44,10 +44,9 @@ const orderJSON = (obj, space) => {
    package.publishConfig = git.publishConfig;
    package.repository = git.repository;
 
-   const content = buildJSON(dest);
+   const content = buildJSON(package);
+   console.log(content);
 
    fs.writeFileSync(dest, content);
    execSync(commands(dest, false).join(' && '), { stdio: 'inherit' });
-
-   console.log(content);
 })();
