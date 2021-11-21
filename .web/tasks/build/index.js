@@ -16,6 +16,7 @@ const processHTML = require('../../modules/process-files/process-html');
 const no_process = require('../../modules/process-files/no-process');
 const createDir = require('../../modules/create-dir');
 const postProcess = require('../../modules/process-files/post-process-replace');
+const { build } = require('../../modules/receive-args');
 const glob = require('glob');
 const rimraf = require('rimraf');
 const sep = require('path').sep;
@@ -27,8 +28,9 @@ const sep = require('path').sep;
 
    await deleteDS_Store();
 
-   if (!process.env?.level) process.env.level = 0;
-   if (!process.env?.output) process.env.output = '.release';
+   const [ ,, ...args ] = process.argv;
+
+   build(args);
 
    const to = process.env.output;
    const final = to.replace(/^\./, '');

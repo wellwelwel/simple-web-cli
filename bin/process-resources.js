@@ -3,6 +3,7 @@
    const fse = require('fs-extra');
    const exec = require('../.web/modules/execShellCommand');
    const { sh, draft } = require('../.web/modules/sh');
+   const { build } = require('../.web/modules/receive-args');
    const { EOL } = require('os');
    const rebuildFiles = require('../bin/rebuild-files.js');
    const [ ,, ...args ] = process.argv;
@@ -30,29 +31,7 @@
 
       init: () => { },
       start: () => { },
-      build: () => {
-
-         const extend = { };
-
-         args.forEach(cli => {
-
-            const splitCli = cli.split('=');
-
-            extend[splitCli[0].replace(/-/g, '')] = splitCli[1];
-         });
-
-         if (extend?.level) {
-
-            if (!isNaN(extend.level)) {
-
-               if (extend.level < 0) extend.level = 0;
-               else if (extend.level > 9) extend.level = 9;
-            }
-         }
-
-         process.env.level = parseInt(extend?.level) || 0;
-         process.env.output = extend?.output || '.release';
-      }
+      build: () => build(args)
    };
 
    if (!alloweds[arg]) {
