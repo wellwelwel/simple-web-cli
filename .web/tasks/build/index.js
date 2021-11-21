@@ -43,22 +43,38 @@ const sep = require('path').sep;
 
          const files = await listFiles(source);
          const types = [];
-         
+         const typesOver = [];
+
+         let count = 0;
+
          for (const file of files) {
             
             const type = `.${file.split('.').pop()}`;
+            
+            if (type.length >= 10 || types.length >= 10) {
+
+               if (!typesOver.includes(type)) typesOver.push(type);
+               continue;
+            }
+
             if (!types.includes(type)) types.push(type);
          }
          
-         const loading = new draft(`Compiling ${sh.bold}${sh.blue}${files.length}${sh.reset} files ${sh.italic}${sh.cyan}[ ${types.join(', ')} ]`);
+         const moreTypes = typesOver.length > 0 ? ` and ${typesOver.length} more` : '';
+         const loading = new draft('', `dots`, false);
+         const prefix = () => `Compiling ${sh.bold}${sh.blue}${count}${sh.reset}${sh.dim}${sh.white} of ${sh.reset}${sh.bold}${sh.blue}${files.length}${sh.reset} files: `;
+
+         loading.start();
          
          if (files.length === 0) {
             
             loading.stop(1, 'Nothing to compile');
             return;
          }
-
+         
          for (const file of files) {
+            
+            loading.string = `${prefix()}${sh.blue}${file}`;
 
             const fileType = file.split('.').pop().toLowerCase();
             const finalFile = file.replace(source, to);
@@ -86,9 +102,11 @@ const sep = require('path').sep;
       
                await fs.writeFile(finalFile, !minified ? original : minified);
             }
+
+            count++;
          }
          
-         loading.stop(1);
+         loading.stop(1, `${prefix()}${sh.blue}${types.join(', ')}${moreTypes}`);
       }
       
       async function resolveConflicts() {
@@ -139,15 +157,35 @@ const sep = require('path').sep;
          console.log();
       }
 
+      function msToTime(s) {
+
+         function pad(n, z) {
+
+            z = z || 2;
+
+            return ('00' + n).slice(-z);
+         }
+         
+         const ms = s % 1000;
+         s = (s - ms) / 1000;
+         const secs = s % 60;
+         s = (s - secs) / 60;
+         const mins = s % 60;
+         const hrs = (s - mins) / 60;
+         
+         return `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
+      }
+
       /* Início */
       console.log();
+      const startTime = performance.now();
       
       await resolveConflicts();
       await buildFiles();
       await gerarDeploy();
       await clearTemp();
       
-      loading.stop(1, 'Finished');
+      loading.stop(1, `Finished in ${sh.green}${msToTime(performance.now() - startTime)}`);
    }
    catch(e) {
 
