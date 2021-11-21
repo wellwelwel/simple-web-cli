@@ -3,6 +3,7 @@ const fsep = require('fs-extra').promises;
 const post_replace = require('../post-replace');
 const empty = require('../empty');
 const mime = require('mime-types');
+const resourceReplace = require('../resource-replace');
 
 const post_process = async (options = { }) => {
 
@@ -40,7 +41,8 @@ const post_process = async (options = { }) => {
       }
    };
 
-   let content = isValid ? await fsep.readFile(src, 'utf8') : await fsep.readFile(src);
+   const sampleContent = resourceReplace(src, local) || src;
+   let content = isValid ? await fsep.readFile(sampleContent, 'utf8') : await fsep.readFile(sampleContent);
 
    try {
 
