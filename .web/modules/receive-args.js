@@ -20,6 +20,7 @@ const build = args => {
 
    process.env.level = parseInt(extend?.level) || 0;
    process.env.output = extend?.output || '.release';
+   process.env.ftp = extend?.ftp || false;
 };
 
 module.exports = { build };

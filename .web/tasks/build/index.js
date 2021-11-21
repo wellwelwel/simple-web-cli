@@ -1,9 +1,10 @@
 "use strict";
 
-const { source } = require('../../modules/config');
+const { dev, source } = require('../../modules/config');
 const fs = require('fs-extra').promises;
 const _fs = require('fs-extra');
 const { sh, draft } = require('../../modules/sh');
+const empty = require('../../modules/empty');
 const watchClose = require('../../modules/watch-close');
 const listFiles = require('../../modules/listFiles');
 const archiver = require('archiver');
@@ -20,6 +21,8 @@ const { build } = require('../../modules/receive-args');
 const glob = require('glob');
 const rimraf = require('rimraf');
 const sep = require('path').sep;
+const FTP = require('../../modules/ftp');
+const serverOSNormalize = require('../../modules/server-os-normalize');
 
 (async () => {
 
@@ -154,7 +157,33 @@ const sep = require('path').sep;
          if (_fs.existsSync(to)) await fs.rm(to, { recursive: true, force: true });
 
          loading.stop(1);
-         console.log();
+      }
+
+      async function send() {
+
+         const loading = new draft(`${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`);
+         
+         const { host, user, pass, secure } = dev.ftp;
+         const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
+         const conn = pre_connect ? await FTP.connect({ host: host, user: user, pass: pass, root: process.env.ftp, secure: secure }) : false;
+         
+         if (!conn) {
+            
+            FTP.client.close();
+            loading.stop(0, `${sh.dim}${sh.bold}FTP:${sh.reset}${sh.dim} No connected`);
+            
+            return;
+         }
+
+         loading.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.blue}Connected`);
+
+         /* Send */
+         const remote = serverOSNormalize(`${process.env.ftp}/${final}.zip`);
+         const deploying = new draft(`${sh.bold}Deploying ${sh.dim}to${sh.reset} "${sh.blue}${remote}${sh.reset}"`);
+
+         const action = await FTP.send(`${final}.zip`);
+         deploying.stop(!!action ? 1 : 0, FTP.client.error);
+         FTP.client.close();
       }
 
       function msToTime(s) {
@@ -184,7 +213,9 @@ const sep = require('path').sep;
       await buildFiles();
       await gerarDeploy();
       await clearTemp();
-      
+      process.env.ftp != 'false' && await send();
+
+      console.log();
       loading.stop(1, `Finished in ${sh.green}${msToTime(performance.now() - startTime)}`);
    }
    catch(e) {

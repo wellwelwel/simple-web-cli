@@ -67,7 +67,7 @@ async function send(file, waiting) {
 
          const timer = setInterval(resolve);
 
-         if (!waiting.scheduling.started) {
+         if (!waiting?.scheduling?.started) {
             
             clearInterval(timer);
             resolve();
@@ -93,7 +93,7 @@ async function send(file, waiting) {
 
             const timer = setInterval(resolve);
    
-            if (!waiting.scheduling.started) {
+            if (!waiting?.scheduling?.started) {
                
                clearInterval(timer);
                resolve();
