@@ -27,12 +27,6 @@
       start: '../.web/tasks/start',
       build: '../.web/tasks/build'
    };
-   const runBefore = {
-
-      init: () => { },
-      start: () => { },
-      build: () => build(args)
-   };
 
    if (!alloweds[arg]) {
       
@@ -86,10 +80,5 @@
 
    if (!rebuilded) return;
 
-   if (typeof alloweds[arg] === 'string') {
-   
-      if (args.length > 1) runBefore[arg]();
-
-      require(alloweds[arg]); /* Calls to script */
-   }
+   if (typeof alloweds[arg] === 'string') require(alloweds[arg]); /* Calls to script */
 })();
