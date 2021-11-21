@@ -4,7 +4,6 @@ const rebuildFiles = async () => {
    const fse = require('fs-extra');
    const exec = require('../.web/modules/execShellCommand');
    const latest = require('../.web/modules/get-latest-version');
-   const { sh, draft } = require('../.web/modules/sh');
    const readJSON = file => JSON.parse(fse.readFileSync(file, 'utf-8'));
    const buildJSON = obj => orderJSON(obj, 2);
    const package = readJSON('package.json') || { };
@@ -81,15 +80,7 @@ const rebuildFiles = async () => {
       }
    
       if (stage.package) fse.writeFileSync('package.json', buildJSON(package));
-      if (stage.npm_i) {
-         
-         console.log(sh.clear);
-
-         const importing = new draft('Importing required local modules');
-
-         await exec('npm i');
-         importing.stop(1);
-      }
+      if (stage.npm_i) await exec('npm i');
    }
    catch (error) {
    
