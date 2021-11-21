@@ -15,5 +15,9 @@
          "dev": "",
          "build": ""
       }
+   },
+   "resources": {
+      "src": "./resources",
+      "replace": true
    }
 }
