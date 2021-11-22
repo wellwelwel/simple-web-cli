@@ -11,6 +11,8 @@
 </p>
 
 ## Install
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web?ref=badge_shield)
+
 - Local
 ```shell
    npm i simple-web-cli  # to download the dependencies
@@ -241,3 +243,6 @@ Options Indexes FollowSymLinks MultiViews
 >- [x] Review: [**micaele-mags**](https://github.com/micaele-mags)
 
 #### __Made with *sadness* and *sorrow* in rainy nights by [Weslley Araújo](https://github.com/wellwelwel)__ 🖤
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web?ref=badge_large)
