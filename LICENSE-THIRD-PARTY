@@ -1,0 +1,1021 @@
+================================================================================
+================================================================================
+
+                      Third-Party Software for simple-web
+
+--------------------------------------------------------------------------------
+
+The following 3rd-party software packages may be used by or distributed with simple-web. Any information relevant to third-party vendors listed below are collected using common, reasonable means.
+
+Date generated: 2021-11-22
+
+Revision ID: bc4799a10beab7d254d19fdd52b06c90067d5b80
+
+================================================================================
+================================================================================
+
+
+
+
+
+================================================================================
+
+                                  Dependencies
+
+================================================================================
+
+
+
+--------------------------------------------------------------------------------
+archiver (^5.3.0)
+--------------------------------------------------------------------------------
+
+a streaming interface for archive generation
+
+* Declared Licenses *
+MIT
+
+Copyright (c) 2012-2014 Chris Talkington, contributors.
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The ab...
+
+Copyright (c) 2012-2014 Chris Talkington, contributors.
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The ab...
+
+
+* Package Info *
+
+Authors: chris@talkingtontech.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/archiver
+
+Package Download URL: https://registry.npmjs.org/archiver/-/archiver-5.3.0.tgz
+
+Dependency Path: archiver
+
+--------------------------------------------------------------------------------
+autoprefixer (10.4.0)
+--------------------------------------------------------------------------------
+
+Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website
+
+* Declared Licenses *
+MIT
+
+The MIT License (MIT)
+
+Copyright 2013 Andrey Sitnik <andrey@sitnik.ru>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following cond...
+
+The MIT License (MIT)
+
+Copyright 2013 Andrey Sitnik <andrey@sitnik.ru>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following cond...
+
+
+* Package Info *
+
+Authors: andrey@sitnik.ru
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/autoprefixer
+
+Package Download URL: https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.0.tgz
+
+Dependency Path: autoprefixer
+
+--------------------------------------------------------------------------------
+@babel/cli (7.16.0)
+--------------------------------------------------------------------------------
+
+Babel command line.
+
+* Declared Licenses *
+MIT
+
+MIT License
+
+Copyright (c) 2014-present Sebastian McKenzie and other contributors
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the fol...
+
+MIT License
+
+Copyright (c) 2014-present Sebastian McKenzie and other contributors
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the fol...
+
+
+* Package Info *
+
+Authors: hi@henryzoo.com, loganfsmyth@gmail.com, npm@tschinder.de
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/@babel/cli
+
+Package Download URL: https://registry.npmjs.org/@babel/cli/-/cli-7.16.0.tgz
+
+Dependency Path: @babel/cli
+
+--------------------------------------------------------------------------------
+@babel/core (7.16.0)
+--------------------------------------------------------------------------------
+
+Babel compiler core.
+
+* Declared Licenses *
+MIT
+
+MIT License
+
+Copyright (c) 2014-present Sebastian McKenzie and other contributors
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the fol...
+
+MIT License
+
+Copyright (c) 2014-present Sebastian McKenzie and other contributors
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the fol...
+
+
+* Package Info *
+
+Authors: hi@henryzoo.com, loganfsmyth@gmail.com, npm@tschinder.de
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/@babel/core
+
+Package Download URL: https://registry.npmjs.org/@babel/core/-/core-7.16.0.tgz
+
+Dependency Path: @babel/core
+
+--------------------------------------------------------------------------------
+@babel/preset-env (7.16.4)
+--------------------------------------------------------------------------------
+
+A Babel preset for each environment.
+
+* Declared Licenses *
+MIT
+
+MIT License
+
+Copyright (c) 2014-present Sebastian McKenzie and other contributors
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the fol...
+
+MIT License
+
+Copyright (c) 2014-present Sebastian McKenzie and other contributors
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the fol...
+
+
+* Package Info *
+
+Authors: hi@henryzoo.com, loganfsmyth@gmail.com, npm@tschinder.de
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/@babel/preset-env
+
+Package Download URL: https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.16.4.tgz
+
+Dependency Path: @babel/preset-env
+
+--------------------------------------------------------------------------------
+basic-ftp (4.6.6)
+--------------------------------------------------------------------------------
+
+FTP client for Node.js, supports FTPS over TLS, IPv6, Async/Await, and Typescript.
+
+* Declared Licenses *
+MIT
+
+Copyright (c) 2019 Patrick Juchli
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice a...
+
+Copyright (c) 2019 Patrick Juchli
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice a...
+
+
+* Other Licenses *
+Apache-1.1
+
+
+Copyright (c) 2000 The Apache Software Foundation. All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+   1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentati...
+
+Apache License 1.1
+Copyright (c) 2000 The Apache Software Foundation. All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+   1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer...
+
+
+* Package Info *
+
+Authors: patrickjuchli@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/basic-ftp
+
+Package Download URL: https://registry.npmjs.org/basic-ftp/-/basic-ftp-4.6.6.tgz
+
+Dependency Path: basic-ftp
+
+--------------------------------------------------------------------------------
+draftlog (1.0.13)
+--------------------------------------------------------------------------------
+
+Create updatable log lines into the terminal, and give life to your logs!
+
+* Declared Licenses *
+MIT
+
+The MIT License (MIT)
+
+Copyright (c) 2017 Ivan Seidel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The abov...
+
+The MIT License (MIT)
+
+Copyright (c) 2017 Ivan Seidel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The abov...
+
+
+* Package Info *
+
+Authors: ivanseidel@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/draftlog
+
+Package Download URL: https://registry.npmjs.org/draftlog/-/draftlog-1.0.13.tgz
+
+Dependency Path: draftlog
+
+--------------------------------------------------------------------------------
+eslint (8.3.0)
+--------------------------------------------------------------------------------
+
+An AST-based pattern checker for JavaScript.
+
+* Declared Licenses *
+MIT
+
+Copyright OpenJS Foundation and other contributors, <www.openjsf.org>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following condi...
+
+Copyright OpenJS Foundation and other contributors, <www.openjsf.org>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following condi...
+
+
+* Package Info *
+
+Authors: npm@openjsf.org, nicholas+eslint@nczconsulting.com, nicholas@nczconsulting.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/eslint
+
+Package Download URL: https://registry.npmjs.org/eslint/-/eslint-8.3.0.tgz
+
+Dependency Path: eslint
+
+--------------------------------------------------------------------------------
+file-type (16.5.3)
+--------------------------------------------------------------------------------
+
+Detect the file type of a Buffer/Uint8Array/ArrayBuffer
+
+* Declared Licenses *
+MIT
+
+Copyright (c)  Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the follo...
+
+MIT License
+Copyright (c) <year> <copyright holders>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above...
+
+
+* Package Info *
+
+Authors: sindresorhus@gmail.com, finstaden@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/file-type
+
+Package Download URL: https://registry.npmjs.org/file-type/-/file-type-16.5.3.tgz
+
+Dependency Path: file-type
+
+--------------------------------------------------------------------------------
+fs-extra (10.0.0)
+--------------------------------------------------------------------------------
+
+fs-extra contains methods that aren't included in the vanilla Node.js fs package. Such as recursive mkdir, copy, and remove.
+
+* Declared Licenses *
+MIT
+
+(The MIT License)
+
+Copyright (c) 2011-2017 JP Richardson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
+(the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,
+ merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+The...
+
+(The MIT License)
+
+Copyright (c) 2011-2017 JP Richardson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
+(the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,
+ merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+The...
+
+
+* Package Info *
+
+Authors: jprichardson@gmail.com, opensrc@ryanzim.com, manidlou@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/fs-extra
+
+Package Download URL: https://registry.npmjs.org/fs-extra/-/fs-extra-10.0.0.tgz
+
+Dependency Path: fs-extra
+
+--------------------------------------------------------------------------------
+glob (7.2.0)
+--------------------------------------------------------------------------------
+
+a little globber
+
+* Declared Licenses *
+Multi-license: CC-BY-SA-4.0 OR ISC
+
+The ISC License
+
+Copyright (c) Isaac Z. Schlueter and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPEC...
+
+The ISC License
+
+Copyright (c) Isaac Z. Schlueter and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPEC...
+
+
+* Other Licenses *
+CC-BY-SA-4.0, ISC
+
+
+The ISC License
+
+Copyright (c) Isaac Z. Schlueter and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPEC...
+
+The ISC License
+
+Copyright (c) Isaac Z. Schlueter and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPEC...
+
+
+Copyright (c)  Isaac Z. Schlueter and Contributors
+Permission to use, copy, modify, and distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+THE SOFTWARE IS PROVIDED "AS IS" AND ISC DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL ISC BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUEN...
+
+ISC License
+Copyright (c) 2004-2010 by Internet Systems Consortium, Inc. ("ISC")
+Copyright (c) 1995-2003 by Internet Software Consortium
+Permission to use, copy, modify, and /or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+THE SOFTWARE IS PROVIDED "AS IS" AND ISC DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AN...
+
+
+* Package Info *
+
+Authors: i@izs.me
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/glob
+
+Package Download URL: https://registry.npmjs.org/glob/-/glob-7.2.0.tgz
+
+Dependency Path: glob
+
+Issue Resolution Notes:
+- CC-BY-SA-4.0 conflict
+
+--------------------------------------------------------------------------------
+mime-types (2.1.34)
+--------------------------------------------------------------------------------
+
+The ultimate javascript content-type utility.
+
+* Declared Licenses *
+MIT
+
+(The MIT License)
+
+Copyright (c) 2014 Jonathan Ong <me@jongleberry.com>
+Copyright (c) 2015 Douglas Christopher Wilson <doug@somethingdoug.com>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons t...
+
+(The MIT License)
+
+Copyright (c) 2014 Jonathan Ong <me@jongleberry.com>
+Copyright (c) 2015 Douglas Christopher Wilson <doug@somethingdoug.com>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons t...
+
+
+* Package Info *
+
+Authors: doug@somethingdoug.com, jonathanrichardong@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/mime-types
+
+Package Download URL: https://registry.npmjs.org/mime-types/-/mime-types-2.1.34.tgz
+
+Dependency Path: mime-types
+
+--------------------------------------------------------------------------------
+node-watch (0.7.2)
+--------------------------------------------------------------------------------
+
+A wrapper and enhancements for fs.watch
+
+* Declared Licenses *
+MIT
+
+(The MIT License)
+
+Copyright (c) 2012-2021 Yuan Chuan <yuanchuan23@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the followi...
+
+(The MIT License)
+
+Copyright (c) 2012-2021 Yuan Chuan <yuanchuan23@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the followi...
+
+
+* Package Info *
+
+Authors: yuanchuan23@gmail.com, intervalia@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/node-watch
+
+Package Download URL: https://registry.npmjs.org/node-watch/-/node-watch-0.7.2.tgz
+
+Dependency Path: node-watch
+
+--------------------------------------------------------------------------------
+package-json (7.0.0)
+--------------------------------------------------------------------------------
+
+Get metadata of a package from the npm registry
+
+* Declared Licenses *
+MIT
+
+Copyright (c)  Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the follo...
+
+MIT License
+Copyright (c) <year> <copyright holders>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above...
+
+
+* Package Info *
+
+Authors: espen@hovlandsdal.com, sindresorhus@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/package-json
+
+Package Download URL: https://registry.npmjs.org/package-json/-/package-json-7.0.0.tgz
+
+Dependency Path: package-json
+
+--------------------------------------------------------------------------------
+postcss-cli (9.0.2)
+--------------------------------------------------------------------------------
+
+CLI for PostCSS
+
+* Declared Licenses *
+MIT
+
+License (MIT)
+
+Copyright (c) 2016 Michael Ciniawsky
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above ...
+
+License (MIT)
+
+Copyright (c) 2016 Michael Ciniawsky
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above ...
+
+
+* Package Info *
+
+Authors: andrey@sitnik.ru, opensrc@ryanzim.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/postcss-cli
+
+Package Download URL: https://registry.npmjs.org/postcss-cli/-/postcss-cli-9.0.2.tgz
+
+Dependency Path: postcss-cli
+
+--------------------------------------------------------------------------------
+rimraf (3.0.2)
+--------------------------------------------------------------------------------
+
+A deep deletion module for node (like `rm -rf`)
+
+* Declared Licenses *
+ISC, MIT
+
+Copyright (c) 2021, rimraf Contributors
+Permission to use, copy, modify, and distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+THE SOFTWARE IS PROVIDED "AS IS" AND ISC DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL ISC BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGE...
+
+ISC License
+Copyright (c) 2004-2010 by Internet Systems Consortium, Inc. ("ISC")
+Copyright (c) 1995-2003 by Internet Software Consortium
+Permission to use, copy, modify, and /or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+THE SOFTWARE IS PROVIDED "AS IS" AND ISC DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AN...
+
+
+The ISC License
+
+Copyright (c) Isaac Z. Schlueter and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPEC...
+
+The ISC License
+
+Copyright (c) Isaac Z. Schlueter and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPEC...
+
+
+* Package Info *
+
+Authors: i@izs.me
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/rimraf
+
+Package Download URL: https://registry.npmjs.org/rimraf/-/rimraf-3.0.2.tgz
+
+Dependency Path: rimraf
+
+--------------------------------------------------------------------------------
+sass (1.43.4)
+--------------------------------------------------------------------------------
+
+A pure JavaScript implementation of Sass.
+
+* Declared Licenses *
+Multi-license: Apache-2.0 OR BSD-2-Clause OR BSD-3-Clause OR MIT
+
+Dart Sass license:
+
+Copyright (c) 2016, Google Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above ...
+
+Dart Sass license:
+
+Copyright (c) 2016, Google Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above ...
+
+
+* Other Licenses *
+MIT
+
+
+Copyright (c) 2016 Google Inc.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and t...
+
+MIT License
+Copyright (c) <year> <copyright holders>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above...
+
+
+* Package Info *
+
+Authors: nex342@gmail.com, xzyfer@gmail.com, hcatlin@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/sass
+
+Package Download URL: https://registry.npmjs.org/sass/-/sass-1.43.4.tgz
+
+Dependency Path: sass
+
+--------------------------------------------------------------------------------
+uglifycss (0.0.29)
+--------------------------------------------------------------------------------
+
+Port of YUI CSS Compressor to NodeJS
+
+* Declared Licenses *
+MIT
+
+Copyright (c) Franck Marcia
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and thi...
+
+Copyright (c) Franck Marcia
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and thi...
+
+
+* Other Licenses *
+Multi-license: BSD-3-Clause OR MIT
+
+
+Copyright (c) Franck Marcia
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and thi...
+
+Copyright (c) <year> <owner>
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+   1. Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+
+   2. Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation
+    ...
+
+
+* Package Info *
+
+Authors: franck.marcia@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/uglifycss
+
+Package Download URL: https://registry.npmjs.org/uglifycss/-/uglifycss-0.0.29.tgz
+
+Dependency Path: uglifycss
+
+--------------------------------------------------------------------------------
+uglify-js (3.14.3)
+--------------------------------------------------------------------------------
+
+JavaScript parser, mangler/compressor and beautifier toolkit
+
+* Declared Licenses *
+BSD-2-Clause
+
+UglifyJS is released under the BSD license:
+
+Copyright 2012-2019 (c) Mihai Bazon <mihai.bazon@gmail.com>
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+    * Redistributions of source code must retain the above
+      copyright notice, this list of conditions and the following
+      disclaimer.
+
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of cond...
+
+UglifyJS is released under the BSD license:
+
+Copyright 2012-2019 (c) Mihai Bazon <mihai.bazon@gmail.com>
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+    * Redistributions of source code must retain the above
+      copyright notice, this list of conditions and the following
+      disclaimer.
+
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of cond...
+
+
+* Package Info *
+
+Authors: alexlamsl@gmail.com, mihai.bazon@gmail.com, rvanvelzen1@gmail.com
+
+Package Manager: NPM
+
+Project URL: https://www.npmjs.com/package/uglify-js
+
+Package Download URL: https://registry.npmjs.org/uglify-js/-/uglify-js-3.14.3.tgz
+
+Dependency Path: uglify-js
+
+
+================================================================================
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Report Generated by FOSSA on 2021-11-22
