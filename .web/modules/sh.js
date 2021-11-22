@@ -58,8 +58,10 @@ class draft {
       this.message = console.draft('');
       this.status = {
 
+         0: `${sh.red}✖`,
          1: `${sh.green}✔`,
-         0: `${sh.red}✖`
+         2: `${sh.yellow}⚠`,
+         3: `${sh.blue}ℹ`
       };
       this.start = () => {
 

@@ -17,7 +17,10 @@
       }
    },
    "resources": {
-      "src": "./resources",
-      "replace": true
+      "src": ".resources",
+      "replace": {
+         "dev": false,
+         "build": true
+      }
    }
 }

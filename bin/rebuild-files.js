@@ -41,6 +41,7 @@ const rebuildFiles = async () => {
       '@babel/core',
       '@babel/preset-env',
       'autoprefixer',
+      'eslint',
       'postcss-cli',
       'sass',
       'uglify-js'
@@ -49,13 +50,13 @@ const rebuildFiles = async () => {
    /* package.json */
    try {
    
-      if (!package?.dependencies) package.dependencies = { };
+      if (!package?.devDependencies) package.devDependencies = { };
       
       for (const dependence of dependencies) {
 
-         if (!package?.dependencies[dependence]) {
+         if (!package?.devDependencies?.[dependence] && !package?.dependencies?.[dependence] && !package?.bundleDependencies?.[dependence]) {
 
-            package.dependencies[dependence] = `^${await latest(dependence)}`;
+            package.devDependencies[dependence] = `^${await latest(dependence)}`;
             
             if (!stage.package) stage.package = true;
             if (!stage.npm_i) stage.npm_i = true;

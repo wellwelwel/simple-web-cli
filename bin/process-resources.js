@@ -35,7 +35,7 @@
    }
 
    console.log(sh.clear);
-   const importing = new draft('Importing required local modules');
+   const importing = new draft(`Importing required local modules: ${sh.green}${sh.dim}[ ${sh.italic}autoprefixer, babel, eslint, postcss, sass and uglifyjs${sh.reset}${sh.green}${sh.dim} ]`);
 
    requires.dirs.forEach(require => fse.copySync(normalize(`${__dirname}/../${require}`), normalize(`./${require}`), { overwrite: false }));
    requires.files.forEach(require => {

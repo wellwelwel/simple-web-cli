@@ -14,11 +14,15 @@ const sep = require('path').sep;
 
 (async () => {
 
-   console.log(sh.clear);
-   const starting = new draft(`Starting${sh.dim}${sh.yellow} ... ${sh.reset}${sh.bright}`, 'circle');
-
+   // console.log(sh.clear);
+   const link = new draft(`Linking the local package: ${sh.green}${sh.dim}[ .library: web ]`);
+   
+   await exec(`npm link .library`); /* link local packages */
+   link.stop(1);
    await watchClose();
-   await exec(`cd ${__dirname} && npm link .library --save-dev`); /* link local packages */
+   console.log(sh.clear);
+
+   const starting = new draft(`Starting${sh.dim}${sh.yellow} ... ${sh.reset}${sh.bright}`, 'circle');
    
    glob('temp_*', { }, (err, files) => {
       

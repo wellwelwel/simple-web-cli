@@ -123,13 +123,13 @@ async function processJS(file, local = false, replace = 'dev') {
 
       if (process_files.js.babel) {
          
-         const request = await exec(`npx --quiet babel '${pre}' -o '${pre}'`); // Babel
+         const request = await exec(`npx --quiet babel "${pre}" -o "${pre}"`); // Babel
          if (!request) error = true;
       }
       
       if (process_files.js.uglify) {
          
-         const request = await exec(`npx --quiet uglifyjs '${pre}' -o '${pre}' -c -m`); // Uglify
+         const request = await exec(`npx --quiet uglifyjs "${pre}" -o "${pre}" -c -m`); // Uglify
          if (!request) error = true;
       }
 

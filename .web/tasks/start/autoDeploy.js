@@ -39,7 +39,7 @@ module.exports = async () => {
    if (!conn) {
       
       FTP.client.close();
-      loading.ftp.stop(0, `${sh.dim}${sh.bold}FTP:${sh.reset}${sh.dim} No connected`);
+      loading.ftp.stop(3, `${sh.dim}${sh.bold}FTP:${sh.reset}${sh.dim} No connected`);
    }
    else loading.ftp.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.dim}Connected`);
 
