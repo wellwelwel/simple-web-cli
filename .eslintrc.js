@@ -1,6 +1,6 @@
 /*
-* As configurações mais comuns em padrões de projetos
-* Configure conforme sua necessidade
+* The most common settings in design patterns
+* Customize to your needs
 */
 
 module.exports = {
