@@ -12,3 +12,12 @@ yarn.lock
 .env
 .web-config.json
 .web-replace.json
+.library/@process-css
+.library/addEventListener
+.library/blacklist
+.library/empty
+.library/first-char
+.library/force-array
+.library/last-char
+.library/selector
+.library/package.json

@@ -3,7 +3,6 @@
    const fse = require('fs-extra');
    const exec = require('../.web/modules/execShellCommand');
    const { sh, draft } = require('../.web/modules/sh');
-   const { build } = require('../.web/modules/receive-args');
    const { EOL } = require('os');
    const rebuildFiles = require('../bin/rebuild-files.js');
    const [ ,, ...args ] = process.argv;
@@ -61,7 +60,17 @@
          '.main',
          '.release',
          'src/exit',
-         '.web-config.json'
+         '.web-config.json',
+         '.web-replace.json',
+         '.library/@process-css',
+         '.library/addEventListener',
+         '.library/blacklist',
+         '.library/empty',
+         '.library/first-char',
+         '.library/force-array',
+         '.library/last-char',
+         '.library/selector',
+         '.library/package.json'
       ];
       
       toIgnore.forEach(ignore => {
