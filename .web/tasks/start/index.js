@@ -44,5 +44,11 @@ const sep = require('path').sep;
       return;
    }
 
+   try {
+      
+      if (!_fs.existsSync('./.git')) await exec(`git init && git add . && git commit -m "Initial Commit"`);
+   }
+   catch (error) { /* Just ignores when no "git" installed */ }
+
    starting.stop(1, `Watching${sh.reset} ${sh.green}${sh.bold}YOU${sh.reset}${sh.dim}${sh.green} ... ${sh.reset}${sh.bright}🧟`);
 })();
