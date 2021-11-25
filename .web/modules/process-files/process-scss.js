@@ -26,7 +26,7 @@ async function processCSS(file, local = false, replace = 'dev') {
       
       for (const file in files) {
       
-         const regex = RegExp(`@import.*?${filename}`, 'gim');
+         const regex = RegExp(`(@import).*?("|')((\\.\\/|\\.\\.\\/){1,})?((.*?\\/){1,})?(_)?(${filename})(\\.scss)?("|')`, 'g');
          const content = await fs.readFile(files[file], 'utf8');
          const isValid = !!content.match(regex);
 
