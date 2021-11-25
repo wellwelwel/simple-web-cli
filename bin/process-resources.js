@@ -89,5 +89,11 @@
 
    if (!rebuilded) return;
 
+   try {
+      
+      if (!fse.existsSync('./.git')) await exec(`git init && git add . && git commit -m "Initial Commit"`);
+   }
+   catch (error) { /* Just ignores when no "git" installed */ }
+
    if (typeof alloweds[arg] === 'string') require(alloweds[arg]); /* Calls to script */
 })();
