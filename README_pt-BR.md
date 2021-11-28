@@ -18,14 +18,6 @@
 ```shell
    npx simple-web  # para iniciar o serviço
 ```
-
-- Global
-```shell
-   npm i simple-web-cli -g  # para baixar as dependências
-```
-```shell
-   simple-web  # para iniciar o serviço
-```
 <hr />
 
 ### - Desenvolvimento
