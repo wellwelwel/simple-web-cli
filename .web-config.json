@@ -29,6 +29,6 @@
          ".jsx"
       ]
    },
-   "source": "./src/",
-   "to": "./.main/"
+   "source": "src",
+   "to": ".main"
 }

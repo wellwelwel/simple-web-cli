@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "2.4.9",
+  "version": "2.4.10",
   "main": "./bin/init.js",
   "scripts": {
     "start": "node .web/tasks/start",
@@ -74,6 +74,6 @@
     "src/*"
   ],
   "engines": {
-    "node": "^14.15.0 || >=16"
+    "node": ">=14.15.0"
   }
 }
