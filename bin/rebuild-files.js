@@ -59,10 +59,15 @@ const rebuildFiles = async arg => {
             const latestVersion = await latest('simple-web-cli');
             const currentVersion = package[dependence]['simple-web-cli'].replace(/\^|>|=|~/g, '');
 
-            package[dependence]['simple-web-cli'] = `^${latestVersion}`;
-            if (!stage.package) stage.package = true;
-
             response = currentVersion === latestVersion;
+
+            if (!response) {
+
+               package[dependence]['simple-web-cli'] = `^${latestVersion}`;
+               if (!stage.package) stage.package = true;
+
+               break;
+            }
          }
       }
 
