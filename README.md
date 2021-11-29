@@ -11,7 +11,7 @@
 </p>
 
 ## Install
-- Local
+
 ```shell
    npm i simple-web-cli  # to download the dependencies
 ```
