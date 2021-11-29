@@ -9,7 +9,7 @@ The following 3rd-party software packages may be used by or distributed with **s
 
 Date generated | Revision ID
 :------------: | :----------:
-11/25/21 | 53f86f917ac2a6015470263f825554027cb16178
+11/29/21 | 0c8a191717fb60fee60fbc560cacd4c1222fd21c
 
 ---
 
@@ -780,41 +780,6 @@ THE SOFTWARE.
 
 
 **Package Download URL**: https://registry.npmjs.org/eslint/-/eslint-8.3.0.tgz
-
-
-
-
----
-
-### [file-type (17.0.0)](https://www.npmjs.com/package/file-type)
-
-Detect the file type of a Buffer/Uint8Array/ArrayBuffer
-
-
-#### Declared Licenses
-
-
-
-#### Other Licenses
-
-
-
-
-
-
-### Package Info
-
-
-**Authors**:  [sindresorhus@gmail.com](sindresorhus@gmail.com) [finstaden@gmail.com](finstaden@gmail.com)
-
-
-**Package Manager**: NPM
-
-
-**Package Homepage**: https://www.npmjs.com/package/file-type
-
-
-**Package Download URL**: https://registry.npmjs.org/file-type/-/file-type-17.0.0.tgz
 
 
 
