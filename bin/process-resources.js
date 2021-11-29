@@ -83,7 +83,7 @@
       fse.writeFileSync(normalize('./.gitignore'), gitignore);
    }
    
-   const rebuilded = await rebuildFiles();
+   const rebuilded = await rebuildFiles(arg);
    
    importing.stop(1);
 

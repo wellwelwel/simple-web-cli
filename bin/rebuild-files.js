@@ -1,5 +1,4 @@
-const rebuildFiles = async () => {
-
+const rebuildFiles = async arg => {
    
    const fse = require('fs-extra');
    const exec = require('../.web/modules/execShellCommand');
@@ -7,6 +6,7 @@ const rebuildFiles = async () => {
    const readJSON = file => JSON.parse(fse.readFileSync(file, 'utf-8'));
    const buildJSON = obj => orderJSON(obj, 2);
    const package = readJSON('package.json') || { };
+   const web_config = readJSON('.web-config.json') || { };
    const babelrc = readJSON('.babelrc') || { };
    const stage = {
       
@@ -46,9 +46,40 @@ const rebuildFiles = async () => {
       'sass',
       'uglify-js'
    ];
+   const isLatestVersion = async typeDependencies => {
+
+      if (arg === 'init' || web_config?.dev?.['auto-check-version'] === false) return true;
+
+      let response = true;
+
+      for (const dependence of typeDependencies) {
+         
+         if (package?.[dependence]?.['simple-web-cli']) {
+   
+            const latestVersion = await latest('simple-web-cli');
+            const currentVersion = package[dependence]['simple-web-cli'].replace(/\^|>|=|~/g, '');
+
+            package[dependence]['simple-web-cli'] = `^${latestVersion}`;
+            if (!stage.package) stage.package = true;
+
+            response = currentVersion === latestVersion;
+         }
+      }
+
+      return response;
+   };
 
    /* package.json */
    try {
+
+      if (!await isLatestVersion([ 'devDependencies', 'dependencies', 'bundleDependencies' ])) {
+         
+         try {
+         
+            await exec('npm i simple-web-cli');
+         }
+         catch (error) { /* Just ignores when on error */ }
+      }
    
       if (!package?.devDependencies) package.devDependencies = { };
       
