@@ -45,7 +45,7 @@ async function recursive_require(file, replace) {
 
          // Check module
          let current = await fs.readFile(require, 'utf8');
-         current = current.replace(/(\/\*[\s\S]*?\*\/)|(\/{2}.*)|(^\s*$)/gim, '').trim();
+         current = current.replace(/([^https:\/\/])(\/{2}.*?)|((\/\*[\s\S]*?\*\/|^\s*$))/gim, '').trim();
 
          const outputModule = /(module.exports\s=\s(.*?);)/;
          const isModule = outputModule.test(current) ? outputModule.exec(current)[2] : false;
