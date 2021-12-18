@@ -21,20 +21,20 @@ const processHTML = content => {
       const backup_inline_scripts = { };
       const backup_styles = { };
       const backup_strings_JS = { };
-      
+
       /* CSS */
       for (const key_inline_style in inline_styles) {
-         
+
          /* Gera e substitui cada <style> por um ID */
          const id_inline_style = randomID();
          /* Transcreve o id de cada <style> */
          new_content = new_content.replace(inline_styles[key_inline_style], id_inline_style);
-   
+
          /* Guarda o conteúdo interno de cada seletor css do <style> atual na memória */
          const styles = inline_styles[key_inline_style].match(/{(.|\n)*?}/gim);
 
          for (const key_style in styles) {
-            
+
             /* Gera e substitui cada conteúdo interno dos selectores css por um ID */
             const id_style = randomID();
             /* Atribui o id no lugar do <style> */
@@ -98,7 +98,7 @@ const processHTML = content => {
 
       /* JS */
       for (const key in inline_scripts) {
-         
+
          /* Gera e substitui cada <script> por um ID */
          const id_inline_script = randomID();
          /* Transcreve o id de cada <script> */
@@ -106,10 +106,10 @@ const processHTML = content => {
 
          /* Guarda strings do conteúdo na memória */
          const strings_JS = inline_scripts[key].match(/(('.*?')|(".*?")|(`.*?`))/gim);
-      
+
          /* Gera e substitui cada string por um ID */
          for (const key_strings_js in strings_JS) {
-      
+
             const id = randomID();
 
             backup_strings_JS[id] = strings_JS[key_strings_js];
@@ -176,11 +176,11 @@ const processHTML = content => {
       if (!!new_content) content = new_content.trim();
    }
    catch(e) {
-      
+
       /* Em caso de erro, será retornado o conteúdo original */
    }
    finally {
-      
+
       return content;
    }
 }

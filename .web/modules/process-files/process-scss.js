@@ -20,12 +20,12 @@ async function processCSS(file, local = false, replace = 'dev') {
    const tempDIR = `temp_${(new Date()).valueOf().toString()}`;
 
    if (_ && fileType === 'scss') {
-      
+
       const files = await listFiles(source, 'scss');
       const filename =  file.split(sep).pop().replace(/_/, '').replace(/.scss/, '');
-      
+
       for (const file in files) {
-      
+
          const regex = RegExp(`(@import).*?("|')((\\.\\/|\\.\\.\\/){1,})?((.*?\\/){1,})?(_)?(${filename})(\\.scss)?("|')`, 'g');
          const content = await fs.readFile(files[file], 'utf8');
          const isValid = !!content.match(regex);
@@ -51,9 +51,9 @@ async function processCSS(file, local = false, replace = 'dev') {
       request = await exec(`npx sass --quiet "${file}":"${tempCSS}" --no-source-map${process_files.css.uglifycss && process ? ' --style compressed' : ''}`);
    }
    else if (fileType === 'css') {
-      
+
       await fs.copyFile(file, tempCSS);
-      
+
       request = true;
    }
 

@@ -24,11 +24,11 @@ const processHTACCESS = content => {
       if (!!new_content) content = new_content.trim();
    }
    catch(e) {
-      
+
       /* Em caso de erro, será retornado o conteúdo original */
    }
    finally {
-      
+
       return content;
    }
 

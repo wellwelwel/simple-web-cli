@@ -22,9 +22,9 @@ const Schedule = require('../../modules/schedule');
 const serverOSNormalize = require('../../modules/server-os-normalize');
 
 module.exports = async () => {
-   
+
    const loading = {
-      
+
       ftp: new draft('', `circle`, false)
    };
 
@@ -37,7 +37,7 @@ module.exports = async () => {
    const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
    const conn = pre_connect ? await FTP.connect({ host: host, user: user, pass: pass, root: root, secure: secure }) : false;
    if (!conn) {
-      
+
       FTP.client.close();
       loading.ftp.stop(3, `${sh.dim}${sh.bold}FTP:${sh.reset}${sh.dim} No connected`);
    }
@@ -51,13 +51,13 @@ module.exports = async () => {
    const onSrc = async (event, file) => {
 
       if (!!file.match(/DS_Store/)) {
-         
+
          await deleteDS_Store();
          return;
       }
 
       if (file === `${source}${sep}exit`) {
-         
+
          FTP.client.close();
          watcherSource.close();
          watcherMain.close();
@@ -74,40 +74,40 @@ module.exports = async () => {
       else if (deploy.scheduling.file === file) return;
 
       const log = { building: new draft('', `dots`, false) };
-      
+
       const fileType = file.split('.').pop().toLowerCase();
       const finalFile = file.replace(source, to);
 
       let pathFile = file.split(sep); pathFile.pop(); pathFile = pathFile.join(sep);
-      
+
       if (event === 'update') {
 
          log.building.start();
          log.building.string = `Building ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
 
          let status = 1;
-         
+
          /* pre processed files */
          if (fileType === 'js') {
-            
+
             const request = await processJS(file);
 
             if (!request) status = 0;
          }
          else if (fileType === 'scss' || fileType === 'css') {
-            
+
             const request = await processCSS(file);
 
             if (!request) status = 0;
          }
          else {
-         
+
             /* post process */
             createDir(pathFile.replace(source, to));
-   
+
             const original = await postProcess({src: file, response: true});
             let minified = false;
-            
+
             /* specials */
             if (!no_process(file)) {
 
@@ -115,7 +115,7 @@ module.exports = async () => {
                else if (fileType === 'html')  minified = await processHTML(original);
                else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
             }
-   
+
             await fs.writeFile(finalFile, !minified ? original : minified);
          }
 
@@ -140,17 +140,17 @@ module.exports = async () => {
          log.building.stop(1);
       }
    }
-   
+
    watcherSource.on('change', (event, file) => onSrc(event, file));
-  
+
    watcherMain.on('change', async (event, file) => {
 
       if (!!file.match(/DS_Store/)) {
-         
+
          await deleteDS_Store();
          return;
       }
-      
+
       const connected = await isConnected();
 
       async function deployFile() {
@@ -160,19 +160,19 @@ module.exports = async () => {
 
          log.status.start();
          log?.deploy && log.deploy.start();
-      
+
          /* shows file or directory that is in attendance */
          if (event == 'update') {
-            
+
             log.status.stop(1, `Copied ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
             if (connected && conn) log.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
          }
          else {
-            
+
             log.status.stop(1, `Removed ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
             if (connected && conn) log.deploy.string = `Removing ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
          }
-         
+
          if (connected && conn) {
 
             const action = event == 'update' ? await FTP.send(file, deploy) : await FTP.remove(file, isDir);
@@ -180,14 +180,14 @@ module.exports = async () => {
             log.deploy.stop(!!action ? 1 : 0, FTP.client.error);
          }
       }
-      
+
       const isDir = file.split(sep).pop().includes('.') ? false : true;
       if (event == 'update' && isDir) return;
-      
+
       /* Verificar se o item já está em processamento */
       if (!deploy.scheduling?.copying) deploy.scheduling.copying = file;
       else if (deploy.scheduling.copying === file) return;
-      
+
       deploy.queue(deployFile, file);
       await deploy.start();
    });
@@ -195,7 +195,7 @@ module.exports = async () => {
    watcherModules.on('change', async (event, file) => {
 
       if (!!file.match(/DS_Store/)) {
-         
+
          await deleteDS_Store();
          return;
       }
@@ -209,7 +209,7 @@ module.exports = async () => {
       const js = await listFiles(source, 'js', requiredResources);
 
       for (const dependence of js) {
-         
+
          const file_dependence = fs.readFileSync(dependence, 'utf8');
          const to_process = !!file_dependence.match(required);
 

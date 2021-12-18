@@ -13,7 +13,7 @@ const processCSS = options => {
 
    const head = $('head');
    const style = document.createElement('style');
-   
+
    style.id = 'dinamic-styles';
 
    /* ----------------------------- */
@@ -37,7 +37,7 @@ const processCSS = options => {
    const properties = /undefined/.test(typeof options) ? Object.keys(allowed) : options;
 
    properties.forEach(property => {
-      
+
       if (allowed[property]) allowed[property](property);
    });
 

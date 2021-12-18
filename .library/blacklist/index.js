@@ -53,17 +53,17 @@ class Blacklist {
 
                // "explode" cada caractere para um array
                const item_split = item.split('');
-               
+
                // prepara variáveis para o loop
                let count = 0;
                let item_regex = '';
-         
+
                // percorre cada caractere e cria um regex para cada combinação do objeto "cheat" no caractere relacionado
                item_split.forEach(character => {
-         
+
                   count++;
                   const currentCheat = cheats[character];
-                  
+
                   if (currentCheat) {
 
                      const item_length = item_split.length;
@@ -78,7 +78,7 @@ class Blacklist {
                      item_regex += count < item_length ? `(${character}.?${cheatMid})` : `(${character}${cheatLast})`;
                   }
                });
-         
+
                // guarda na memória o regex final gerado pelo loop
                blacklistRegex.push(RegExp(item_regex, 'gim'));
             });
@@ -91,26 +91,26 @@ class Blacklist {
                // valida os parâmetros
                if (typeof text !== 'string' || text?.trim().length === 0) throw('O conteúdo a ser validado precisa ser do tipo string');
                if (blacklist.length === 0) return true;
-               
+
                // normalizar dígitos (como "\u0061" de volta para "a")
                text = text.normalize('NFC');
                // remover espaços duplicados
                text = text.replace(/\s/gim, ' ');
-               
+
                // guarda, caso ocorra, os "matchs" com os itens da blacklist
                const invalids = [];
                // guarda, caso ocorra, os caracteres unicodes
                const unicodes = text.match(getUnicode) || [];
-            
+
                // verifica ocorrências para cada regex gerado
                blacklistRegex.forEach(regex => {
-            
+
                   // cria um array com as ocorrências, caso houver
                   const words = text.match(regex);
-            
+
                   if (words?.length > 0) Object.assign(invalids, words);
                });
-               
+
                return invalids?.length > 0 || unicodes?.length > 0 ? { matchs: invalids, unicodes: unicodes } : true;
             }
             catch(error) {

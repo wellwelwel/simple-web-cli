@@ -1,7 +1,7 @@
 module.exports = (file, publish = false) => {
 
    if (publish) {
-      
+
       return [
 
          'git config --local user.name github-actions',

@@ -20,7 +20,7 @@ async function recursive_require(file, replace) {
 
    let content = await postProcess({ src: file, response: true, local: replace });
    const requireds = content.match(/require\(.*?\);/gim);
-   
+
    for (const required in requireds) {
 
       try {
@@ -29,15 +29,15 @@ async function recursive_require(file, replace) {
          const origins = requiredResources.split(sep);
          if (origins.length > 1) origins.forEach(folder => fixPath = fixPath.replace(folder, ''));
          else fixPath = fixPath.replace(requiredResources, '');
-   
+
          const regex = /(require\([''`])(.+?)([''`]\);)/;
          const requiredName = regex.exec(fixPath)[2].replace(RegExp(packageName.name.replace(/\//, '\\/'), 'gim'), '');
          const exist_require = () => {
-   
+
             const required_path = normalize(`${requiredResources}${sep}${requiredName}`);
-   
+
             if (_fs.existsSync(`${required_path}${sep}index.js`)) return `${required_path}${sep}index.js`;
-            
+
             throw(`O arquivo '${requiredName}' não foi encontrado na biblioteca`);
          };
 
@@ -59,7 +59,7 @@ async function recursive_require(file, replace) {
       }
       catch (e) { }
    }
-   
+
    return content;
 }
 
@@ -98,11 +98,11 @@ async function processJS(file, local = false, replace = 'dev') {
       let result = false;
 
       if (exclude_files) {
-         
+
          for (const exclude of exclude_files) {
-   
+
             if (vReg(exclude).test(file)) {
-               
+
                result = true;
                break;
             }
@@ -122,13 +122,13 @@ async function processJS(file, local = false, replace = 'dev') {
       if (no_process(pre)) return;
 
       if (process_files.js.babel) {
-         
+
          const request = await exec(`npx --quiet babel "${pre}" -o "${pre}"`); // Babel
          if (!request) error = true;
       }
-      
+
       if (process_files.js.uglify) {
-         
+
          const request = await exec(`npx --quiet uglifyjs "${pre}" -o "${pre}" -c -m`); // Uglify
          if (!request) error = true;
       }
@@ -143,7 +143,7 @@ async function processJS(file, local = false, replace = 'dev') {
    }
 
    /* ------------------------------------------------------------- */
-      
+
    await pre_process();
    const request = await process();
    await post_process();

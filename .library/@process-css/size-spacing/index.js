@@ -3,13 +3,13 @@ function size_spacing(property) {
    'use strict';
 
    const default_props = { };
-   
+
    /* ----------------------------- */
 
    function set_default_props(selector, prop) {
 
       const general_props = {
-         
+
          [selector]: `${prop}:{v}{u}`,
       };
       const spacing_props = {
@@ -21,16 +21,16 @@ function size_spacing(property) {
          [`${selector}v`]: `${prop}-top:{v}{u};${prop}-bottom:{v}{u}`,
          [`${selector}h`]: `${prop}-left:{v}{u};${prop}-right:{v}{u}`,
       };
-      
+
       if (!/w|h/.test(selector)) Object.assign(general_props, spacing_props);
 
       return general_props;
    }
 
    function applyStyle(dinamic_style) {
-      
+
       const array_dinamic_style = dinamic_style.split('-');
-   
+
       const prop = array_dinamic_style[0];
       const val = array_dinamic_style[1];
       const un = array_dinamic_style[2]?.replace('pct', '%') || 'px';
@@ -71,7 +71,7 @@ function size_spacing(property) {
       elements.forEach(e => e.classList.forEach(name => name.match(valid_class)?.forEach(dinamic_style => applyStyle(dinamic_style))));
    }
    catch (err) {
-      
+
       console.error(err);
    }
 }

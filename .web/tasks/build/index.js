@@ -39,9 +39,9 @@ const serverOSNormalize = require('../../modules/server-os-normalize');
    const final = to.replace(/^\./, '');
 
    await watchClose();
-   
+
    try {
-      
+
       async function buildFiles() {
 
          const files = await listFiles(source);
@@ -51,9 +51,9 @@ const serverOSNormalize = require('../../modules/server-os-normalize');
          let count = 0;
 
          for (const file of files) {
-            
+
             const type = `.${file.split('.').pop()}`;
-            
+
             if (type.length >= 10 || types.length >= 10) {
 
                if (!typesOver.includes(type)) typesOver.push(type);
@@ -62,97 +62,97 @@ const serverOSNormalize = require('../../modules/server-os-normalize');
 
             if (!types.includes(type)) types.push(type);
          }
-         
+
          const moreTypes = typesOver.length > 0 ? ` and ${typesOver.length} more` : '';
          const loading = new draft('', `dots`, false);
          const prefix = () => `Compiling ${sh.bold}${sh.blue}${count}${sh.reset}${sh.dim}${sh.white} of ${sh.reset}${sh.bold}${sh.blue}${files.length}${sh.reset} files: `;
 
          loading.start();
-         
+
          if (files.length === 0) {
-            
+
             loading.stop(1, 'Nothing to compile');
             return;
          }
-         
+
          for (const file of files) {
-            
+
             loading.string = `${prefix()}${sh.blue}${file}`;
 
             const fileType = file.split('.').pop().toLowerCase();
             const finalFile = file.replace(source, to);
-      
+
             let pathFile = file.split(sep); pathFile.pop(); pathFile = pathFile.join(sep);
-               
-            /* pre processed files */   
+
+            /* pre processed files */
             if (fileType === 'js') await processJS(file, to, 'build', false);
             else if (fileType === 'scss' || fileType === 'css') await processCSS(file, to, 'build');
             else {
-            
+
                /* post process */
                createDir(pathFile.replace(source, to));
-      
+
                const original = await postProcess({src: file, response: true, local: 'build'});
                let minified = false;
-               
+
                /* specials */
                if (!no_process(file)) {
-   
+
                   if (fileType === 'php' || fileType === 'phtml') minified = await processPHP(original);
                   else if (fileType === 'html')  minified = await processHTML(original);
                   else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
                }
-      
+
                await fs.writeFile(finalFile, !minified ? original : minified);
             }
 
             count++;
          }
-         
+
          loading.stop(1, `${prefix()}${sh.blue}${types.join(', ')}${moreTypes}`);
       }
-      
+
       async function resolveConflicts() {
-      
+
          const loading = new draft(`Resolving possible conflicts`);
-      
+
          if (_fs.existsSync(`${final}.zip`)) await fs.unlink(`${final}.zip`);
          if (_fs.existsSync(to)) await fs.rm(to, { recursive: true, force: true });
 
          loading.stop(1);
       }
-      
+
       async function gerarDeploy() {
 
          const loading = new draft(`Compressing built files`);
 
          try {
-            
-            const files = await listFiles(to) || [];   
+
+            const files = await listFiles(to) || [];
             const output = _fs.createWriteStream(`${final}.zip`);
             const archive = archiver('zip', { zlib: { level: process.env.level } });
-   
+
             archive.pipe(output);
             for (const file of files) archive.file(file, { name: file });
             await archive.finalize();
-   
+
             loading.stop(1, `Successfully compressed into: ${sh.underscore}${sh.blue}${sh.bold}./${final}.zip`);
          }
          catch (error) {
-            
+
             loading.stop(1, `Nothing to compress`);
          }
       }
-      
+
       async function clearTemp() {
-      
+
          const loading = new draft(`Deleting temporary files`);
-      
+
          glob('temp_*', { }, (err, files) => {
-      
+
             if (files.length > 0) rimraf('temp_*', () => { });
          });
-         
+
          if (_fs.existsSync(`${source}${sep}exit`)) await fs.unlink(`${source}${sep}exit`);
          if (_fs.existsSync(to)) await fs.rm(to, { recursive: true, force: true });
 
@@ -162,16 +162,16 @@ const serverOSNormalize = require('../../modules/server-os-normalize');
       async function send() {
 
          const loading = new draft(`${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`);
-         
+
          const { host, user, pass, secure } = dev.ftp;
          const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
          const conn = pre_connect ? await FTP.connect({ host: host, user: user, pass: pass, root: process.env.ftp, secure: secure }) : false;
-         
+
          if (!conn) {
-            
+
             FTP.client.close();
             loading.stop(0, `${sh.dim}${sh.bold}FTP:${sh.reset}${sh.dim} No connected`);
-            
+
             return;
          }
 
@@ -194,21 +194,21 @@ const serverOSNormalize = require('../../modules/server-os-normalize');
 
             return ('00' + n).slice(-z);
          }
-         
+
          const ms = s % 1000;
          s = (s - ms) / 1000;
          const secs = s % 60;
          s = (s - secs) / 60;
          const mins = s % 60;
          const hrs = (s - mins) / 60;
-         
+
          return `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
       }
 
       /* Início */
       console.log();
       const startTime = performance.now();
-      
+
       await resolveConflicts();
       await buildFiles();
       await gerarDeploy();

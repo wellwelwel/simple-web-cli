@@ -12,7 +12,7 @@ const privateCachedAccess = { };
 const publicCachedAccess = { };
 
 async function reconnect() {
-   
+
    await connect();
 }
 
@@ -31,7 +31,7 @@ async function connect(access = false) {
       if (await isConnected()) {
 
          await client.access({
-      
+
             host: privateCachedAccess.host,
             user: privateCachedAccess.user,
             password: privateCachedAccess.pass,
@@ -46,7 +46,7 @@ async function connect(access = false) {
       return true;
    }
    catch(err) {
-   
+
       client.error = `${sh.reset}${sh.red}${err}`;
       return false;
    }
@@ -57,7 +57,7 @@ async function send(file, waiting) {
    try {
 
       client.error = false;
-      
+
       const receiver = file.replace(`${to}${sep}`, '');
 
       if (client.closed) await reconnect(file);
@@ -68,7 +68,7 @@ async function send(file, waiting) {
          const timer = setInterval(resolve);
 
          if (!waiting?.scheduling?.started) {
-            
+
             clearInterval(timer);
             resolve();
          }
@@ -82,7 +82,7 @@ async function send(file, waiting) {
 
          /* Tenta criar diretório antes de enviar os arquivos */
          const receiver = file.replace(`${to}${sep}`, '');
-   
+
          if (client.closed) await reconnect(file);
 
          const arrDir = receiver.split(sep); arrDir.pop();
@@ -92,14 +92,14 @@ async function send(file, waiting) {
          await new Promise(async resolve => {
 
             const timer = setInterval(resolve);
-   
+
             if (!waiting?.scheduling?.started) {
-               
+
                clearInterval(timer);
                resolve();
             }
          });
-   
+
          return true;
       }
       catch(err) {

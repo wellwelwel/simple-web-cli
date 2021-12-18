@@ -8,7 +8,7 @@ const resourceReplace = require('../resource-replace');
 const post_process = async (options = { }) => {
 
    const config = {
-      
+
       src: options.src || false,
       to: options.to || false,
       local: options.local || 'dev',
@@ -19,9 +19,9 @@ const post_process = async (options = { }) => {
    if (!response) {
 
       if (!src || !to) return false;
-      if (!fse.existsSync(src)) return false;  
+      if (!fse.existsSync(src)) return false;
    }
-   
+
    const get_replaces = await post_replace();
    const mimetype = `${mime.lookup(src)}`;
    const isValid = /plain|text|application|false/.test(mimetype) ? true : false;
@@ -49,7 +49,7 @@ const post_process = async (options = { }) => {
       if (isValid && isReplaceable()) {
 
          let new_content = content;
-   
+
          for (const string in get_replaces.strings) {
 
             if (string.split('*').length === 3 && string.substring(0, 1) === '*' && string.substring(string.length, string.length - 1) === '*') {
@@ -67,13 +67,13 @@ const post_process = async (options = { }) => {
                if (stringToReplace || empty(stringToReplace)) new_content = new_content.replace(regex, stringToReplace);
             }
          }
-   
+
          if (!!new_content) content = new_content;
       }
    }
    catch(e) { }
    finally {
-      
+
       if (response === true) return content
       else await fsep.writeFile(to, content);
    }

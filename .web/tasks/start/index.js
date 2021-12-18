@@ -16,28 +16,28 @@ const sep = require('path').sep;
 
    // console.log(sh.clear);
    const link = new draft(`Linking the local package: ${sh.green}${sh.dim}[ .library: web ]`);
-   
+
    await exec(`npm link .library`); /* link local packages */
    link.stop(1);
    await watchClose();
    console.log(sh.clear);
 
    const starting = new draft(`Starting${sh.dim}${sh.yellow} ... ${sh.reset}${sh.bright}`, 'circle');
-   
+
    glob('temp_*', { }, (err, files) => {
-      
+
       if (files.length > 0) rimraf('temp_*', () => { });
    });
-      
+
    await deleteDS_Store();
 
    if (_fs.existsSync('temp')) await fs.rm('temp', { recursive: true, force: true });
    if (_fs.existsSync(`${source}/exit`)) await fs.unlink(`${source}${sep}exit`);
-   
+
    const success = await autoDeploy();
 
    if (!success) {
-      
+
       await watchClose();
 
       starting.stop(0, `Falha ao iniciar processos`);

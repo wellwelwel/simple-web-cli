@@ -28,7 +28,7 @@
    };
 
    if (!alloweds[arg]) {
-      
+
       console.error(`Command "${arg}" not found.${EOL}Use "init", "start" or "build".${EOL}`);
       return;
    }
@@ -43,9 +43,9 @@
    });
 
    if (!fse.existsSync(normalize('./package.json'))) {
-      
 
-      fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_package.json`), normalize('./package.json'));         
+
+      fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_package.json`), normalize('./package.json'));
       await exec('npm i');
    }
    if (!fse.existsSync(normalize('./.web-config.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-config.json`), normalize('./.web-config.json'));
@@ -53,10 +53,10 @@
    if (!fse.existsSync(normalize('./.eslintignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_eslintignore`), normalize('./.eslintignore'));
    if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
    else {
-      
+
       let gitignore = fse.readFileSync(normalize('./.gitignore'), 'utf-8');
       const toIgnore = [
-         
+
          '.main',
          '.release',
          'src/exit',
@@ -72,25 +72,25 @@
          '.library/selector',
          '.library/package.json'
       ];
-      
+
       toIgnore.forEach(ignore => {
-         
+
          const regex = RegExp(ignore, 'gm');
-         
+
          if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
       });
-      
+
       fse.writeFileSync(normalize('./.gitignore'), gitignore);
    }
-   
+
    const rebuilded = await rebuildFiles(arg);
-   
+
    importing.stop(1);
 
    if (!rebuilded) return;
 
    try {
-      
+
       if (!fse.existsSync('./.git')) await exec(`git init && git add . && git commit -m "Initial Commit"`);
    }
    catch (error) { /* Just ignores when no "git" installed */ }

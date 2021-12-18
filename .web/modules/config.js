@@ -9,7 +9,7 @@ if (!config?.dev || !config?.dev?.ftp || typeof config?.dev?.ftp?.root !== 'stri
    config.dev = {
 
       ftp: {
-   
+
          root: '',
          host: '',
          user: '',

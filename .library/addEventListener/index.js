@@ -9,13 +9,13 @@
 (() => {
 
    function addEventListener(type, listener, useCapture = false) {
-   
+
       this.forEach(element => {
-         
+
          element instanceof Node && element.addEventListener(type, listener, useCapture);
       });
    }
-   
+
    NodeList.prototype.addEventListener = addEventListener;
    Array.prototype.addEventListener = addEventListener;
 })();

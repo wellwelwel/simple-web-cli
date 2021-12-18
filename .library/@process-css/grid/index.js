@@ -3,14 +3,14 @@ function grid() {
    'use strict';
 
    try {
-   
+
       const elements = $('[class*="col-"],[class*="row-"]', 1);
       elements.forEach(element => {
-         
+
          element.classList.forEach(valid_class => {
-   
+
             if (!/^(col|row).?-\d+/.test(valid_class)) return;
-   
+
             const array_style = valid_class.split('-');
             const direction = array_style[0] === 'col' ? 'column' : 'row';
             const value = array_style[1];
@@ -20,7 +20,7 @@ function grid() {
       });
    }
    catch (err) {
-      
+
       console.error(err);
    }
 }

@@ -1,7 +1,7 @@
 /* Schedules a async services queue */
 
 class Schedule {
-   
+
    constructor() {
 
       this.scheduling = {
@@ -11,9 +11,9 @@ class Schedule {
          /* Store queued services */
          queuing: [ ],
          started: false,
-         /** 
+         /**
           * Service (function)
-          * Name of current service in attendance (optional) 
+          * Name of current service in attendance (optional)
          **/
          current: '',
          exceed: [ ]
@@ -27,7 +27,7 @@ class Schedule {
          if (this.scheduling.started === false) {
 
             queuing.push({
-   
+
                name: name,
                service: callback
             });
@@ -35,7 +35,7 @@ class Schedule {
          else {
 
             exceed.push({
-            
+
                name: name,
                service: callback
             });
@@ -51,9 +51,9 @@ class Schedule {
             timeInterval: options?.timeInterval || 0,
             recursive: options?.recursive || true
          };
-         
+
          this.scheduling.started = true;
-         
+
          const { queuing, exceed } = this.scheduling;
 
          const recursive = async () => {
@@ -80,11 +80,11 @@ class Schedule {
                }
 
                if (queuing.length === 0) {
-   
+
                   if (exceed.length > 0) queuing.push(exceed.shift());
                   /* Ends attendance if the queue is empty */
                   else if (exceed.length === 0) {
-                     
+
                      this.scheduling.started = false;
                      clearInterval(waiting);
 

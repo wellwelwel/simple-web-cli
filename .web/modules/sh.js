@@ -9,7 +9,7 @@ const sh = {
    blue: '\x1b[34m',
    magenta: '\x1b[35m',
    red: '\x1b[31m',
-   
+
    dim: '\x1b[2m',
    underscore: '\x1b[4m',
    bright: '\x1b[22m',
@@ -67,13 +67,13 @@ class draft {
 
          let i = 0;
          let interval = this.loading[this.style] === 'dots' ? 50 : 150;
-   
+
          this.timer = setInterval(() => {
 
             if (i >= this.loading[this.style].length) i = 0;
-   
+
             const current = this.loading[this.style][i++];
-   
+
             this.message(`${sh.bold}${sh.bright}${this.color}${current} ${sh.reset}${this.string}`);
          }, interval);
       };

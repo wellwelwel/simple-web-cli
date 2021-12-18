@@ -3,7 +3,7 @@
 module.exports = () => {
 
    const d = new Date();
-   
+
    let n = '';
 
    n += d.getDate().toString().padStart(2, '0') + '/';
