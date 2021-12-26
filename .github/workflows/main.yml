@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
           check-latest: true
       - run: npm run test-services
   macos:
@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
           check-latest: true
       - run: npm run test-services
   windows:
@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
           check-latest: true
       - run: npm run test-services
   publishing-package:
@@ -38,6 +38,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
+          check-latest: true
           registry-url: 'http://npm.pkg.github.com'
           scope: '@wellwelwel'
       - run: node .github/workflows/publish.js
