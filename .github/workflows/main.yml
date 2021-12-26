@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  Linux Compatibility:
+  Linux-Compatibility:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: '14.15'
       - run: npm run test-services
-  macOS Compatibility:
+  macOS-Compatibility:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '14.15'
       - run: npm run test-services
-  Windows Compatibility:
+  Windows-Compatibility:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
