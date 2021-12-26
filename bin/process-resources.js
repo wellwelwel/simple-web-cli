@@ -96,7 +96,7 @@
    }
    catch (error) { /* Just ignores when no "git" installed */ }
 
-   if (typeof alloweds[arg] === 'string') require(alloweds[arg]); /* Calls to script */
+   if (typeof alloweds[arg] === 'string') await require(alloweds[arg]); /* Calls to script */
 
    /* Reserved to tests */
    args.includes('--TEST') && console.log('PASSED');
