@@ -6,7 +6,7 @@
     "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
     "minor": "npx ncu -u; npm i; npm audit fix; npm version minor --no-git-tag-version;",
     "major": "npx ncu -u; npm i; npm audit fix; npm version major --no-git-tag-version;",
-    "test-services": "npm link && mkdir \"temp\" && cd \"temp\" && npm cache clean --force && npm list -g --depth=0 && l"
+    "test-services": "npm link && mkdir \"temp\" && cd \"temp\" && npm i"
   },
   "bin": {
     "simple-web": "bin/init.js"
