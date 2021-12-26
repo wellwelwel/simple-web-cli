@@ -3,9 +3,15 @@
       "ftp": {
          "root": "",
          "host": "",
+         "port": 21,
          "user": "",
          "pass": "",
-         "secure": true
+         "secure": true,
+         "chmod": {
+            "dir": 755,
+            "file": 644,
+            "recursive": true
+         }
       },
       "is-windows-server": false,
       "auto-check-version": true

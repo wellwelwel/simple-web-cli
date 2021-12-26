@@ -33,9 +33,9 @@ module.exports = async () => {
    loading.ftp.start();
    loading.ftp.string = `${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`;
 
-   const { host, user, pass, root, secure } = dev.ftp;
+   const { host, user, pass } = dev.ftp;
    const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
-   const conn = pre_connect ? await FTP.connect({ host: host, user: user, pass: pass, root: root, secure: secure }) : false;
+   const conn = pre_connect ? await FTP.connect(dev.ftp) : false;
    if (!conn) {
 
       FTP.client.close();

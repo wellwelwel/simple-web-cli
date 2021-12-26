@@ -1,56 +1,58 @@
 (() => {
 
-   const { execSync } = require('child_process');
-   const fs = require('fs');
-   const { EOL } = require('os');
-   const commands = require('./modules/commands');
+   // Temporarily disabled
 
-   /* On missing, recreats the default resources */
-   (() => {
+   // const { execSync } = require('child_process');
+   // const fs = require('fs');
+   // const { EOL } = require('os');
+   // const commands = require('./modules/commands');
 
-      const files = [
+   // /* On missing, recreats the default resources */
+   // (() => {
 
-         { dest: '.web-config.json', src: `${__dirname}/resources/_web-config.json` },
-         { dest: '.web-replace.json', src: `${__dirname}/resources/_web-replace.json` },
-      ];
+   //    const files = [
 
-      files.forEach(file => {
+   //       { dest: '.web-config.json', src: `${__dirname}/resources/_web-config.json` },
+   //       { dest: '.web-replace.json', src: `${__dirname}/resources/_web-replace.json` },
+   //    ];
 
-         const { src, dest } = file;
+   //    files.forEach(file => {
 
-         if (fs.existsSync(dest)) return;
+   //       const { src, dest } = file;
 
-         fs.writeFileSync(dest, fs.readFileSync(src, 'utf-8'));
-         execSync(commands(dest).join(' && '), { stdio: 'inherit' });
-      });
-   })();
+   //       if (fs.existsSync(dest)) return;
 
-   /* Rebuilds .gitignore if it's differ from production resource */
-   (() => {
+   //       fs.writeFileSync(dest, fs.readFileSync(src, 'utf-8'));
+   //       execSync(commands(dest).join(' && '), { stdio: 'inherit' });
+   //    });
+   // })();
 
-      const gitignore = fs.readFileSync('.gitignore', 'utf-8');
-      const list = gitignore.split(EOL);
-      const recreated = [ ];
-      const blacklist = [
+   // /* Rebuilds .gitignore if it's differ from production resource */
+   // (() => {
 
-         'src',
-         '.library',
-         '.library/my'
-      ];
-      const dest = '.gitignore';
+   //    const gitignore = fs.readFileSync('.gitignore', 'utf-8');
+   //    const list = gitignore.split(EOL);
+   //    const recreated = [ ];
+   //    const blacklist = [
 
-      list.forEach(toIgnore => {
+   //       'src',
+   //       '.library',
+   //       '.library/my'
+   //    ];
+   //    const dest = '.gitignore';
 
-         if (toIgnore?.trim().length === 0) return;
-         if (/#/.test(toIgnore)) return;
-         if (blacklist.includes(toIgnore)) return;
+   //    list.forEach(toIgnore => {
 
-         recreated.push(toIgnore);
-      });
+   //       if (toIgnore?.trim().length === 0) return;
+   //       if (/#/.test(toIgnore)) return;
+   //       if (blacklist.includes(toIgnore)) return;
 
-      if (recreated.length === list.length) return;
+   //       recreated.push(toIgnore);
+   //    });
 
-      fs.writeFileSync(dest, recreated.join(EOL));
-      execSync(commands(dest).join(' && '), { stdio: 'inherit' });
-   })();
+   //    if (recreated.length === list.length) return;
+
+   //    fs.writeFileSync(dest, recreated.join(EOL));
+   //    execSync(commands(dest).join(' && '), { stdio: 'inherit' });
+   // })();
 })();
