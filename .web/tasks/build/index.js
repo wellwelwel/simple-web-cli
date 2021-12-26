@@ -23,6 +23,7 @@ const rimraf = require('rimraf');
 const sep = require('path').sep;
 const FTP = require('../../modules/ftp');
 const serverOSNormalize = require('../../modules/server-os-normalize');
+const { performance } = require('perf_hooks');
 
 (async () => {
 
