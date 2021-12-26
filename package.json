@@ -3,11 +3,10 @@
   "version": "2.6.0",
   "main": "./bin/init.js",
   "scripts": {
-    "start": "node .web/tasks/start",
-    "build": "node .web/tasks/build",
-    "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version",
-    "minor": "npx ncu -u; npm i; npm audit fix; npm version minor --no-git-tag-version",
-    "major": "npx ncu -u; npm i; npm audit fix; npm version major --no-git-tag-version"
+    "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
+    "minor": "npx ncu -u; npm i; npm audit fix; npm version minor --no-git-tag-version;",
+    "major": "npx ncu -u; npm i; npm audit fix; npm version major --no-git-tag-version;",
+    "test-services": "npm link; npm i; simple-web init; simple-web-build;"
   },
   "bin": {
     "simple-web": "bin/init.js"
