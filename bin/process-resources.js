@@ -24,10 +24,11 @@
 
       init: true,
       start: '../.web/tasks/start',
-      build: '../.web/tasks/build'
+      build: '../.web/tasks/build',
+      TEST: '../.web/tasks/start',
    };
 
-   if (!alloweds[arg]) {
+   if (arg !== 'TEST' && !alloweds[arg]) {
 
       console.error(`Command "${arg}" not found.${EOL}Use "init", "start" or "build".${EOL}`);
       return;
@@ -96,4 +97,7 @@
    catch (error) { /* Just ignores when no "git" installed */ }
 
    if (typeof alloweds[arg] === 'string') require(alloweds[arg]); /* Calls to script */
+
+   /* Reserved to tests */
+   args.includes('--TEST') && console.log('PASSED');
 })();
