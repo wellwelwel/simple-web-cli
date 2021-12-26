@@ -72,6 +72,7 @@
    if (fs.existsSync('temp')) await sh('rm -r "temp"');
    console.log('Removing temporary files:', true);
 
+   /* Exit if success */
    if (errors.length === 0) return true;
 
    console.log('\n--- LOGS ---\n');
