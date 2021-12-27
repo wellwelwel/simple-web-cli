@@ -107,7 +107,7 @@
       web_config.dev.ftp.root = '/';
       web_config.dev.ftp.host = '127.0.0.1';
       web_config.dev.ftp.user = 'test';
-      web_config.dev.ftp.pass = 'test123';
+      web_config.dev.ftp.pass = 'test';
       web_config.dev.ftp.secure = 'explict';
 
       fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
