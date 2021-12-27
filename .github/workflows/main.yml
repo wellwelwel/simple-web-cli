@@ -22,8 +22,10 @@ jobs:
   macOS:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: ➕ Actions - checkout
+        uses: actions/checkout@v2
+      - name: ➕ Actions - Setup NodeJS
+        uses: actions/setup-node@v2
         with:
           node-version: '14.15.0'
       - name: 📦 Testing Services
@@ -33,8 +35,10 @@ jobs:
   Windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: ➕ Actions - checkout
+        uses: actions/checkout@v2
+      - name: ➕ Actions - Setup NodeJS
+        uses: actions/setup-node@v2
         with:
           node-version: '14.15.0'
       - name: 📦 Testing Services
@@ -45,14 +49,18 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ Linux, macOS, Windows ]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: ➕ Actions - checkout
+        uses: actions/checkout@v2
+      - name: ➕ Actions - Setup NodeJS
+        uses: actions/setup-node@v2
         with:
           node-version: '17'
           check-latest: true
           registry-url: 'https://npm.pkg.github.com'
           scope: '@wellwelwel'
-      - run: node .github/workflows/publish.js
-      - run: npm publish || exit 0
+      - name: 📦 Preparing Package
+        run: node .github/workflows/publish.js
+      - name: 📥 Publishing Package
+        run: npm publish || exit 0
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
