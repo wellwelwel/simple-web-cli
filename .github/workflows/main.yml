@@ -7,14 +7,14 @@ jobs:
   Linux:
     runs-on: ubuntu-latest
     steps:
-      - name: ➕ Actions - checkout
+      - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
           node-version: '14.15.0'
       - name: 📥 Set Local FTP
-        run: docker run -d -p 21:21 -p 47400-47470:47400-47470 -v /tmp:/var/ftp:ro -e FTP_USER=test -e FTP_PASS=test123 -e PASV_ADDRESS=127.0.0.1 --name ftp --restart=always bogem/ftp
+        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test123 -e PASV_ADDRESS=127.0.0.1 bogem/ftp
       - name: 📦 Testing Services with FTP Connection
         run: npm run test-services
       - name: ⏪ Checking Previous Step
@@ -22,7 +22,7 @@ jobs:
   macOS:
     runs-on: macos-latest
     steps:
-      - name: ➕ Actions - checkout
+      - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
@@ -35,7 +35,7 @@ jobs:
   Windows:
     runs-on: windows-latest
     steps:
-      - name: ➕ Actions - checkout
+      - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ Linux, macOS, Windows ]
     steps:
-      - name: ➕ Actions - checkout
+      - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
