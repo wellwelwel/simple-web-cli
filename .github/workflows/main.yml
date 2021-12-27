@@ -7,9 +7,9 @@ jobs:
   Linux:
     runs-on: ubuntu-latest
     steps:
-      - name: ⚙️ actions/checkout@v2
+      - name: ➕ Actions - checkout
         uses: actions/checkout@v2
-      - name: ⚙️ actions/setup-node@v2
+      - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
           node-version: '14.15.0'
