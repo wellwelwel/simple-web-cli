@@ -3,7 +3,29 @@
    const { exec } = require('child_process');
    const fs = require('fs');
    const sh = async command => new Promise((resolve, reject) => exec(command, (error, stdout) => !!error ? reject(error) : resolve(stdout)));
-   const pass = stdout => /PASSED/gm.test(stdout);
+   const readJSON = file => JSON.parse(fs.readFileSync(file, 'utf-8'));
+   const buildJSON = obj => orderJSON(obj, 2);
+   const orderJSON = (obj, space) => {
+
+      const allKeys = [];
+      const seen = { };
+
+      JSON.stringify(obj, (key, value) => {
+
+         if (!(key in seen)) {
+
+            allKeys.push(key);
+            seen[key] = null;
+         }
+
+         return value;
+      });
+
+      allKeys.sort();
+
+      return JSON.stringify(obj, allKeys, space);
+   };
+   const pass = (stdout, regex = /PASSED/gm) => regex.test(stdout);
    const results = {
 
       passed: '\x1b[32mPASSED\x1b[0m',
@@ -61,7 +83,7 @@
 
             return error;
          }
-      },
+      }
    };
    const errors = [];
 
@@ -77,6 +99,29 @@
       console.log(`${test}:`, results[passed ? 'passed' : 'failed']);
    }
 
+   /* Testing FTP service */
+   if (process.platform === "linux") {
+
+      const web_config = readJSON('temp/.web-config.json');
+
+      web_config.dev.ftp.root = '/';
+      web_config.dev.ftp.host = '127.0.0.1';
+      web_config.dev.ftp.user = 'test';
+      web_config.dev.ftp.pass = 'test123';
+      web_config.dev.ftp.secure = 'explict';
+
+      fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
+
+      setTimeout(() => sh('cd "temp" && touch "src/exit"'), 10000);
+
+      const FTP = await sh('cd "temp" && simple-web --TEST');
+      const passed = pass(FTP, /Connected/gm);
+
+      if (!passed) errors.push({ 'Testing FTP service:': FTP });
+
+      console.log('Testing FTP service:', results[passed ? 'passed' : 'failed']);
+   }
+
    if (fs.existsSync('temp')) {
 
       await sh('rm -r "temp"');
@@ -84,12 +129,13 @@
    }
 
    /* Exit if success */
-   if (errors.length === 0) return true;
+   if (errors.length === 0) {
+
+      await sh('touch "passed"')
+      return true;
+   }
 
    console.log('\n--- LOGS ---\n');
-   console.log(errors);
+   errors.forEach(error => console.log(error));
    console.log('\n--- LOGS ---\n');
-
-   /* Intentional broke */
-   await sh('exit 1');
 })();
