@@ -13,7 +13,7 @@
 ## Instalação
 
 ```shell
-   npm i simple-web-cli  # para baixar as dependências
+   npm i simple-web-cli -D  # para baixar as dependências
 ```
 ```shell
    npx simple-web  # para iniciar o serviço
