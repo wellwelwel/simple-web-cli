@@ -65,11 +65,9 @@ async function recursive_require(file, replace) {
 
          if (typeof isModule !== 'boolean') {
 
-
             const evalResources = eval(current);
 
             if (typeof evalResources === 'object') {
-
 
                const pipeModules = [ ];
                const isPipe = /require.*\.(?<getModules>\w+)/gim.exec(requireds[required].replace(/\s/gm, ''))?.groups?.getModules || false;
