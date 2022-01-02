@@ -5,5 +5,5 @@
   "main": "./selector/index.js",
   "scripts": { },
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }

@@ -54,14 +54,23 @@
 <hr />
 
 <!-- Local Modules -->
-### Módulos Locais
+### Módulos Locais (navegador)
   * No **JavaScript** (web), é possível importar módulos locais salvos dentro do diretório `.library`, por exemplo:
 
    <ins>`.library/meu-script/index.js`</ins>
    
    ```javascript
-      require('web/meu-script'); /* para importação completa do arquivo */
-      const meu_script = require('web/meu-script'); /* para importar o módulo em uma variável */
+      /* para importação completa do arquivo */
+      require('web/meu-script');
+
+      /* para importar o módulo padrão em uma variável */
+      const meu_script = require('web/meu-script');
+
+      /* para importar os módulos em variáveis por desestruturação */
+      const { meu_script1, meu_script2 } = require('web/meu-script');
+
+      /* para importar o módulo em uma variável com nome personalizado */
+      const minha_variavel = require('web/meu-script').meu_script1;
    ```
 <hr />
 

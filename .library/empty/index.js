@@ -3,5 +3,7 @@
  * @return {boolean}
 **/
 
-const empty = str => str?.trim().length === 0 ? true : false;
-module.exports = empty;
+const isEmpty = str => str?.trim().length === 0;
+const notEmpty = str => str?.trim().length > 0;
+
+module.exports = { isEmpty, notEmpty };

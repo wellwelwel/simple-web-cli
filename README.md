@@ -54,14 +54,23 @@
 <hr />
 
 <!-- Local Modules -->
-### - Local Modules
+### - Local Modules (browser)
   * In **JavaScript** (web), it's possible to import local modules saved into `.library`, for example:
  
    <ins>`.library/my-script/index.js`</ins>
    
    ```javascript
-      require('web/my-script'); /* for entire file import */
-      const my_script = require('web/my-script'); /* to import the module into a variable */
+      /* for entire file import */
+      require('web/my-script');
+
+      /* to import the default module into a variable */
+      const my_script = require('web/my-script');
+
+      /* to import the modules by destronstuct variables */
+      const { my_script1, my_script2 }  = require('web/my-script');
+
+      /* to import the module into a variable with a custom name */
+      const my_name_var = require('web/my-script').my_script1;
    ```
 <hr />
 
