@@ -112,7 +112,7 @@ module.exports = async () => {
             if (!no_process(file)) {
 
                if (fileType === 'php' || fileType === 'phtml') minified = await processPHP(original);
-               else if (fileType === 'html')  minified = await processHTML(original);
+               else if (fileType === 'html')  minified = await processHTML(original, file);
                else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
             }
 

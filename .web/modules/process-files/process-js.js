@@ -33,7 +33,6 @@ async function recursive_require(file, replace) {
 
    let content = backup;
 
-
    for (const required in requireds) {
 
       try {
