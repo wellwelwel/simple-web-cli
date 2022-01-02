@@ -54,7 +54,7 @@ const processHTML = async (content, file) => {
    { /* Check if other files need this file */
       const dirs = dirname(file).split(sep);
       const srcFile = basename(file);
-      const preRegex = dirs.map(dir => `(${dir}${sep})?`);
+      const preRegex = dirs.map(dir => `(${dir}\/)?`);
       const finalRegex = new RegExp(`${preRegex.join('')}${srcFile}`, 'gim');
       const files = await listFiles(source, 'html');
 
