@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "2.7.1",
+  "version": "2.8.0",
   "main": "./bin/init.js",
   "scripts": {
     "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
@@ -36,6 +36,7 @@
     "eslint": "^8.6.0",
     "fs-extra": "^10.0.0",
     "glob": "^7.2.0",
+    "html-minifier": "^4.0.0",
     "mime-types": "^2.1.34",
     "node-watch": "^0.7.2",
     "package-json": "^7.0.0",
@@ -49,7 +50,7 @@
     "> 0%"
   ],
   "devDependencies": {
-    "npm-check-updates": "^12.0.5"
+    "npm-check-updates": "^12.1.0"
   },
   "description": "⚡ A simple compiler to automate the development in HTML, CSS, JavaScript and PHP languages using FTP connection to deploy the processed files automatically to the final server.",
   "repository": {

@@ -103,8 +103,6 @@ module.exports = async () => {
          else {
 
             /* post process */
-            createDir(pathFile.replace(source, to));
-
             const original = await postProcess({src: file, response: true});
             let minified = false;
 
@@ -112,11 +110,15 @@ module.exports = async () => {
             if (!no_process(file)) {
 
                if (fileType === 'php' || fileType === 'phtml') minified = await processPHP(original);
-               else if (fileType === 'html')  minified = await processHTML(original);
+               else if (fileType === 'html')  minified = await processHTML(original, file);
                else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
             }
 
-            await fs.writeFile(finalFile, !minified ? original : minified);
+            if (minified !== 'skip-this-file') {
+
+               createDir(pathFile.replace(source, to));
+               await fs.writeFile(finalFile, !minified ? original : minified);
+            }
          }
 
          log.building.stop(status);

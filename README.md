@@ -53,6 +53,21 @@
 > ##### *- If no access is entered, it will create the project normally, just ignoring the FTP upload*  <br />  *- If the FTP doesn't use SSL certification, set `"explict"` in `"secure"`*
 <hr />
 
+<!-- HTML Import -->
+### HTML Import
+  * You can import `.html` files recursively, based on the `scss` import, for example:
+   
+   ```html
+      <html>
+         <body>
+            <!-- import('./views/_header.html') -->
+            <!-- import('./views/_main.html') -->
+            <!-- import('../_footer.html') -->
+         </body>
+      </html>
+   ```
+<hr />
+
 <!-- Local Modules -->
 ### - Local Modules (browser)
   * In **JavaScript** (web), it's possible to import local modules saved into `.library`, for example:
