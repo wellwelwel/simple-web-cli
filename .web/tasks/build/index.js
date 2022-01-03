@@ -91,8 +91,6 @@ const { performance } = require('perf_hooks');
             else {
 
                /* post process */
-               createDir(pathFile.replace(source, to));
-
                const original = await postProcess({src: file, response: true, local: 'build'});
                let minified = false;
 
@@ -104,7 +102,11 @@ const { performance } = require('perf_hooks');
                   else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
                }
 
-               await fs.writeFile(finalFile, !minified ? original : minified);
+               if (minified !== 'skip-this-file') {
+
+                  createDir(pathFile.replace(source, to));
+                  await fs.writeFile(finalFile, !minified ? original : minified);
+               }
             }
 
             count++;

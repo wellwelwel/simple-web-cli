@@ -51,7 +51,27 @@ const putHTML = (content, file) => {
 
 const processHTML = async (content, file) => {
 
-   { /* Check if other files need this file */
+   const exclude_require = process_files['exclude-requires'] || false;
+
+   let doImport = true;
+
+   if (exclude_require) {
+
+      for (const exclude of exclude_require) {
+
+         if (RegExp(exclude, 'gm').test(basename(file))) {
+
+            doImport = false;
+            break;
+         }
+      }
+   }
+
+   /* Check if other files need this file */
+   (async () => {
+
+      if (!doImport) return;
+
       const dirs = dirname(file).split(sep);
       const srcFile = basename(file);
       const preRegex = dirs.map(dir => `(${dir}\/)?`);
@@ -66,11 +86,9 @@ const processHTML = async (content, file) => {
 
          if (searchContent.match(finalRegex)) fs.writeFileSync(searchFile.replace(source, to), await processHTML(searchContent, searchFile));
       }
-   }
+   })();
 
-   if (!content || content?.trim().length === 0) return '';
-
-   content = putHTML(content, file);
+   if (doImport) content = putHTML(content, file);
 
    if (!process_files.html) return content;
 
@@ -94,6 +112,12 @@ const processHTML = async (content, file) => {
       /* In case of error, the original content will be returned */
    }
    finally {
+
+      const import_like_scss = process_files['html-import-like-scss'] || false;
+
+      if (import_like_scss && /^_(.*).html$/.test(basename(file))) return 'skip-this-file';
+
+      if (!content || content?.trim().length === 0) return '';
 
       return content;
    }
