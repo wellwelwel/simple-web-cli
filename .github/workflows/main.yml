@@ -1,19 +1,23 @@
 name: CI
 on: push
 jobs:
-  node-minimum:
-    name: Minimum Requirement (NodeJS 14.15.0 | NPM 7.0.2)
+  node:
+    name: Node.js LTS
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16, 14]
     steps:
       - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: '14.15.0'
+          node-version: '*'
       - name: 📥 Set Local FTP
         run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
       - name: 📦 Upgrade to the minimum required NPM version
+        if: matrix.node-version == '14'
         run: npm install -g npm@7.0.2
       - name: 📦 Testing Services with FTP Connection
         run: npm run test-services

@@ -216,7 +216,7 @@
 
       fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
 
-      setTimeout(() => sh('cd "temp" && touch "src/exit"'), 10000);
+      setTimeout(() => sh('cd "temp" && touch "src/exit"'), 3000);
 
       const FTP = await sh('cd "temp" && simple-web --TEST');
       const passed = pass(FTP, /Connected/gm);
