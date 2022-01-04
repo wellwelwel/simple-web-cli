@@ -1,8 +1,8 @@
 name: CI
 on: push
 jobs:
-  node-minimum:
-    name: Node.js
+  teste-node-os-coverage:
+    name: Test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -21,7 +21,7 @@ jobs:
       - name: 📦 Upgrade to the minimum required NPM version
         if: matrix.node-version == '14.15.0'
         run: npm install -g npm@7.0.2
-      - name: 📦 Testing Services with FTP Connection
+      - name: 📦 Testing Services
         run: npm run test-services
       - name: ⏪ Checking Previous Step for Linux and macOS
         if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
@@ -29,24 +29,24 @@ jobs:
       - name: ⏪ Checking Previous Step for Windows
         if: matrix.os == 'windows-latest'
         run: ls "passed"; if ($?) { exit 0 } else { exit 1 }
-  # publish:
-  #   name: Publishing Package
-  #   runs-on: ubuntu-latest
-  #   needs: [ node-minimum, node-15, node-16, node-latest, macos-coverage, windows-coverage ]
-  #   if: github.ref == 'refs/heads/main'
-  #   steps:
-  #     - name: ➕ Actions - Checkout
-  #       uses: actions/checkout@v2
-  #     - name: ➕ Actions - Setup NodeJS
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '17'
-  #         check-latest: true
-  #         registry-url: 'https://npm.pkg.github.com'
-  #         scope: '@wellwelwel'
-  #     - name: 📦 Preparing Package
-  #       run: node .github/workflows/publish.js
-  #     - name: 📥 Publishing Package
-  #       run: npm publish || exit 0
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  publish:
+    name: Publishing Package
+    runs-on: ubuntu-latest
+    needs: [ teste-node-os-coverage ]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v2
+      - name: ➕ Actions - Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '17'
+          check-latest: true
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@wellwelwel'
+      - name: 📦 Preparing Package
+        run: node .github/workflows/publish.js
+      - name: 📥 Publishing Package
+        run: npm publish || exit 0
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
