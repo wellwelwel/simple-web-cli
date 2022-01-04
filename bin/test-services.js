@@ -230,8 +230,8 @@
 
       try {
 
-         console.log('➖ Removing temporary files...');
          await sh('rm -r "temp"');
+         console.log('➖ Removing temporary files...');
          console.log(results.passed);
       } catch (error) { }
    }
