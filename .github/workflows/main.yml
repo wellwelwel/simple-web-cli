@@ -44,7 +44,7 @@ jobs:
           check-latest: true
           registry-url: 'https://npm.pkg.github.com'
           scope: '@wellwelwel'
-      - run: echo ${{github.ref}}
+      - run: echo ${{ github.event.head_commit.message }}
       - name: 📦 Preparing Package
         run: node .github/workflows/publish.js
       - name: 📥 Publishing Package
