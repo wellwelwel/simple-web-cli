@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 17, 16, 15, 14 ]
+        node-version: [ '17.x', '16.x', '15.x', '14.15.0' ]
     steps:
       - run: node -v
       - name: ➕ Actions - Checkout
@@ -19,7 +19,7 @@ jobs:
         run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
       - name: 📦 Upgrade to the minimum required NPM version
         if: matrix.node-version == '14'
-        run: npm install -g npm@7.0.2 && npm audit fix
+        run: npm install -g npm@7.0.2
       - name: 📦 Testing Services with FTP Connection
         run: npm run test-services
       - name: ⏪ Checking Previous Step
