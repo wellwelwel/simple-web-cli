@@ -1,112 +1,40 @@
 name: CI
 on: push
 jobs:
-  node-minimum:
-    name: Node.js (14.15.0 | npm 7.0.2) - Minimum Requirement
-    runs-on: ubuntu-latest
+  test-node-os-coverage:
+    name: Node.js
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        node-version: [ '17.x', '16.x', '15.x', '14.15.0' ]
     steps:
       - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: '14.15.0'
+          node-version: ${{ matrix.node-version }}
       - name: 📥 Set Local FTP
+        if: matrix.os == 'ubuntu-latest'
         run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
       - name: 📦 Upgrade to the minimum required NPM version
+        if: matrix.node-version == '14.15.0'
         run: npm install -g npm@7.0.2
-      - name: 📦 Testing Services with FTP Connection
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
-        run: (ls "passed" && exit 0) || exit 1
-  node-15:
-    name: Node.js (15.x)
-    runs-on: ubuntu-latest
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '15'
-          check-latest: true
-      - name: 📥 Set Local FTP
-        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
-      - name: 📦 Testing Services with FTP Connection
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
-        run: (ls "passed" && exit 0) || exit 1
-  node-16:
-    name: Node.js (16.x - LTS)
-    runs-on: ubuntu-latest
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-          check-latest: true
-      - name: 📥 Set Local FTP
-        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
-      - name: 📦 Testing Services with FTP Connection
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
-        run: (ls "passed" && exit 0) || exit 1
-  node-latest:
-    name: Node.js (17.x - Latest)
-    runs-on: ubuntu-latest
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '17'
-          check-latest: true
-      - name: 📥 Set Local FTP
-        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
-      - name: 📦 Testing Services with FTP Connection
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
-        run: (ls "passed" && exit 0) || exit 1
-  macos-coverage:
-    name: macOS Coverage
-    runs-on: macos-latest
-    needs: [ node-16 ]
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16' # Latest Node.js LTS
-          check-latest: true
       - name: 📦 Testing Services
         run: npm run test-services
-      - name: ⏪ Checking Previous Step
+      - name: ⏪ Checking Previous Step for Linux and macOS
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         run: (ls "passed" && exit 0) || exit 1
-  windows-coverage:
-    name: Windows Coverage
-    runs-on: windows-latest
-    needs: [ node-16 ]
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16' # Latest Node.js LTS
-          check-latest: true
-      - name: 📦 Testing Services
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
+      - name: ⏪ Checking Previous Step for Windows
+        if: matrix.os == 'windows-latest'
         run: ls "passed"; if ($?) { exit 0 } else { exit 1 }
   publish:
     name: Publishing Package
     runs-on: ubuntu-latest
-    needs: [ node-minimum, node-15, node-16, node-latest, macos-coverage, windows-coverage ]
-    if: github.ref == 'refs/heads/main'
+    needs: [ test-node-os-coverage ]
+    # if: github.ref == 'refs/heads/main'
+    if: startsWith(github.event.head_commit.message, 'v-')
     steps:
       - name: ➕ Actions - Checkout
         uses: actions/checkout@v2

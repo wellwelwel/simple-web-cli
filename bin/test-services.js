@@ -59,7 +59,17 @@
             return error;
          }
       },
-      'Executing service "init"': async () => { try { return await sh('cd "temp" && simple-web init --TEST'); } catch (error) { return error; } },
+      'Executing service "init"': async () => {
+
+         try {
+
+            const init = await sh('cd "temp" && simple-web init --TEST');
+            return init;
+         } catch (error) {
+
+            return error;
+         }
+      },
       'Executing service "start"': async () => {
 
          let start_errors = 0;
