@@ -9,7 +9,7 @@ jobs:
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: '14.14.0'
+          node-version: '14.15.0'
           check-latest: true
       - name: 📥 Set Local FTP
         run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
