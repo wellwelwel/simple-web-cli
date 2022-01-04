@@ -50,10 +50,6 @@
             console.log('   ➕ Importing modules...');
             await sh('npm i');
 
-            console.log('   ➕ Checking modules compatibility...');
-            const compatibility = await sh('npx ncu --enginesNode');
-            console.log(compatibility);
-
             console.log('   ➕ Linking service...');
             await sh('npm link');
 
