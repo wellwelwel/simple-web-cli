@@ -1,25 +1,72 @@
 name: CI
 on: push
 jobs:
-  node:
-    name: Node.js
+  node-minimum:
+    name: Node.js (14.15.0)
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ '17.x', '16.x', '15.x', '14.15.0' ]
     steps:
       - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
-        # with:
-        #   node-version: '*'
+        with:
+          node-version: '14.15.0'
       - name: 📥 Set Local FTP
         run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
       - run: node -v
       - name: 📦 Upgrade to the minimum required NPM version
-        if: matrix.node-version == '14'
         run: npm install -g npm@7.0.2
+      - name: 📦 Testing Services with FTP Connection
+        run: npm run test-services
+      - name: ⏪ Checking Previous Step
+        run: (ls "passed" && exit 0) || exit 1
+  node-15:
+    name: Node.js (15.x)
+    runs-on: ubuntu-latest
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v2
+      - name: ➕ Actions - Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '15.x'
+      - name: 📥 Set Local FTP
+        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
+      - run: node -v
+      - name: 📦 Testing Services with FTP Connection
+        run: npm run test-services
+      - name: ⏪ Checking Previous Step
+        run: (ls "passed" && exit 0) || exit 1
+  node-16:
+    name: Node.js (16.x)
+    runs-on: ubuntu-latest
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v2
+      - name: ➕ Actions - Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: 📥 Set Local FTP
+        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
+      - run: node -v
+      - name: 📦 Testing Services with FTP Connection
+        run: npm run test-services
+      - name: ⏪ Checking Previous Step
+        run: (ls "passed" && exit 0) || exit 1
+  node-latest:
+    name: Node.js (Latest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: ➕ Actions - Checkout
+        uses: actions/checkout@v2
+      - name: ➕ Actions - Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '17.x'
+      - name: 📥 Set Local FTP
+        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
+      - run: node -v
       - name: 📦 Testing Services with FTP Connection
         run: npm run test-services
       - name: ⏪ Checking Previous Step
