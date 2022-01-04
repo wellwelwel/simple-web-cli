@@ -67,11 +67,10 @@
 
             if (+process.version.split(".").shift().replace(/[^0-9]/, '') <= 14) {
 
-               console.log(await sh('pwd'));
-               console.log(await sh('cd "temp" && pwd'));
                console.log('   ➕ <=14 NodeJS: Downgrade dependencies...');
                await sh('cd "temp" && npm uninstall postcss-cli');
                await sh('cd "temp" && npm i postcss-cli@8.3.1');
+               console.log(fs.readFileSync('temp/package.json', 'utf-8'));
             }
 
             return init;
@@ -266,4 +265,5 @@
    console.log('\n--- LOGS ---\n');
    errors.forEach(error => console.log(error));
    console.log('\n--- LOGS ---\n');
+
 })();
