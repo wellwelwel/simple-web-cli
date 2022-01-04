@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ '17.x', '16.x', '15.x' '14.15.0' ]
+        node-version: [ '17.x', '16.x', '15.x', '14.15.0' ]
     steps:
       - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
