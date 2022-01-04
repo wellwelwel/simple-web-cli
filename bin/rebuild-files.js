@@ -73,6 +73,13 @@ const rebuildFiles = async arg => {
 
       return response;
    };
+   const compatibility = {
+
+      node: +process.version.split(".").shift().replace(/[^0-9]/, '') <= 14,
+      dependencies: {
+         'postcss-cli': '8.3.1'
+      }
+   };
 
    /* package.json */
    try {
@@ -92,7 +99,10 @@ const rebuildFiles = async arg => {
 
          if (!package?.devDependencies?.[dependence] && !package?.dependencies?.[dependence] && !package?.bundleDependencies?.[dependence]) {
 
-            package.devDependencies[dependence] = `^${await latest(dependence)}`;
+            if (compatibility.node && compatibility.dependencies?.[dependence]) {
+
+               package.devDependencies[dependence] = compatibility.dependencies[dependence];
+            } else package.devDependencies[dependence] = `^${await latest(dependence)}`;
 
             if (!stage.package) stage.package = true;
             if (!stage.npm_i) stage.npm_i = true;
