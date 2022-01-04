@@ -1,4 +1,4 @@
-name: 🧪
+name: 🔬
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
       - '!test-ci'
 jobs:
   test-node-os-coverage:
-    name: Node.js
+    name: Coverage in [ OS, Node.js ${{ matrix.node-version }} ]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
