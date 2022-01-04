@@ -59,27 +59,14 @@
             return error;
          }
       },
-      'Executing service "init"': async () => {
-
-         try {
-
-            const init = await sh('cd "temp" && simple-web init --TEST');
-
-            if (+process.version.split(".").shift().replace(/[^0-9]/, '') <= 14) {
-
-               console.log('   ➕ <=14 NodeJS: Downgrade dependencies...');
-               await sh('cd "temp" && npm uninstall postcss-cli');
-               await sh('cd "temp" && npm i postcss-cli@8.3.1');
-               console.log(fs.readFileSync('temp/package.json', 'utf-8'));
-            }
-
-            return init;
-         } catch (error) {
-
-            return error;
-         }
-      },
+      'Executing service "init"': async () => { try { return await sh('cd "temp" && simple-web init --TEST'); } catch (error) { return error; } },
       'Executing service "start"': async () => {
+
+         // if (+process.version.split(".").shift().replace(/[^0-9]/, '') <= 14) {
+
+         //    console.log('   ➕ <=14 NodeJS: Downgrade dependencies...');
+         //    await sh('cd "temp" && npm i autoprefixer@6.7.7 --force && npm i postcss-cli@8.3.1 --force && npm i globby@11.0.4 --force');
+         // }
 
          let start_errors = 0;
 
@@ -266,4 +253,5 @@
    errors.forEach(error => console.log(error));
    console.log('\n--- LOGS ---\n');
 
+   console.log(fs.readFileSync('temp/package.json', 'utf-8'));
 })();
