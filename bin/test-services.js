@@ -50,6 +50,12 @@
             console.log('   ➕ Importing modules...');
             await sh('npm i');
 
+            if (+process.version.split(".").shift().replace(/[^0-9]/, '') <= 14) {
+
+               console.log('   ➕ <=14: Downgrade dependencies...');
+               await sh('npm i globby@11.0.4 --force');
+            }
+
             console.log('   ➕ Linking service...');
             await sh('npm link');
 
