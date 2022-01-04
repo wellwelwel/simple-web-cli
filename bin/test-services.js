@@ -50,11 +50,6 @@
             console.log('   ➕ Importing modules...');
             await sh('npm i');
 
-            console.log('   ➕ <=14 NodeJS: Downgrade dependencies...');
-            await sh('npm i autoprefixer@6.7.7 --force');
-            await sh('npm i postcss-cli@8.3.1 --force');
-            await sh('npm i globby@11.0.4 --force');
-
             console.log('   ➕ Linking service...');
             await sh('npm link');
 
@@ -64,16 +59,26 @@
             return error;
          }
       },
-      'Executing service "init"': async () => { try { return await sh('cd "temp" && simple-web init --TEST'); } catch (error) { return error; } },
-      'Executing service "start"': async () => {
+      'Executing service "init"': async () => {
 
-         if (+process.version.split(".").shift().replace(/[^0-9]/, '') <= 14) {
+         try {
 
-            console.log('   ➕ <=14 NodeJS: Downgrade dependencies...');
-            await sh('cd "temp" && npm i autoprefixer@6.7.7 --force');
-            await sh('cd "temp" && npm i postcss-cli@8.3.1 --force');
-            await sh('cd "temp" && npm i globby@11.0.4 --force');
+            const init = await sh('cd "temp" && simple-web init --TEST');
+
+            if (+process.version.split(".").shift().replace(/[^0-9]/, '') <= 14) {
+
+               console.log('   ➕ <=14 NodeJS: Downgrade dependencies...');
+               await sh('cd "temp" && npm uninstall autoprefixer && npm uninstall postcss-cli && npm uninstall globby');
+               await sh('cd "temp" && npm i autoprefixer@6.7.7 --force && npm i postcss-cli@8.3.1 --force && npm i globby@11.0.4 --force');
+            }
+
+            return init;
+         } catch (error) {
+
+            return error;
          }
+      },
+      'Executing service "start"': async () => {
 
          let start_errors = 0;
 
@@ -259,4 +264,6 @@
    console.log('\n--- LOGS ---\n');
    errors.forEach(error => console.log(error));
    console.log('\n--- LOGS ---\n');
+
+   console.log(fs.readFileSync('temp/package.json', 'utf-8'));
 })();
