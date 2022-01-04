@@ -68,8 +68,8 @@
             if (+process.version.split(".").shift().replace(/[^0-9]/, '') <= 14) {
 
                console.log('   ➕ <=14 NodeJS: Downgrade dependencies...');
-               await sh('cd "temp" && npm uninstall autoprefixer && npm uninstall postcss-cli && npm uninstall globby');
-               await sh('cd "temp" && npm i autoprefixer@6.7.7 --force && npm i postcss-cli@8.3.1 --force && npm i globby@11.0.4 --force');
+               await sh('cd "temp" && npm uninstall postcss-cli');
+               await sh('cd "temp" && npm i postcss-cli@8.3.1');
             }
 
             return init;
