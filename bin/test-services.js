@@ -64,21 +64,6 @@
          try {
 
             const init = await sh('cd "temp" && simple-web init --TEST');
-
-            if (process.platform === "linux") {
-
-               const web_config = readJSON('temp/.web-config.json');
-
-               web_config.dev.ftp.root = '/';
-               web_config.dev.ftp.host = '127.0.0.1';
-               web_config.dev.ftp.user = 'test';
-               web_config.dev.ftp.pass = 'test';
-               web_config.dev.ftp.secure = 'explict';
-
-               fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
-               console.log(fs.readFileSync('temp/.web-config.json', 'utf-8'));
-            }
-
             return init;
          } catch (error) {
 
@@ -152,16 +137,6 @@
             }, 5000);
 
             const result = await sh('cd "temp" && simple-web start --TEST');
-
-            console.log(result);
-            // if (process.platform === "linux") {
-
-            //    const passed = pass(result, /Connected/gm);
-
-            //    if (!passed) errors.push({ 'Testing FTP service:': result });
-
-            //    console.log(passed ? `   \x1b[32m✔\x1b[0m` : `   \x1b[31m✖\x1b[0m`, 'FTP Initialization, sending and CHMOD Tests');
-            // }
 
             if (!pass(result)) return result;
             return start_errors === 0 ? 'PASSED' : 'FAILED to building files';
@@ -237,29 +212,29 @@
    }
 
    /* Testing FTP service */
-   // if (process.platform === "linux") {
+   if (process.platform === "linux") {
 
-   //    console.log('➖ Testing FTP service...');
+      console.log('➖ Testing FTP service...');
 
-   //    const web_config = readJSON('temp/.web-config.json');
+      const web_config = readJSON('temp/.web-config.json');
 
-   //    web_config.dev.ftp.root = '/';
-   //    web_config.dev.ftp.host = '127.0.0.1';
-   //    web_config.dev.ftp.user = 'test';
-   //    web_config.dev.ftp.pass = 'test';
-   //    web_config.dev.ftp.secure = 'explict';
+      web_config.dev.ftp.root = '/';
+      web_config.dev.ftp.host = '127.0.0.1';
+      web_config.dev.ftp.user = 'test';
+      web_config.dev.ftp.pass = 'test';
+      web_config.dev.ftp.secure = 'explict';
 
-   //    fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
+      fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
 
-   //    setTimeout(() => sh('cd "temp" && touch "src/exit"'), 5000);
+      setTimeout(() => sh('cd "temp" && touch "src/exit"'), 5000);
 
-   //    const FTP = await sh('cd "temp" && simple-web --TEST');
-   //    const passed = pass(FTP, /Connected/gm);
+      const FTP = await sh('cd "temp" && simple-web --TEST');
+      const passed = pass(FTP, /Connected/gm);
 
-   //    if (!passed) errors.push({ 'Testing FTP service:': FTP });
+      if (!passed) errors.push({ 'Testing FTP service:': FTP });
 
-   //    console.log(results[passed ? 'passed' : 'failed']);
-   // }
+      console.log(results[passed ? 'passed' : 'failed']);
+   }
 
    if (fs.existsSync('temp')) {
 
