@@ -1,4 +1,4 @@
-name: CI
+name: 🧪
 on:
   push:
     branches:
@@ -55,6 +55,9 @@ jobs:
     name: Publish Package to GitHub
     runs-on: ubuntu-latest
     needs: [ test-node-os-coverage, publish-npmjs ]
+    permissions:
+      contents: read
+      packages: write
     if: github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'v')
     steps:
       - name: ➕ Actions - Checkout
@@ -71,4 +74,4 @@ jobs:
       - name: 📥 Publishing Package
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.RW_GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
