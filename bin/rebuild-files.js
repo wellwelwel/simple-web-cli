@@ -77,7 +77,7 @@ const rebuildFiles = async arg => {
 
       node: +process.version.split(".").shift().replace(/[^0-9]/, '') <= 14,
       dependencies: {
-         'postcss-cli': '8.3.1'
+         'postcss-cli': '^8.3.1'
       }
    };
 
