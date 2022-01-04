@@ -1,6 +1,6 @@
 "use strict";
 
-var isCompatible = function isCompatible() {
+var isNodeCompatible = function isNodeCompatible() {
 
    try {
 
@@ -19,4 +19,4 @@ var isCompatible = function isCompatible() {
    }
 };
 
-module.exports = isCompatible;
+module.exports = isNodeCompatible;
