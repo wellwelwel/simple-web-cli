@@ -12,11 +12,11 @@ jobs:
         uses: actions/checkout@v2
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
-        with:
-          node-version: '*'
-      - run: node -v
+        # with:
+        #   node-version: '*'
       - name: 📥 Set Local FTP
         run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
+      - run: node -v
       - name: 📦 Upgrade to the minimum required NPM version
         if: matrix.node-version == '14'
         run: npm install -g npm@7.0.2
