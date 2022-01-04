@@ -48,7 +48,8 @@
             await sh('mkdir "temp"');
 
             console.log('   ➕ Importing modules...');
-            await sh('npm i');
+            const terminal = await sh('npm i');
+            errors.push({ modules: terminal });
 
             console.log('   ➕ Linking service...');
             await sh('npm link');

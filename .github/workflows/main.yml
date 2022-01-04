@@ -9,8 +9,7 @@ jobs:
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: '17'
-          check-latest: true
+          node-version: '14.15.0'
       - name: 📥 Set Local FTP
         run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
       - name: 📦 Testing Services with FTP Connection
@@ -25,8 +24,7 @@ jobs:
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: '17'
-          check-latest: true
+          node-version: '14.15.0'
       - name: 📦 Testing Services
         run: npm run test-services
       - name: ⏪ Checking Previous Step
@@ -39,8 +37,7 @@ jobs:
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: '17'
-          check-latest: true
+          node-version: '14.15.0'
       - name: 📦 Testing Services
         run: npm run test-services
       - name: ⏪ Checking Previous Step
