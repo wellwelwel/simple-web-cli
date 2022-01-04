@@ -66,18 +66,18 @@
 
          try {
 
-            if (process.platform === "linux") {
+            // if (process.platform === "linux") {
 
-               const web_config = readJSON('temp/.web-config.json');
+            //    const web_config = readJSON('temp/.web-config.json');
 
-               web_config.dev.ftp.root = '/';
-               web_config.dev.ftp.host = '127.0.0.1';
-               web_config.dev.ftp.user = 'test';
-               web_config.dev.ftp.pass = 'test';
-               web_config.dev.ftp.secure = 'explict';
+            //    web_config.dev.ftp.root = '/';
+            //    web_config.dev.ftp.host = '127.0.0.1';
+            //    web_config.dev.ftp.user = 'test';
+            //    web_config.dev.ftp.pass = 'test';
+            //    web_config.dev.ftp.secure = 'explict';
 
-               fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
-            }
+            //    fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
+            // }
 
             setTimeout(async () => {
 
