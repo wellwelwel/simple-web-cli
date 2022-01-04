@@ -253,6 +253,4 @@
    console.log('\n--- LOGS ---\n');
    errors.forEach(error => console.log(error));
    console.log('\n--- LOGS ---\n');
-
-   console.log(fs.readFileSync('temp/package.json', 'utf-8'));
 })();
