@@ -19,107 +19,107 @@ jobs:
         run: npm run test-services
       - name: ⏪ Checking Previous Step
         run: (ls "passed" && exit 0) || exit 1
-  node-15:
-    name: Node.js (15.x)
-    runs-on: ubuntu-latest
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '15'
-          check-latest: true
-      - name: 📥 Set Local FTP
-        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
-      - name: 📦 Testing Services with FTP Connection
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
-        run: (ls "passed" && exit 0) || exit 1
-  node-16:
-    name: Node.js (16.x - LTS)
-    runs-on: ubuntu-latest
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-          check-latest: true
-      - name: 📥 Set Local FTP
-        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
-      - name: 📦 Testing Services with FTP Connection
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
-        run: (ls "passed" && exit 0) || exit 1
-  node-latest:
-    name: Node.js (17.x - Latest)
-    runs-on: ubuntu-latest
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '17'
-          check-latest: true
-      - name: 📥 Set Local FTP
-        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
-      - name: 📦 Testing Services with FTP Connection
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
-        run: (ls "passed" && exit 0) || exit 1
-  macos-coverage:
-    name: macOS Coverage
-    runs-on: macos-latest
-    needs: [ node-16 ]
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16' # Latest Node.js LTS
-          check-latest: true
-      - name: 📦 Testing Services
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
-        run: (ls "passed" && exit 0) || exit 1
-  windows-coverage:
-    name: Windows Coverage
-    runs-on: windows-latest
-    needs: [ node-16 ]
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16' # Latest Node.js LTS
-          check-latest: true
-      - name: 📦 Testing Services
-        run: npm run test-services
-      - name: ⏪ Checking Previous Step
-        run: ls "passed"; if ($?) { exit 0 } else { exit 1 }
-  publish:
-    name: Publishing Package
-    runs-on: ubuntu-latest
-    needs: [ node-minimum, node-15, node-16, node-latest, macos-coverage, windows-coverage ]
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '17'
-          check-latest: true
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@wellwelwel'
-      - name: 📦 Preparing Package
-        run: node .github/workflows/publish.js
-      - name: 📥 Publishing Package
-        run: npm publish || exit 0
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # node-15:
+  #   name: Node.js (15.x)
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: ➕ Actions - Checkout
+  #       uses: actions/checkout@v2
+  #     - name: ➕ Actions - Setup NodeJS
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '15'
+  #         check-latest: true
+  #     - name: 📥 Set Local FTP
+  #       run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
+  #     - name: 📦 Testing Services with FTP Connection
+  #       run: npm run test-services
+  #     - name: ⏪ Checking Previous Step
+  #       run: (ls "passed" && exit 0) || exit 1
+  # node-16:
+  #   name: Node.js (16.x - LTS)
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: ➕ Actions - Checkout
+  #       uses: actions/checkout@v2
+  #     - name: ➕ Actions - Setup NodeJS
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '16'
+  #         check-latest: true
+  #     - name: 📥 Set Local FTP
+  #       run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
+  #     - name: 📦 Testing Services with FTP Connection
+  #       run: npm run test-services
+  #     - name: ⏪ Checking Previous Step
+  #       run: (ls "passed" && exit 0) || exit 1
+  # node-latest:
+  #   name: Node.js (17.x - Latest)
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: ➕ Actions - Checkout
+  #       uses: actions/checkout@v2
+  #     - name: ➕ Actions - Setup NodeJS
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '17'
+  #         check-latest: true
+  #     - name: 📥 Set Local FTP
+  #       run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
+  #     - name: 📦 Testing Services with FTP Connection
+  #       run: npm run test-services
+  #     - name: ⏪ Checking Previous Step
+  #       run: (ls "passed" && exit 0) || exit 1
+  # macos-coverage:
+  #   name: macOS Coverage
+  #   runs-on: macos-latest
+  #   needs: [ node-16 ]
+  #   steps:
+  #     - name: ➕ Actions - Checkout
+  #       uses: actions/checkout@v2
+  #     - name: ➕ Actions - Setup NodeJS
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '16' # Latest Node.js LTS
+  #         check-latest: true
+  #     - name: 📦 Testing Services
+  #       run: npm run test-services
+  #     - name: ⏪ Checking Previous Step
+  #       run: (ls "passed" && exit 0) || exit 1
+  # windows-coverage:
+  #   name: Windows Coverage
+  #   runs-on: windows-latest
+  #   needs: [ node-16 ]
+  #   steps:
+  #     - name: ➕ Actions - Checkout
+  #       uses: actions/checkout@v2
+  #     - name: ➕ Actions - Setup NodeJS
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '16' # Latest Node.js LTS
+  #         check-latest: true
+  #     - name: 📦 Testing Services
+  #       run: npm run test-services
+  #     - name: ⏪ Checking Previous Step
+  #       run: ls "passed"; if ($?) { exit 0 } else { exit 1 }
+  # publish:
+  #   name: Publishing Package
+  #   runs-on: ubuntu-latest
+  #   needs: [ node-minimum, node-15, node-16, node-latest, macos-coverage, windows-coverage ]
+  #   if: github.ref == 'refs/heads/main'
+  #   steps:
+  #     - name: ➕ Actions - Checkout
+  #       uses: actions/checkout@v2
+  #     - name: ➕ Actions - Setup NodeJS
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '17'
+  #         check-latest: true
+  #         registry-url: 'https://npm.pkg.github.com'
+  #         scope: '@wellwelwel'
+  #     - name: 📦 Preparing Package
+  #       run: node .github/workflows/publish.js
+  #     - name: 📥 Publishing Package
+  #       run: npm publish || exit 0
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

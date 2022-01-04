@@ -66,6 +66,19 @@
 
          try {
 
+            if (process.platform === "linux") {
+
+               const web_config = readJSON('temp/.web-config.json');
+
+               web_config.dev.ftp.root = '/';
+               web_config.dev.ftp.host = '127.0.0.1';
+               web_config.dev.ftp.user = 'test';
+               web_config.dev.ftp.pass = 'test';
+               web_config.dev.ftp.secure = 'explict';
+
+               fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
+            }
+
             setTimeout(async () => {
 
                for (const expected in expecteds) {
@@ -125,19 +138,6 @@
 
                await sh('cd "temp" && touch "src/exit"');
             }, 5000);
-
-            if (process.platform === "linux") {
-
-               const web_config = readJSON('temp/.web-config.json');
-
-               web_config.dev.ftp.root = '/';
-               web_config.dev.ftp.host = '127.0.0.1';
-               web_config.dev.ftp.user = 'test';
-               web_config.dev.ftp.pass = 'test';
-               web_config.dev.ftp.secure = 'explict';
-
-               fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
-            }
 
             const result = await sh('cd "temp" && simple-web start --TEST');
 
