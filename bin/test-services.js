@@ -141,14 +141,15 @@
 
             const result = await sh('cd "temp" && simple-web start --TEST');
 
-            if (process.platform === "linux") {
+            console.log(result);
+            // if (process.platform === "linux") {
 
-               const passed = pass(result, /Connected/gm);
+            //    const passed = pass(result, /Connected/gm);
 
-               if (!passed) errors.push({ 'Testing FTP service:': result });
+            //    if (!passed) errors.push({ 'Testing FTP service:': result });
 
-               console.log(passed ? `   \x1b[32m✔\x1b[0m` : `   \x1b[31m✖\x1b[0m`, 'FTP Initialization, sending and CHMOD Tests');
-            }
+            //    console.log(passed ? `   \x1b[32m✔\x1b[0m` : `   \x1b[31m✖\x1b[0m`, 'FTP Initialization, sending and CHMOD Tests');
+            // }
 
             if (!pass(result)) return result;
             return start_errors === 0 ? 'PASSED' : 'FAILED to building files';
