@@ -112,7 +112,11 @@
                      const compare = fs.readFileSync(`temp/.main/${file}`, 'utf-8');
 
                      console.log(copied && compare === output ? `   \x1b[32m✔\x1b[0m` : `   \x1b[31m✖\x1b[0m`, name);
-                     if (!copied || compare !== output) start_errors++;
+                     if (!copied || compare !== output) {
+
+                        errors.push({ [ name ]: compare });
+                        start_errors++;
+                     }
                   } catch (error) {
 
                      console.log(`   \x1b[31m✖\x1b[0m ${error.message}`);
