@@ -76,6 +76,7 @@
                web_config.dev.ftp.secure = 'explict';
 
                fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
+               console.log(fs.readFileSync('temp/.web-config.json', 'utf-8'));
             }
 
             return init;
