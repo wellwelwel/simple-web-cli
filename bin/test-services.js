@@ -50,13 +50,6 @@
             console.log('   ➕ Importing modules...');
             await sh('npm i');
 
-            if (+process.version.split(".").shift().replace(/[^0-9]/, '') <= 14) {
-
-               console.log('   ➕  <=14 NodeJS: Downgrade dependencies...');
-               await sh('npm i postcss-cli@8.3.1 --force');
-               await sh('npm i autoprefixer@6.7.7 --force');
-            }
-
             console.log('   ➕ Linking service...');
             await sh('npm link');
 
@@ -71,7 +64,16 @@
 
          let start_errors = 0;
 
+
          try {
+
+            if (+process.version.split(".").shift().replace(/[^0-9]/, '') <= 14) {
+
+               console.log('   ➕  <=14 NodeJS: Downgrade dependencies...');
+               await sh('npm i postcss-cli@8.3.1 --force');
+               // await sh('npm i autoprefixer@6.7.7 --force');
+               // await sh('npm i globby@11.0.4 --force');
+            }
 
             setTimeout(async () => {
 
