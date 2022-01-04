@@ -59,25 +59,36 @@
             return error;
          }
       },
-      'Executing service "init"': async () => { try { return await sh('cd "temp" && simple-web init --TEST'); } catch (error) { return error; } },
+      'Executing service "init"': async () => {
+
+         try {
+
+            const init = await sh('cd "temp" && simple-web init --TEST');
+
+            if (process.platform === "linux") {
+
+               const web_config = readJSON('temp/.web-config.json');
+
+               web_config.dev.ftp.root = '/';
+               web_config.dev.ftp.host = '127.0.0.1';
+               web_config.dev.ftp.user = 'test';
+               web_config.dev.ftp.pass = 'test';
+               web_config.dev.ftp.secure = 'explict';
+
+               fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
+            }
+
+            return init;
+         } catch (error) {
+
+            return error;
+         }
+      },
       'Executing service "start"': async () => {
 
          let start_errors = 0;
 
          try {
-
-            // if (process.platform === "linux") {
-
-            //    const web_config = readJSON('temp/.web-config.json');
-
-            //    web_config.dev.ftp.root = '/';
-            //    web_config.dev.ftp.host = '127.0.0.1';
-            //    web_config.dev.ftp.user = 'test';
-            //    web_config.dev.ftp.pass = 'test';
-            //    web_config.dev.ftp.secure = 'explict';
-
-            //    fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
-            // }
 
             setTimeout(async () => {
 
