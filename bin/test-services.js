@@ -48,8 +48,11 @@
             await sh('mkdir "temp"');
 
             console.log('   ➕ Importing modules...');
-            const terminal = await sh('npm i');
-            errors.push({ modules: terminal });
+            await sh('npm i');
+
+            console.log('   ➕ Checking modules compatibility...');
+            await sh('npx ncu --enginesNode');
+
 
             console.log('   ➕ Linking service...');
             await sh('npm link');
