@@ -6,12 +6,12 @@ on:
       - '!test-ci'
 jobs:
   test-node-os-coverage:
-    name: Node.js ${{ matrix.node-version }} | OS ${{ matrix.os }}
+    name: Node.js ${{ matrix.node-version }} | ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        node-version: [ '17.x', '16.x', '15.x', '14.15.0' ]
+        node-version: [ 17, 16, 15, '14.15.0' ]
     steps:
       - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
@@ -44,7 +44,7 @@ jobs:
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: '17.x'
+          node-version: 17
           check-latest: true
           registry-url: 'https://registry.npmjs.org'
       - name: 📥 Publishing Package
@@ -65,7 +65,7 @@ jobs:
       - name: ➕ Actions - Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: '17.x'
+          node-version: 17
           check-latest: true
           registry-url: 'https://npm.pkg.github.com/wellwelwel'
           scope: '@wellwelwel'
