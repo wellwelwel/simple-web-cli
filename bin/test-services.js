@@ -100,7 +100,7 @@
                      await new Promise(resolve => {
 
                         let count = 0;
-                        const limit = 5000;
+                        const limit = 10000;
                         const attemp = setInterval(() => {
 
                            count++;
