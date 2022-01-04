@@ -128,7 +128,6 @@
 
             if (process.platform === "linux") {
 
-
                const web_config = readJSON('temp/.web-config.json');
 
                web_config.dev.ftp.root = '/';
@@ -141,11 +140,15 @@
             }
 
             const result = await sh('cd "temp" && simple-web start --TEST');
-            const passed = pass(FTP, /Connected/gm);
 
-            if (!passed) errors.push({ 'Testing FTP service:': FTP });
+            if (process.platform === "linux") {
 
-            console.log(passed ? `   \x1b[32m✔\x1b[0m` : `   \x1b[31m✖\x1b[0m`, 'Initializing FTP Service');
+               const passed = pass(result, /Connected/gm);
+
+               if (!passed) errors.push({ 'Testing FTP service:': result });
+
+               console.log(passed ? `   \x1b[32m✔\x1b[0m` : `   \x1b[31m✖\x1b[0m`, 'FTP Initialization, sending and CHMOD Tests');
+            }
 
             if (!pass(result)) return result;
             return start_errors === 0 ? 'PASSED' : 'FAILED to building files';
