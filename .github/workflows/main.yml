@@ -3,9 +3,10 @@ on: push
 jobs:
   node-minimum:
     name: Node.js
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
         node-version: [ '17.x', '16.x', '15.x', '14.15.0' ]
     steps:
       - name: ➕ Actions - Checkout
@@ -15,47 +16,19 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: 📥 Set Local FTP
+        if: matrix.os == 'ubuntu-latest'
         run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
-      - run: node -v
       - name: 📦 Upgrade to the minimum required NPM version
         if: matrix.node-version == '14.15.0'
         run: npm install -g npm@7.0.2
       - name: 📦 Testing Services with FTP Connection
         run: npm run test-services
-      - name: ⏪ Checking Previous Step
+      - name: ⏪ Checking Previous Step for Linux and macOS
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         run: (ls "passed" && exit 0) || exit 1
-  # macos-coverage:
-  #   name: macOS Coverage
-  #   runs-on: macos-latest
-  #   needs: [ node-16 ]
-  #   steps:
-  #     - name: ➕ Actions - Checkout
-  #       uses: actions/checkout@v2
-  #     - name: ➕ Actions - Setup NodeJS
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '16' # Latest Node.js LTS
-  #         check-latest: true
-  #     - name: 📦 Testing Services
-  #       run: npm run test-services
-  #     - name: ⏪ Checking Previous Step
-  #       run: (ls "passed" && exit 0) || exit 1
-  # windows-coverage:
-  #   name: Windows Coverage
-  #   runs-on: windows-latest
-  #   needs: [ node-16 ]
-  #   steps:
-  #     - name: ➕ Actions - Checkout
-  #       uses: actions/checkout@v2
-  #     - name: ➕ Actions - Setup NodeJS
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '16' # Latest Node.js LTS
-  #         check-latest: true
-  #     - name: 📦 Testing Services
-  #       run: npm run test-services
-  #     - name: ⏪ Checking Previous Step
-  #       run: ls "passed"; if ($?) { exit 0 } else { exit 1 }
+      - name: ⏪ Checking Previous Step for Windows
+        if: matrix.os == 'windows-latest'
+        run: ls "passed"; if ($?) { exit 0 } else { exit 1 }
   # publish:
   #   name: Publishing Package
   #   runs-on: ubuntu-latest
