@@ -68,12 +68,13 @@
          //    await sh('cd "temp" && npm i autoprefixer@6.7.7 --force && npm i postcss-cli@8.3.1 --force && npm i globby@11.0.4 --force');
          // }
 
+         console.log(fs.readFileSync('temp/package.json', 'utf-8'));
+
          let start_errors = 0;
 
          try {
 
             setTimeout(async () => {
-
 
                for (const expected in expecteds) {
 
