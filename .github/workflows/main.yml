@@ -2,11 +2,11 @@ name: CI
 on: push
 jobs:
   node:
-    name: Node.js LTS
+    name: Node.js
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16, 14]
+        node-version: [ 17, 16, 15, 14 ]
     steps:
       - name: ➕ Actions - Checkout
         uses: actions/checkout@v2
