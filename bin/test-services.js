@@ -90,7 +90,7 @@
                      await new Promise(resolve => {
 
                         let count = 0;
-                        const limit = 3000;
+                        const limit = 5000;
                         const attemp = setInterval(() => {
 
                            count++;
@@ -124,7 +124,7 @@
                }
 
                await sh('cd "temp" && touch "src/exit"');
-            }, 3000);
+            }, 5000);
 
             const result = await sh('cd "temp" && simple-web start --TEST');
 
@@ -216,7 +216,7 @@
 
       fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
 
-      setTimeout(() => sh('cd "temp" && touch "src/exit"'), 3000);
+      setTimeout(() => sh('cd "temp" && touch "src/exit"'), 5000);
 
       const FTP = await sh('cd "temp" && simple-web --TEST');
       const passed = pass(FTP, /Connected/gm);
@@ -230,8 +230,9 @@
 
       try {
 
+         console.log('➖ Removing temporary files...');
          await sh('rm -r "temp"');
-         console.log('Removing temporary files:', results.passed);
+         console.log(results.passed);
       } catch (error) { }
    }
 
