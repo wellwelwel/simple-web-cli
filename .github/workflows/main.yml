@@ -13,7 +13,7 @@ jobs:
       - name: 📥 Set Local FTP
         run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
       - name: 📦 Testing Services with FTP Connection
-        run: npm run test-services && nano temp/package.json
+        run: npm run test-services
       - name: ⏪ Checking Previous Step
         run: (ls "passed" && exit 0) || exit 1
   # macOS:
