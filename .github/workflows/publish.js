@@ -31,11 +31,7 @@ const orderJSON = (obj, space) => {
 
       name: '@wellwelwel/simple-web',
       publishConfig: {
-         registry:'https://npm.pkg.github.com'
-      },
-      repository: {
-         type: 'git',
-         url: 'git://github.com/wellwelwel/simple-web.git'
+         registry:'https://npm.pkg.github.com/wellwelwel'
       }
    };
    const package = readJSON(dest);

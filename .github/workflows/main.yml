@@ -1,5 +1,9 @@
 name: CI
-on: push
+on:
+  push:
+    branches:
+      - '*'
+      - '!test-ci'
 jobs:
   test-node-os-coverage:
     name: Node.js
@@ -60,11 +64,11 @@ jobs:
         with:
           node-version: '17.x'
           check-latest: true
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: 'https://npm.pkg.github.com/wellwelwel'
           scope: '@wellwelwel'
       - name: 📦 Preparing Package
         run: node .github/workflows/publish.js
       - name: 📥 Publishing Package
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.RW_GITHUB_TOKEN }}
