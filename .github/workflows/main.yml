@@ -27,10 +27,7 @@ jobs:
 
       - name: 📦 Upgrade to latest NPM version on latest Node.js
         if: matrix.node-version == '17'
-        run: |
-            npm i npm@latest -g
-            npm i
-            npm audit fix
+        run: npm i npm@latest -g
 
       - name: 📦 Upgrade to minimum required NPM version on minimum required Node.js
         if: matrix.node-version == '14.15.0'
