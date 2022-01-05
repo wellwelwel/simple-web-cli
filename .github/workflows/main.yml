@@ -6,7 +6,7 @@ on:
       - '!test-ci'
 jobs:
   test-node-os-coverage:
-    name: Node ${{ matrix.node-version }} | ${{ matrix.os }}
+    name: Node ${{ matrix.node-version }} | ${{ runner.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
