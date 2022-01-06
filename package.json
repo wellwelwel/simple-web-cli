@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "2.8.3",
+  "version": "2.8.4",
   "main": "./bin/init.js",
   "scripts": {
     "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
@@ -44,7 +44,7 @@
     "package-json": "^7.0.0",
     "postcss-cli": "^9.1.0",
     "rimraf": "^3.0.2",
-    "sass": "^1.45.2",
+    "sass": "^1.46.0",
     "uglify-js": "^3.14.5",
     "uglifycss": "^0.0.29"
   },
