@@ -9,7 +9,9 @@
     "test-services": "node \"bin/test-services.js\""
   },
   "bin": {
-    "simple-web": "bin/init.js"
+    "sw": "bin/init.js",
+    "simple-web": "bin/init.js",
+    "simple-web-cli": "bin/init.js"
   },
   "keywords": [
     "ftp-chmod",

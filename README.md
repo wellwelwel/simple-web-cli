@@ -16,7 +16,7 @@
    npm i simple-web-cli -D  # to download the dependencies
 ```
 ```shell
-   npx simple-web  # to start the service
+   npx sw  # to start the service
 ```
 <hr />
 
@@ -27,9 +27,9 @@
 
 <!-- Commands -->
 ### - Commands
-   * `npx simple-web` or `npx simple-web start`: prepares the environment and starts the service
-   * `npx simple-web init`: prepares the environment without starting the service
-   * `npx simple-web buid`: compiles the contents from `src` and zips it to `release.zip`
+   * `npx sw` or `npx sw start`: prepares the environment and starts the service
+   * `npx sw init`: prepares the environment without starting the service
+   * `npx sw buid`: compiles the contents from `src` and zips it to `release.zip`
 <hr />
 
 ### - Configuring the FTP
@@ -210,12 +210,12 @@ Options Indexes FollowSymLinks MultiViews
       $site = '*site-name*';
    ```
 
-   `OUTPUT DEV (npx simple-web)`
+   `OUTPUT DEV (npx sw)`
    ```php
    <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
    ```
 
-   `OUTPUT BUILD (npx simple-web build)`
+   `OUTPUT BUILD (npx sw build)`
    ```php
    <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
    ```
