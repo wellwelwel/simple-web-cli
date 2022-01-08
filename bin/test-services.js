@@ -258,8 +258,6 @@
    /* Exit if success */
    if (errors.length === 0) return true;
 
-   console.log(fs.readFileSync('temp/.swrc.js', 'utf-8'));
-
    console.log('\n--- LOGS ---\n');
    errors.forEach(error => console.log(error));
    console.log('\n--- LOGS ---\n');
