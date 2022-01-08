@@ -11,8 +11,7 @@ module.exports = {
             babel: true,
             uglify: true,
             exclude: {
-               requireBrowser: [
-                  // You can use a file extension or an absolute path
+               requireBrowser: [ // Put file extensions or absolute paths
                   '.min.js',
                   '.mjs'
                ]
@@ -26,7 +25,7 @@ module.exports = {
             minify: true,
             htmlImportLikeSass: true, // If true, ignores the compilation when a HTML file name starts with _
             exclude: {
-               htmlImport: [] // You can use an absolute path
+               htmlImport: [] // Put absolute paths
             }
          },
          htaccess: {
@@ -35,7 +34,7 @@ module.exports = {
          php: {
             minify: true
          },
-         exclude: [ // You can use a file extension or an absolute path to exclude any file from compiling
+         exclude: [ // Put file extensions or absolute paths to exclude any file from compiling
             '.min.css',
             '.min.js'
          ]
@@ -47,7 +46,7 @@ module.exports = {
    },
 
    options: {
-      autoUpdate: true // Updates only for patch and minor versions
+      autoUpdate: true // Updates only for patch and minor versions. Disable for beta versions.
    },
 
 
@@ -63,14 +62,14 @@ module.exports = {
          user: '',
          pass: '',
          secure: true, // If the server doesn't use SSL certification, set "explict"
-         chmod: { // You can remove it to keep the server CHMOD default
+         chmod: { // Remove it to keep the server CHMOD default
             dir: 755,
             file: 644,
             recursive: true
          },
          isWindowsServer: false
       },
-      build: { } // Keeps empty to use the same data as set in "ftp.start"
+      build: { } // Keeps empty to use the same data from "ftp.start"
    },
 
    /**
@@ -79,14 +78,14 @@ module.exports = {
    **/
    build: {
       level: 0, // Compression level of zip output (0: fast, ..., 9: slow)
-      output: 'release', // Generate a zip and creates the root content from this name (example: "release.zip", on extract: "./release/...")
+      output: 'release', // Generate a zip and creates the root content by this name. Example: "release.zip", on extract: "./release/...".
       deployZipToServer: false
    },
 
    plugins: {
 
       /**
-       * Put simple-web language plug-ins modules and path to an auto executable script to compile in other languages
+       * Add simple-web language plug-ins or path to an auto executable script to compile in other languages
        * Works on both "build" and "start"
       **/
       compiler: [],
@@ -113,8 +112,8 @@ module.exports = {
       },
 
       /**
-       * You can create a mirror project folder and add static resource files to replace temporary development files by this on compiling:
-       * It can works joint with "replace-string" and accepts any type of file
+       * You can create a mirror project folder and add static resource files to replace temporary development files by this on compiling.
+       * It can works joint with "replace-string" and accepts any type of file.
       **/
       resourceReplace: {
          src: '.resources',
