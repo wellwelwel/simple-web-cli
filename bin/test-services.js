@@ -46,6 +46,7 @@
 
             console.log('   ➕ Creating temporary folder...');
             await sh('mkdir "temp"');
+            await sh('mkdir "temp/.resources"');
 
             console.log('   ➕ Importing modules...');
             await sh('npm i');
@@ -69,10 +70,8 @@
             const swrc = fs.readFileSync(source, 'utf-8');
             const result = swrc.replace(regex, a => a.replace(/false/, 'true'));
 
-            await sh('cd "temp" && mkdir ".resources"');
-            await sh(`cp ".github/workflows/resources/tests/.resources/test-resource-replace.html" "temp/.resources/test-resource-replace.html"`);
-
             fs.writeFileSync(source, result);
+            fs.writeFileSync('temp/.resources/test-resource-replace.html', fs.readFileSync('.github/workflows/resources/tests/.resources/test-resource-replace.html', 'utf-8'));
 
             return init;
          } catch (error) {
@@ -96,7 +95,7 @@
 
                      try {
 
-                        await sh(`cp ".github/workflows/resources/tests/${expected}" "temp/src/${expected}"`);
+                        fs.writeFileSync(`temp/src/${expected}`, fs.readFileSync(`.github/workflows/resources/tests/${expected}`, 'utf-8'));
                      } catch (error) {
 
                         copied = false;
@@ -120,6 +119,7 @@
                               clearInterval(attemp);
                               resolve();
                            }
+                           if (!fs.existsSync(`temp/src/${file}`)) return;
                            if (!fs.existsSync(`temp/dist/${file}`)) return;
                            if (fs.readFileSync(`temp/dist/${file}`, 'utf-8')?.trim()?.length === 0) return;
 
