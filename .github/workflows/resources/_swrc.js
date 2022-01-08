@@ -1,4 +1,4 @@
-const sw = {
+module.exports = {
 
    workspaces: {
       src: 'src',
@@ -121,12 +121,3 @@ const sw = {
       }
    }
 };
-
-
-/* ----------------------------------------------------------------------- */
-/* -------------------   D O   N O T   C H A N G E !   ------------------- */
-/* ----------------------------------------------------------------------- */
-
-const { workspaces, start, options, ftp, build, plugins } = sw;
-
-module.exports = { workspaces, start, options, ftp, build, plugins };
