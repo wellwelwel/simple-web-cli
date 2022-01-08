@@ -5,7 +5,7 @@ const { process_files } = require('../config');
 const processHTACCESS = content => {
 
    if (!content || content?.trim().length === 0) return '';
-   else if (!process_files.htaccess) return content;
+   else if (!process_files?.htaccess?.minify) return content;
 
    try {
 

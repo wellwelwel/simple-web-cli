@@ -10,11 +10,13 @@ module.exports = {
          js: {
             babel: true,
             uglify: true,
-            excludeFromRequireBrowser: [
-               // You can use a file extension or an absolute path
-               '.min.js',
-               '.mjs'
-            ]
+            exclude: {
+               requireBrowser: [
+                  // You can use a file extension or an absolute path
+                  '.min.js',
+                  '.mjs'
+               ]
+            }
          },
          css: {
             autoprefixer: true,
@@ -22,6 +24,10 @@ module.exports = {
          },
          html: {
             minify: true,
+            htmlImportLikeSass: true, // If true, ignores the compilation when a HTML file name starts with _
+            exclude: {
+               htmlImport: [] // You can use an absolute path
+            }
          },
          htaccess: {
             minify: true
@@ -29,8 +35,7 @@ module.exports = {
          php: {
             minify: true
          },
-         exclude: [
-            // You can use a file extension or an absolute path
+         exclude: [ // You can use a file extension or an absolute path to exclude any file from compiling
             '.min.css',
             '.min.js'
          ]
@@ -42,7 +47,6 @@ module.exports = {
    },
 
    options: {
-      htmlImportLikeSass: true, // If true, ignores the compilation when a HTML file name starts with "_"
       autoUpdate: true // Updates only for patch and minor versions
    },
 
@@ -91,7 +95,7 @@ module.exports = {
       stringReplace: {
          strings: {
             '*your-code-string*': { // always starts and ends this string with *
-               start: 'my-dev-output',
+               start: 'my-start-output',
                build: 'my-build-output'
             }
          },
@@ -109,7 +113,7 @@ module.exports = {
       },
 
       /**
-       * You can create a mirror project folder and add static resource files to replace dev file by this on compiling:
+       * You can create a mirror project folder and add static resource files to replace temporary development files by this on compiling:
        * It can works joint with "replace-string" and accepts any type of file
       **/
       resourceReplace: {

@@ -11,7 +11,7 @@ const post_process = async (options = { }) => {
 
       src: options.src || false,
       to: options.to || false,
-      local: options.local || 'dev',
+      local: options.local || 'start',
       response: options.response || false
    };
    const { src, to, local, response } = config;
@@ -22,7 +22,7 @@ const post_process = async (options = { }) => {
       if (!fse.existsSync(src)) return false;
    }
 
-   const get_replaces = await post_replace();
+   const get_replaces = post_replace();
    const mimetype = `${mime.lookup(src)}`;
    const isValid = /plain|text|application|false/.test(mimetype) ? true : false;
    const fileType = src.split('.').pop().toLowerCase();
@@ -59,8 +59,8 @@ const post_process = async (options = { }) => {
 
                if (!stringToReplace || empty(stringToReplace)) {
 
-                  if (local === 'dev' && !empty(get_replaces.strings[string]['build'])) stringToReplace = get_replaces.strings[string]['build'];
-                  else if (local === 'build' && !empty(get_replaces.strings[string]['dev'])) stringToReplace = get_replaces.strings[string]['dev'];
+                  if (local === 'start' && !empty(get_replaces.strings[string]['build'])) stringToReplace = get_replaces.strings[string]['build'];
+                  else if (local === 'build' && !empty(get_replaces.strings[string]['start'])) stringToReplace = get_replaces.strings[string]['start'];
                   else stringToReplace = '';
                }
 

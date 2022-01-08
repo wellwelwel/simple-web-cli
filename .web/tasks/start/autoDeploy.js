@@ -17,7 +17,7 @@ const processHTML = require('../../modules/process-files/process-html');
 const processHTACCESS = require('../../modules/process-files/process-htaccess');
 const postProcess = require('../../modules/process-files/post-process-replace');
 const no_process = require('../../modules/process-files/no-process');
-const sep = require('path').sep;
+const { sep, dirname } = require('path');
 const Schedule = require('../../modules/schedule');
 const serverOSNormalize = require('../../modules/server-os-normalize');
 
@@ -34,7 +34,7 @@ module.exports = async () => {
    loading.ftp.string = `${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`;
 
    const { host, user, pass } = dev.ftp;
-   const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
+   const pre_connect = !empty(host) || !empty(user) || !empty(pass);
    const conn = pre_connect ? await FTP.connect(dev.ftp) : false;
    if (!conn) {
 

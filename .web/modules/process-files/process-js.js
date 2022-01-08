@@ -167,7 +167,7 @@ async function processJS(file, local = false, replace = 'dev') {
 
    async function pre_process() {
 
-      const exclude_files = process_files['exclude-requires'] || false;
+      const exclude_files = process_files?.js?.exclude?.requireBrowser || false;
       let result = false;
 
       if (exclude_files) {
@@ -194,13 +194,13 @@ async function processJS(file, local = false, replace = 'dev') {
 
       if (no_process(pre)) return;
 
-      if (process_files.js.babel) {
+      if (process_files?.js?.babel) {
 
          const request = await exec(`npx --quiet babel "${pre}" -o "${pre}"`); // Babel
          if (!request) error = true;
       }
 
-      if (process_files.js.uglify) {
+      if (process_files?.js?.uglify) {
 
          const request = await exec(`npx --quiet uglifyjs "${pre}" -o "${pre}" -c -m`); // Uglify
          if (!request) error = true;

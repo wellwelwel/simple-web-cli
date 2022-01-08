@@ -256,4 +256,6 @@
    console.log('\n--- LOGS ---\n');
    errors.forEach(error => console.log(error));
    console.log('\n--- LOGS ---\n');
+
+   process.exit(1);
 })();

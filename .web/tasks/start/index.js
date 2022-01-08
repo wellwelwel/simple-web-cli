@@ -41,7 +41,7 @@ const sep = require('path').sep;
       await watchClose();
 
       starting.stop(0, `Falha ao iniciar processos`);
-      return;
+      process.exit(1);
    }
 
    starting.stop(1, `Watching${sh.reset} ${sh.green}${sh.bold}YOU${sh.reset}${sh.dim}${sh.green} ... ${sh.reset}${sh.bright}🧟`);
