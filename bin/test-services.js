@@ -4,28 +4,6 @@
    const fs = require('fs');
    const { extname } = require('path');
    const sh = async command => new Promise((resolve, reject) => exec(command, (error, stdout) => !!error ? reject(error) : resolve(stdout)));
-   // const readJSON = file => JSON.parse(fs.readFileSync(file, 'utf-8'));
-   // const buildJSON = obj => orderJSON(obj, 2);
-   // const orderJSON = (obj, space) => {
-
-   //    const allKeys = [];
-   //    const seen = { };
-
-   //    JSON.stringify(obj, (key, value) => {
-
-   //       if (!(key in seen)) {
-
-   //          allKeys.push(key);
-   //          seen[key] = null;
-   //       }
-
-   //       return value;
-   //    });
-
-   //    allKeys.sort();
-
-   //    return JSON.stringify(obj, allKeys, space);
-   // };
    const pass = (stdout, regex = /PASSED/gm) => regex.test(stdout);
    const results = {
 
