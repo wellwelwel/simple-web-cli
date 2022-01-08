@@ -187,17 +187,17 @@
       },
       'test-import.html': {
 
-         name: 'Testing "HTML Import"',
+         name: 'Testing Feature: HTML Import',
          output: '<html><body><header></header></body></html>'
       },
       'test-require.js': {
 
-         name: 'Testing "Require Browser"',
+         name: 'Testing Feature: Require Browser',
          output: '"use strict";var s=function(t){return document.querySelector(t)},sEl=function(t,n){return t.querySelector(n)},sAll=function(t){return document.querySelectorAll(t)},sElAll=function(t,n){return t.querySelectorAll(n)},isEmpty=function(t){return 0===(null==t?void 0:t.trim().length)},notEmpty=function(t){return 0<(null==t?void 0:t.trim().length)};'
       },
       'test-string-replace.html': {
 
-         name: 'Testing "String Replace"',
+         name: 'Testing Plug-in: String Replace',
          output: '<html><body>my-start-output</body></html>'
       }
    };
