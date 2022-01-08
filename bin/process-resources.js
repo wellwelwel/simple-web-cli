@@ -49,8 +49,7 @@
       fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_package.json`), normalize('./package.json'));
       await exec('npm i');
    }
-   if (!fse.existsSync(normalize('./.web-config.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-config.json`), normalize('./.web-config.json'));
-   if (!fse.existsSync(normalize('./.web-replace.json'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_web-replace.json`), normalize('./.web-replace.json'));
+   if (!fse.existsSync(normalize('./.swrc.js'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_swrc.js`), normalize('./.swrc.js'));
    if (!fse.existsSync(normalize('./.eslintignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_eslintignore`), normalize('./.eslintignore'));
    if (!fse.existsSync(normalize('./.gitignore'))) fse.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
    else {
@@ -58,11 +57,9 @@
       let gitignore = fse.readFileSync(normalize('./.gitignore'), 'utf-8');
       const toIgnore = [
 
-         '.main',
-         '.release',
+         'dist',
+         'release',
          'src/exit',
-         '.web-config.json',
-         '.web-replace.json',
          '.library/@process-css',
          '.library/addEventListener',
          '.library/blacklist',
@@ -71,7 +68,10 @@
          '.library/force-array',
          '.library/last-char',
          '.library/selector',
-         '.library/package.json'
+         '.library/package.json',
+         'node_modules',
+         'package-lock.json',
+         'yarn.lock'
       ];
 
       toIgnore.forEach(ignore => {

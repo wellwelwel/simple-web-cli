@@ -136,7 +136,7 @@ async function recursive_require(file, replace) {
    return content;
 }
 
-async function processJS(file, local = false, replace = 'dev') {
+async function processJS(file, local = false, replace = 'start') {
 
    const _ = /\.library/.test(file) ? true : false;
 

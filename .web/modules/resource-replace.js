@@ -5,10 +5,9 @@ module.exports = (file, local) => {
 
    if (!plugins) return false;
 
-   const webReplace = plugins?.resourceReplace || false;
-   const resources = webReplace?.resources || false;
+   const resources = plugins?.resourceReplace || false;
 
-   if (!resources?.replace[local]) return false;
+   if (!resources?.replace?.[local]) return false;
 
    const src =  resources?.src || '.resources';
    const dest = file.replace(source, src);

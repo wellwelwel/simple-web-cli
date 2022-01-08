@@ -110,15 +110,15 @@
                               clearInterval(attemp);
                               resolve();
                            }
-                           if (!fs.existsSync(`temp/.main/${file}`)) return;
-                           if (fs.readFileSync(`temp/.main/${file}`, 'utf-8')?.trim()?.length === 0) return;
+                           if (!fs.existsSync(`temp/dist/${file}`)) return;
+                           if (fs.readFileSync(`temp/dist/${file}`, 'utf-8')?.trim()?.length === 0) return;
 
                            clearInterval(attemp);
                            resolve();
                         });
                      });
 
-                     const compare = fs.readFileSync(`temp/.main/${file}`, 'utf-8');
+                     const compare = fs.readFileSync(`temp/dist/${file}`, 'utf-8');
 
                      console.log(copied && compare === output ? `   \x1b[32m✔\x1b[0m` : `   \x1b[31m✖\x1b[0m`, name);
                      if (!copied || compare !== output) {

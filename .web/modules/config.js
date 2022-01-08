@@ -44,9 +44,10 @@ const dev = { ftp: config.ftp.start };
 const process_files = config.start.compile;
 const build = config?.build || false;
 const plugins = config?.plugins || false;
+const options = config?.options || false;
 
 process_files.js.require = required;
 
 createDir([ source, to, required ]);
 
-module.exports = { source, to, dev, process_files, build, plugins };
+module.exports = { source, to, dev, process_files, build, options, plugins };
