@@ -66,7 +66,7 @@
 
             const init = await sh('cd "temp" && sw init --TEST');
             const source = 'temp/.swrc.js';
-            const regex = /replace:.*\s.*start:.*false,/gim;
+            const regex = /start:.*false/gim;
             const swrc = fs.readFileSync(source, 'utf-8');
             const result = swrc.replace(regex, a => a.replace(/false/, 'true'));
 
