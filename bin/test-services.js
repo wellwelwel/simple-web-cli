@@ -63,7 +63,7 @@
 
          try {
 
-            const init = await sh('cd "temp" && simple-web init --TEST');
+            const init = await sh('cd "temp" && sw init --TEST');
             return init;
          } catch (error) {
 
@@ -136,7 +136,7 @@
                await sh('cd "temp" && touch "src/exit"');
             }, 5000);
 
-            const result = await sh('cd "temp" && simple-web start --TEST');
+            const result = await sh('cd "temp" && sw start --TEST');
 
             if (!pass(result)) return result;
             return start_errors === 0 ? 'PASSED' : 'FAILED to building files';
@@ -145,7 +145,7 @@
             return error;
          }
       },
-      'Executing service "build"': async () => { try { return await sh('cd "temp" && simple-web build --TEST'); } catch (error) { return error; } }
+      'Executing service "build"': async () => { try { return await sh('cd "temp" && sw build --TEST'); } catch (error) { return error; } }
    };
    const errors = [];
    const expecteds = {
@@ -228,7 +228,7 @@
 
    //    setTimeout(() => sh('cd "temp" && touch "src/exit"'), 5000);
 
-   //    const FTP = await sh('cd "temp" && simple-web --TEST');
+   //    const FTP = await sh('cd "temp" && sw --TEST');
    //    const passed = pass(FTP, /Connected/gm);
 
    //    if (!passed) errors.push({ 'Testing FTP service:': FTP });
