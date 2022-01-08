@@ -36,14 +36,6 @@ jobs:
       - name: 📦 Testing Services
         run: npm run test-services
 
-      # - name: ⏪ Checking Previous Step for Linux and macOS
-      #   if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
-      #   run: (ls "passed" && exit 0) || exit 1
-
-      # - name: ⏪ Checking Previous Step for Windows
-      #   if: matrix.os == 'windows-latest'
-      #   run: ls "passed"; if ($?) { exit 0 } else { exit 1 }
-
   publish-npmjs:
     name: Publish Package to npmjs
     runs-on: ubuntu-latest

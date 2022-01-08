@@ -247,11 +247,7 @@
    }
 
    /* Exit if success */
-   if (errors.length === 0) {
-
-      await sh('touch "passed"');
-      return true;
-   }
+   if (errors.length === 0) return true;
 
    console.log('\n--- LOGS ---\n');
    errors.forEach(error => console.log(error));
