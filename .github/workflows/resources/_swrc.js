@@ -42,7 +42,7 @@ module.exports = {
       },
       localhost: {
          enabled: true,
-         port: 5000
+         port: 3030
       }
    },
 
@@ -56,7 +56,7 @@ module.exports = {
    /* ----------------------------------------------------------------------- */
 
    ftp: { // Keeps empty to ignore the FTP connection
-      start: {
+      start: { // Becareful! Set access FTP data on an external .env or add the “.swrc.js” to .gitignore
          root: '',
          host: '',
          port: 21,

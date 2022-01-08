@@ -41,6 +41,7 @@ if (to.substring(to.length - 1, to.length) === sep) to = to.substring(0, to.leng
 if (required.substring(required.length - 1, required.length) === sep) required = required.substring(0, required.length - 1);
 
 const dev = { ftp: config.ftp.start };
+const dist = { ftp: config.ftp.build };
 const process_files = config.start.compile;
 const build = config?.build || false;
 const plugins = config?.plugins || false;
@@ -50,4 +51,4 @@ process_files.js.require = required;
 
 createDir([ source, to, required ]);
 
-module.exports = { source, to, dev, process_files, build, options, plugins };
+module.exports = { source, to, dev, dist, process_files, build, options, plugins };
