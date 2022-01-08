@@ -25,13 +25,13 @@ jobs:
       #   if: matrix.os == 'ubuntu-latest'
       #   run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
 
+      - name: 📦 Downgrade to minimum required NPM version on minimum required Node.js
+        if: matrix.node-version == '14.15.0'
+        run: npm i npm@7.0.2 -g
+
       - name: 📦 Upgrade to latest NPM version on latest Node.js
         if: matrix.node-version == '17'
         run: npm i npm@latest -g
-
-      - name: 📦 Upgrade to minimum required NPM version on minimum required Node.js
-        if: matrix.node-version == '14.15.0'
-        run: npm i npm@7.0.2 -g
 
       - name: 📦 Testing Services
         run: npm run test-services
