@@ -64,6 +64,16 @@
          try {
 
             const init = await sh('cd "temp" && sw init --TEST');
+            const source = 'temp/.swrc.js';
+            const regex = /replace:.*\s.*start:.*false,/gim;
+            const swrc = fs.readFileSync(source, 'utf-8');
+            const result = swrc.replace(regex, a => a.replace(/false/, 'true'));
+
+            await sh('cd "temp" && mkdir ".resources"');
+            await sh(`cp ".github/workflows/resources/tests/.resources/test-resource-replace.html" "temp/.resources/test-resource-replace.html"`);
+
+            fs.writeFileSync(source, result);
+
             return init;
          } catch (error) {
 
@@ -155,10 +165,6 @@
          name: 'Building HTML',
          output: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document</title></head><body></body></html>'
       },
-      '_header.html': {
-
-         src: true
-      },
       'test-file.css': {
 
          name: 'Building CSS',
@@ -185,6 +191,10 @@
          name: 'Building PHTML',
          output: '<?php echo 123?>'
       },
+      '_header.html': {
+
+         src: true
+      },
       'test-import.html': {
 
          name: 'Testing Feature: HTML Import',
@@ -199,7 +209,12 @@
 
          name: 'Testing Plug-in: String Replace',
          output: '<html><body>my-start-output</body></html>'
-      }
+      },
+      'test-resource-replace.html': {
+
+         name: 'Testing Plug-in: Resource Replace',
+         output: '<html><body>456</body></html>'
+      },
    };
 
    console.clear();
@@ -217,29 +232,40 @@
    }
 
    /* Testing FTP service */
-   // if (process.platform === "linux") {
+   if (process.platform === "linux") {
 
-   //    console.log('➖ Testing FTP service...');
+      console.log('➖ Testing FTP service...');
 
-   //    const web_config = readJSON('temp/.web-config.json');
+      const source = 'temp/.swrc.js';
+      const regex = {
 
-   //    web_config.dev.ftp.root = '/';
-   //    web_config.dev.ftp.host = '127.0.0.1';
-   //    web_config.dev.ftp.user = 'test';
-   //    web_config.dev.ftp.pass = 'test';
-   //    web_config.dev.ftp.secure = 'explict';
+         root: /root: '',/gim,
+         host: /host: '',/gim,
+         user: /user: '',/gim,
+         pass: /pass: '',/gim,
+         secure: /secure: true,/gim,
+      };
+      const swrc = fs.readFileSync(source, 'utf-8');
 
-   //    fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
+      let result = '';
 
-   //    setTimeout(() => sh('cd "temp" && touch "src/exit"'), 5000);
+      result = swrc.replace(regex.root, a => a.replace(/''/, "'/'"));
+      result = result.replace(regex.host, a => a.replace(/''/, "'127.0.0.1'"));
+      result = result.replace(regex.user, a => a.replace(/''/, "'test'"));
+      result = result.replace(regex.pass, a => a.replace(/''/, "'test'"));
+      result = result.replace(regex.secure, a => a.replace(/true/, "'explict'"));
 
-   //    const FTP = await sh('cd "temp" && sw --TEST');
-   //    const passed = pass(FTP, /Connected/gm);
+      fs.writeFileSync(source, result);
 
-   //    if (!passed) errors.push({ 'Testing FTP service:': FTP });
+      setTimeout(() => sh('cd "temp" && touch "src/exit"'), 5000);
 
-   //    console.log(results[passed ? 'passed' : 'failed']);
-   // }
+      const FTP = await sh('cd "temp" && sw --TEST');
+      const passed = pass(FTP, /Connected/gm);
+
+      if (!passed) errors.push({ 'Testing FTP service:': FTP });
+
+      console.log(results[passed ? 'passed' : 'failed']);
+   }
 
    if (fs.existsSync('temp')) {
 

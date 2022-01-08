@@ -21,9 +21,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # - name: 📥 Set Local FTP
-      #   if: matrix.os == 'ubuntu-latest'
-      #   run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
+      - name: 📥 Set Local FTP
+        if: matrix.os == 'ubuntu-latest'
+        run: docker run -d -p 21:21 -e FTP_USER=test -e FTP_PASS=test -e PASV_ADDRESS=127.0.0.1 bogem/ftp
 
       - name: 📦 Downgrade to minimum required NPM version on minimum required Node.js
         if: matrix.node-version == '14.15.0'
