@@ -1,3 +1,5 @@
+const [ ,, ...args ] = process.argv;
+const arg = args[0]?.replace(/-/g, '') || 'start';
 const config = require(`${process.cwd()}/.swrc.js`);
 const createDir = require('./create-dir.js');
 const { normalize, sep } = require('path');
@@ -42,7 +44,7 @@ if (required.substring(required.length - 1, required.length) === sep) required =
 
 const dev = { ftp: config.ftp.start };
 const dist = { ftp: config.ftp.build };
-const process_files = config.start.compile;
+const process_files = arg === 'build' && config?.build?.compile ? config.build.compile : config.start.compile;
 const build = config?.build || false;
 const plugins = config?.plugins || false;
 const options = config?.options || false;
