@@ -20,13 +20,13 @@
 ```
 <hr />
 
-### - Desenvolvimento
+### Desenvolvimento
 * **`scr`** é o diretório de desenvolvimento
 * **`dist`** é o diretório com o código compilado
 <hr />
 
 <!-- Comandos -->
-### - Comandos
+### Comandos
    * `npx sw` ou `npx sw start`: prepara o ambiente e inicia o serviço
    * `npx sw init`: prepara o ambiente sem iniciar o serviço
    * `npx sw buid`: compila todo o conteúdo do diretório `src` e compacta para o arquivo `release.zip`
@@ -50,7 +50,7 @@
 <hr />
 
 <!-- Local Modules -->
-### Módulos Locais (navegador)
+### Módulos Locais - Navegador
   * No **JavaScript** (web), é possível importar módulos locais salvos dentro do diretório `.library`, por exemplo:
 
    <ins>`.library/meu-script/index.js`</ins>
@@ -70,7 +70,7 @@
    ```
 <hr />
 
-### - Habilitando o FTP
+### Habilitando o FTP
 * No arquivo **`.swrc.js`**, basta inserir as informações de acesso:
 ```javascript
 {
@@ -93,7 +93,7 @@
 > ##### *- caso não seja inserido nenhum acesso, ele criará o projeto normalmente, apenas ignorando o envio FTP* <br /> *- se o FTP não possuir certificação SSL, utilize `"explict"` em `"secure"`*
 <hr />
 
-### - Utilizando
+### Utilizando
    * Uma vez iniciado o processo, o evento ocorre ao **salvar qualquer arquivo** no diretório `src`.
 <br />
 
@@ -242,6 +242,18 @@ Options Indexes FollowSymLinks MultiViews
 >
 
 >
+>`Node`  
+>
+>- [x] **>=14.15.0**  
+>
+
+>
+>`npm`  
+>
+>- [x] **>=7.0.2**  
+>
+
+>
 >`Editores`  
 >
 >- [x] [**Visual Studio Code**](https://code.visualstudio.com/Download)  
@@ -251,10 +263,10 @@ Options Indexes FollowSymLinks MultiViews
 >
 >`Extensões Recomendadas (VSCode)` <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" width="12" />
 >
->- [x] [**ESLint** - *Dirk Baeumer*](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
->- [x] [**npm Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
 >- [x] [**Path Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
+>- [x] [**npm Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
 >- [x] [**Visual Studio IntelliCode** - *Microsoft*](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
+>- [x] [**ESLint** - *Dirk Baeumer*](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 >
 
 #### __Feito com *dor* e *sofrimento* em noites frias por [Weslley Araújo](https://github.com/wellwelwel)__ 😔

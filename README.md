@@ -20,13 +20,13 @@
 ```
 <hr />
 
-### - Development
+### Development
 * **`scr`** is the directory of development
 * **`dist`** is the directory with the compiled code
 <hr />
 
 <!-- Commands -->
-### - Commands
+### Commands
    * `npx sw` or `npx sw start`: prepares the environment and starts the service
    * `npx sw init`: prepares the environment without starting the service
    * `npx sw buid`: compiles the contents from `src` and zips it to `release.zip`
@@ -50,7 +50,7 @@
 <hr />
 
 <!-- Local Modules -->
-### - Local Modules (browser)
+### Local Modules - Browser
   * In **JavaScript** (web), it's possible to import local modules saved into `.library`, for example:
  
    <ins>`.library/my-script/index.js`</ins>
@@ -70,7 +70,7 @@
    ```
 <hr />
 
-### - Enable the FTP
+### Enable the FTP
 * In the file **`.swrc.js`**, just insert the acess infos:
 ```javascript
 {
@@ -93,7 +93,7 @@
 > ##### *- If no access is entered, it will create the project normally, just ignoring the FTP upload*  <br />  *- If the FTP doesn't use SSL certification, set `"explict"` in `"secure"`*
 <hr />
 
-### - Using
+### Using
    * Once the process is started, the event occurs by **saving any file** into `src`.
 <br />
 
@@ -242,6 +242,18 @@ Options Indexes FollowSymLinks MultiViews
 >
 
 >
+>`Node`  
+>
+>- [x] **>=14.15.0**  
+>
+
+>
+>`npm`  
+>
+>- [x] **>=7.0.2**  
+>
+
+>
 >`Code Editors`  
 >
 >- [x] [**Visual Studio Code**](https://code.visualstudio.com/Download)  
@@ -251,10 +263,10 @@ Options Indexes FollowSymLinks MultiViews
 >
 >`Recomended Extensions (VSCode)` <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" width="12" />
 >
->- [x] [**ESLint** - *Dirk Baeumer*](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
->- [x] [**npm Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
 >- [x] [**Path Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
+>- [x] [**npm Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
 >- [x] [**Visual Studio IntelliCode** - *Microsoft*](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
+>- [x] [**ESLint** - *Dirk Baeumer*](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 >
 
 >- [x] Translate: [**SrLaco**](https://github.com/SrLaco)
