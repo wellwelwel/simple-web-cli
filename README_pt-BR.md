@@ -89,8 +89,6 @@
    + **Desenvolvimento:** <ins>`src/html/index.html`</ins>  
    + **Distribuição:** <ins>`dist/html/index.html`</ins>  
    + **FTP:** <ins>`/var/www/html/index.html`</ins>  
-
-> ##### *- caso não seja inserido nenhum acesso, ele criará o projeto normalmente, apenas ignorando o envio FTP* <br /> *- se o FTP não possuir certificação SSL, utilize `"explict"` em `"secure"`*
 <hr />
 
 ### Utilizando

@@ -89,8 +89,6 @@
    - **Development:** <ins>`src/html/index.html`</ins>  
    - **Distribution:** <ins>`dist/html/index.html`</ins>  
    - **FTP:** <ins>`/var/www/html/index.html`</ins>  
-
-> ##### *- If no access is entered, it will create the project normally, just ignoring the FTP upload*  <br />  *- If the FTP doesn't use SSL certification, set `"explict"` in `"secure"`*
 <hr />
 
 ### Using
