@@ -48,9 +48,10 @@ const process_files = arg === 'build' && config?.build?.compile ? config.build.c
 const build = config?.build || false;
 const plugins = config?.plugins || false;
 const options = config?.options || false;
+const port = config?.start?.localhost?.enabled ? config?.start?.localhost?.port || 3000 : false;
 
 process_files.js.require = required;
 
 createDir([ source, to, required ]);
 
-module.exports = { source, to, dev, dist, process_files, build, options, plugins };
+module.exports = { source, to, dev, dist, process_files, build, options, plugins, port };
