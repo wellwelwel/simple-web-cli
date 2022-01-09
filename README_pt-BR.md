@@ -32,29 +32,6 @@
    * `npx sw buid`: compila todo o conteúdo do diretório `src` e compacta para o arquivo `release.zip`
 <hr />
 
-### - Configurando o FTP
-* No arquivo **`.swrc.js`**, basta inserir as informações de acesso:
-```javascript
-{
-   ftp: {
-      root: '_DIRETORIO_RAIZ_',
-      host: '_IP_',
-      user: '_USUARIO_',
-      pass: '_SENHA_',
-      secure: true || 'explict'
-   }
-}
-```
-
-* Supondo que o diretório **`root`** seja <ins>`/var/www`</ins>, a entrada e saída dos diretórios seria:
-
-   + **Desenvolvimento:** <ins>`src/html/index.html`</ins>  
-   + **Distribuição:** <ins>`dist/html/index.html`</ins>  
-   + **FTP:** <ins>`/var/www/html/index.html`</ins>  
-
-> ##### *- caso não seja inserido nenhum acesso, ele criará o projeto normalmente, apenas ignorando o envio FTP* <br /> *- se o FTP não possuir certificação SSL, utilize `"explict"` em `"secure"`*
-<hr />
-
 <!-- HTML Import -->
 ### HTML Import
   * É possível importar recursivamente arquivos `.html`, baseado na importação do `scss`, por exemplo:
@@ -63,7 +40,9 @@
       <html>
          <body>
             <!-- import('./views/_header.html') -->
-            <!-- import('./views/_main.html') -->
+            <section>
+               <!-- import('./views/_main.html') -->
+            </section>
             <!-- import('../_footer.html') -->
          </body>
       </html>
@@ -89,6 +68,29 @@
       /* para importar o módulo em uma variável com nome personalizado */
       const minha_variavel = require('web/meu-script').meu_script1;
    ```
+<hr />
+
+### - Habilitando o FTP
+* No arquivo **`.swrc.js`**, basta inserir as informações de acesso:
+```javascript
+{
+   ftp: {
+      root: '_DIRETORIO_RAIZ_',
+      host: '_IP_',
+      user: '_USUARIO_',
+      pass: '_SENHA_',
+      secure: true || 'explict'
+   }
+}
+```
+
+* Supondo que o diretório **`root`** seja <ins>`/var/www`</ins>, a entrada e saída dos diretórios seria:
+
+   + **Desenvolvimento:** <ins>`src/html/index.html`</ins>  
+   + **Distribuição:** <ins>`dist/html/index.html`</ins>  
+   + **FTP:** <ins>`/var/www/html/index.html`</ins>  
+
+> ##### *- caso não seja inserido nenhum acesso, ele criará o projeto normalmente, apenas ignorando o envio FTP* <br /> *- se o FTP não possuir certificação SSL, utilize `"explict"` em `"secure"`*
 <hr />
 
 ### - Utilizando

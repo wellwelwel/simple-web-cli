@@ -32,29 +32,6 @@
    * `npx sw buid`: compiles the contents from `src` and zips it to `release.zip`
 <hr />
 
-### - Configuring the FTP
-* In the file **`.swrc.js`**, just insert the acess infos:
-```javascript
-{
-   ftp: {
-      root: '_ROOT_DIRECTORY_',
-      host: '_IP_',
-      user: '_USER_',
-      pass: '_PASSWORD_',
-      secure: true || 'explict'
-   }
-}
-```
-
-* Assuming the **`root`** directory is <ins>`/var/www`</ins>, the input and output of the directories would be:
-
-   - **Development:** <ins>`src/html/index.html`</ins>  
-   - **Distribution:** <ins>`dist/html/index.html`</ins>  
-   - **FTP:** <ins>`/var/www/html/index.html`</ins>  
-
-> ##### *- If no access is entered, it will create the project normally, just ignoring the FTP upload*  <br />  *- If the FTP doesn't use SSL certification, set `"explict"` in `"secure"`*
-<hr />
-
 <!-- HTML Import -->
 ### HTML Import
   * You can import `.html` files recursively, based on the `scss` import, for example:
@@ -63,7 +40,9 @@
       <html>
          <body>
             <!-- import('./views/_header.html') -->
-            <!-- import('./views/_main.html') -->
+            <section>
+               <!-- import('./views/_main.html') -->
+            </section>
             <!-- import('../_footer.html') -->
          </body>
       </html>
@@ -89,6 +68,29 @@
       /* to import the module into a variable with a custom name */
       const my_name_var = require('web/my-script').my_script1;
    ```
+<hr />
+
+### - Enable the FTP
+* In the file **`.swrc.js`**, just insert the acess infos:
+```javascript
+{
+   ftp: {
+      root: '_ROOT_DIRECTORY_',
+      host: '_IP_',
+      user: '_USER_',
+      pass: '_PASSWORD_',
+      secure: true || 'explict'
+   }
+}
+```
+
+* Assuming the **`root`** directory is <ins>`/var/www`</ins>, the input and output of the directories would be:
+
+   - **Development:** <ins>`src/html/index.html`</ins>  
+   - **Distribution:** <ins>`dist/html/index.html`</ins>  
+   - **FTP:** <ins>`/var/www/html/index.html`</ins>  
+
+> ##### *- If no access is entered, it will create the project normally, just ignoring the FTP upload*  <br />  *- If the FTP doesn't use SSL certification, set `"explict"` in `"secure"`*
 <hr />
 
 ### - Using
