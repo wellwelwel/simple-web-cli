@@ -29,7 +29,7 @@
 ### Comandos
    * `npx sw` ou `npx sw start`: prepara o ambiente e inicia o serviço
    * `npx sw init`: prepara o ambiente sem iniciar o serviço
-   * `npx sw buid`: compila todo o conteúdo do diretório `src` e compacta para o arquivo `release.zip`
+   * `npx sw build`: compila todo o conteúdo do diretório `src` e compacta para o arquivo `release.zip`
 <hr />
 
 <!-- HTML Import -->

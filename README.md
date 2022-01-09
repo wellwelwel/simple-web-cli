@@ -29,7 +29,7 @@
 ### Commands
    * `npx sw` or `npx sw start`: prepares the environment and starts the service
    * `npx sw init`: prepares the environment without starting the service
-   * `npx sw buid`: compiles the contents from `src` and zips it to `release.zip`
+   * `npx sw build`: compiles the contents from `src` and zips it to `release.zip`
 <hr />
 
 <!-- HTML Import -->
