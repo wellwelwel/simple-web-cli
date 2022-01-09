@@ -131,7 +131,7 @@ const rebuildFiles = async arg => {
    }
    catch (error) {
 
-      console.warn('Unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/package.json and insert "browserslist" and local dependence "web" manually\n');
+      console.warn('Unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web-cli/blob/main/package.json and insert "browserslist" and local dependence "web" manually\n');
       console.error(`Error: ${error.message}\n`);
 
       if (!stage.error) stage.error = true;
@@ -204,7 +204,7 @@ const rebuildFiles = async arg => {
    }
    catch (error) {
 
-      console.warn('Unable to get the needed resources into .babelrc.\nPlease, look at: https://github.com/wellwelwel/simple-web/blob/main/.babelrc and insert missing JSON values manually\n');
+      console.warn('Unable to get the needed resources into .babelrc.\nPlease, look at: https://github.com/wellwelwel/simple-web-cli/blob/main/.babelrc and insert missing JSON values manually\n');
       console.error(`Error: ${error.message}\n`);
 
       if (!stage.error) stage.error = true;

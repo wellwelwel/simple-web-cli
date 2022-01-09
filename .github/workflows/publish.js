@@ -29,7 +29,7 @@ const orderJSON = (obj, space) => {
    const dest = 'package.json';
    const git = {
 
-      name: '@wellwelwel/simple-web',
+      name: '@wellwelwel/simple-web-cli',
       publishConfig: {
          registry:'https://npm.pkg.github.com/wellwelwel'
       }

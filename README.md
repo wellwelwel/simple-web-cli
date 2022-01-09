@@ -1,6 +1,6 @@
 <p align="center">
  <img width="100px" src="https://weslley.io/media/simple-web-11.svg" align="center" alt="simple-web" />
- <h1 align="center">simple-web</h1>
+ <h1 align="center">Simple Web Cli</h1>
  <p align="center">A simple compiler to automate the development in the HTML, CSS/Sass, JavaScript and PHP languages using the FTP connection to deploy files processed automatically to the final server.</p>
 </p>
 

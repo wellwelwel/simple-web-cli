@@ -86,7 +86,7 @@ module.exports = {
    plugins: {
 
       /**
-       * Put simple-web language plug-ins modules and path to an auto executable script to compile in other languages
+       * Put simple-web-cli language plug-ins modules and path to an auto executable script to compile in other languages
        * Works on both "build" and "start"
       **/
       compiler: [],
