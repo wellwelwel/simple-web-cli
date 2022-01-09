@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "main": "./bin/init.js",
   "scripts": {
     "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
@@ -16,6 +16,9 @@
   "keywords": [
     "ftp-chmod",
     "ftp-service",
+    "html-import",
+    "html-include",
+    "html-require",
     "require-browser",
     "require-commonjs",
     "simple-web",
