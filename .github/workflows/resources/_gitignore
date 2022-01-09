@@ -1,17 +1,9 @@
-node_modules
-*.DS_Store
+# simple-web-cli
 temp_*
-tests/*
-*.test*
+dist
+release
 *.zip
-.main
-.release
 src/exit
-package-lock.json
-yarn.lock
-.env
-.web-config.json
-.web-replace.json
 .library/@process-css
 .library/addEventListener
 .library/blacklist
@@ -21,3 +13,53 @@ yarn.lock
 .library/last-char
 .library/selector
 .library/package.json
+
+# Node.js
+node_modules
+package-lock.json
+yarn.lock
+.env
+.env.test
+.env.production
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# macOS
+*.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows | Office
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.tmp
+~$*.doc*
+~$*.xls*
+*.xlk
+~$*.ppt*
+*.~vsd*

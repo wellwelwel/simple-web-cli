@@ -1,6 +1,6 @@
 "use strict";
 
-const { dev, source } = require('../../modules/config');
+const { dev, dist, source, build } = require('../../modules/config');
 const fs = require('fs-extra').promises;
 const _fs = require('fs-extra');
 const { sh, draft } = require('../../modules/sh');
@@ -17,10 +17,9 @@ const processHTML = require('../../modules/process-files/process-html');
 const no_process = require('../../modules/process-files/no-process');
 const createDir = require('../../modules/create-dir');
 const postProcess = require('../../modules/process-files/post-process-replace');
-const { build } = require('../../modules/receive-args');
 const glob = require('glob');
 const rimraf = require('rimraf');
-const sep = require('path').sep;
+const { sep } = require('path');
 const FTP = require('../../modules/ftp');
 const serverOSNormalize = require('../../modules/server-os-normalize');
 const { performance } = require('perf_hooks');
@@ -32,11 +31,7 @@ const { performance } = require('perf_hooks');
 
    await deleteDS_Store();
 
-   const [ ,, ...args ] = process.argv;
-
-   build(args);
-
-   const to = process.env.output;
+   const to = build.output;
    const final = to.replace(/^\./, '');
 
    await watchClose();
@@ -133,7 +128,7 @@ const { performance } = require('perf_hooks');
 
             const files = await listFiles(to) || [];
             const output = _fs.createWriteStream(`${final}.zip`);
-            const archive = archiver('zip', { zlib: { level: process.env.level } });
+            const archive = archiver('zip', { zlib: { level: build?.level || 0 } });
 
             archive.pipe(output);
             for (const file of files) archive.file(file, { name: file });
@@ -164,11 +159,13 @@ const { performance } = require('perf_hooks');
 
       async function send() {
 
+         if (!build?.deployZipToServer) return;
+
          const loading = new draft(`${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`);
 
-         const { host, user, pass, secure } = dev.ftp;
+         const { host, user, pass, secure } = dist?.host && dist?.user && dist?.pass && dist?.secure ? dist : dev.ftp;
          const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
-         const conn = pre_connect ? await FTP.connect({ host: host, user: user, pass: pass, root: process.env.ftp, secure: secure }) : false;
+         const conn = pre_connect ? await FTP.connect({ host: host, user: user, pass: pass, root: build.ftp, secure: secure }) : false;
 
          if (!conn) {
 
@@ -181,7 +178,7 @@ const { performance } = require('perf_hooks');
          loading.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.blue}Connected`);
 
          /* Send */
-         const remote = serverOSNormalize(`${process.env.ftp}/${final}.zip`);
+         const remote = serverOSNormalize(`${build.ftp}/${final}.zip`);
          const deploying = new draft(`${sh.bold}Deploying ${sh.dim}to${sh.reset} "${sh.blue}${remote}${sh.reset}"`);
 
          const action = await FTP.send(`${final}.zip`);
@@ -216,7 +213,7 @@ const { performance } = require('perf_hooks');
       await buildFiles();
       await gerarDeploy();
       await clearTemp();
-      process.env.ftp != 'false' && await send();
+      build.ftp != 'false' && await send();
 
       console.log();
       loading.stop(1, `Finished in ${sh.green}${msToTime(performance.now() - startTime)}`);
@@ -224,5 +221,6 @@ const { performance } = require('perf_hooks');
    catch(e) {
 
       loading.stop(0, `${sh.red}Error: ${sh.reset}${e}`);
+      process.exit(1);
    }
 })();

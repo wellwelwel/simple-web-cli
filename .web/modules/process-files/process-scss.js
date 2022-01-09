@@ -13,7 +13,7 @@ const listFiles = require('../listFiles');
 const no_process = require('./no-process');
 const postProcess = require('./post-process-replace');
 
-async function processCSS(file, local = false, replace = 'dev') {
+async function processCSS(file, local = false, replace = 'start') {
 
    const _ = file.split(sep).pop().substr(0, 1) === '_' ? true : false;
    const fileType = file.split('.').pop().toLowerCase();

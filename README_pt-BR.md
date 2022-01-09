@@ -22,7 +22,7 @@
 
 ### - Desenvolvimento
 * **`scr`** é o diretório de desenvolvimento
-* **`.main`** é o diretório com o código compilado
+* **`dist`** é o diretório com o código compilado
 <hr />
 
 <!-- Comandos -->
@@ -33,21 +33,23 @@
 <hr />
 
 ### - Configurando o FTP
-* No arquivo **`.web-config.json`**, basta inserir as informações de acesso:
-```json
-   "ftp": {
-      "root": "_DIRETORIO_RAIZ_",
-      "host": "_IP_",
-      "user": "_USUARIO_",
-      "pass": "_SENHA_",
-      "secure": true
+* No arquivo **`.swrc.js`**, basta inserir as informações de acesso:
+```javascript
+{
+   ftp: {
+      root: '_DIRETORIO_RAIZ_',
+      host: '_IP_',
+      user: '_USUARIO_',
+      pass: '_SENHA_',
+      secure: true || 'explict'
    }
+}
 ```
 
 * Supondo que o diretório **`root`** seja <ins>`/var/www`</ins>, a entrada e saída dos diretórios seria:
 
    + **Desenvolvimento:** <ins>`src/html/index.html`</ins>  
-   + **Distribuição:** <ins>`.main/html/index.html`</ins>  
+   + **Distribuição:** <ins>`dist/html/index.html`</ins>  
    + **FTP:** <ins>`/var/www/html/index.html`</ins>  
 
 > ##### *- caso não seja inserido nenhum acesso, ele criará o projeto normalmente, apenas ignorando o envio FTP* <br /> *- se o FTP não possuir certificação SSL, utilize `"explict"` em `"secure"`*
@@ -184,20 +186,20 @@ Options Indexes FollowSymLinks MultiViews
 <!-- Substituição de Textos -->
 ### Substituição de Textos
    * É possível criar um código de fácil leitura e ao compilar, substituir os textos específicados, por exemplo:
-   > ##### *- funciona em qualquer linguagem que estiver habilitada em `.web-replace.json`*
+   > ##### *- funciona em qualquer linguagem que estiver habilitada em `.swrc.js`*
  
-   <ins>`.web-replace.json`</ins>
+   <ins>`.swrc.js`</ins>
    
-   ```json
+   ```javascript
    {
-      "strings": {
-         "*token*": {
-            "dev": "0cfcda42c340dad5616e0b7449a5634b",
-            "build": "0cfcda42c340dad5616e0b7449a5634b"
+      strings: {
+         '*token*': {
+            start: '0cfcda42c340dad5616e0b7449a5634b',
+            build: '0cfcda42c340dad5616e0b7449a5634b'
          },
-         "*site-name*": {
-            "dev": "dev.weslley.io",
-            "build": "weslley.io"
+         '*site-name*': {
+            start: 'dev.weslley.io',
+            build: 'weslley.io'
          }
       }
    }

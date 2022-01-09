@@ -6,7 +6,7 @@ const rebuildFiles = async arg => {
    const readJSON = file => JSON.parse(fse.readFileSync(file, 'utf-8'));
    const buildJSON = obj => orderJSON(obj, 2);
    const package = readJSON('package.json') || { };
-   const web_config = readJSON('.web-config.json') || { };
+   const { options } = require('../.web/modules/config');
    const babelrc = readJSON('.babelrc') || { };
    const stage = {
 
@@ -48,7 +48,7 @@ const rebuildFiles = async arg => {
    ];
    const isLatestVersion = async typeDependencies => {
 
-      if (arg === 'init' || web_config?.dev?.['auto-check-version'] === false) return true;
+      if (arg === 'init' || options?.autoUpdate === false) return true;
 
       let response = true;
 

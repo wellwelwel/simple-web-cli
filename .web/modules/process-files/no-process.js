@@ -3,7 +3,7 @@ const vReg = require('../vReg');
 
 function no_process(file) {
 
-   const exclude_files = process_files['exclude-files'] || false;
+   const exclude_files = process_files?.exclude || false;
    let result = false;
 
    if (exclude_files) {

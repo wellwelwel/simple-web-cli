@@ -5,7 +5,7 @@ const { process_files } = require('../config');
 const processPHP = content => {
 
    if (!content || content?.trim().length === 0) return '';
-   else if (!process_files.php) return content;
+   else if (!process_files?.php?.minify) return content;
 
    try {
 

@@ -4,28 +4,6 @@
    const fs = require('fs');
    const { extname } = require('path');
    const sh = async command => new Promise((resolve, reject) => exec(command, (error, stdout) => !!error ? reject(error) : resolve(stdout)));
-   const readJSON = file => JSON.parse(fs.readFileSync(file, 'utf-8'));
-   const buildJSON = obj => orderJSON(obj, 2);
-   const orderJSON = (obj, space) => {
-
-      const allKeys = [];
-      const seen = { };
-
-      JSON.stringify(obj, (key, value) => {
-
-         if (!(key in seen)) {
-
-            allKeys.push(key);
-            seen[key] = null;
-         }
-
-         return value;
-      });
-
-      allKeys.sort();
-
-      return JSON.stringify(obj, allKeys, space);
-   };
    const pass = (stdout, regex = /PASSED/gm) => regex.test(stdout);
    const results = {
 
@@ -46,6 +24,7 @@
 
             console.log('   ➕ Creating temporary folder...');
             await sh('mkdir "temp"');
+            await sh('mkdir "temp/.resources"');
 
             console.log('   ➕ Importing modules...');
             await sh('npm i');
@@ -63,7 +42,15 @@
 
          try {
 
-            const init = await sh('cd "temp" && simple-web init --TEST');
+            const init = await sh('cd "temp" && sw init --TEST');
+            const source = 'temp/.swrc.js';
+            const regex = /start:.*false/gim;
+            const swrc = fs.readFileSync(source, 'utf-8');
+            const result = swrc.replace(regex, a => a.replace(/false/, 'true'));
+
+            fs.writeFileSync(source, result);
+            fs.writeFileSync('temp/.resources/test-resource-replace.html', fs.readFileSync('.github/workflows/resources/tests/.resources/test-resource-replace.html', 'utf-8'));
+
             return init;
          } catch (error) {
 
@@ -86,7 +73,7 @@
 
                      try {
 
-                        await sh(`cp ".github/workflows/resources/tests/${expected}" "temp/src/${expected}"`);
+                        fs.writeFileSync(`temp/src/${expected}`, fs.readFileSync(`.github/workflows/resources/tests/${expected}`, 'utf-8'));
                      } catch (error) {
 
                         copied = false;
@@ -110,15 +97,16 @@
                               clearInterval(attemp);
                               resolve();
                            }
-                           if (!fs.existsSync(`temp/.main/${file}`)) return;
-                           if (fs.readFileSync(`temp/.main/${file}`, 'utf-8')?.trim()?.length === 0) return;
+                           if (!fs.existsSync(`temp/src/${file}`)) return;
+                           if (!fs.existsSync(`temp/dist/${file}`)) return;
+                           if (fs.readFileSync(`temp/dist/${file}`, 'utf-8')?.trim()?.length === 0) return;
 
                            clearInterval(attemp);
                            resolve();
                         });
                      });
 
-                     const compare = fs.readFileSync(`temp/.main/${file}`, 'utf-8');
+                     const compare = fs.readFileSync(`temp/dist/${file}`, 'utf-8');
 
                      console.log(copied && compare === output ? `   \x1b[32m✔\x1b[0m` : `   \x1b[31m✖\x1b[0m`, name);
                      if (!copied || compare !== output) {
@@ -136,7 +124,7 @@
                await sh('cd "temp" && touch "src/exit"');
             }, 5000);
 
-            const result = await sh('cd "temp" && simple-web start --TEST');
+            const result = await sh('cd "temp" && sw start --TEST');
 
             if (!pass(result)) return result;
             return start_errors === 0 ? 'PASSED' : 'FAILED to building files';
@@ -145,7 +133,7 @@
             return error;
          }
       },
-      'Executing service "build"': async () => { try { return await sh('cd "temp" && simple-web build --TEST'); } catch (error) { return error; } }
+      'Executing service "build"': async () => { try { return await sh('cd "temp" && sw build --TEST'); } catch (error) { return error; } }
    };
    const errors = [];
    const expecteds = {
@@ -154,15 +142,6 @@
 
          name: 'Building HTML',
          output: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document</title></head><body></body></html>'
-      },
-      '_header.html': {
-
-         src: true
-      },
-      'test-import.html': {
-
-         name: 'Testing "HTML Import"',
-         output: '<html><body><header></header></body></html>'
       },
       'test-file.css': {
 
@@ -180,11 +159,6 @@
          name: 'Building JS',
          output: '"use strict";console.log("Hello World");'
       },
-      'test-require.js': {
-
-         name: 'Testing JS "Require Browser"',
-         output: '"use strict";var s=function(t){return document.querySelector(t)},sEl=function(t,n){return t.querySelector(n)},sAll=function(t){return document.querySelectorAll(t)},sElAll=function(t,n){return t.querySelectorAll(n)},isEmpty=function(t){return 0===(null==t?void 0:t.trim().length)},notEmpty=function(t){return 0<(null==t?void 0:t.trim().length)};'
-      },
       'test-file.php': {
 
          name: 'Building PHP',
@@ -194,7 +168,31 @@
 
          name: 'Building PHTML',
          output: '<?php echo 123?>'
-      }
+      },
+      '_header.html': {
+
+         src: true
+      },
+      'test-import.html': {
+
+         name: 'Testing Feature: HTML Import',
+         output: '<html><body><header></header></body></html>'
+      },
+      'test-require.js': {
+
+         name: 'Testing Feature: Require Browser',
+         output: '"use strict";var s=function(t){return document.querySelector(t)},sEl=function(t,n){return t.querySelector(n)},sAll=function(t){return document.querySelectorAll(t)},sElAll=function(t,n){return t.querySelectorAll(n)},isEmpty=function(t){return 0===(null==t?void 0:t.trim().length)},notEmpty=function(t){return 0<(null==t?void 0:t.trim().length)};'
+      },
+      'test-string-replace.html': {
+
+         name: 'Testing Plug-in: String Replace',
+         output: '<html><body>my-start-output</body></html>'
+      },
+      'test-resource-replace.html': {
+
+         name: 'Testing Plug-in: Resource Replace',
+         output: '<html><body>456</body></html>'
+      },
    };
 
    console.clear();
@@ -216,19 +214,30 @@
 
       console.log('➖ Testing FTP service...');
 
-      const web_config = readJSON('temp/.web-config.json');
+      const source = 'temp/.swrc.js';
+      const regex = {
 
-      web_config.dev.ftp.root = '/';
-      web_config.dev.ftp.host = '127.0.0.1';
-      web_config.dev.ftp.user = 'test';
-      web_config.dev.ftp.pass = 'test';
-      web_config.dev.ftp.secure = 'explict';
+         root: /root: '',/gim,
+         host: /host: '',/gim,
+         user: /user: '',/gim,
+         pass: /pass: '',/gim,
+         secure: /secure: true,/gim,
+      };
+      const swrc = fs.readFileSync(source, 'utf-8');
 
-      fs.writeFileSync('temp/.web-config.json', buildJSON(web_config));
+      let result = '';
+
+      result = swrc.replace(regex.root, a => a.replace(/''/, "'/'"));
+      result = result.replace(regex.host, a => a.replace(/''/, "'127.0.0.1'"));
+      result = result.replace(regex.user, a => a.replace(/''/, "'test'"));
+      result = result.replace(regex.pass, a => a.replace(/''/, "'test'"));
+      result = result.replace(regex.secure, a => a.replace(/true/, "'explict'"));
+
+      fs.writeFileSync(source, result);
 
       setTimeout(() => sh('cd "temp" && touch "src/exit"'), 5000);
 
-      const FTP = await sh('cd "temp" && simple-web --TEST');
+      const FTP = await sh('cd "temp" && sw --TEST');
       const passed = pass(FTP, /Connected/gm);
 
       if (!passed) errors.push({ 'Testing FTP service:': FTP });
@@ -247,13 +256,11 @@
    }
 
    /* Exit if success */
-   if (errors.length === 0) {
-
-      await sh('touch "passed"');
-      return true;
-   }
+   if (errors.length === 0) return true;
 
    console.log('\n--- LOGS ---\n');
    errors.forEach(error => console.log(error));
    console.log('\n--- LOGS ---\n');
+
+   process.exit(1);
 })();

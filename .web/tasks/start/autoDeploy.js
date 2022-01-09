@@ -3,7 +3,7 @@
 const fs = require('fs-extra');
 const { sh, type, draft } = require('../../modules/sh');
 const FTP = require('../../modules/ftp');
-const { dev, source, to, process_files } = require('../../modules/config');
+const { dev, source, to, process_files, port } = require('../../modules/config');
 const createDir = require('../../modules/create-dir');
 const empty = require('../../modules/empty');
 const isConnected = require('../../modules/check-connection');
@@ -17,24 +17,40 @@ const processHTML = require('../../modules/process-files/process-html');
 const processHTACCESS = require('../../modules/process-files/process-htaccess');
 const postProcess = require('../../modules/process-files/post-process-replace');
 const no_process = require('../../modules/process-files/no-process');
-const sep = require('path').sep;
+const { sep } = require('path');
 const Schedule = require('../../modules/schedule');
 const serverOSNormalize = require('../../modules/server-os-normalize');
+const { createServer, reload } = require('../../modules/localhost');
 
 module.exports = async () => {
 
    const loading = {
 
+      server: new draft('', `circle`, false),
       ftp: new draft('', `circle`, false)
    };
 
    console.log();
 
+   loading.server.start();
+
+   if (!!port) {
+
+      loading.server.string = `Listening on: ${sh.green}${sh.bold}http://localhost:${port}/${sh.reset} 🏠`;
+      loading.server.stop(createServer() === true ? 1 : 0);
+   }
+   else {
+
+      loading.server.string = `${sh.dim}The listener was set off 🏠`;
+      loading.server.stop(3);
+   }
+
    loading.ftp.start();
    loading.ftp.string = `${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`;
 
+
    const { host, user, pass } = dev.ftp;
-   const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
+   const pre_connect = !empty(host) || !empty(user) || !empty(pass);
    const conn = pre_connect ? await FTP.connect(dev.ftp) : false;
    if (!conn) {
 
@@ -62,8 +78,7 @@ module.exports = async () => {
          watcherSource.close();
          watcherMain.close();
          watcherModules.close();
-
-         return;
+         process.exit(0);
       }
 
       const isDir = file.split(sep).pop().includes('.') ? false : true;
@@ -141,7 +156,7 @@ module.exports = async () => {
 
          log.building.stop(1);
       }
-   }
+   };
 
    watcherSource.on('change', (event, file) => onSrc(event, file));
 
@@ -151,6 +166,11 @@ module.exports = async () => {
 
          await deleteDS_Store();
          return;
+      }
+
+      { /* Auto reload */
+         Object.keys(require.cache).forEach(key => delete require.cache[key]);
+         if (!reload.status) reload.status = true;
       }
 
       const connected = await isConnected();

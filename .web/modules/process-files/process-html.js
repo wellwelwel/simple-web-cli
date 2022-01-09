@@ -51,7 +51,7 @@ const putHTML = (content, file) => {
 
 const processHTML = async (content, file) => {
 
-   const exclude_require = process_files['exclude-requires'] || false;
+   const exclude_require = process_files?.html?.exclude?.htmlImport || false;
 
    let doImport = true;
 
@@ -90,7 +90,7 @@ const processHTML = async (content, file) => {
 
    if (doImport) content = putHTML(content, file);
 
-   if (!process_files.html) return content;
+   if (!process_files?.html?.minify) return content;
 
    try {
 
@@ -113,7 +113,7 @@ const processHTML = async (content, file) => {
    }
    finally {
 
-      const import_like_scss = process_files['html-import-like-scss'] || false;
+      const import_like_scss = process_files?.html?.htmlImportLikeSass || false;
 
       if (import_like_scss && /^_(.*).html$/.test(basename(file))) return 'skip-this-file';
 
