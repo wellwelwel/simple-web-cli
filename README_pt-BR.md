@@ -1,7 +1,7 @@
 <p align="center">
  <img width="100px" src="https://weslley.io/media/simple-web-11.svg" align="center" alt="simple-web" />
  <h1 align="center">Simple Web Cli</h1>
- <p align="center">Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando conexão FTP para enviar os arquivos processados automaticamente para o servidor final.</p>
+ <p align="center">Um simples compilador para automatizar o desenvolvimento nas linguagens HTML, CSS/Sass, JavaScript e PHP utilizando Localhost Live Reloader ou conexão FTP para enviar os arquivos processados automaticamente para o servidor final.</p>
 </p>
 
 <p align="center">
