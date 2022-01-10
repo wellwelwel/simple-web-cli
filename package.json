@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "main": "./bin/init.js",
   "scripts": {
     "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
@@ -20,8 +20,9 @@
     "html-include",
     "html-require",
     "require-browser",
-    "require-commonjs",
     "simple-web",
+    "sw",
+    "swc",
     "web-automation",
     "web-bundle",
     "web-compiler",
