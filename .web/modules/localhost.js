@@ -17,8 +17,6 @@ const appendLiveRealoader = (req, res) => {
 
    if (!fs.existsSync(file)) {
 
-      res.status(404);
-
       if (req.url === '/') {
 
          const homepage = fs.readFileSync(normalize(`${__dirname}/../../.github/workflows/resources/homepage/index.html`));
@@ -27,6 +25,7 @@ const appendLiveRealoader = (req, res) => {
          return;
       }
 
+      res.status(404);
       res.send(`<span>Page not found</span><script>${browserReload}</script>`);
       return;
    }
