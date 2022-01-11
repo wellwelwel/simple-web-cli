@@ -1,6 +1,6 @@
 <p align="center">
  <img width="100px" src="https://weslley.io/media/simple-web-11.svg" align="center" alt="simple-web" />
- <h1 align="center">Simple Web Cli</h1>
+ <h1 align="center">Simple Web CLI</h1>
  <p align="center">A simple compiler to automate the development in the HTML, CSS/Sass, JavaScript and PHP languages using Localhost Live Reloader or FTP connection to deploy files processed automatically to the final server.</p>
 </p>
 
@@ -239,6 +239,7 @@ Options Indexes FollowSymLinks MultiViews
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web?ref=badge_small)
 <hr />
 
+### Credits
 | Contributors | GitHub |
 |-|-|
 | Author | [![wellwelwel](https://badgen.net/badge/icon/wellwelwel?icon=github&label&color=8870FF)](https://github.com/wellwelwel) |
