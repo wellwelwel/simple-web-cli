@@ -32,75 +32,77 @@
    * `npx sw build`: compila todo o conteúdo do diretório `src` e compacta para o arquivo `release.zip`
 <hr />
 
-<!-- HTML Import -->
-### HTML Import
-  * É possível importar recursivamente arquivos `.html`, baseado na importação do `scss`, por exemplo:
-   
-   ```html
-      <html>
-         <body>
-            <!-- import('./views/_header.html') -->
-            <section>
-               <!-- import('./views/_main.html') -->
-            </section>
-            <!-- import('../_footer.html') -->
-         </body>
-      </html>
-   ```
-<hr />
-
-<!-- Local Modules -->
-### Módulos Locais - Navegador
-  * No **JavaScript** (web), é possível importar módulos locais salvos dentro do diretório `.library`, por exemplo:
-
-   <ins>`.library/meu-script/index.js`</ins>
-   
-   ```javascript
-      /* para importação completa do arquivo */
-      require('web/meu-script');
-
-      /* para importar o módulo padrão em uma variável */
-      const meu_script = require('web/meu-script');
-
-      /* para importar os módulos em variáveis por desestruturação */
-      const { meu_script1, meu_script2 } = require('web/meu-script');
-
-      /* para importar o módulo em uma variável com nome personalizado */
-      const minha_variavel = require('web/meu-script').meu_script1;
-   ```
-<hr />
-
-### Habilitando o FTP
-* No arquivo **`.swrc.js`**, basta inserir as informações de acesso:
-```javascript
-{
-   ftp: {
-      root: '_DIRETORIO_RAIZ_',
-      host: '_IP_',
-      user: '_USUARIO_',
-      pass: '_SENHA_',
-      secure: true || 'explict'
-   }
-}
-```
-
-* Supondo que o diretório **`root`** seja <ins>`/var/www`</ins>, a entrada e saída dos diretórios seria:
-
-   + **Desenvolvimento:** <ins>`src/html/index.html`</ins>  
-   + **Distribuição:** <ins>`dist/html/index.html`</ins>  
-   + **FTP:** <ins>`/var/www/html/index.html`</ins>  
-<hr />
-
 ### Utilizando
    * Uma vez iniciado o processo, o evento ocorre ao **salvar qualquer arquivo** no diretório `src`.
-<br />
+<hr />
 
-<p align="center">
-<h2 align="center"><img src="https://weslley.io/media/simple-web-2.svg" width="20" /> Alguns Exemplos <img src="https://weslley.io/media/simple-web-2.svg" width="20" /></h2>
-</p>
+### <img src="https://weslley.io/media/simple-web-11.svg" width="20" /> Funcionalidades
+
+   <!-- HTML Import -->
+   #### HTML Import
+   * É possível importar recursivamente arquivos `.html`, baseado na importação do `scss`, por exemplo:
+      
+      ```html
+         <html>
+            <body>
+               <!-- import('./views/_header.html') -->
+               <section>
+                  <!-- import('./views/_main.html') -->
+               </section>
+               <!-- import('../_footer.html') -->
+            </body>
+         </html>
+      ```
+   <hr />
+
+   <!-- Local Modules -->
+   #### Módulos Locais - Navegador
+   * No **JavaScript** (web), é possível importar módulos locais salvos dentro do diretório `.library`, por exemplo:
+
+      <ins>`.library/meu-script/index.js`</ins>
+      
+      ```javascript
+         /* para importação completa do arquivo */
+         require('web/meu-script');
+
+         /* para importar o módulo padrão em uma variável */
+         const meu_script = require('web/meu-script');
+
+         /* para importar os módulos em variáveis por desestruturação */
+         const { meu_script1, meu_script2 } = require('web/meu-script');
+
+         /* para importar o módulo em uma variável com nome personalizado */
+         const minha_variavel = require('web/meu-script').meu_script1;
+      ```
+   <hr />
+
+   #### Habilitando o FTP
+   * No arquivo **`.swrc.js`**, basta inserir as informações de acesso:
+      ```javascript
+      {
+         ftp: {
+            root: '_DIRETORIO_RAIZ_',
+            host: '_IP_',
+            user: '_USUARIO_',
+            pass: '_SENHA_',
+            secure: true || 'explict'
+         }
+      }
+      ```
+
+   * Supondo que o diretório **`root`** seja <ins>`/var/www`</ins>, a entrada e saída dos diretórios seria:
+
+      + **Desenvolvimento:** <ins>`src/html/index.html`</ins>  
+      + **Distribuição:** <ins>`dist/html/index.html`</ins>  
+      + **FTP:** <ins>`/var/www/html/index.html`</ins>  
+   <hr />
+
+### <img src="https://weslley.io/media/simple-web-11.svg" width="20" /> Alguns Exemplos
+<details>
+<summary>Visualizar Exemplos</summary>
 
 <!-- HTML -->
-### HTML
+#### HTML
 `ENTRADA`
 ```html
    <div>
@@ -115,7 +117,7 @@
 <hr />
 
 <!-- CSS -->
-### CSS | Sass
+#### CSS | Sass
 `ENTRADA`
 ```css
    div {
@@ -129,7 +131,7 @@
 <hr />
 
 <!-- JS -->
-### JavaScript
+#### JavaScript
 `ENTRADA`
 ```javascript
    (() => {
@@ -148,7 +150,7 @@
 <hr />
 
 <!-- PHP -->
-### PHP | PHTML
+#### PHP | PHTML
 `ENTRADA`
 ```php
 <?
@@ -166,7 +168,7 @@
 <hr />
 
 <!-- .htaccess -->
-### Apache (.htaccess, php.ini)
+#### Apache (.htaccess, php.ini)
 `ENTRADA`
 ```apache
 # comment
@@ -184,9 +186,8 @@ Options Indexes FollowSymLinks MultiViews
 <hr />
 
 <!-- Substituição de Textos -->
-### Substituição de Textos
+#### Substituição de Textos
    * É possível criar um código de fácil leitura e ao compilar, substituir os textos específicados, por exemplo:
-   > ##### *- funciona em qualquer linguagem que estiver habilitada em `.swrc.js`*
  
    <ins>`.swrc.js`</ins>
    
@@ -221,53 +222,39 @@ Options Indexes FollowSymLinks MultiViews
    ```php
    <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
    ```
+
+   * Funciona em qualquer linguagem que estiver habilitada em `.swrc.js`
 <hr />
 
 <!-- others -->
-### Arquivos gerais
+#### Arquivos gerais
  * Apenas envia o arquivo original para os diretórios de saída
+</details>
 <hr />
 
-<!-- Compatibilidade -->
-### - Compatibilidade
-
->
->`Sistemas Operacionais`  
->
->- [x] **macOS**  
->- [x] **Linux**  
->- [x] **Windows**  
->
-
->
->`Node`  
->
->- [x] **>=14.15.0**  
->
-
->
->`npm`  
->
->- [x] **>=7.0.2**  
->
-
->
->`Editores`  
->
->- [x] [**Visual Studio Code**](https://code.visualstudio.com/Download)  
->- [x] **Outros** *(as funcionalidades dependem apenas do `Terminal`, porém, outros editores podem não sugerir os auto-preenchimentos de módulos locais)*  
->
-
->
->`Extensões Recomendadas (VSCode)` <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" width="12" />
->
->- [x] [**Path Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
->- [x] [**npm Intellisense** - *Christian Kohler*](https://marketplace.visualstudio.com/items?itemName=christian-kohler.npm-intellisense)
->- [x] [**Visual Studio IntelliCode** - *Microsoft*](https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode)
->- [x] [**ESLint** - *Dirk Baeumer*](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
->
-
-#### __Feito com *dor* e *sofrimento* em noites frias por [Weslley Araújo](https://github.com/wellwelwel)__ 😔
+### Compatibilidade
+![macOS](https://badgen.net/badge/icon/macOS?icon=apple&label&color=8870FF)
+![Linux](https://badgen.net/badge/icon/Linux?icon=terminal&label&color=8870FF)
+![Windows](https://badgen.net/badge/icon/Windows?icon=windows&label&color=8870FF)
+![node](https://badgen.net/badge/node/%3E=14.15.0/8870FF)
+![npm](https://badgen.net/badge/icon/%3E=7.0.2/8870FF?icon=npm&label)
 <hr />
+
+### Licença
+[![License](https://badgen.net/badge/License/MIT/8870FF)](/LICENSE)
+[![3rd-Party Software License](https://badgen.net/badge/3rd-Party%20Software%20License/docs%2FLICENSE_THIRD_PARTY.md/8870FF)](/docs/LICENSE_THIRD_PARTY.md)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web?ref=badge_small)
+<hr />
+
+| Contribuidores | GitHub |
+|-|-|
+| Autor | [![wellwelwel](https://badgen.net/badge/icon/wellwelwel?icon=github&label&color=8870FF)](https://github.com/wellwelwel) |
+| Tradução en-US | [![SrLaco](https://badgen.net/badge/icon/SrLaco?icon=github&label&color=8870FF)](https://github.com/SrLaco) |
+| Revisão de Tradução | [![micaele-mags](https://badgen.net/badge/icon/micaele-mags?icon=github&label&color=8870FF)](https://github.com/micaele-mags) |
+<hr />
+
+<p>
+
+__Feito com *dor* e *sofrimento* em noites frias por [Weslley Araújo](https://github.com/wellwelwel)__ 🥺
+</p>
