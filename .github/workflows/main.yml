@@ -4,6 +4,12 @@ on:
     branches:
       - '*'
       - '!test-ci'
+    paths-ignore:
+      - '**.md',
+      - '.gitignore',
+      - '.eslintignore',
+      - 'docs/**',
+      - 'LICENSE'
 jobs:
   test-node-os-coverage:
     name: Node ${{ matrix.node-version }} | ${{ matrix.os }}
