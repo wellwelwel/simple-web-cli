@@ -5,10 +5,10 @@ on:
       - '*'
       - '!test-ci'
     paths-ignore:
-      - '**.md',
-      - '.gitignore',
-      - '.eslintignore',
-      - 'docs/**',
+      - '**.md'
+      - '.gitignore'
+      - '.eslintignore'
+      - 'docs/**'
       - 'LICENSE'
 jobs:
   test-node-os-coverage:
