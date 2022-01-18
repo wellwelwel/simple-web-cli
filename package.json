@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "3.1.11",
+  "version": "3.1.12",
   "main": "./bin/init.js",
   "scripts": {
     "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
@@ -20,9 +20,6 @@
     "html-include",
     "html-require",
     "require-browser",
-    "simple-web",
-    "sw",
-    "swc",
     "web-automation",
     "web-bundle",
     "web-compiler",
@@ -39,7 +36,7 @@
     "autoprefixer": "^10.4.2",
     "basic-ftp": "^4.6.6",
     "draftlog": "^1.0.13",
-    "eslint": "^8.6.0",
+    "eslint": "^8.7.0",
     "express": "^4.17.2",
     "fs-extra": "^10.0.0",
     "glob": "^7.2.0",
@@ -49,7 +46,7 @@
     "package-json": "^7.0.0",
     "postcss-cli": "^9.1.0",
     "rimraf": "^3.0.2",
-    "sass": "^1.47.0",
+    "sass": "^1.48.0",
     "uglify-js": "^3.14.5",
     "uglifycss": "^0.0.29"
   },
