@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "3.1.12",
+  "version": "3.1.13",
   "main": "./bin/init.js",
   "scripts": {
     "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
@@ -30,8 +30,8 @@
   "license": "MIT",
   "dependencies": {
     "@babel/cli": "^7.16.8",
-    "@babel/core": "^7.16.7",
-    "@babel/preset-env": "^7.16.8",
+    "@babel/core": "^7.16.12",
+    "@babel/preset-env": "^7.16.11",
     "archiver": "^5.3.0",
     "autoprefixer": "^10.4.2",
     "basic-ftp": "^4.6.6",
@@ -46,7 +46,7 @@
     "package-json": "^7.0.0",
     "postcss-cli": "^9.1.0",
     "rimraf": "^3.0.2",
-    "sass": "^1.48.0",
+    "sass": "^1.49.0",
     "uglify-js": "^3.14.5",
     "uglifycss": "^0.0.29"
   },
@@ -54,7 +54,7 @@
     "> 0%"
   ],
   "devDependencies": {
-    "npm-check-updates": "^12.1.0"
+    "npm-check-updates": "^12.2.1"
   },
   "description": "⚡ A simple compiler to automate the development in HTML, CSS, JavaScript and PHP languages using FTP connection to deploy the processed files automatically to the final server.",
   "repository": {

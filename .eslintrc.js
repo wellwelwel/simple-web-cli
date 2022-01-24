@@ -7,8 +7,8 @@ module.exports = {
 
    parserOptions: {
 
-      ecmaVersion: 12, /* 2021 */
-      ecmaFeatures: { jsx: false }
+      ecmaVersion: 13, /* 2022 */
+      ecmaFeatures: { }
    },
    env: {
 
