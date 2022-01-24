@@ -7,7 +7,7 @@ on:
     paths-ignore:
       - '**.md'
       - '.gitignore'
-      - '.github/assets/**'
+      - '.github/assets/**/**'
       - '.eslintignore'
       - 'docs/**'
       - 'LICENSE'
