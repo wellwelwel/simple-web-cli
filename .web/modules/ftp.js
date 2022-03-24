@@ -70,9 +70,19 @@ async function send(file, waiting) {
       const receiver = file.replace(`${to}${sep}`, '');
       const dir = serverOSNormalize(dirname(`${privateCachedAccess.root}${sep}${receiver}`));
       const remoteFile = serverOSNormalize(`${privateCachedAccess.root}${sep}${receiver}`);
-      const exists = (await client.list(dir)).length > 0;
+      const exists = async () => {
 
-      if (!exists) {
+         try {
+
+            return (await client?.list(dir))?.length > 0 || false;
+         }
+         catch (e) {
+
+            return false;
+         }
+      };
+
+      if (!await exists()) {
 
          await client.ensureDir(dir);
 
