@@ -1,8 +1,6 @@
-const packageJson = require('package-json');
-const latestVersion = async packageName => {
+const exec = require('child_process').exec;
 
-   const package = await packageJson(packageName.toLowerCase());
-   return package.version;
-};
+const sh = command => new Promise((resolve, reject) => exec(command, (error, stdout) => !!error ? reject(error) : resolve(stdout)));
+const latestVersion = async packageName => await sh(`npm view ${packageName.toLowerCase()} version`);
 
 module.exports = latestVersion;
