@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100px" src="https://weslley.io/media/simple-web-11.svg" align="center" alt="simple-web" />
+ <img width="100px" src="/.github/assets/readme/logo.svg" align="center" alt="simple-web-cli" />
  <h1 align="center">Simple Web CLI</h1>
  <p align="center">A simple compiler to automate the development in the HTML, CSS/Sass, JavaScript and PHP languages using Localhost Live Reloader or FTP connection to deploy files processed automatically to the final server.</p>
 </p>
@@ -35,7 +35,7 @@
    * Once the process is started, the event occurs by **saving any file** into `src`.
 <hr />
 
-### <img src="https://weslley.io/media/simple-web-11.svg" width="20" /> Features
+### <img src="/.github/assets/readme/logo.svg" width="20" /> Features
 
    #### HTML Import
    * You can import `.html` files recursively, based on the `scss` import, for example:
@@ -95,7 +95,7 @@
    <hr />
 
 
-### <img src="https://weslley.io/media/simple-web-11.svg" width="20" /> Some Examples
+### <img src="/.github/assets/readme/logo.svg" width="20" /> Some Examples
 <details>
 <summary>View examples</summary>
 
@@ -225,16 +225,16 @@ Options Indexes FollowSymLinks MultiViews
 
 ### Compatibility
 
-![macOS](https://badgen.net/badge/icon/macOS?icon=apple&label&color=8870FF)
-![Linux](https://badgen.net/badge/icon/Linux?icon=terminal&label&color=8870FF)
-![Windows](https://badgen.net/badge/icon/Windows?icon=windows&label&color=8870FF)
-![node](https://badgen.net/badge/node/%3E=14.15.0/8870FF)
-![npm](https://badgen.net/badge/icon/%3E=7.0.2/8870FF?icon=npm&label)
+![macOS](/.github/assets/readme/macos.svg)
+![Linux](/.github/assets/readme/linux.svg)
+![Windows](/.github/assets/readme/windows.svg)
+![node](/.github/assets/readme/node.svg)
+![npm](/.github/assets/readme/npm.svg)
 <hr />
 
 ### License
-[![License](https://badgen.net/badge/License/MIT/8870FF)](/LICENSE)
-[![3rd-Party Software License](https://badgen.net/badge/3rd-Party%20Software%20License/docs%2FLICENSE_THIRD_PARTY.md/8870FF)](/docs/LICENSE_THIRD_PARTY.md)
+[![License](/.github/assets/readme/license.svg)](/LICENSE)
+[![3rd-Party Software License](/.github/assets/readme/3rd-license.svg)](/docs/LICENSE_THIRD_PARTY.md)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web?ref=badge_small)
 <hr />
@@ -242,9 +242,9 @@ Options Indexes FollowSymLinks MultiViews
 ### Credits
 | Contributors | GitHub |
 |-|-|
-| Author | [![wellwelwel](https://badgen.net/badge/icon/wellwelwel?icon=github&label&color=8870FF)](https://github.com/wellwelwel) |
-| Translate en-US | [![SrLaco](https://badgen.net/badge/icon/SrLaco?icon=github&label&color=8870FF)](https://github.com/SrLaco) |
-| Translate Review | [![micaele-mags](https://badgen.net/badge/icon/micaele-mags?icon=github&label&color=8870FF)](https://github.com/micaele-mags) |
+| Author | [![wellwelwel](/.github/assets/readme/author.svg)](https://github.com/wellwelwel) |
+| Translate en-US | [![SrLaco](/.github/assets/readme/translate.svg)](https://github.com/SrLaco) |
+| Translate Review | [![micaele-mags](/.github/assets/readme/translate-review.svg)](https://github.com/micaele-mags) |
 <hr />
 
 <p>
