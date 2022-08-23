@@ -118,26 +118,28 @@ module.exports = async () => {
          else {
 
             /* post process */
-            const original = await postProcess({src: file, response: true});
+            const original = await postProcess({ src: file, response: true, to: finalFile });
             let minified = false;
 
-            /* specials */
-            if (!no_process(file)) {
+            if (original !== 'skip-this-file') {
 
-               if (fileType === 'php' || fileType === 'phtml') minified = await processPHP(original);
-               else if (fileType === 'html')  minified = await processHTML(original, file);
-               else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
-            }
+               /* specials */
+               if (!no_process(file)) {
 
-            if (minified !== 'skip-this-file') {
+                  if (fileType === 'php' || fileType === 'phtml') minified = await processPHP(original);
+                  else if (fileType === 'html')  minified = await processHTML(original, file);
+                  else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
+               }
 
-               createDir(pathFile.replace(source, to));
-               await fs.writeFile(finalFile, !minified ? original : minified);
+               if (minified !== 'skip-this-file') {
+
+                  createDir(pathFile.replace(source, to));
+                  await fs.writeFile(finalFile, !minified ? original : minified);
+               }
             }
          }
 
          log.building.stop(status);
-
       }
       else if (event === 'remove') {
 

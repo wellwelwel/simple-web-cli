@@ -92,7 +92,7 @@
 
                         let count = 0;
                         const limit = 10000;
-                        const attemp = setInterval(() => {
+                        const attemp = setInterval(async () => {
 
                            count++;
 
@@ -102,13 +102,16 @@
                               resolve();
                            }
 
-                           if (!fs.existsSync(`temp/src/${file}`)) return;
-                           if (!fs.existsSync(`temp/dist/${file}`)) return;
+                           if (!fs.existsSync(`temp/src/${file}`) && !fs.existsSync(`temp/src/${expected}`)) return;
+                           if (!fs.existsSync(`temp/dist/${file}`) && !fs.existsSync(`temp/dist/${expected}`)) return;
+
+                           if (expecteds[expected]?.cb) await expecteds[expected]?.cb();
+
                            if (fs.readFileSync(`temp/dist/${file}`, 'utf-8')?.trim()?.length === 0) return;
 
                            clearInterval(attemp);
                            resolve();
-                        });
+                        }, 100);
                      });
 
                      const compare = fs.readFileSync(`temp/dist/${file}`, 'utf-8');
@@ -171,6 +174,16 @@
 
          name: 'Building PHTML',
          output: '<?php echo 123?>'
+      },
+      'test.zip': {
+
+         name: 'Zip file: No compile (just copy) and extract to test content',
+         cb: async () => {
+
+            if (!fs.existsSync('temp/dist/test.txt')) await sh(`cd "temp/dist" && ${process.platform === 'win32' ? 'Expand-Archive test.zip .' : 'unzip test.zip'}`);
+         },
+         ext: 'txt',
+         output: 'Success'
       },
       '_header.html': {
 
@@ -257,7 +270,7 @@
    }
 
    /* Exit if success */
-   if (errors.length === 0) return true;
+   if (errors.length === 0) process.exit(0);
 
    console.log('\n--- LOGS ---\n');
    errors.forEach(error => console.log(error));
