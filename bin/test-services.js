@@ -91,7 +91,7 @@
                      await new Promise(resolve => {
 
                         let count = 0;
-                        const limit = 10000;
+                        const limit = 100;
                         const attemp = setInterval(async () => {
 
                            count++;
@@ -180,7 +180,7 @@
          name: 'Zip file: No compile (just copy) and extract to test content',
          cb: async () => {
 
-            if (!fs.existsSync('temp/dist/test.txt')) await sh(`cd "temp/dist" && ${process.platform === 'win32' ? 'Expand-Archive test.zip .' : 'unzip test.zip'}`);
+            if (!fs.existsSync('temp/dist/test.txt')) await sh('cd "temp/dist" && unzip test.zip');
          },
          ext: 'txt',
          output: 'Success'
