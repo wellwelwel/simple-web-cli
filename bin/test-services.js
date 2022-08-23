@@ -246,15 +246,15 @@
       console.log(results[passed ? 'passed' : 'failed']);
    }
 
-   // if (fs.existsSync('temp')) {
+   if (fs.existsSync('temp')) {
 
-   //    try {
+      try {
 
-   //       await sh('rm -r "temp"');
-   //       console.log('➖ Removing temporary files...');
-   //       console.log(results.passed);
-   //    } catch (error) { }
-   // }
+         await sh('rm -r "temp"');
+         console.log('➖ Removing temporary files...');
+         console.log(results.passed);
+      } catch (error) { }
+   }
 
    /* Exit if success */
    if (errors.length === 0) return true;
