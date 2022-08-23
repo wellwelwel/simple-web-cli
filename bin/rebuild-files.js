@@ -56,7 +56,7 @@ const rebuildFiles = async arg => {
 
          if (package?.[dependence]?.['simple-web-cli']) {
 
-            const latestVersion = await latest('simple-web-cli');
+            const latestVersion = (await latest('simple-web-cli')).trim();
             const currentVersion = package[dependence]['simple-web-cli'].replace(/\^|>|=|~/g, '');
 
             response = currentVersion === latestVersion;
@@ -76,9 +76,7 @@ const rebuildFiles = async arg => {
    const compatibility = {
 
       node: +process.version.split(".").shift().replace(/[^0-9]/, '') <= 14,
-      dependencies: {
-         'postcss-cli': '^8.3.1'
-      }
+      dependencies: { 'postcss-cli': '^8.3.1' },
    };
 
    /* package.json */
@@ -90,7 +88,7 @@ const rebuildFiles = async arg => {
 
             await exec('npm i simple-web-cli');
          }
-         catch (error) { /* Just ignores when on error */ }
+         catch (quiet) { /* Just ignores when on error */ }
       }
 
       if (!package?.devDependencies) package.devDependencies = { };
