@@ -44,12 +44,14 @@
 
             const init = await sh('cd "temp" && sw init --TEST');
             const source = 'temp/.swrc.js';
-            const regex = /start:.*false/gim;
+            const toTrue = /start: (false)/gm;
+            const toFalse = /(localhost.+\s{0,}?enabled|autoUpdate|autoInit): (true)/gm;
+            const toUncomment = /\/\/\s{0,}(chmod|dir|file|recursive|})/gm;
             const swrc = fs.readFileSync(source, 'utf-8');
-            const result = swrc.replace(regex, a => a.replace(/false/, 'true'));
+            const result = swrc.replace(toTrue, a => a.replace(/false/, 'true')).replace(toFalse, a => a.replace(/true/, 'false')).replace(toUncomment, a => a.replace(/\/\/ /, ''));
 
             fs.writeFileSync(source, result);
-            fs.writeFileSync('temp/.resources/test-resource-replace.html', fs.readFileSync('.github/workflows/resources/tests/.resources/test-resource-replace.html', 'utf-8'));
+            await sh('cp .github/workflows/resources/tests/.resources/test-resource-replace.html temp/.resources/test-resource-replace.html');
 
             return init;
          } catch (error) {
@@ -58,6 +60,8 @@
          }
       },
       'Executing service "start"': async () => {
+
+         const result = sh('cd "temp" && sw start --TEST');
 
          let start_errors = 0;
 
@@ -73,7 +77,7 @@
 
                      try {
 
-                        fs.writeFileSync(`temp/src/${expected}`, fs.readFileSync(`.github/workflows/resources/tests/${expected}`, 'utf-8'));
+                        await sh(`cp .github/workflows/resources/tests/${expected} temp/src/${expected}`);
                      } catch (error) {
 
                         copied = false;
@@ -97,6 +101,7 @@
                               clearInterval(attemp);
                               resolve();
                            }
+
                            if (!fs.existsSync(`temp/src/${file}`)) return;
                            if (!fs.existsSync(`temp/dist/${file}`)) return;
                            if (fs.readFileSync(`temp/dist/${file}`, 'utf-8')?.trim()?.length === 0) return;
@@ -123,8 +128,6 @@
 
                await sh('cd "temp" && touch "src/exit"');
             }, 5000);
-
-            const result = await sh('cd "temp" && sw start --TEST');
 
             if (!pass(result)) return result;
             return start_errors === 0 ? 'PASSED' : 'FAILED to building files';
@@ -243,15 +246,15 @@
       console.log(results[passed ? 'passed' : 'failed']);
    }
 
-   if (fs.existsSync('temp')) {
+   // if (fs.existsSync('temp')) {
 
-      try {
+   //    try {
 
-         await sh('rm -r "temp"');
-         console.log('➖ Removing temporary files...');
-         console.log(results.passed);
-      } catch (error) { }
-   }
+   //       await sh('rm -r "temp"');
+   //       console.log('➖ Removing temporary files...');
+   //       console.log(results.passed);
+   //    } catch (error) { }
+   // }
 
    /* Exit if success */
    if (errors.length === 0) return true;
