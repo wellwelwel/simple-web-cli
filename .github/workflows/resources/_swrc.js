@@ -63,11 +63,11 @@ module.exports = {
          user: '',
          pass: '',
          secure: true, // If the server doesn't use SSL certification, set "explict"
-         chmod: { // You can remove it to keep the server CHMOD default
-            dir: 755,
-            file: 644,
-            recursive: true
-         },
+         // chmod: { // You can remove it to keep the server CHMOD default
+         //    dir: 755,
+         //    file: 644,
+         //    recursive: true
+         // },
          isWindowsServer: false
       },
       build: { } // Keeps empty to use the same data as set in "ftp.start"
