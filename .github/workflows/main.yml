@@ -59,31 +59,3 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  publish-github:
-    name: Publish Package to GitHub
-    runs-on: ubuntu-latest
-    needs: [ test-node-os-coverage, publish-npmjs ]
-    permissions:
-      contents: read
-      packages: write
-    if: github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'v')
-    steps:
-      - name: ➕ Actions - Checkout
-        uses: actions/checkout@v2
-
-      - name: ➕ Actions - Setup NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-          check-latest: true
-          registry-url: 'https://npm.pkg.github.com/wellwelwel'
-          scope: '@wellwelwel'
-
-      - name: 📦 Preparing Package
-        run: node .github/workflows/publish.js
-
-      - name: 📥 Publishing Package
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
