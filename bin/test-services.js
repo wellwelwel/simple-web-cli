@@ -139,7 +139,7 @@
                   } catch (error) {
 
                      console.log(`   \x1b[31m✖\x1b[0m ${error.message}`);
-                     start_errors++
+                     start_errors++;
                   }
                }
 
@@ -274,7 +274,7 @@
    }
 
    /* Exit if success */
-   if (errors.length === 0) process.exit(0);
+   if (errors.length === 0) return true;
 
    console.log('\n--- LOGS ---\n');
    errors.forEach(error => console.log(error));
