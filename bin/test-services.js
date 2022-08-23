@@ -67,6 +67,20 @@
 
          try {
 
+            if (process.platform !== 'win32') {
+
+               expecteds['test.zip'] = {
+
+                  name: 'Zip file: No compile (just copy) and extract to test content',
+                  cb: async () => {
+
+                     if (!fs.existsSync('temp/dist/test.txt')) await sh('cd "temp/dist" && unzip test.zip');
+                  },
+                  ext: 'txt',
+                  output: 'Success'
+               };
+            };
+
             setTimeout(async () => {
 
                for (const expected in expecteds) {
@@ -174,16 +188,6 @@
 
          name: 'Building PHTML',
          output: '<?php echo 123?>'
-      },
-      'test.zip': {
-
-         name: 'Zip file: No compile (just copy) and extract to test content',
-         cb: async () => {
-
-            if (!fs.existsSync('temp/dist/test.txt')) await sh('cd "temp/dist" && unzip test.zip');
-         },
-         ext: 'txt',
-         output: 'Success'
       },
       '_header.html': {
 
