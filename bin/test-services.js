@@ -195,8 +195,6 @@
       },
    };
 
-   console.clear();
-
    for (const test in tests) {
 
       console.log(`➖ ${test}...`);

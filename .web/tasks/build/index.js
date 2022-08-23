@@ -26,7 +26,6 @@ const { performance } = require('perf_hooks');
 
 (async () => {
 
-   console.log(sh.clear);
    const loading = new draft(`${sh.bold}Building`, 'circle');
 
    await deleteDS_Store();
