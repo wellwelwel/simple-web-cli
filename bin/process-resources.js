@@ -91,9 +91,14 @@
 
    try {
 
-      if (!fse.existsSync('./.git')) await exec(`git init && git add . && git commit -m "Initial Commit"`);
+      if (fse.existsSync('./.swrc.js')) {
+
+         const { options } = require('../.web/modules/config');
+
+         if (arg === 'start' && options?.autoInit && !fse.existsSync('./.git')) await exec(`git init && git add . && git commit -m "Initial Commit"`);
+      }
    }
-   catch (error) { /* Just ignores when no "git" installed */ }
+   catch (quiet) { /* Just ignores when no "git" installed */ }
 
    if (typeof alloweds[arg] === 'string') await require(alloweds[arg]); /* Calls to script */
 

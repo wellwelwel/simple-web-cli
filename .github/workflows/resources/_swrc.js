@@ -47,7 +47,8 @@ module.exports = {
    },
 
    options: {
-      autoUpdate: true // Updates only for patch and minor versions
+      autoUpdate: true, // Updates only for patch and minor versions
+      autoInit: true, // Performs the first commit when starting the project for the first time
    },
 
 
