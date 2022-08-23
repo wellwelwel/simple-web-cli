@@ -144,8 +144,6 @@ const post_process = async (options = { }) => {
 
       await exec(`mkdir -p ${dirname(to)} && cp ${sampleContent} ${to}`);
 
-      console.log(to);
-
       return 'skip-this-file';
    }
 
