@@ -206,10 +206,6 @@ module.exports = async () => {
       const isDir = file.split(sep).pop().includes('.') ? false : true;
       if (event == 'update' && isDir) return;
 
-      /* Verificar se o item já está em processamento */
-      if (!deploy.scheduling?.copying) deploy.scheduling.copying = file;
-      else if (deploy.scheduling.copying === file) return;
-
       deploy.queue(deployFile, file);
       await deploy.start();
    });

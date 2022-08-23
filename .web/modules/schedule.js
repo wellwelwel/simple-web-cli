@@ -89,7 +89,6 @@ class Schedule {
                      clearInterval(waiting);
 
                      if (this.scheduling?.file) delete this.scheduling.file;
-                     if (this.scheduling?.copying) delete this.scheduling.copying;
                   }
                }
             }, set_options.timeInterval);
