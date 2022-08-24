@@ -165,9 +165,21 @@ const { performance } = require('perf_hooks');
 
          const loading = new draft(`${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`);
 
-         const { host, user, pass, secure } = dist?.host && dist?.user && dist?.pass && dist?.secure ? dist : dev.ftp;
-         const pre_connect = !empty(host) || !empty(user) || !empty(pass) ? true : false;
-         const conn = pre_connect ? await FTP.connect({ host: host, user: user, pass: pass, root: build.ftp, secure: secure }) : false;
+         const ftp = {
+
+            root: dist?.ftp?.root || dev?.ftp?.root,
+            host: dist?.ftp?.host || dev?.ftp?.host,
+            port: dist?.ftp?.port || dev?.ftp?.port,
+            user: dist?.ftp?.user || dev?.ftp?.user,
+            pass: dist?.ftp?.pass || dev?.ftp?.pass,
+            secure: dist?.ftp?.secure || dev?.ftp?.secure,
+            chmod: dist?.ftp?.chmod || dev?.ftp?.chmod || false,
+            isWindowsServer: dist?.ftp?.isWindowsServer || dev?.ftp?.isWindowsServer,
+         };
+
+
+         const pre_connect = (!empty(ftp.host) || !empty(ftp.user) || !empty(ftp.pass));
+         const conn = pre_connect ? await FTP.connect(ftp) : false;
 
          if (!conn) {
 
@@ -180,10 +192,10 @@ const { performance } = require('perf_hooks');
          loading.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.blue}Connected`);
 
          /* Send */
-         const remote = serverOSNormalize(`${build.ftp}/${final}.zip`);
+         const remote = serverOSNormalize(`${ftp.root}/${final}.zip`.replace(/\/\//g, '/'));
          const deploying = new draft(`${sh.bold}Deploying ${sh.dim}to${sh.reset} "${sh.blue}${remote}${sh.reset}"`);
-
          const action = await FTP.send(`${final}.zip`);
+
          deploying.stop(!!action ? 1 : 0, FTP.client.error);
          FTP.client.close();
       }
