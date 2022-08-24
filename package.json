@@ -1,6 +1,6 @@
 {
   "name": "simple-web-cli",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "main": "./bin/init.js",
   "scripts": {
     "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
