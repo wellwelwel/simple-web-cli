@@ -30,6 +30,15 @@ const post_process = async (options = { }) => {
       /\.crd$/i,
       /\.eps$/i,
 
+      // Fonts
+      /\.woff$/i,
+      /\.woff2$/i,
+      /\.eot$/i,
+      /\.otd$/i,
+      /\.otf$/i,
+      /\.ttf$/i,
+      /\.ttc$/i,
+
       // Videos
       /\.avi$/i,
       /\.wmv$/i,
