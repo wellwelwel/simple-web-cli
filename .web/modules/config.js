@@ -49,9 +49,10 @@ const build = config?.build || false;
 const plugins = config?.plugins || false;
 const options = config?.options || false;
 const port = config?.start?.localhost?.enabled ? config?.start?.localhost?.port || 3000 : false;
+const blacklist = config?.blacklist || [];
 
 process_files.js.require = required;
 
 createDir([ source, to, required ]);
 
-module.exports = { source, to, dev, dist, process_files, build, options, plugins, port };
+module.exports = { source, to, dev, dist, process_files, build, options, plugins, port, blacklist };

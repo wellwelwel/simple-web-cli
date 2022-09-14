@@ -12,7 +12,7 @@ module.exports = {
             uglify: true,
             exclude: {
                requireBrowser: [
-                  // You can use a file extension or an absolute path
+                  // You can use a file extension, a relative path or a part of it
                   '.min.js',
                   '.mjs'
                ]
@@ -26,7 +26,7 @@ module.exports = {
             minify: true,
             htmlImportLikeSass: true, // If true, ignores the compilation when a HTML file name starts with _
             exclude: {
-               htmlImport: [] // You can use an absolute path
+               htmlImport: [] // You can use a relative path or a part of it
             }
          },
          htaccess: {
@@ -35,16 +35,31 @@ module.exports = {
          php: {
             minify: true
          },
-         exclude: [ // You can use a file extension or an absolute path to exclude any file from compiling
+         exclude: [ // You can use a file extension, a relative path or a part of it to exclude any file from compiling
             '.min.css',
             '.min.js'
          ]
       },
+
       localhost: {
-         enabled: true,
+         enabled: false,
          port: 3030
       }
    },
+
+   /**
+    * Don't process neither copy source file to dist path
+    * You can use your frameworks in parallel and if you wish, you can define the framework's build output in the same dist directory from this workspace
+   **/
+   blacklist: [
+      // You can use a file extension, a relative path or a part of it to exclude any file from compiling
+      '.coffee',
+      '.jsx',
+      '.less',
+      '.pug',
+      '.ts',
+      '.tsx',
+   ],
 
    options: {
       autoUpdate: true, // Updates only for patch and minor versions
@@ -84,12 +99,13 @@ module.exports = {
       deployZipToServer: false
    },
 
+   /**
+    * Works on both "build" and "start"
+    * This doesn't work on blacklisted files
+   **/
    plugins: {
 
-      /**
-       * Put simple-web-cli language plug-ins modules and path to an auto executable script to compile in other languages
-       * Works on both "build" and "start"
-      **/
+      // Coming soon: Put simple-web-cli language plug-ins modules and path to an auto executable script to compile in other languages
       compiler: [],
 
       // You can create an easy to read code and on compiling, replace the specified strings:
@@ -100,6 +116,10 @@ module.exports = {
                build: 'my-build-output'
             }
          },
+         /**
+          * If you want more specific extensions, you can add them here
+          * By default, unlisted extesions are set as "false"
+         **/
          languages: {
             html: true,
             php: true,

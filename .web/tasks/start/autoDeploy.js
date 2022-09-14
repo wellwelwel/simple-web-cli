@@ -3,12 +3,13 @@
 const fs = require('fs-extra');
 const { sh, type, draft } = require('../../modules/sh');
 const FTP = require('../../modules/ftp');
-const { dev, source, to, process_files, port } = require('../../modules/config');
+const { dev, source, to, process_files, port, blacklist } = require('../../modules/config');
 const createDir = require('../../modules/create-dir');
 const empty = require('../../modules/empty');
 const isConnected = require('../../modules/check-connection');
 const listFiles = require('../../modules/listFiles');
 const deleteDS_Store = require('../../modules/deleteDS_Store');
+const vReg = require('../../modules/vReg');
 const watch = require('node-watch').default;
 const processCSS = require('../../modules/process-files/process-scss');
 const processJS = require('../../modules/process-files/process-js');
@@ -79,6 +80,13 @@ module.exports = async () => {
          watcherMain.close();
          watcherModules.close();
          process.exit(0);
+      }
+
+      const inBlacklist = blacklist.some(item => !!file.match(vReg(item, 'gi')));
+      if (inBlacklist) {
+
+         console.log(`${sh.blue}ℹ${sh.reset} Ignoring file in blacklist: "${sh.bold}${file}${sh.reset}"`);
+         return;
       }
 
       const isDir = file.split(sep).pop().includes('.') ? false : true;

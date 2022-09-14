@@ -1,10 +1,11 @@
 "use strict";
 
-const { dev, dist, source, build } = require('../../modules/config');
+const { dev, dist, source, build, blacklist } = require('../../modules/config');
 const fs = require('fs-extra').promises;
 const _fs = require('fs-extra');
 const { sh, draft } = require('../../modules/sh');
 const empty = require('../../modules/empty');
+const vReg = require('../../modules/vReg');
 const watchClose = require('../../modules/watch-close');
 const listFiles = require('../../modules/listFiles');
 const archiver = require('archiver');
@@ -44,6 +45,7 @@ const { performance } = require('perf_hooks');
          const typesOver = [];
 
          let count = 0;
+         let blacklistCount = 0;
 
          for (const file of files) {
 
@@ -71,6 +73,14 @@ const { performance } = require('perf_hooks');
          }
 
          for (const file of files) {
+
+            const inBlacklist = blacklist.some(item => !!file.match(vReg(item, 'gi')));
+            if (inBlacklist) {
+
+               blacklistCount++;
+
+               continue;
+            }
 
             loading.string = `${prefix()}${sh.blue}${file}`;
 
@@ -110,6 +120,7 @@ const { performance } = require('perf_hooks');
          }
 
          loading.stop(1, `${prefix()}${sh.blue}${types.join(', ')}${moreTypes}`);
+         if (blacklistCount > 0) console.log(`${sh.blue}ℹ ${sh.reset}${sh.bold}${blacklistCount}${sh.reset} file(s) in Blacklist`);
       }
 
       async function resolveConflicts() {
