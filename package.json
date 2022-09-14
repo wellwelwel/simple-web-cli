@@ -1,11 +1,11 @@
 {
   "name": "simple-web-cli",
-  "version": "3.2.3",
+  "version": "3.3.0",
   "main": "./bin/init.js",
   "scripts": {
-    "patch": "npx ncu -u; npm i; npm audit fix; npm version patch --no-git-tag-version;",
-    "minor": "npx ncu -u; npm i; npm audit fix; npm version minor --no-git-tag-version;",
-    "major": "npx ncu -u; npm i; npm audit fix; npm version major --no-git-tag-version;",
+    "patch": "npx ncu -u; npm i; npm audit fix; npm run test-services && npm version patch --no-git-tag-version;",
+    "minor": "npx ncu -u; npm i; npm audit fix; npm run test-services && npm version minor --no-git-tag-version;",
+    "major": "npx ncu -u; npm i; npm audit fix; npm run test-services && npm version major --no-git-tag-version;",
     "test-services": "node \"bin/test-services.js\""
   },
   "bin": {
