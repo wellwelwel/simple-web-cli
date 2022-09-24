@@ -19,6 +19,14 @@ async function processCSS(file, local = false, replace = 'start') {
    const fileType = file.split('.').pop().toLowerCase();
    const tempDIR = `temp_${(new Date()).valueOf().toString()}`;
 
+   if (fileType === 'scss' && process_files.hasOwnProperty('scss') && process_files.scss === false) {
+
+      createDir([ path(file.replace(source, to)) ]);
+
+      await fs.copyFile(file, file.replace(source, to));
+      return true;
+   }
+
    if (_ && fileType === 'scss') {
 
       const files = await listFiles(source, 'scss');

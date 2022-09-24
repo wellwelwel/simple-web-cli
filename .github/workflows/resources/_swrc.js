@@ -18,6 +18,7 @@ module.exports = {
                ]
             }
          },
+         scss: true,
          css: {
             autoprefixer: true,
             uglifycss: true
@@ -50,6 +51,7 @@ module.exports = {
    /**
     * Don't process neither copy source file to dist path
     * You can use your frameworks in parallel and if you wish, you can define the framework's build output in the same dist directory from this workspace
+    * Remove an item from blacklist if you want send just a copy from the original file to dist directory from this workspace
    **/
    blacklist: [
       // You can use a file extension, a relative path or a part of it to exclude any file from compiling
@@ -59,6 +61,8 @@ module.exports = {
       '.pug',
       '.ts',
       '.tsx',
+      '.git/',
+      'node_modules',
    ],
 
    options: {
@@ -111,7 +115,7 @@ module.exports = {
       // You can create an easy to read code and on compiling, replace the specified strings:
       stringReplace: {
          strings: {
-            '*your-code-string*': { // always starts and ends this string with *
+            '*your-code-string*': { // always starts and ends the key string with *
                start: 'my-start-output',
                build: 'my-build-output'
             }
