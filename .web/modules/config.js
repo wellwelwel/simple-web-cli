@@ -49,7 +49,7 @@ const build = config?.build || false;
 const plugins = config?.plugins || false;
 const options = config?.options || false;
 const port = config?.start?.localhost?.enabled ? config?.start?.localhost?.port || 3000 : false;
-const blacklist = config?.blacklist || [];
+const blacklist = config.hasOwnProperty('blacklist') ? config.blacklist : [] || [];
 
 process_files.js.require = required;
 
