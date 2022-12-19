@@ -1,6 +1,7 @@
 import { dirname, resolve, relative } from 'path';
+import { platform } from 'os';
 
-const isWindows = process.platform === 'win32';
+const isWindows = platform() === 'win32';
 
 export const __dirname = (() => {
    let x = dirname(decodeURI(new URL(import.meta.url).pathname));

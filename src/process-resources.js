@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { EOL } from 'os';
+import { EOL, platform } from 'os';
 import { normalize } from 'path';
 import exec from '../.web/modules/execShellCommand.js';
 import { sh, draft } from '../.web/modules/sh.js';
@@ -10,7 +10,7 @@ import { __dirname } from '../.web/modules/root.js';
    const [, , ...args] = process.argv;
    const arg = args[0]?.replace(/-/g, '') || 'start';
 
-   const isWindows = process.platform === 'win32';
+   const isWindows = platform() === 'win32';
 
    const requires = {
       dirs: ['.library'],

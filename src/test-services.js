@@ -47,8 +47,9 @@ import { extname } from 'path';
                .replace(toUncomment, (a) => a.replace(/\/\/ /, ''));
 
             fs.writeFileSync(source, result);
-            await sh(
-               'cp .github/workflows/resources/tests/.resources/test-resource-replace.html temp/.resources/test-resource-replace.html'
+            fs.copyFileSync(
+               '.github/workflows/resources/tests/.resources/test-resource-replace.html',
+               'temp/.resources/test-resource-replace.html'
             );
 
             return init;
@@ -79,7 +80,7 @@ import { extname } from 'path';
                      let copied = true;
 
                      try {
-                        await sh(`cp .github/workflows/resources/tests/${expected} temp/src/${expected}`);
+                        fs.copyFileSync(`.github/workflows/resources/tests/${expected}`, `temp/src/${expected}`);
                      } catch (error) {
                         copied = false;
                      }
