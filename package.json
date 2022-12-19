@@ -4,16 +4,18 @@
    "version": "4.0.0-next",
    "main": "./bin/init.js",
    "scripts": {
+      "build": "rm -rf ./lib; npx rollup -c;",
       "patch": "npm run update; npm run test-services && npm version patch --no-git-tag-version;",
       "minor": "npm run update; npm run test-services && npm version minor --no-git-tag-version;",
       "major": "npm run update; npm run test-services && npm version major --no-git-tag-version;",
       "update": "npx npu; npm i --ignore-scripts; npm audit fix;",
-      "test-services": "node \"bin/test-services.js\""
+      "test-services": "node \"bin/test-services.js\"",
+      "reinstall": "npm uninstall simple-web-cli -g; npm link ./; npm run test-services;"
    },
    "bin": {
-      "sw": "bin/init.js",
-      "simple-web": "bin/init.js",
-      "simple-web-cli": "bin/init.js"
+      "sw": "./bin/init.js",
+      "simple-web": "./bin/init.js",
+      "simple-web-cli": "./bin/init.js"
    },
    "keywords": [
       "ftp-service",
@@ -42,9 +44,12 @@
       "@babel/cli": "^7.19.3",
       "@babel/core": "^7.20.5",
       "@babel/preset-env": "^7.20.2",
+      "@rollup/plugin-babel": "^6.0.3",
+      "@rollup/plugin-commonjs": "^24.0.0",
       "autoprefixer": "^10.4.13",
       "postcss-cli": "^10.1.0",
       "prettier": "^2.8.1",
+      "rollup": "^3.7.5",
       "sass": "^1.57.0",
       "uglify-js": "^3.17.4"
    },

@@ -3,7 +3,7 @@ import { EOL } from 'os';
 import { normalize, resolve, dirname } from 'path';
 import exec from '../.web/modules/execShellCommand.js';
 import { sh, draft } from '../.web/modules/sh.js';
-import rebuildFiles from '../bin/rebuild-files.js';
+import rebuildFiles from './rebuild-files.js';
 
 (async () => {
    const [, , ...args] = process.argv;
@@ -21,9 +21,9 @@ import rebuildFiles from '../bin/rebuild-files.js';
 
    const alloweds = {
       init: true,
-      start: '../.web/tasks/start',
-      build: '../.web/tasks/build',
-      TEST: '../.web/tasks/start',
+      start: '../lib/tasks/start/index.js',
+      build: '../lib/tasks/build/index.js',
+      TEST: '../lib/tasks/start/index.js',
    };
 
    if (arg !== 'TEST' && !alloweds[arg]) {
@@ -94,7 +94,7 @@ import rebuildFiles from '../bin/rebuild-files.js';
       /* Just ignores when no "git" installed */
    }
 
-   if (typeof alloweds[arg] === 'string') await import(`${alloweds[arg]}/index.js`); /* Calls to script */
+   if (typeof alloweds[arg] === 'string') await import(alloweds[arg]); /* Calls to script */
 
    /* Reserved to tests */
    args.includes('--TEST') && console.log('PASSED');

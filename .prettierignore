@@ -12,3 +12,5 @@ package-lock.json
 package.json
 README_pt-BR.md
 README.md
+bin
+lib
