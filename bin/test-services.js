@@ -181,7 +181,7 @@
       'test-require.js': {
          name: 'Testing Feature: Require Browser',
          output:
-            '"use strict";var s=function(t){return document.querySelector(t)},sEl=function(t,n){return t.querySelector(n)},sAll=function(t){return document.querySelectorAll(t)},sElAll=function(t,n){return t.querySelectorAll(n)},isEmpty=function(t){return 0===(null==t?void 0:t.trim().length)},notEmpty=function(t){return 0<(null==t?void 0:t.trim().length)};',
+            '"use strict";var s=function(e){return document.querySelector(e)},sEl=function(e,r){return e.querySelector(r)},sAll=function(e){return document.querySelectorAll(e)},sElAll=function(e,r){return e.querySelectorAll(r)};',
       },
       'test-string-replace.html': {
          name: 'Testing Plug-in: String Replace',
@@ -238,13 +238,13 @@
       console.log(results[passed ? 'passed' : 'failed']);
    }
 
-   if (fs.existsSync('temp')) {
-      try {
-         await sh('rm -r "temp"');
-         console.log('➖ Removing temporary files...');
-         console.log(results.passed);
-      } catch (error) {}
-   }
+   // if (fs.existsSync('temp')) {
+   //    try {
+   //       await sh('rm -r "temp"');
+   //       console.log('➖ Removing temporary files...');
+   //       console.log(results.passed);
+   //    } catch (error) {}
+   // }
 
    /* Exit if success */
    if (errors.length === 0) return true;
