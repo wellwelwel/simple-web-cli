@@ -61,8 +61,7 @@ module.exports = {
    ],
 
    options: {
-      autoUpdate: true, // Updates only for patch and minor versions
-      autoInit: true, // Performs the first commit when starting the project for the first time
+      initialCommit: true, // Performs the first commit when starting the project for the first time
    },
 
 
@@ -77,12 +76,7 @@ module.exports = {
          port: 21,
          user: '',
          pass: '',
-         secure: true, // If the server doesn't use SSL certification, set "explict"
-         // chmod: { // You can remove it to keep the server CHMOD default
-         //    dir: 755,
-         //    file: 644,
-         //    recursive: true
-         // },
+         secure: true || 'explict', // If the server doesn't use SSL certification, set "explict"
          isWindowsServer: false
       },
       build: { } // Keeps empty to use the same data as set in "ftp.start"
@@ -93,9 +87,8 @@ module.exports = {
     * If you don't specify the "build.compile", it will use the settings from "start.compile"
    **/
    build: {
-      level: 0, // Compression level of zip output (0: fast, ..., 9: slow)
+      level: 9, // Compression level of zip output (0: fast, ..., 9: slow)
       output: 'release', // Generate a zip and creates the root content from this name (example: "release.zip", on extract: "./release/...")
-      deployZipToServer: false
    },
 
    /**

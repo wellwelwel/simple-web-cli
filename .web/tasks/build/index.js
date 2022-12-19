@@ -1,9 +1,8 @@
 "use strict";
 
-const { dev, dist, source, build, blacklist } = require('../../modules/config');
+const { source, build, blacklist } = require('../../modules/config');
 const fs = require('fs');
 const { sh, draft } = require('../../modules/sh');
-const empty = require('../../modules/empty');
 const vReg = require('../../modules/vReg');
 const watchClose = require('../../modules/watch-close');
 const listFiles = require('../../modules/listFiles');
@@ -19,8 +18,6 @@ const createDir = require('../../modules/create-dir');
 const postProcess = require('../../modules/process-files/post-process-replace');
 const rmTemp = require('../../modules/rmTemp');
 const { sep } = require('path');
-const FTP = require('../../modules/ftp');
-const serverOSNormalize = require('../../modules/server-os-normalize');
 const { performance } = require('perf_hooks');
 
 (async () => {
@@ -165,47 +162,6 @@ const { performance } = require('perf_hooks');
          loading.stop(1);
       }
 
-      async function send() {
-
-         if (!build?.deployZipToServer) return;
-
-         const loading = new draft(`${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`);
-
-         const ftp = {
-
-            root: dist?.ftp?.root || dev?.ftp?.root,
-            host: dist?.ftp?.host || dev?.ftp?.host,
-            port: dist?.ftp?.port || dev?.ftp?.port,
-            user: dist?.ftp?.user || dev?.ftp?.user,
-            pass: dist?.ftp?.pass || dev?.ftp?.pass,
-            secure: dist?.ftp?.secure || dev?.ftp?.secure,
-            chmod: dist?.ftp?.chmod || dev?.ftp?.chmod || false,
-            isWindowsServer: dist?.ftp?.isWindowsServer || dev?.ftp?.isWindowsServer,
-         };
-
-
-         const pre_connect = (!empty(ftp.host) || !empty(ftp.user) || !empty(ftp.pass));
-         const conn = pre_connect ? await FTP.connect(ftp) : false;
-
-         if (!conn) {
-
-            FTP.client.close();
-            loading.stop(0, `${sh.dim}${sh.bold}FTP:${sh.reset}${sh.dim} No connected`);
-
-            return;
-         }
-
-         loading.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.blue}Connected`);
-
-         /* Send */
-         const remote = serverOSNormalize(`${ftp.root}/${final}.zip`.replace(/\/\//g, '/'));
-         const deploying = new draft(`${sh.bold}Deploying ${sh.dim}to${sh.reset} "${sh.blue}${remote}${sh.reset}"`);
-         const action = await FTP.send(`${final}.zip`);
-
-         deploying.stop(!!action ? 1 : 0, FTP.client.error);
-         FTP.client.close();
-      }
-
       function msToTime(s) {
 
          function pad(n, z) {
@@ -233,7 +189,6 @@ const { performance } = require('perf_hooks');
       await buildFiles();
       await gerarDeploy();
       await clearTemp();
-      build.ftp != 'false' && await send();
 
       console.log();
       loading.stop(1, `Finished in ${sh.green}${msToTime(performance.now() - startTime)}`);

@@ -5,7 +5,6 @@ const rebuildFiles = async (arg) => {
    const readJSON = (file) => JSON.parse(fs.readFileSync(file, 'utf-8'));
    const buildJSON = (obj) => orderJSON(obj, 2);
    const package = readJSON('package.json') || {};
-   const { options } = require('../.web/modules/config');
    const babelrc = readJSON('.babelrc') || {};
    const stage = {
       package: false,
@@ -39,29 +38,7 @@ const rebuildFiles = async (arg) => {
       'sass',
       'uglify-js',
    ];
-   const isLatestVersion = async (typeDependencies) => {
-      if (arg === 'init' || options?.autoUpdate === false) return true;
 
-      let response = true;
-
-      for (const dependence of typeDependencies) {
-         if (package?.[dependence]?.['simple-web-cli']) {
-            const latestVersion = (await latest('simple-web-cli')).trim();
-            const currentVersion = package[dependence]['simple-web-cli'].replace(/\^|>|=|~/g, '');
-
-            response = currentVersion === latestVersion;
-
-            if (!response) {
-               package[dependence]['simple-web-cli'] = `^${latestVersion}`;
-               if (!stage.package) stage.package = true;
-
-               break;
-            }
-         }
-      }
-
-      return response;
-   };
    const compatibility = {
       node:
          +process.version
@@ -73,14 +50,6 @@ const rebuildFiles = async (arg) => {
 
    /* package.json */
    try {
-      if (!(await isLatestVersion(['devDependencies', 'dependencies', 'bundleDependencies']))) {
-         try {
-            await exec('npm i simple-web-cli');
-         } catch (quiet) {
-            /* Just ignores when on error */
-         }
-      }
-
       if (!package?.devDependencies) package.devDependencies = {};
 
       for (const dependence of dependencies) {

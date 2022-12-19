@@ -85,7 +85,7 @@
       if (fs.existsSync('./.swrc.js')) {
          const { options } = require('../.web/modules/config');
 
-         if (arg === 'start' && options?.autoInit && !fs.existsSync('./.git'))
+         if (arg === 'start' && options?.initalCommit && !fs.existsSync('./.git'))
             await exec(`git init && git add . && git commit -m "Initial Commit"`);
       }
    } catch (quiet) {
