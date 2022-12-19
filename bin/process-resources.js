@@ -1,7 +1,6 @@
 import fs from 'fs';
 import { EOL } from 'os';
-import { normalize, dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
+import { normalize, resolve } from 'path';
 import exec from '../.web/modules/execShellCommand.js';
 import { sh, draft } from '../.web/modules/sh.js';
 import rebuildFiles from '../bin/rebuild-files.js';
@@ -10,11 +9,7 @@ import rebuildFiles from '../bin/rebuild-files.js';
    const [, , ...args] = process.argv;
    const arg = args[0]?.replace(/-/g, '') || 'start';
 
-   // const __dirname = dirname(fileURLToPath(import.meta.url));
-   const __dirname = (() => {
-      let x = dirname(decodeURI(new URL(import.meta.url).pathname));
-      return resolve(process.platform == 'win32' ? x.substring(1) : x);
-   })();
+   const __dirname = resolve();
 
    const requires = {
       dirs: ['.library'],
