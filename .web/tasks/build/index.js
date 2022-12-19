@@ -1,8 +1,7 @@
 "use strict";
 
 const { dev, dist, source, build, blacklist } = require('../../modules/config');
-const fs = require('fs-extra').promises;
-const _fs = require('fs-extra');
+const fs = require('fs');
 const { sh, draft } = require('../../modules/sh');
 const empty = require('../../modules/empty');
 const vReg = require('../../modules/vReg');
@@ -18,8 +17,7 @@ const processHTML = require('../../modules/process-files/process-html');
 const no_process = require('../../modules/process-files/no-process');
 const createDir = require('../../modules/create-dir');
 const postProcess = require('../../modules/process-files/post-process-replace');
-const glob = require('glob');
-const rimraf = require('rimraf');
+const rmTemp = require('../../modules/rmTemp');
 const { sep } = require('path');
 const FTP = require('../../modules/ftp');
 const serverOSNormalize = require('../../modules/server-os-normalize');
@@ -111,7 +109,7 @@ const { performance } = require('perf_hooks');
                   if (minified !== 'skip-this-file') {
 
                      createDir(pathFile.replace(source, to));
-                     await fs.writeFile(finalFile, !minified ? original : minified);
+                     fs.writeFileSync(finalFile, !minified ? original : minified);
                   }
                }
             }
@@ -127,8 +125,8 @@ const { performance } = require('perf_hooks');
 
          const loading = new draft(`Resolving possible conflicts`);
 
-         if (_fs.existsSync(`${final}.zip`)) await fs.unlink(`${final}.zip`);
-         if (_fs.existsSync(to)) await fs.rm(to, { recursive: true, force: true });
+         if (fs.existsSync(`${final}.zip`)) fs.unlinkSync(`${final}.zip`);
+         if (fs.existsSync(to)) fs.rmSync(to, { recursive: true, force: true });
 
          loading.stop(1);
       }
@@ -140,7 +138,7 @@ const { performance } = require('perf_hooks');
          try {
 
             const files = await listFiles(to) || [];
-            const output = _fs.createWriteStream(`${final}.zip`);
+            const output = fs.createWriteStream(`${final}.zip`);
             const archive = archiver('zip', { zlib: { level: build?.level || 0 } });
 
             archive.pipe(output);
@@ -159,13 +157,10 @@ const { performance } = require('perf_hooks');
 
          const loading = new draft(`Deleting temporary files`);
 
-         glob('temp_*', { }, (err, files) => {
+         await rmTemp();
 
-            if (files.length > 0) rimraf('temp_*', () => { });
-         });
-
-         if (_fs.existsSync(`${source}${sep}exit`)) await fs.unlink(`${source}${sep}exit`);
-         if (_fs.existsSync(to)) await fs.rm(to, { recursive: true, force: true });
+         if (fs.existsSync(`${source}${sep}exit`)) fs.unlinkSync(`${source}${sep}exit`);
+         if (fs.existsSync(to)) fs.rmSync(to, { recursive: true, force: true });
 
          loading.stop(1);
       }

@@ -1,4 +1,4 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 const sep = require('path').sep;
 
 class ListFiles {
@@ -36,11 +36,11 @@ class ListFiles {
 
          if (excludeDir) this.excludeDir.push(excludeDir.replace('./', ''));
 
-         const filesList = await fs.readdir(directory);
+         const filesList = fs.readdirSync(directory);
 
          for (const file in filesList) {
 
-            const stat = await fs.stat(`${directory}${sep}${filesList[file]}`);
+            const stat = fs.statSync(`${directory}${sep}${filesList[file]}`);
             if (this.excludeDir.includes(directory)) return false;
             else if (stat.isDirectory()) await this.getFiles(`${directory}${sep}${filesList[file]}`, type);
             else if (this.isTypeExpected(filesList[file], type)) this.files.push(`${directory}${sep}${filesList[file]}`);

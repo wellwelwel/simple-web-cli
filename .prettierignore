@@ -1,13 +1,11 @@
 .github
 .library
 .web
-bin
 docs
 node_modules
 test
 .babelrc
 .eslintignore
-.eslintrc.js
 CODE_OF_CONDUCT.md
 LICENSE
 package-lock.json

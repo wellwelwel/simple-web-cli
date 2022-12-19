@@ -5,10 +5,8 @@ const watchClose = require('../../modules/watch-close');
 const autoDeploy = require('./autoDeploy');
 const exec = require('../../modules/execShellCommand');
 const { source } = require('../../modules/config');
-const glob = require('glob');
-const fs = require('fs-extra').promises;
-const _fs = require('fs');
-const rimraf = require('rimraf');
+const rmTemp = require('../../modules/rmTemp');
+const fs = require('fs');
 const deleteDS_Store = require('../../modules/deleteDS_Store');
 const sep = require('path').sep;
 
@@ -22,15 +20,11 @@ const sep = require('path').sep;
 
    const starting = new draft(`Starting${sh.dim}${sh.yellow} ... ${sh.reset}${sh.bright}`, 'circle');
 
-   glob('temp_*', { }, (err, files) => {
-
-      if (files.length > 0) rimraf('temp_*', () => { });
-   });
-
+   await rmTemp();
    await deleteDS_Store();
 
-   if (_fs.existsSync('temp')) await fs.rm('temp', { recursive: true, force: true });
-   if (_fs.existsSync(`${source}/exit`)) await fs.unlink(`${source}${sep}exit`);
+   if (fs.existsSync('temp')) fs.rmSync('temp', { recursive: true, force: true });
+   if (fs.existsSync(`${source}/exit`)) fs.unlinkSync(`${source}${sep}exit`);
 
    const success = await autoDeploy();
 

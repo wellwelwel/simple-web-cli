@@ -1,8 +1,6 @@
 "use strict";
 
-const fs = require('fs-extra').promises;
-const _fs = require('fs');
-const rimraf = require('rimraf');
+const fs = require('fs');
 const uglifycss = require('uglifycss');
 const exec = require('../execShellCommand');
 const { source, to, process_files } = require('../config');
@@ -23,7 +21,7 @@ async function processCSS(file, local = false, replace = 'start') {
 
       createDir([ path(file.replace(source, to)) ]);
 
-      await fs.copyFile(file, file.replace(source, to));
+      fs.copyFileSync(file, file.replace(source, to));
       return true;
    }
 
@@ -35,7 +33,7 @@ async function processCSS(file, local = false, replace = 'start') {
       for (const file in files) {
 
          const regex = RegExp(`(@import).*?("|')((\\.\\/|\\.\\.\\/){1,})?((.*?\\/){1,})?(_)?(${filename})(\\.scss)?("|')`, 'g');
-         const content = await fs.readFile(files[file], 'utf8');
+         const content = fs.readFileSync(files[file], 'utf8');
          const isValid = !!content.match(regex);
 
          if (isValid) processCSS(files[file], local, replace);
@@ -60,20 +58,20 @@ async function processCSS(file, local = false, replace = 'start') {
    }
    else if (fileType === 'css') {
 
-      await fs.copyFile(file, tempCSS);
+      fs.copyFileSync(file, tempCSS);
 
       request = true;
    }
 
    let content = `/* autoprefixer grid: autoplace */ ${await postProcess({ src: tempCSS, response: true, local: replace })}`;
-   await fs.writeFile(tempCSS, content);
+   fs.writeFileSync(tempCSS, content);
 
    if (process && process_files.css.autoprefixer) await exec(`npx postcss "${tempCSS}" --use autoprefixer -o "${tempCSS}" --no-map`);
 
-   const uglified = process_files.css.uglifycss && process ? uglifycss.processFiles([tempCSS], { uglyComments: true }) : await fs.readFile(tempCSS, 'utf8');
-   await fs.writeFile(final, uglified);
+   const uglified = process_files.css.uglifycss && process ? uglifycss.processFiles([tempCSS], { uglyComments: true }) : fs.readFileSync(tempCSS, 'utf8');
+   fs.writeFileSync(final, uglified);
 
-   if (_fs.existsSync(tempDIR)) rimraf(tempDIR, () => { });
+   if (fs.existsSync(tempDIR)) await exec(`rm -rf ./${tempDIR}`);
 
    return request;
 }

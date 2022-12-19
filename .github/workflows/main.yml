@@ -8,7 +8,6 @@ on:
       - '**.md'
       - '.gitignore'
       - '.github/assets/**/**'
-      - '.eslintignore'
       - 'docs/**'
       - 'LICENSE'
 jobs:

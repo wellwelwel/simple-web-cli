@@ -1,8 +1,6 @@
 'use strict';
 
-const fs = require('fs-extra').promises;
-const _fs = require('fs-extra');
-const rimraf = require('rimraf');
+const fs = require('fs');
 const { source, to, process_files } = require('../config');
 const createDir = require('../create-dir');
 const exec = require('../execShellCommand');
@@ -16,7 +14,7 @@ const vReg = require('../vReg');
 const { sh } = require('../sh');
 
 const requiredResources = process_files.js.require;
-const packageName = JSON.parse(_fs.readFileSync('.library/package.json', 'utf8'));
+const packageName = JSON.parse(fs.readFileSync('.library/package.json', 'utf8'));
 
 function getLine(search, content) {
 
@@ -48,7 +46,7 @@ async function recursive_require(file, replace) {
 
             const required_path = normalize(`${requiredResources}${sep}${requiredName}`);
 
-            if (_fs.existsSync(`${required_path}${sep}index.js`)) return `${required_path}${sep}index.js`;
+            if (fs.existsSync(`${required_path}${sep}index.js`)) return `${required_path}${sep}index.js`;
 
             throw(`The file "${sh.yellow}${required_path}${sep}index.js${sh.reset}" was not found in the library. Line ${getLine(requireds[required], backup)} from "${sh.yellow}${file}${sh.reset}"`);
          };
@@ -56,7 +54,7 @@ async function recursive_require(file, replace) {
          const require = exist_require();
 
          // Check module
-         let current = await fs.readFile(require, 'utf-8');
+         let current = fs.readFileSync(require, 'utf-8');
          let outputContent = '';
 
          const outputModule = /module|exports/;
@@ -148,7 +146,7 @@ async function processJS(file, local = false, replace = 'start') {
 
       for (const file in files) {
 
-         const content = await fs.readFile(files[file], 'utf8');
+         const content = fs.readFileSync(files[file], 'utf8');
          if (regex.test(content)) processJS(files[file], local);
       }
 
@@ -185,7 +183,7 @@ async function processJS(file, local = false, replace = 'start') {
       const content = !result ? await recursive_require(file, replace) : await postProcess({ src: file, response: true, local: replace });
 
       /* Final Build File */
-      await fs.writeFile(pre, content);
+      fs.writeFileSync(pre, content);
    }
 
    async function process() {
@@ -211,8 +209,8 @@ async function processJS(file, local = false, replace = 'start') {
 
    async function post_process() {
 
-      let content = await fs.readFile(pre, 'utf8');
-      await fs.writeFile(final, content);
+      let content = fs.readFileSync(pre, 'utf8');
+      fs.writeFileSync(final, content);
    }
 
    /* ------------------------------------------------------------- */
@@ -221,7 +219,7 @@ async function processJS(file, local = false, replace = 'start') {
    const request = await process();
    await post_process();
 
-   if (_fs.existsSync(tempDIR)) rimraf(tempDIR, () => { });
+   if (fs.existsSync(tempDIR)) await exec(`rm -rf ./${tempDIR}`);
 
    return !request;
 }

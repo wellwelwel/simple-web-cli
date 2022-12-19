@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+const fs = require('fs');
 const normalize = require('path').normalize;
 
 module.exports = (directory) => {

@@ -41,11 +41,6 @@ module.exports = {
             '.min.js'
          ]
       },
-
-      localhost: {
-         enabled: false,
-         port: 3030
-      }
    },
 
    /**

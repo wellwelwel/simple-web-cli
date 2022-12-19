@@ -45,7 +45,7 @@
             const init = await sh('cd "temp" && sw init --TEST');
             const source = 'temp/.swrc.js';
             const toTrue = /start: (false)/gm;
-            const toFalse = /(localhost.+\s{0,}?enabled|autoUpdate|autoInit): (true)/gm;
+            const toFalse = /(autoUpdate|autoInit): (true)/gm;
             const toUncomment = /\/\/\s{0,}(chmod|dir|file|recursive|})/gm;
             const swrc = fs.readFileSync(source, 'utf-8');
             const result = swrc.replace(toTrue, a => a.replace(/false/, 'true')).replace(toFalse, a => a.replace(/true/, 'false')).replace(toUncomment, a => a.replace(/\/\/ /, ''));

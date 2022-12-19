@@ -1,6 +1,6 @@
 "use strict";
 
-const fs = require('fs-extra');
+const fs = require('fs');
 const { sh, type, draft } = require('../../modules/sh');
 const FTP = require('../../modules/ftp');
 const { dev, source, to, process_files, port, blacklist } = require('../../modules/config');
@@ -21,7 +21,6 @@ const no_process = require('../../modules/process-files/no-process');
 const { sep } = require('path');
 const Schedule = require('../../modules/schedule');
 const serverOSNormalize = require('../../modules/server-os-normalize');
-const { createServer, reload } = require('../../modules/localhost');
 
 module.exports = async () => {
 
@@ -37,7 +36,6 @@ module.exports = async () => {
 
    if (!!port) {
 
-      loading.server.string = `Listening on: ${sh.green}${sh.bold}http://localhost:${port}/${sh.reset} 🏠`;
       loading.server.stop(createServer() === true ? 1 : 0);
    }
    else {
@@ -142,7 +140,7 @@ module.exports = async () => {
                if (minified !== 'skip-this-file') {
 
                   createDir(pathFile.replace(source, to));
-                  await fs.writeFile(finalFile, !minified ? original : minified);
+                  fs.writeFileSync(finalFile, !minified ? original : minified);
                }
             }
          }
@@ -176,11 +174,6 @@ module.exports = async () => {
 
          await deleteDS_Store();
          return;
-      }
-
-      { /* Auto reload */
-         Object.keys(require.cache).forEach(key => delete require.cache[key]);
-         if (!reload.status) reload.status = true;
       }
 
       const connected = await isConnected();

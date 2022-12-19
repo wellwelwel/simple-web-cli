@@ -1,5 +1,0 @@
-.library
-.web
-bin
-test
-*.min.js

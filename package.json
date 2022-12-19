@@ -1,70 +1,66 @@
 {
-  "name": "simple-web-cli",
-  "version": "3.3.1",
-  "main": "./bin/init.js",
-  "scripts": {
-    "patch": "npx ncu -u; npm i; npm audit fix; npm run test-services && npm version patch --no-git-tag-version;",
-    "minor": "npx ncu -u; npm i; npm audit fix; npm run test-services && npm version minor --no-git-tag-version;",
-    "major": "npx ncu -u; npm i; npm audit fix; npm run test-services && npm version major --no-git-tag-version;",
-    "test-services": "node \"bin/test-services.js\""
-  },
-  "bin": {
-    "sw": "bin/init.js",
-    "simple-web": "bin/init.js",
-    "simple-web-cli": "bin/init.js"
-  },
-  "keywords": [
-    "ftp-chmod",
-    "ftp-service",
-    "html-import",
-    "html-include",
-    "html-require",
-    "require-browser",
-    "web-automation",
-    "web-bundle",
-    "web-compiler",
-    "web-modules",
-    "web-require"
-  ],
-  "author": "https://github.com/wellwelwel",
-  "license": "MIT",
-  "dependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.19.1",
-    "@babel/preset-env": "^7.19.1",
-    "archiver": "^5.3.1",
-    "autoprefixer": "^10.4.12",
-    "basic-ftp": "^5.0.2",
-    "draftlog": "^1.0.13",
-    "eslint": "^8.24.0",
-    "express": "^4.18.1",
-    "fs-extra": "^10.1.0",
-    "glob": "^8.0.3",
-    "html-minifier": "^4.0.0",
-    "node-watch": "^0.7.3",
-    "postcss-cli": "^10.0.0",
-    "rimraf": "^3.0.2",
-    "sass": "^1.55.0",
-    "uglify-js": "^3.17.1",
-    "uglifycss": "^0.0.29"
-  },
-  "browserslist": [
-    "> 0%"
-  ],
-  "devDependencies": {
-    "npm-check-updates": "^16.3.2"
-  },
-  "description": "⚡ A simple compiler to automate the development in HTML, CSS, JavaScript and PHP languages using FTP connection to deploy the processed files automatically to the final server.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wellwelwel/simple-web-cli.git"
-  },
-  "bugs": {
-    "url": "https://github.com/wellwelwel/simple-web-cli/issues"
-  },
-  "homepage": "https://github.com/wellwelwel/simple-web-cli#readme",
-  "engines": {
-    "node": ">=14.5.0",
-    "npm": ">=7.0.2"
-  }
+   "name": "simple-web-cli",
+   "version": "4.0.0-next",
+   "main": "./bin/init.js",
+   "scripts": {
+      "patch": "npm run update; npm run test-services && npm version patch --no-git-tag-version;",
+      "minor": "npm run update; npm run test-services && npm version minor --no-git-tag-version;",
+      "major": "npm run update; npm run test-services && npm version major --no-git-tag-version;",
+      "update": "npx npu; npm i --ignore-scripts; npm audit fix;",
+      "test-services": "node \"bin/test-services.js\""
+   },
+   "bin": {
+      "sw": "bin/init.js",
+      "simple-web": "bin/init.js",
+      "simple-web-cli": "bin/init.js"
+   },
+   "keywords": [
+      "ftp-service",
+      "html-import",
+      "html-include",
+      "html-require",
+      "require-browser",
+      "web-automation",
+      "web-bundle",
+      "web-compiler",
+      "web-modules",
+      "web-require"
+   ],
+   "author": "https://github.com/wellwelwel",
+   "license": "MIT",
+   "dependencies": {
+      "@babel/cli": "^7.19.3",
+      "@babel/core": "^7.20.5",
+      "@babel/preset-env": "^7.20.2",
+      "archiver": "^5.3.1",
+      "autoprefixer": "^10.4.13",
+      "basic-ftp": "^5.0.2",
+      "draftlog": "^1.0.13",
+      "html-minifier": "^4.0.0",
+      "node-watch": "^0.7.3",
+      "packages-update": "^1.2.1",
+      "postcss-cli": "^10.1.0",
+      "sass": "^1.57.0",
+      "uglify-js": "^3.17.4",
+      "uglifycss": "^0.0.29"
+   },
+   "devDependencies": {
+      "prettier": "^2.8.1"
+   },
+   "browserslist": [
+      "> 0%"
+   ],
+   "description": "⚡ A simple compiler to automate the development in HTML, CSS, JavaScript and PHP languages using FTP connection to deploy the processed files automatically to the final server.",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/wellwelwel/simple-web-cli.git"
+   },
+   "bugs": {
+      "url": "https://github.com/wellwelwel/simple-web-cli/issues"
+   },
+   "homepage": "https://github.com/wellwelwel/simple-web-cli#readme",
+   "engines": {
+      "node": ">=14.5.0",
+      "npm": ">=7.0.2"
+   }
 }

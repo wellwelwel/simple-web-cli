@@ -1,5 +1,4 @@
-const fse = require('fs-extra');
-const fsep = require('fs-extra').promises;
+const fs = require('fs');
 const { extname, dirname } = require('path');
 const post_replace = require('../post-replace');
 const empty = require('../empty');
@@ -126,7 +125,7 @@ const post_process = async (options = { }) => {
    if (!response) {
 
       if (!src || !to) return false;
-      if (!fse.existsSync(src)) return false;
+      if (!fs.existsSync(src)) return false;
    }
 
    const get_replaces = post_replace();
@@ -156,7 +155,7 @@ const post_process = async (options = { }) => {
       return 'skip-this-file';
    }
 
-   let content = await fsep.readFile(sampleContent, 'utf8');
+   let content = fs.readFileSync(sampleContent, 'utf8');
 
    try {
 
@@ -189,7 +188,7 @@ const post_process = async (options = { }) => {
    finally {
 
       if (response === true) return content
-      else await fsep.writeFile(to, content);
+      else fs.writeFileSync(to, content);
    }
 }
 
