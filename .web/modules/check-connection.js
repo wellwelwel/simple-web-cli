@@ -1,6 +1,6 @@
-const http2 = require('http2');
+import http2 from 'http2';
 
-module.exports = async (url = 'https://www.google.com/') => {
+export default async (url = 'https://www.google.com/') => {
 
    function isConnected() {
 

@@ -1,24 +1,24 @@
 "use strict";
 
-const { source, build, blacklist } = require('../../modules/config');
-const fs = require('fs');
-const { sh, draft } = require('../../modules/sh');
-const vReg = require('../../modules/vReg');
-const watchClose = require('../../modules/watch-close');
-const listFiles = require('../../modules/listFiles');
-const archiver = require('archiver');
-const deleteDS_Store = require('../../modules/deleteDS_Store');
-const processCSS = require('../../modules/process-files/process-scss');
-const processJS = require('../../modules/process-files/process-js');
-const processPHP = require('../../modules/process-files/process-php-phtml');
-const processHTACCESS = require('../../modules/process-files/process-htaccess');
-const processHTML = require('../../modules/process-files/process-html');
-const no_process = require('../../modules/process-files/no-process');
-const createDir = require('../../modules/create-dir');
-const postProcess = require('../../modules/process-files/post-process-replace');
-const rmTemp = require('../../modules/rmTemp');
-const { sep } = require('path');
-const { performance } = require('perf_hooks');
+import fs from 'fs';
+import archiver from 'archiver';
+import { sep } from 'path';
+import { performance } from 'perf_hooks';
+import { source, build, blacklist } from '../../modules/config.js';
+import { sh, draft } from '../../modules/sh.js';
+import vReg from '../../modules/vReg.js';
+import watchClose from '../../modules/watch-close.js';
+import listFiles from '../../modules/listFiles.js';
+import deleteDS_Store from '../../modules/deleteDS_Store.js';
+import processCSS from '../../modules/process-files/process-scss.js';
+import processJS from '../../modules/process-files/process-js.js';
+import processPHP from '../../modules/process-files/process-php-phtml.js';
+import processHTACCESS from '../../modules/process-files/process-htaccess.js';
+import processHTML from '../../modules/process-files/process-html.js';
+import no_process from '../../modules/process-files/no-process.js';
+import createDir from '../../modules/create-dir.js';
+import postProcess from '../../modules/process-files/post-process-replace.js';
+import rmTemp from '../../modules/rmTemp.js';
 
 (async () => {
 

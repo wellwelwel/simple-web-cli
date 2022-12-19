@@ -1,11 +1,11 @@
 'use strict';
 
-const { dev } = require('./config');
-const win32Normalize = require('path').win32.normalize;
+import { win32 } from 'path';
+import { dev } from './config.js';
 
-module.exports = path => {
+export default path => {
 
-   if (dev['is-windows-server']) return win32Normalize(path);
+   if (dev['is-windows-server']) return win32.normalize(path);
 
    path = path.replace(/\\\\/g, '/');
    path = path.replace(/\\/g, '/');

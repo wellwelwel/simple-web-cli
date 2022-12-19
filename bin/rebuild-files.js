@@ -1,11 +1,13 @@
+import fs from 'fs';
+import exec from '../.web/modules/execShellCommand.js';
+import latest from '../.web/modules/get-latest-version.js';
+
 const rebuildFiles = async (arg) => {
-   const fs = require('fs');
-   const exec = require('../.web/modules/execShellCommand');
-   const latest = require('../.web/modules/get-latest-version');
    const readJSON = (file) => JSON.parse(fs.readFileSync(file, 'utf-8'));
    const buildJSON = (obj) => orderJSON(obj, 2);
-   const package = readJSON('package.json') || {};
+   const packageFile = readJSON('package.json') || {};
    const babelrc = readJSON('.babelrc') || {};
+
    const stage = {
       package: false,
       babelrc: false,
@@ -50,17 +52,17 @@ const rebuildFiles = async (arg) => {
 
    /* package.json */
    try {
-      if (!package?.devDependencies) package.devDependencies = {};
+      if (!packageFile?.devDependencies) packageFile.devDependencies = {};
 
       for (const dependence of dependencies) {
          if (
-            !package?.devDependencies?.[dependence] &&
-            !package?.dependencies?.[dependence] &&
-            !package?.bundleDependencies?.[dependence]
+            !packageFile?.devDependencies?.[dependence] &&
+            !packageFile?.dependencies?.[dependence] &&
+            !packageFile?.bundleDependencies?.[dependence]
          ) {
             if (compatibility.node && compatibility.dependencies?.[dependence]) {
-               package.devDependencies[dependence] = compatibility.dependencies[dependence];
-            } else package.devDependencies[dependence] = `^${await latest(dependence)}`;
+               packageFile.devDependencies[dependence] = compatibility.dependencies[dependence];
+            } else packageFile.devDependencies[dependence] = `^${await latest(dependence)}`;
 
             if (!stage.package) stage.package = true;
             if (!stage.npm_i) stage.npm_i = true;
@@ -68,21 +70,21 @@ const rebuildFiles = async (arg) => {
       }
 
       /* autoprefixer requires */
-      if (!package?.browserslist) {
-         package.browserslist = '> 0%';
+      if (!packageFile?.browserslist) {
+         packageFile.browserslist = '> 0%';
          if (!stage.package) stage.package = true;
       }
 
       /* Dev */
-      if (!package?.devDependencies) package.devDependencies = {};
-      if (!package?.devDependencies?.web) {
-         package.devDependencies.web = 'file:.library';
+      if (!packageFile?.devDependencies) packageFile.devDependencies = {};
+      if (!packageFile?.devDependencies?.web) {
+         packageFile.devDependencies.web = 'file:.library';
 
          if (!stage.package) stage.package = true;
          if (!stage.npm_i) stage.npm_i = true;
       }
 
-      if (stage.package) fs.writeFileSync('package.json', buildJSON(package));
+      if (stage.package) fs.writeFileSync('package.json', buildJSON(packageFile));
       if (stage.npm_i) await exec('npm i');
    } catch (error) {
       console.warn(
@@ -157,4 +159,4 @@ const rebuildFiles = async (arg) => {
    return !stage.error;
 };
 
-module.exports = rebuildFiles;
+export default rebuildFiles;

@@ -1,9 +1,9 @@
-const fs = require('fs');
-const { extname, dirname } = require('path');
-const post_replace = require('../post-replace');
-const empty = require('../empty');
-const resourceReplace = require('../resource-replace');
-const exec = require('../execShellCommand');
+import fs from 'fs';
+import { extname, dirname } from 'path';
+import post_replace from '../post-replace.js';
+import empty from '../empty.js';
+import resourceReplace from '../resource-replace.js';
+import exec from '../execShellCommand.js';
 
 const post_process = async (options = { }) => {
 
@@ -192,4 +192,4 @@ const post_process = async (options = { }) => {
    }
 }
 
-module.exports = post_process;
+export default post_process;

@@ -1,7 +1,8 @@
+import { exec } from 'child_process';
+import fs from 'fs';
+import { extname } from 'path';
+
 (async () => {
-   const { exec } = require('child_process');
-   const fs = require('fs');
-   const { extname } = require('path');
    const sh = async (command) =>
       new Promise((resolve, reject) => exec(command, (error, stdout) => (!!error ? reject(error) : resolve(stdout))));
    const pass = (stdout, regex = /PASSED/gm) => regex.test(stdout);
@@ -177,11 +178,6 @@
       'test-import.html': {
          name: 'Testing Feature: HTML Import',
          output: '<html><body><header></header></body></html>',
-      },
-      'test-require.js': {
-         name: 'Testing Feature: Require Browser',
-         output:
-            '"use strict";var s=function(e){return document.querySelector(e)},sEl=function(e,r){return e.querySelector(r)},sAll=function(e){return document.querySelectorAll(e)},sElAll=function(e,r){return e.querySelectorAll(r)};',
       },
       'test-string-replace.html': {
          name: 'Testing Plug-in: String Replace',

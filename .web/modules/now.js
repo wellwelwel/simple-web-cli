@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = () => {
+export default () => {
 
    const d = new Date();
 

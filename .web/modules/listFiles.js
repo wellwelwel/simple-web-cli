@@ -1,5 +1,5 @@
-const fs = require('fs');
-const sep = require('path').sep;
+import fs from 'fs';
+import { sep } from 'path';
 
 class ListFiles {
 
@@ -56,9 +56,9 @@ const listFiles = async (directory, type = false, excludeDir = false, excludeTyp
    const files = new ListFiles;
    const list = await files.getFiles(directory, type, excludeDir);
 
-   this.files = [];
+   files.files = []; // 🤡
 
    return list;
 };
 
-module.exports = listFiles;
+export default listFiles;

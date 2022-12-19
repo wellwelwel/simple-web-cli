@@ -1,10 +1,10 @@
 "use strict";
 
-const fs = require('fs');
-const { source } = require('./config');
-const sep = require('path').sep;
+import fs from 'fs';
+import { sep } from 'path';
+import { source } from './config.js';
 
-module.exports = async () => {
+export default async () => {
 
    fs.writeFileSync(`${source}${sep}exit`, '');
    if (fs.existsSync(`${source}${sep}exit`)) fs.unlinkSync(`${source}${sep}exit`);

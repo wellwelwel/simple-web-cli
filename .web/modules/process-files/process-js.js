@@ -1,17 +1,17 @@
 'use strict';
 
-const fs = require('fs');
-const { source, to, process_files } = require('../config');
-const createDir = require('../create-dir');
-const exec = require('../execShellCommand');
-const listFiles = require('../listFiles');
-const path = require('../get-path');
-const { normalize, sep } = require('path');
-const { EOL } = require('os');
-const no_process = require('./no-process');
-const postProcess = require('./post-process-replace');
-const vReg = require('../vReg');
-const { sh } = require('../sh');
+import fs from 'fs';
+import { normalize, sep } from 'path';
+import { EOL } from 'os';
+import { source, to, process_files } from '../config.js';
+import createDir from '../create-dir.js';
+import exec from '../execShellCommand.js';
+import listFiles from '../listFiles.js';
+import path from '../get-path.js';
+import no_process from './no-process.js';
+import postProcess from './post-process-replace.js';
+import vReg from '../vReg.js';
+import { sh } from '../sh.js';
 
 const requiredResources = process_files.js.require;
 const packageName = JSON.parse(fs.readFileSync('.library/package.json', 'utf8'));
@@ -224,4 +224,4 @@ async function processJS(file, local = false, replace = 'start') {
    return !request;
 }
 
-module.exports = processJS;
+export default processJS;

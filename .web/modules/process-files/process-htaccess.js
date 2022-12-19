@@ -1,6 +1,6 @@
 "use strict";
 
-const { process_files } = require('../config');
+import { process_files } from '../config.js';
 
 const processHTACCESS = content => {
 
@@ -34,4 +34,4 @@ const processHTACCESS = content => {
 
 }
 
-module.exports = processHTACCESS;
+export default processHTACCESS;

@@ -1,14 +1,14 @@
 "use strict";
 
-const { sh, draft } = require('../../modules/sh');
-const watchClose = require('../../modules/watch-close');
-const autoDeploy = require('./autoDeploy');
-const exec = require('../../modules/execShellCommand');
-const { source } = require('../../modules/config');
-const rmTemp = require('../../modules/rmTemp');
-const fs = require('fs');
-const deleteDS_Store = require('../../modules/deleteDS_Store');
-const sep = require('path').sep;
+import fs from 'fs';
+import { sep } from 'path';
+import { sh, draft } from '../../modules/sh.js';
+import watchClose from '../../modules/watch-close.js';
+import autoDeploy from './autoDeploy.js';
+import exec from '../../modules/execShellCommand.js';
+import { source } from '../../modules/config.js';
+import rmTemp from '../../modules/rmTemp.js';
+import deleteDS_Store from '../../modules/deleteDS_Store.js';
 
 (async () => {
 

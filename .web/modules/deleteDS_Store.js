@@ -1,8 +1,8 @@
 "use strict";
 
-const exec = require('./execShellCommand');
+import exec from './execShellCommand.js';
 
-module.exports = async () => {
+export default async () => {
 
    if (process.platform !== 'darwin') return;
 

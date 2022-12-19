@@ -18,4 +18,4 @@ function vReg(string, options = 'g') {
    return new RegExp(validate_string, options);
 }
 
-module.exports = vReg;
+export default vReg;

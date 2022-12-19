@@ -1,6 +1,6 @@
 "use strict";
 
-const { process_files } = require('../config');
+import { process_files } from '../config.js';
 
 const processPHP = content => {
 
@@ -82,4 +82,4 @@ const processPHP = content => {
    }
 }
 
-module.exports = processPHP;
+export default processPHP;

@@ -1,48 +1,34 @@
 "use strict";
 
-const fs = require('fs');
-const { sh, type, draft } = require('../../modules/sh');
-const FTP = require('../../modules/ftp');
-const { dev, source, to, process_files, port, blacklist } = require('../../modules/config');
-const createDir = require('../../modules/create-dir');
-const empty = require('../../modules/empty');
-const isConnected = require('../../modules/check-connection');
-const listFiles = require('../../modules/listFiles');
-const deleteDS_Store = require('../../modules/deleteDS_Store');
-const vReg = require('../../modules/vReg');
-const watch = require('node-watch').default;
-const processCSS = require('../../modules/process-files/process-scss');
-const processJS = require('../../modules/process-files/process-js');
-const processPHP = require('../../modules/process-files/process-php-phtml');
-const processHTML = require('../../modules/process-files/process-html');
-const processHTACCESS = require('../../modules/process-files/process-htaccess');
-const postProcess = require('../../modules/process-files/post-process-replace');
-const no_process = require('../../modules/process-files/no-process');
-const { sep } = require('path');
-const Schedule = require('../../modules/schedule');
-const serverOSNormalize = require('../../modules/server-os-normalize');
+import fs from 'fs';
+import watch from 'node-watch';
+import { sep } from 'path';
+import { sh, type, draft } from '../../modules/sh.js';
+import FTP from '../../modules/ftp.js';
+import { dev, source, to, process_files, blacklist } from '../../modules/config.js';
+import createDir from '../../modules/create-dir.js';
+import empty from '../../modules/empty.js';
+import isConnected from '../../modules/check-connection.js';
+import listFiles from '../../modules/listFiles.js';
+import deleteDS_Store from '../../modules/deleteDS_Store.js';
+import vReg from '../../modules/vReg.js';
+import processCSS from '../../modules/process-files/process-scss.js';
+import processJS from '../../modules/process-files/process-js.js';
+import processPHP from '../../modules/process-files/process-php-phtml.js';
+import processHTML from '../../modules/process-files/process-html.js';
+import processHTACCESS from '../../modules/process-files/process-htaccess.js';
+import postProcess from '../../modules/process-files/post-process-replace.js';
+import no_process from '../../modules/process-files/no-process.js';
+import Schedule from '../../modules/schedule.js';
+import serverOSNormalize from '../../modules/server-os-normalize.js';
 
-module.exports = async () => {
+export default async () => {
 
    const loading = {
-
-      server: new draft('', `circle`, false),
       ftp: new draft('', `circle`, false)
    };
 
    console.log();
-
-   loading.server.start();
-
-   if (!!port) {
-
-      loading.server.stop(createServer() === true ? 1 : 0);
-   }
-   else {
-
-      loading.server.string = `${sh.dim}The listener was set off 🏠`;
-      loading.server.stop(3);
-   }
 
    loading.ftp.start();
    loading.ftp.string = `${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`;

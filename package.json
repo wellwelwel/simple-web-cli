@@ -1,5 +1,6 @@
 {
    "name": "simple-web-cli",
+   "type": "module",
    "version": "4.0.0-next",
    "main": "./bin/init.js",
    "scripts": {

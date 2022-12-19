@@ -1,5 +1,5 @@
-const { process_files } = require('../config');
-const vReg = require('../vReg');
+import { process_files } from '../config.js';
+import vReg from '../vReg.js';
 
 function no_process(file) {
 
@@ -21,4 +21,4 @@ function no_process(file) {
    return result;
 }
 
-module.exports = no_process;
+export default no_process;

@@ -1,15 +1,16 @@
 "use strict";
 
-const { sh } = require('./sh');
-const { to } = require('./config');
-const { Client } = require("basic-ftp");
-const isConnected = require('./check-connection');
-const serverOSNormalize = require('./server-os-normalize');
-const { normalize, sep, dirname } = require('path');
+import { Client } from "basic-ftp";
+import { normalize, sep, dirname } from 'path';
+import { sh } from './sh.js';
+import { to } from './config.js';
+import isConnected from './check-connection.js';
+import serverOSNormalize from './server-os-normalize.js';
 
 const client = new Client;
-const privateCachedAccess = { };
 const publicCachedAccess = { };
+
+const privateCachedAccess = { };
 
 async function reconnect() {
 
@@ -177,7 +178,7 @@ async function remove(file, isDir = false) {
    }
 }
 
-module.exports = {
+export default {
 
    client,
    publicCachedAccess,

@@ -1,1 +1,1 @@
-module.exports = str => str?.trim().length === 0 ? true : false;
+export default str => str?.trim().length === 0 ? true : false;

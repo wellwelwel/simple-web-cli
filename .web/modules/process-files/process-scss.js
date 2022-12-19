@@ -1,15 +1,15 @@
 "use strict";
 
-const fs = require('fs');
-const uglifycss = require('uglifycss');
-const exec = require('../execShellCommand');
-const { source, to, process_files } = require('../config');
-const createDir = require('../create-dir');
-const path = require('../get-path');
-const { sep } = require('path');
-const listFiles = require('../listFiles');
-const no_process = require('./no-process');
-const postProcess = require('./post-process-replace');
+import fs from 'fs';
+import uglifycss from 'uglifycss';
+import { sep } from 'path';
+import exec from '../execShellCommand.js';
+import { source, to, process_files } from '../config.js';
+import createDir from '../create-dir.js';
+import path from '../get-path.js';
+import listFiles from '../listFiles.js';
+import no_process from './no-process.js';
+import postProcess from './post-process-replace.js';
 
 async function processCSS(file, local = false, replace = 'start') {
 
@@ -76,4 +76,4 @@ async function processCSS(file, local = false, replace = 'start') {
    return request;
 }
 
-module.exports = processCSS;
+export default processCSS;

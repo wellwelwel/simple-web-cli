@@ -1,3 +1,3 @@
 #! /usr/bin/env node
 
-require('../bin/process-resources');
+import '../bin/process-resources.js';

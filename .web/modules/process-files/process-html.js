@@ -1,13 +1,13 @@
 "use strict";
 
-const { source, to, process_files } = require('../config');
-const vReg = require('../vReg');
-const { minify } = require('html-minifier');
-const { normalize, dirname, basename, sep } = require('path');
-const fs = require('fs');
-const { EOL } = require('os');
-const { sh } = require('../sh');
-const listFiles = require('../listFiles');
+import { normalize, dirname, basename, sep } from 'path';
+import { EOL } from 'os';
+import fs from 'fs';
+import { minify } from 'html-minifier';
+import { source, to, process_files } from '../config.js';
+import vReg from '../vReg.js';
+import { sh } from '../sh.js';
+import listFiles from '../listFiles.js';
 
 function getLine(search, content) {
 
@@ -123,4 +123,4 @@ const processHTML = async (content, file) => {
    }
 };
 
-module.exports = processHTML;
+export default processHTML;

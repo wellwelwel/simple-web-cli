@@ -1,7 +1,7 @@
-const fs = require('fs');
-const normalize = require('path').normalize;
+import fs  from 'fs';
+import { normalize }  from 'path';
 
-module.exports = (directory) => {
+export default (directory) => {
 
    const directorys = [];
    if (typeof directory === 'string') directorys.push(directory);

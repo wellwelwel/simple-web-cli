@@ -1,4 +1,4 @@
-const sep = require('path').sep;
+import { sep } from 'path';
 
 function path(file) {
 
@@ -8,4 +8,4 @@ function path(file) {
    return path.join(sep);
 }
 
-module.exports = path;
+export default path;

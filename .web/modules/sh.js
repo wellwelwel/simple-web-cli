@@ -1,6 +1,8 @@
-require('draftlog').into(console);
+import DraftLog from 'draftlog';
 
-const sh = {
+DraftLog(console);
+
+export const sh = {
 
    yellow: '\x1b[33m',
    green: '\x1b[32m',
@@ -29,7 +31,7 @@ const colorByType = {
    js: sh.yellow
 };
 
-function type(file, ext = false) {
+export function type(file, ext = false) {
 
    let type;
 
@@ -43,7 +45,7 @@ function type(file, ext = false) {
    else return colorByType[type] || sh.white;
 }
 
-class draft {
+export class draft {
 
    constructor(string, style = 'dots', start = true) {
 
@@ -90,5 +92,3 @@ class draft {
       start && this.start();
    }
 }
-
-module.exports = { sh, type, draft };

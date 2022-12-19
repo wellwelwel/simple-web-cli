@@ -1,16 +1,22 @@
+import fs from 'fs';
+import { EOL } from 'os';
+import { normalize, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import exec from '../.web/modules/execShellCommand.js';
+import { sh, draft } from '../.web/modules/sh.js';
+import rebuildFiles from '../bin/rebuild-files.js';
+
 (async () => {
-   const fs = require('fs');
-   const exec = require('../.web/modules/execShellCommand');
-   const { sh, draft } = require('../.web/modules/sh');
-   const { EOL } = require('os');
-   const rebuildFiles = require('../bin/rebuild-files.js');
    const [, , ...args] = process.argv;
    const arg = args[0]?.replace(/-/g, '') || 'start';
-   const normalize = require('path').normalize;
+
+   const __dirname = dirname(fileURLToPath(import.meta.url));
+
    const requires = {
       dirs: ['.library'],
       files: ['.babelrc'],
    };
+
    const alloweds = {
       init: true,
       start: '../.web/tasks/start',
@@ -77,7 +83,7 @@
 
    try {
       if (fs.existsSync('./.swrc.js')) {
-         const { options } = require('../.web/modules/config');
+         const { options } = await import('../.web/modules/config.js');
 
          if (arg === 'start' && options?.initalCommit && !fs.existsSync('./.git'))
             await exec(`git init && git add . && git commit -m "Initial Commit"`);
@@ -86,7 +92,7 @@
       /* Just ignores when no "git" installed */
    }
 
-   if (typeof alloweds[arg] === 'string') await require(alloweds[arg]); /* Calls to script */
+   if (typeof alloweds[arg] === 'string') await import(`${alloweds[arg]}/index.js`); /* Calls to script */
 
    /* Reserved to tests */
    args.includes('--TEST') && console.log('PASSED');

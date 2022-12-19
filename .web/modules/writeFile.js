@@ -1,8 +1,8 @@
 "use strict";
 
-const fs = require('fs');
+import fs from 'fs';
 
-module.exports = (content, to) => {
+export default (content, to) => {
 
    fs.writeFileSync(to, content, (err) => {
 

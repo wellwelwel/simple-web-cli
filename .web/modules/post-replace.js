@@ -1,4 +1,4 @@
-const { plugins } = require('./config');
+import { plugins } from './config.js';
 
 const get_post_replace = () => {
 
@@ -18,4 +18,4 @@ const get_post_replace = () => {
    return post_replaces;
 };
 
-module.exports = get_post_replace;
+export default get_post_replace;

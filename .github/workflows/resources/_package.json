@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "browserslist": "> 0%",
   "devDependencies": {
     "web": "file:.library"

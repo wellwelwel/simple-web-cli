@@ -1,5 +1,5 @@
-const fs = require('fs');
-const exec = require('./execShellCommand');
+import fs from 'fs';
+import exec from './execShellCommand.js';
 
 const rmTemp = async () => {
    const currentDir = fs.readdirSync('./');
@@ -11,4 +11,4 @@ const rmTemp = async () => {
    }
 };
 
-module.exports = rmTemp;
+export default rmTemp;

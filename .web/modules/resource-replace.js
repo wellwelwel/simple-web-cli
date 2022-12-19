@@ -1,7 +1,7 @@
-const fs = require('fs');
-const { source, plugins } = require('./config');
+import fs from 'fs';
+import { source, plugins } from './config.js';
 
-module.exports = (file, local) => {
+export default (file, local) => {
 
    if (!plugins) return false;
 
