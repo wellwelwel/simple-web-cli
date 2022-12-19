@@ -1,18 +1,16 @@
 import fs from 'fs';
 import { EOL } from 'os';
-import { normalize, resolve, dirname } from 'path';
+import { normalize } from 'path';
 import exec from '../.web/modules/execShellCommand.js';
 import { sh, draft } from '../.web/modules/sh.js';
 import rebuildFiles from './rebuild-files.js';
+import { __dirname } from '../.web/modules/root.js';
 
 (async () => {
    const [, , ...args] = process.argv;
    const arg = args[0]?.replace(/-/g, '') || 'start';
 
-   const __dirname = (() => {
-      let x = dirname(decodeURI(new URL(import.meta.url).pathname));
-      return resolve(process.platform === 'win32' ? x.substring(1) : x);
-   })();
+   const isWindows = process.platform === 'win32';
 
    const requires = {
       dirs: ['.library'],
@@ -36,7 +34,11 @@ import rebuildFiles from './rebuild-files.js';
    );
 
    for (const require of requires.dirs)
-      await exec('cp -r ' + normalize(`${__dirname}/../${require}`) + ' ' + normalize(`./${require}`));
+      isWindows
+         ? await exec(
+              'xcopy ' + normalize(`${__dirname}/../${require}\\`) + ' ' + normalize(`./${require}\\`) + ' /s /e'
+           )
+         : await exec('cp -r ' + normalize(`${__dirname}/../${require}`) + ' ' + normalize(`./${require}`));
 
    requires.files.forEach((require) => {
       if (!fs.existsSync(normalize(`./${require}`)))

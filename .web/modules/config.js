@@ -1,16 +1,10 @@
+import { normalize, sep, join } from 'path';
 import createDir from './create-dir.js';
-import { normalize, sep, relative, dirname, resolve, join } from 'path';
+import { cwd } from './root.js';
 
 const setConfig = async () => {
    const [ ,, ...args ] = process.argv;
    const arg = args[0]?.replace(/-/g, '') || 'start';
-
-   const __dirname = (() => {
-      let x = dirname(decodeURI(new URL(import.meta.url).pathname));
-      return resolve(process.platform === 'win32' ? x.substring(1) : x);
-   })();
-
-   const cwd = relative(__dirname, process.cwd());
 
    const config = await import(join(`./${cwd}`, '.swrc.js'));
    const output = { ...{}, ...config.default };

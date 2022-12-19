@@ -4,13 +4,13 @@
    "version": "4.0.0-next",
    "main": "./bin/init.js",
    "scripts": {
-      "build": "rm -rf ./lib; npx rollup -c;",
+      "build": "rm -rf ./bin ./lib; npx rollup -c; sed -i '' $'1s/^/#! \\/usr\\/bin\\/env node\\\n\\\n/' bin/init.js;",
       "patch": "npm run update; npm run test-services && npm version patch --no-git-tag-version;",
       "minor": "npm run update; npm run test-services && npm version minor --no-git-tag-version;",
       "major": "npm run update; npm run test-services && npm version major --no-git-tag-version;",
       "update": "npx npu; npm i --ignore-scripts; npm audit fix;",
       "test-services": "node \"bin/test-services.js\"",
-      "reinstall": "npm uninstall simple-web-cli -g; npm link ./; npm run test-services;"
+      "reinstall": "npm run build; npm uninstall simple-web-cli -g; npm link ./; npm run test-services;"
    },
    "bin": {
       "sw": "./bin/init.js",

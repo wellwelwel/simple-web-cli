@@ -2,7 +2,9 @@ import { babel } from '@rollup/plugin-babel';
 
 const setConfig = (input, dir) => ({
    input,
-   output: { dir },
+   output: {
+      dir,
+   },
    external: [
       'fs',
       'os',
@@ -29,7 +31,7 @@ const setConfig = (input, dir) => ({
 });
 
 export default [
-   // setConfig('./src/init.js', './bin'),
+   setConfig('./src/init.js', './bin'),
    setConfig('./src/test-services.js', './bin'),
    setConfig('./.web/tasks/start/index.js', './lib/tasks/start'),
    setConfig('./.web/tasks/build/index.js', './lib/tasks/build'),
