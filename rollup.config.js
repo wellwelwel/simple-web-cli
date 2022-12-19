@@ -22,10 +22,8 @@ const setConfig = (input, dir) => ({
    plugins: [
       babel({
          babelHelpers: 'bundled',
-         presets: ['@babel/preset-env'],
-         exclude: 'node_modules/**',
-         comments: false,
-         compact: true,
+         // presets: ['@babel/preset-env'],
+         // exclude: 'node_modules/**',
       }),
    ],
 });
