@@ -224,7 +224,7 @@
       result = result.replace(regex.host, (a) => a.replace(/''/, "'127.0.0.1'"));
       result = result.replace(regex.user, (a) => a.replace(/''/, "'test'"));
       result = result.replace(regex.pass, (a) => a.replace(/''/, "'test'"));
-      result = result.replace(regex.secure, (a) => a.replace(/true/, "'explict'"));
+      result = result.replace(regex.secure, (a) => a.replace(/true \|\| /, "'explict'"));
 
       fs.writeFileSync(source, result);
 
