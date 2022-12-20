@@ -1,5 +1,3 @@
-'use strict';
-
 import { normalize, dirname, basename, sep } from 'path';
 import { EOL } from 'os';
 import fs from 'fs';

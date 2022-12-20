@@ -1,5 +1,3 @@
-'use strict';
-
 import { win32 } from 'path';
 import { dev } from './config.js';
 

@@ -1,5 +1,3 @@
-'use strict';
-
 import fs from 'fs';
 import watch from 'node-watch';
 import { sep } from 'path';

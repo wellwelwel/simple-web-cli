@@ -1,7 +1,10 @@
 {
    "compilerOptions": {
+      "module": "ES2022",
+      "target": "ES6",
       "paths": {
          "#helpers/*": ["./helpers/*/index.js"]
       }
-   }
+   },
+   "exclude": ["node_modules"]
 }

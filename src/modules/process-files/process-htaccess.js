@@ -1,5 +1,3 @@
-'use strict';
-
 import { process_files } from '../config.js';
 
 const processHTACCESS = (content) => {

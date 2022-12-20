@@ -1,5 +1,3 @@
-'use strict';
-
 import { Client } from 'basic-ftp';
 import { normalize, sep, dirname } from 'path';
 import { sh } from './sh.js';

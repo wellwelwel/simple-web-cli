@@ -1,5 +1,3 @@
-'use strict';
-
 import fs from 'fs';
 import { sep } from 'path';
 import { sh, draft } from '../../modules/sh.js';

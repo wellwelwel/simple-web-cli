@@ -1,5 +1,3 @@
-'use strict';
-
 import fs from 'fs';
 import uglifycss from 'uglifycss';
 import { sep } from 'path';

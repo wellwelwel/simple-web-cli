@@ -1,5 +1,3 @@
-'use strict';
-
 import exec from './execShellCommand.js';
 
 export default async () => {

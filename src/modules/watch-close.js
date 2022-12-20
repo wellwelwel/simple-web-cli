@@ -1,5 +1,3 @@
-'use strict';
-
 import fs from 'fs';
 import { sep } from 'path';
 import { source } from './config.js';

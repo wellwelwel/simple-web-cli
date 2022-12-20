@@ -1,5 +1,3 @@
-'use strict';
-
 import fs from 'fs';
 import { source, to, process_files } from '../config.js';
 import createDir from '../create-dir.js';
