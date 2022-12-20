@@ -5,9 +5,9 @@
  * @return {HTMLElement} sEl - HTMLElement
  * @return {NodeListOf} sAll - NodeListOf
  * @return {NodeListOf} sElAll - NodeListOf
-**/
+ **/
 
-const s = element => document.querySelector(element);
-const sEl = (baseElement, element) => baseElement.querySelector(element);
-const sAll = element => document.querySelectorAll(element);
-const sElAll = (baseElement, element) => baseElement.querySelectorAll(element);
+export const s = (element) => document.querySelector(element);
+export const sEl = (baseElement, element) => baseElement.querySelector(element);
+export const sAll = (element) => document.querySelectorAll(element);
+export const sElAll = (baseElement, element) => baseElement.querySelectorAll(element);

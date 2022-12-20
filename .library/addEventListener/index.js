@@ -4,14 +4,11 @@
  * @param {NodeList} this
  * @param {Function} listener - Callback Function
  * @param {Boolean} useCapture
-**/
+ **/
 
-(() => {
-
+export const addEventListener = (() => {
    function addEventListener(type, listener, useCapture = false) {
-
-      this.forEach(element => {
-
+      this.forEach((element) => {
          element instanceof Node && element.addEventListener(type, listener, useCapture);
       });
    }

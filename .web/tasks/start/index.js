@@ -1,21 +1,15 @@
-"use strict";
+'use strict';
 
 import fs from 'fs';
 import { sep } from 'path';
 import { sh, draft } from '../../modules/sh.js';
 import watchClose from '../../modules/watch-close.js';
 import autoDeploy from './autoDeploy.js';
-import exec from '../../modules/execShellCommand.js';
 import { source } from '../../modules/config.js';
 import rmTemp from '../../modules/rmTemp.js';
 import deleteDS_Store from '../../modules/deleteDS_Store.js';
 
 (async () => {
-
-   const link = new draft(`Linking the local package: ${sh.green}${sh.dim}[ .library: web ]`);
-
-   await exec(`npm link .library`); /* link local packages */
-   link.stop(1);
    await watchClose();
 
    const starting = new draft(`Starting${sh.dim}${sh.yellow} ... ${sh.reset}${sh.bright}`, 'circle');
@@ -29,12 +23,14 @@ import deleteDS_Store from '../../modules/deleteDS_Store.js';
    const success = await autoDeploy();
 
    if (!success) {
-
       await watchClose();
 
       starting.stop(0, `Falha ao iniciar processos`);
       process.exit(1);
    }
 
-   starting.stop(1, `Watching${sh.reset} ${sh.green}${sh.bold}YOU${sh.reset}${sh.dim}${sh.green} ... ${sh.reset}${sh.bright}🧟`);
+   starting.stop(
+      1,
+      `Watching${sh.reset} ${sh.green}${sh.bold}YOU${sh.reset}${sh.dim}${sh.green} ... ${sh.reset}${sh.bright}🧟`
+   );
 })();

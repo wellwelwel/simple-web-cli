@@ -1,10 +1,11 @@
 import fs from 'fs';
 import { EOL, platform } from 'os';
-import { normalize } from 'path';
+import { normalize, basename } from 'path';
 import exec from '../.web/modules/execShellCommand.js';
 import { sh, draft } from '../.web/modules/sh.js';
 import rebuildFiles from './rebuild-files.js';
 import { __dirname } from '../.web/modules/root.js';
+import listFiles from '../.web/modules/listFiles.js';
 
 (async () => {
    const [, , ...args] = process.argv;
@@ -14,7 +15,7 @@ import { __dirname } from '../.web/modules/root.js';
 
    const requires = {
       dirs: ['.library'],
-      files: ['.babelrc'],
+      files: (await listFiles(`${__dirname}/resources`)).map((file) => basename(file)),
    };
 
    const alloweds = {
@@ -30,7 +31,7 @@ import { __dirname } from '../.web/modules/root.js';
    }
 
    const importing = new draft(
-      `Importing required local modules: ${sh.green}${sh.dim}[ ${sh.italic}autoprefixer, babel, postcss, sass and uglifyjs${sh.reset}${sh.green}${sh.dim} ]`
+      `Importing required local modules: ${sh.green}${sh.dim}[ ${sh.italic}autoprefixer, rollup, postcss, sass and uglifyjs${sh.reset}${sh.green}${sh.dim} ]`
    );
 
    for (const require of requires.dirs)
@@ -41,48 +42,53 @@ import { __dirname } from '../.web/modules/root.js';
          : await exec('cp -r ' + normalize(`${__dirname}/${require}`) + ' ' + normalize(`./${require}`));
 
    requires.files.forEach((require) => {
-      if (!fs.existsSync(normalize(`./${require}`)))
-         fs.copyFileSync(normalize(`${__dirname}/${require}`), normalize(`./${require}`));
+      fs.copyFileSync(normalize(`${__dirname}/resources/${require}`), normalize(`./${require}`));
    });
 
-   if (!fs.existsSync(normalize('./package.json'))) {
-      fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_package.json`), normalize('./package.json'));
-      await exec('npm i');
-   }
+   // if (!fs.existsSync(normalize('./package.json'))) {
+   //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_package.json`), normalize('./package.json'));
+   //    await exec('npm i');
+   // }
 
-   if (!fs.existsSync(normalize('./.swrc.js')))
-      fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_swrc.js`), normalize('./.swrc.js'));
+   // if (!fs.existsSync(normalize('./.swrc.js')))
+   //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_swrc.js`), normalize('./.swrc.js'));
 
-   if (!fs.existsSync(normalize('./rollup.config.js')))
-      fs.copyFileSync(
-         normalize(`${__dirname}/.github/workflows/resources/_rollup.config.js`),
-         normalize('./rollup.config.js')
-      );
+   // if (!fs.existsSync(normalize('./rollup.config.js')))
+   //    fs.copyFileSync(
+   //       normalize(`${__dirname}/.github/workflows/resources/_rollup.config.js`),
+   //       normalize('./rollup.config.js')
+   //    );
 
-   if (!fs.existsSync(normalize('./.gitignore')))
-      fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
-   else {
-      let gitignore = fs.readFileSync(normalize('./.gitignore'), 'utf-8');
-      const toIgnore = [
-         'dist',
-         'release',
-         'src/exit',
-         '.library/addEventListener',
-         '.library/selector',
-         '.library/package.json',
-         'node_modules',
-         'package-lock.json',
-         'yarn.lock',
-      ];
+   // if (!fs.existsSync(normalize('./jsconfig.json')))
+   //    fs.copyFileSync(
+   //       normalize(`${__dirname}/.github/workflows/resources/_jsconfig.json`),
+   //       normalize('./jsconfig.json')
+   //    );
 
-      toIgnore.forEach((ignore) => {
-         const regex = RegExp(ignore, 'gm');
+   // if (!fs.existsSync(normalize('./.gitignore')))
+   //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
+   // else {
+   //    let gitignore = fs.readFileSync(normalize('./.gitignore'), 'utf-8');
+   //    const toIgnore = [
+   //       'dist',
+   //       'release',
+   //       'src/exit',
+   //       '.library/addEventListener',
+   //       '.library/selector',
+   //       '.library/package.json',
+   //       'node_modules',
+   //       'package-lock.json',
+   //       'yarn.lock',
+   //    ];
 
-         if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
-      });
+   //    toIgnore.forEach((ignore) => {
+   //       const regex = RegExp(ignore, 'gm');
 
-      fs.writeFileSync(normalize('./.gitignore'), gitignore);
-   }
+   //       if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
+   //    });
+
+   //    fs.writeFileSync(normalize('./.gitignore'), gitignore);
+   // }
 
    const rebuilded = await rebuildFiles(arg);
 

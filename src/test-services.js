@@ -48,7 +48,9 @@ import { extname, resolve as normalize, join } from 'path';
 
             fs.writeFileSync(normalize(source), result);
 
-            await sh('cp "./.github/workflows/resources/tests/.resources/test-resource-replace.html" "./temp/.resources/test-resource-replace.html"');
+            await sh(
+               'cp "./.github/workflows/resources/tests/.resources/test-resource-replace.html" "./temp/.resources/test-resource-replace.html"'
+            );
 
             return init;
          } catch (error) {
@@ -65,7 +67,8 @@ import { extname, resolve as normalize, join } from 'path';
                expecteds['test.zip'] = {
                   name: 'Zip file: No compile (just copy) and extract to test content',
                   cb: async () => {
-                     if (!fs.existsSync(normalize('./temp/dist/test.txt'))) await sh('cd "./temp/dist" && unzip "./test.zip"');
+                     if (!fs.existsSync(normalize('./temp/dist/test.txt')))
+                        await sh('cd "./temp/dist" && unzip "./test.zip"');
                   },
                   ext: 'txt',
                   output: 'Success',
@@ -105,8 +108,16 @@ import { extname, resolve as normalize, join } from 'path';
                               resolve();
                            }
 
-                           if (!fs.existsSync(normalize(`./temp/src/${file}`)) && !fs.existsSync(normalize(`./temp/src/${expected}`))) return;
-                           if (!fs.existsSync(normalize(`./temp/dist/${file}`)) && !fs.existsSync(normalize(`./temp/dist/${expected}`))) return;
+                           if (
+                              !fs.existsSync(normalize(`./temp/src/${file}`)) &&
+                              !fs.existsSync(normalize(`./temp/src/${expected}`))
+                           )
+                              return;
+                           if (
+                              !fs.existsSync(normalize(`./temp/dist/${file}`)) &&
+                              !fs.existsSync(normalize(`./temp/dist/${expected}`))
+                           )
+                              return;
 
                            if (expecteds[expected]?.cb) await expecteds[expected]?.cb();
 
@@ -165,7 +176,7 @@ import { extname, resolve as normalize, join } from 'path';
       },
       'test-file.js': {
          name: 'Building JS',
-         output: '"use strict";console.log("Hello World");',
+         output: '!function(){"use strict";console.log("Hello World")}();',
       },
       'test-file.php': {
          name: 'Building PHP',

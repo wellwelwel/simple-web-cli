@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 import { platform, EOL } from 'os';
-import { dirname, resolve, sep, normalize } from 'path';
+import { dirname, resolve, sep, normalize, basename } from 'path';
 import { exec as exec$1 } from 'child_process';
 import DraftLog from 'draftlog';
 
@@ -494,16 +494,518 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-var exec = (function(cmd){return new Promise(function(resolve){return exec$1(cmd,function(error){return resolve(!!error?false:true)})})});
+var exec = (function (cmd) {
+  return new Promise(function (resolve) {
+    return exec$1(cmd, function (error) {
+      return resolve(!!error ? false : true);
+    });
+  });
+});
 
-DraftLog(console);var sh$1={yellow:"\x1B[33m",green:"\x1B[32m",cyan:"\x1B[36m",white:"\x1B[37m",blue:"\x1B[34m",magenta:"\x1B[35m",red:"\x1B[31m",dim:"\x1B[2m",underscore:"\x1B[4m",bright:"\x1B[22m",reset:"\x1B[0m",bold:"\x1B[1m",italic:"\x1B[3m",clear:"\x1Bc"};var draft=_createClass(function draft(string){var _this=this;var style=arguments.length>1&&arguments[1]!==undefined?arguments[1]:"dots";var start=arguments.length>2&&arguments[2]!==undefined?arguments[2]:true;_classCallCheck(this,draft);this.string=string;this.loading={dots:["\u280B","\u280B","\u2839","\u2838","\u283C","\u2834","\u2826","\u2827","\u2807","\u280F"],circle:["\u25DC","\u25E0","\u25DD","\u25DE","\u25E1","\u25DF"]};this.style=style;this.color=sh$1.yellow;this.message=console.draft("");this.status={0:"".concat(sh$1.red,"\u2716"),1:"".concat(sh$1.green,"\u2714"),2:"".concat(sh$1.yellow,"\u26A0"),3:"".concat(sh$1.blue,"\u2139")};this.start=function(){var i=0;var interval=_this.loading[_this.style]==="dots"?50:150;_this.timer=setInterval(function(){if(i>=_this.loading[_this.style].length)i=0;var current=_this.loading[_this.style][i++];_this.message("".concat(sh$1.bold).concat(sh$1.bright).concat(_this.color).concat(current," ").concat(sh$1.reset).concat(_this.string));},interval);};this.stop=function(status){var string=arguments.length>1&&arguments[1]!==undefined?arguments[1]:false;clearInterval(_this.timer);if(!!string)_this.string=string;_this.message("".concat(sh$1.bold).concat(sh$1.bright).concat(_this.status[status]," ").concat(sh$1.reset).concat(_this.string));return};start&&this.start();});
+DraftLog(console);
+var sh$1 = {
+  yellow: '\x1b[33m',
+  green: '\x1b[32m',
+  cyan: '\x1b[36m',
+  white: '\x1b[37m',
+  blue: '\x1b[34m',
+  magenta: '\x1b[35m',
+  red: '\x1b[31m',
+  dim: '\x1b[2m',
+  underscore: '\x1b[4m',
+  bright: '\x1b[22m',
+  reset: '\x1b[0m',
+  bold: '\x1b[1m',
+  italic: '\x1b[3m',
+  clear: '\x1Bc'
+};
+var draft = /*#__PURE__*/_createClass(function draft(string) {
+  var _this = this;
+  var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'dots';
+  var start = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  _classCallCheck(this, draft);
+  this.string = string;
+  this.loading = {
+    dots: ['⠋', '⠋', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
+    circle: ['◜', '◠', '◝', '◞', '◡', '◟']
+  };
+  this.style = style;
+  this.color = sh$1.yellow;
+  this.message = console.draft('');
+  this.status = {
+    0: "".concat(sh$1.red, "\u2716"),
+    1: "".concat(sh$1.green, "\u2714"),
+    2: "".concat(sh$1.yellow, "\u26A0"),
+    3: "".concat(sh$1.blue, "\u2139")
+  };
+  this.start = function () {
+    var i = 0;
+    var interval = _this.loading[_this.style] === 'dots' ? 50 : 150;
+    _this.timer = setInterval(function () {
+      if (i >= _this.loading[_this.style].length) i = 0;
+      var current = _this.loading[_this.style][i++];
+      _this.message("".concat(sh$1.bold).concat(sh$1.bright).concat(_this.color).concat(current, " ").concat(sh$1.reset).concat(_this.string));
+    }, interval);
+  };
+  this.stop = function (status) {
+    var string = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    clearInterval(_this.timer);
+    if (!!string) _this.string = string;
+    _this.message("".concat(sh$1.bold).concat(sh$1.bright).concat(_this.status[status], " ").concat(sh$1.reset).concat(_this.string));
+    return;
+  };
+  start && this.start();
+});
 
-var sh=function sh(command){return new Promise(function(resolve,reject){return exec$1(command,function(error,stdout){return !!error?reject(error):resolve(stdout)})})};var latestVersion=function(){var _ref=_asyncToGenerator(_regeneratorRuntime().mark(function _callee(packageName){var _yield$sh,_packageName$trim;return _regeneratorRuntime().wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.next=2;return sh("npm view ".concat(packageName===null||packageName===void 0?void 0:(_packageName$trim=packageName.trim())===null||_packageName$trim===void 0?void 0:_packageName$trim.toLowerCase()," version"));case 2:_context.t1=_yield$sh=_context.sent;_context.t0=_context.t1===null;if(_context.t0){_context.next=6;break}_context.t0=_yield$sh===void 0;case 6:if(!_context.t0){_context.next=10;break}_context.t2=void 0;_context.next=11;break;case 10:_context.t2=_yield$sh.trim();case 11:return _context.abrupt("return",_context.t2);case 12:case"end":return _context.stop();}}},_callee)}));return function latestVersion(_x){return _ref.apply(this,arguments)}}();
+var sh = function sh(command) {
+  return new Promise(function (resolve, reject) {
+    return exec$1(command, function (error, stdout) {
+      return !!error ? reject(error) : resolve(stdout);
+    });
+  });
+};
+var latestVersion = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(packageName) {
+    var _yield$sh, _packageName$trim;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return sh("npm view ".concat(packageName === null || packageName === void 0 ? void 0 : (_packageName$trim = packageName.trim()) === null || _packageName$trim === void 0 ? void 0 : _packageName$trim.toLowerCase(), " version"));
+          case 2:
+            _context.t1 = _yield$sh = _context.sent;
+            _context.t0 = _context.t1 === null;
+            if (_context.t0) {
+              _context.next = 6;
+              break;
+            }
+            _context.t0 = _yield$sh === void 0;
+          case 6:
+            if (!_context.t0) {
+              _context.next = 10;
+              break;
+            }
+            _context.t2 = void 0;
+            _context.next = 11;
+            break;
+          case 10:
+            _context.t2 = _yield$sh.trim();
+          case 11:
+            return _context.abrupt("return", _context.t2);
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return function latestVersion(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
 
-var rebuildFiles=function(){var _ref=_asyncToGenerator(_regeneratorRuntime().mark(function _callee(arg){var readJSON,buildJSON,packageFile,babelrc,stage,orderJSON,dependencies,compatibility,_packageFile$devDepen2,_i,_dependencies,_packageFile$devDepen,_packageFile$dependen,_packageFile$bundleDe,dependence,_compatibility$depend,arrays,excludeIndex;return _regeneratorRuntime().wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:readJSON=function readJSON(file){return JSON.parse(fs.readFileSync(file,"utf-8"))};buildJSON=function buildJSON(obj){return orderJSON(obj,2)};packageFile=readJSON("package.json")||{};babelrc=readJSON(".babelrc")||{};stage={"package":false,babelrc:false,error:false,npm_i:false};orderJSON=function orderJSON(obj,space){var allKeys=[];var seen={};JSON.stringify(obj,function(key,value){if(!(key in seen)){allKeys.push(key);seen[key]=null;}return value});allKeys.sort();return JSON.stringify(obj,allKeys,space)};dependencies=["@babel/cli","@babel/core","@babel/preset-env","@rollup/plugin-babel","autoprefixer","packages-update","postcss-cli","rollup","sass","uglify-js"];compatibility={node:+process.version.split(".").shift().replace(/[^0-9]/,"")<=14,dependencies:{"postcss-cli":"^8.3.1"}};_context.prev=8;if(!(packageFile!==null&&packageFile!==void 0&&packageFile.devDependencies))packageFile.devDependencies={};_i=0,_dependencies=dependencies;case 11:if(!(_i<_dependencies.length)){_context.next=28;break}dependence=_dependencies[_i];if(!(!(packageFile!==null&&packageFile!==void 0&&(_packageFile$devDepen=packageFile.devDependencies)!==null&&_packageFile$devDepen!==void 0&&_packageFile$devDepen[dependence])&&!(packageFile!==null&&packageFile!==void 0&&(_packageFile$dependen=packageFile.dependencies)!==null&&_packageFile$dependen!==void 0&&_packageFile$dependen[dependence])&&!(packageFile!==null&&packageFile!==void 0&&(_packageFile$bundleDe=packageFile.bundleDependencies)!==null&&_packageFile$bundleDe!==void 0&&_packageFile$bundleDe[dependence]))){_context.next=25;break}if(!(compatibility.node&&(_compatibility$depend=compatibility.dependencies)!==null&&_compatibility$depend!==void 0&&_compatibility$depend[dependence])){_context.next=18;break}packageFile.devDependencies[dependence]=compatibility.dependencies[dependence];_context.next=23;break;case 18:_context.t0="^";_context.next=21;return latestVersion(dependence);case 21:_context.t1=_context.sent;packageFile.devDependencies[dependence]=_context.t0.concat.call(_context.t0,_context.t1);case 23:if(!stage["package"])stage["package"]=true;if(!stage.npm_i)stage.npm_i=true;case 25:_i++;_context.next=11;break;case 28:if(!(packageFile!==null&&packageFile!==void 0&&packageFile.browserslist)){packageFile.browserslist="> 0%";if(!stage["package"])stage["package"]=true;}if(!(packageFile!==null&&packageFile!==void 0&&packageFile.devDependencies))packageFile.devDependencies={};if(!(packageFile!==null&&packageFile!==void 0&&(_packageFile$devDepen2=packageFile.devDependencies)!==null&&_packageFile$devDepen2!==void 0&&_packageFile$devDepen2.web)){packageFile.devDependencies.web="file:.library";if(!stage["package"])stage["package"]=true;if(!stage.npm_i)stage.npm_i=true;}if(stage["package"])fs.writeFileSync("package.json",buildJSON(packageFile));if(!stage.npm_i){_context.next=35;break}_context.next=35;return exec("npm i");case 35:_context.next=42;break;case 37:_context.prev=37;_context.t2=_context["catch"](8);console.warn("Unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web-cli/blob/main/package.json and insert \"browserslist\" and local dependence \"web\" manually\n");console.error("Error: ".concat(_context.t2.message,"\n"));if(!stage.error)stage.error=true;case 42:try{if(!(babelrc!==null&&babelrc!==void 0&&babelrc.minified)){babelrc.minified=true;if(!stage.babelrc)stage.babelrc=true;}if(!(babelrc!==null&&babelrc!==void 0&&babelrc.comments)){babelrc.comments=false;if(!stage.babelrc)stage.babelrc=true;}if(!Array.isArray(babelrc===null||babelrc===void 0?void 0:babelrc.presets)){babelrc.presets=[];if(!stage.babelrc)stage.babelrc=true;}if(!Array.isArray(babelrc===null||babelrc===void 0?void 0:babelrc.presets[0])){babelrc.presets[0]=[];if(!stage.babelrc)stage.babelrc=true;}arrays={presetEnv:false,exclude:false,transformRegenerator:false};babelrc.presets.forEach(function(item){if(item.includes("@babel/preset-env"))arrays.presetEnv=true;if(!Array.isArray(item))return;item.forEach(function(subitem){if(subitem!==null&&subitem!==void 0&&subitem.exclude){if(subitem.exclude.includes("transform-regenerator"))arrays.transformRegenerator=true;arrays.exclude=true;}});});if(!arrays.presetEnv){babelrc.presets[0].push("@babel/preset-env");if(!stage.babelrc)stage.babelrc=true;}if(!arrays.exclude&&!arrays.transformRegenerator){babelrc.presets[0].push({exclude:["transform-regenerator"]});if(!stage.babelrc)stage.babelrc=true;}else if(arrays.exclude&&!arrays.transformRegenerator){excludeIndex=babelrc.presets[0].findIndex(function(item){return item.exclude});babelrc.presets[0][excludeIndex].exclude.push("transform-regenerator");if(!stage.babelrc)stage.babelrc=true;}if(stage.babelrc)fs.writeFileSync(".babelrc",buildJSON(babelrc));}catch(error){console.warn("Unable to get the needed resources into .babelrc.\nPlease, look at: https://github.com/wellwelwel/simple-web-cli/blob/main/.babelrc and insert missing JSON values manually\n");console.error("Error: ".concat(error.message,"\n"));if(!stage.error)stage.error=true;}return _context.abrupt("return",!stage.error);case 44:case"end":return _context.stop();}}},_callee,null,[[8,37]])}));return function rebuildFiles(_x){return _ref.apply(this,arguments)}}();
+var rebuildFiles = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(arg) {
+    var readJSON, buildJSON, packageFile, stage, orderJSON, dependencies, compatibility, _i, _dependencies, _packageFile$devDepen, _packageFile$dependen, _packageFile$bundleDe, dependence, _compatibility$depend;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            readJSON = function readJSON(file) {
+              return JSON.parse(fs.readFileSync(file, 'utf-8'));
+            };
+            buildJSON = function buildJSON(obj) {
+              return orderJSON(obj, 2);
+            };
+            packageFile = readJSON('package.json') || {};
+            stage = {
+              "package": false,
+              babelrc: false,
+              error: false,
+              npm_i: false
+            };
+            orderJSON = function orderJSON(obj, space) {
+              var allKeys = [];
+              var seen = {};
+              JSON.stringify(obj, function (key, value) {
+                if (!(key in seen)) {
+                  allKeys.push(key);
+                  seen[key] = null;
+                }
+                return value;
+              });
+              allKeys.sort();
+              return JSON.stringify(obj, allKeys, space);
+            };
+            dependencies = ['@babel/preset-env', '@rollup/plugin-alias', '@rollup/plugin-babel', 'autoprefixer', 'packages-update', 'postcss-cli', 'rollup', 'sass', 'uglify-js'];
+            compatibility = {
+              node: +process.version.split('.').shift().replace(/[^0-9]/, '') <= 14,
+              dependencies: {
+                'postcss-cli': '^8.3.1'
+              }
+            };
+            /* package.json */
+            _context.prev = 7;
+            if (!(packageFile !== null && packageFile !== void 0 && packageFile.devDependencies)) packageFile.devDependencies = {};
+            _i = 0, _dependencies = dependencies;
+          case 10:
+            if (!(_i < _dependencies.length)) {
+              _context.next = 27;
+              break;
+            }
+            dependence = _dependencies[_i];
+            if (!(!(packageFile !== null && packageFile !== void 0 && (_packageFile$devDepen = packageFile.devDependencies) !== null && _packageFile$devDepen !== void 0 && _packageFile$devDepen[dependence]) && !(packageFile !== null && packageFile !== void 0 && (_packageFile$dependen = packageFile.dependencies) !== null && _packageFile$dependen !== void 0 && _packageFile$dependen[dependence]) && !(packageFile !== null && packageFile !== void 0 && (_packageFile$bundleDe = packageFile.bundleDependencies) !== null && _packageFile$bundleDe !== void 0 && _packageFile$bundleDe[dependence]))) {
+              _context.next = 24;
+              break;
+            }
+            if (!(compatibility.node && (_compatibility$depend = compatibility.dependencies) !== null && _compatibility$depend !== void 0 && _compatibility$depend[dependence])) {
+              _context.next = 17;
+              break;
+            }
+            packageFile.devDependencies[dependence] = compatibility.dependencies[dependence];
+            _context.next = 22;
+            break;
+          case 17:
+            _context.t0 = "^";
+            _context.next = 20;
+            return latestVersion(dependence);
+          case 20:
+            _context.t1 = _context.sent;
+            packageFile.devDependencies[dependence] = _context.t0.concat.call(_context.t0, _context.t1);
+          case 22:
+            if (!stage["package"]) stage["package"] = true;
+            if (!stage.npm_i) stage.npm_i = true;
+          case 24:
+            _i++;
+            _context.next = 10;
+            break;
+          case 27:
+            /* autoprefixer requires */
+            if (!(packageFile !== null && packageFile !== void 0 && packageFile.browserslist)) {
+              packageFile.browserslist = '> 0%';
+              if (!stage["package"]) stage["package"] = true;
+            }
 
-var isWindows=platform()==="win32";var __dirname=function(){var meta=dirname(decodeURI(new URL(import.meta.url).pathname));var currentPath=isWindows?meta.substring(1):meta;var paths=currentPath.split("/");var rootIndex=paths.lastIndexOf("simple-web-cli");return resolve(paths.splice(0,rootIndex+1).join(sep))}();var cwd=normalize("file:///".concat(process.cwd()));
+            /* Dev */
+            if (!(packageFile !== null && packageFile !== void 0 && packageFile.devDependencies)) packageFile.devDependencies = {};
+            if (stage["package"]) fs.writeFileSync('package.json', buildJSON(packageFile));
+            if (!stage.npm_i) {
+              _context.next = 33;
+              break;
+            }
+            _context.next = 33;
+            return exec('npm i');
+          case 33:
+            _context.next = 40;
+            break;
+          case 35:
+            _context.prev = 35;
+            _context.t2 = _context["catch"](7);
+            console.warn('Unable to get the needed resources into package.json.\nPlease, look at: https://github.com/wellwelwel/simple-web-cli/blob/main/package.json and insert "browserslist" and local dependence "web" manually\n');
+            console.error("Error: ".concat(_context.t2.message, "\n"));
+            if (!stage.error) stage.error = true;
+          case 40:
+            return _context.abrupt("return", !stage.error);
+          case 41:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[7, 35]]);
+  }));
+  return function rebuildFiles(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
 
-_asyncToGenerator(_regeneratorRuntime().mark(function _callee(){var _args$;var _process$argv,args,arg,isWindows,requires,alloweds,importing,_iterator,_step,require,gitignore,toIgnore,rebuilded,_yield$import,options;return _regeneratorRuntime().wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_process$argv=_toArray(process.argv),args=_process$argv.slice(2);arg=((_args$=args[0])===null||_args$===void 0?void 0:_args$.replace(/-/g,""))||"start";isWindows=platform()==="win32";requires={dirs:[".library"],files:[".babelrc"]};alloweds={init:true,start:"../lib/tasks/start/index.js",build:"../lib/tasks/build/index.js",TEST:"../lib/tasks/start/index.js"};if(!(arg!=="TEST"&&!alloweds[arg])){_context.next=8;break}console.error("Command \"".concat(arg,"\" not found.").concat(EOL,"Use \"init\", \"start\" or \"build\".").concat(EOL));return _context.abrupt("return");case 8:importing=new draft("Importing required local modules: ".concat(sh$1.green).concat(sh$1.dim,"[ ").concat(sh$1.italic,"autoprefixer, babel, postcss, sass and uglifyjs").concat(sh$1.reset).concat(sh$1.green).concat(sh$1.dim," ]"));_iterator=_createForOfIteratorHelper(requires.dirs);_context.prev=10;_iterator.s();case 12:if((_step=_iterator.n()).done){_context.next=23;break}require=_step.value;if(!isWindows){_context.next=19;break}_context.next=17;return exec("xcopy "+normalize("".concat(__dirname,"/").concat(require,"\\"))+" "+normalize("./".concat(require,"\\"))+" /s /e /y");case 17:_context.next=21;break;case 19:_context.next=21;return exec("cp -r "+normalize("".concat(__dirname,"/").concat(require))+" "+normalize("./".concat(require)));case 21:_context.next=12;break;case 23:_context.next=28;break;case 25:_context.prev=25;_context.t0=_context["catch"](10);_iterator.e(_context.t0);case 28:_context.prev=28;_iterator.f();return _context.finish(28);case 31:requires.files.forEach(function(require){if(!fs.existsSync(normalize("./".concat(require))))fs.copyFileSync(normalize("".concat(__dirname,"/").concat(require)),normalize("./".concat(require)));});if(fs.existsSync(normalize("./package.json"))){_context.next=36;break}fs.copyFileSync(normalize("".concat(__dirname,"/.github/workflows/resources/_package.json")),normalize("./package.json"));_context.next=36;return exec("npm i");case 36:if(!fs.existsSync(normalize("./.swrc.js")))fs.copyFileSync(normalize("".concat(__dirname,"/.github/workflows/resources/_swrc.js")),normalize("./.swrc.js"));if(!fs.existsSync(normalize("./rollup.config.js")))fs.copyFileSync(normalize("".concat(__dirname,"/.github/workflows/resources/_rollup.config.js")),normalize("./rollup.config.js"));if(!fs.existsSync(normalize("./.gitignore")))fs.copyFileSync(normalize("".concat(__dirname,"/.github/workflows/resources/_gitignore")),normalize("./.gitignore"));else {gitignore=fs.readFileSync(normalize("./.gitignore"),"utf-8");toIgnore=["dist","release","src/exit",".library/addEventListener",".library/selector",".library/package.json","node_modules","package-lock.json","yarn.lock"];toIgnore.forEach(function(ignore){var regex=RegExp(ignore,"gm");if(!regex.test(gitignore))gitignore+="".concat(EOL).concat(ignore);});fs.writeFileSync(normalize("./.gitignore"),gitignore);}_context.next=41;return rebuildFiles(arg);case 41:rebuilded=_context.sent;importing.stop(1);if(rebuilded){_context.next=45;break}return _context.abrupt("return");case 45:_context.prev=45;if(!fs.existsSync("./.swrc.js")){_context.next=54;break}_context.next=49;return import('./config-f19c51c3.js');case 49:_yield$import=_context.sent;options=_yield$import.options;if(!(arg==="start"&&options!==null&&options!==void 0&&options.initalCommit&&!fs.existsSync("./.git"))){_context.next=54;break}_context.next=54;return exec("git init && git add . && git commit -m \"Initial Commit\"");case 54:_context.next=58;break;case 56:_context.prev=56;_context.t1=_context["catch"](45);case 58:if(!(typeof alloweds[arg]==="string")){_context.next=61;break}_context.next=61;return import(alloweds[arg]);case 61:args.includes("--TEST")&&console.log("PASSED");case 62:case"end":return _context.stop();}}},_callee,null,[[10,25,28,31],[45,56]])}))();
+var isWindows = platform() === 'win32';
+var __dirname = function () {
+  var meta = dirname(decodeURI(new URL(import.meta.url).pathname));
+  var currentPath = isWindows ? meta.substring(1) : meta;
+  var paths = currentPath.split('/');
+  var rootIndex = paths.lastIndexOf('simple-web-cli');
+  return resolve(paths.splice(0, rootIndex + 1).join(sep));
+}();
+var cwd = normalize("file:///".concat(process.cwd()));
+
+var ListFiles = /*#__PURE__*/_createClass(function ListFiles() {
+  var _this = this;
+  _classCallCheck(this, ListFiles);
+  this.files = [];
+  this.excludeDir = [];
+  this.isTypeExpected = function (file, expected) {
+    if (expected === false) return true;
+    var isValid = false;
+    var types = [];
+    var currentFileType = file.split('.').pop();
+    if (typeof expected === 'string') types.push(expected);else if (_typeof(expected) === 'object') Object.assign(types, expected);
+    for (var type in types) {
+      if (currentFileType.includes(types[type])) {
+        isValid = true;
+        break;
+      }
+    }
+    return isValid;
+  };
+  this.getFiles = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(directory, type) {
+      var excludeDir,
+        filesList,
+        file,
+        stat,
+        _args = arguments;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              excludeDir = _args.length > 2 && _args[2] !== undefined ? _args[2] : false;
+              if (excludeDir) _this.excludeDir.push(excludeDir.replace('./', ''));
+              filesList = fs.readdirSync(directory);
+              _context.t0 = _regeneratorRuntime().keys(filesList);
+            case 5:
+              if ((_context.t1 = _context.t0()).done) {
+                _context.next = 20;
+                break;
+              }
+              file = _context.t1.value;
+              stat = fs.statSync("".concat(directory).concat(sep).concat(filesList[file]));
+              if (!_this.excludeDir.includes(directory)) {
+                _context.next = 12;
+                break;
+              }
+              return _context.abrupt("return", false);
+            case 12:
+              if (!stat.isDirectory()) {
+                _context.next = 17;
+                break;
+              }
+              _context.next = 15;
+              return _this.getFiles("".concat(directory).concat(sep).concat(filesList[file]), type);
+            case 15:
+              _context.next = 18;
+              break;
+            case 17:
+              if (_this.isTypeExpected(filesList[file], type)) _this.files.push("".concat(directory).concat(sep).concat(filesList[file]));
+            case 18:
+              _context.next = 5;
+              break;
+            case 20:
+              return _context.abrupt("return", _this.files);
+            case 21:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return function (_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+});
+var listFiles = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(directory) {
+    var type,
+      excludeDir,
+      files,
+      list,
+      _args2 = arguments;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            type = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : false;
+            excludeDir = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : false;
+            files = new ListFiles();
+            _context2.next = 6;
+            return files.getFiles(directory, type, excludeDir);
+          case 6:
+            list = _context2.sent;
+            files.files = []; // 🤡
+            return _context2.abrupt("return", list);
+          case 9:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return function listFiles(_x3) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  var _args$;
+  var _process$argv, args, arg, isWindows, requires, alloweds, importing, _iterator, _step, require, rebuilded, _yield$import, options;
+  return _regeneratorRuntime().wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _process$argv = _toArray(process.argv), args = _process$argv.slice(2);
+          arg = ((_args$ = args[0]) === null || _args$ === void 0 ? void 0 : _args$.replace(/-/g, '')) || 'start';
+          isWindows = platform() === 'win32';
+          _context.t0 = ['.library'];
+          _context.next = 6;
+          return listFiles("".concat(__dirname, "/resources"));
+        case 6:
+          _context.t1 = _context.sent.map(function (file) {
+            return basename(file);
+          });
+          requires = {
+            dirs: _context.t0,
+            files: _context.t1
+          };
+          alloweds = {
+            init: true,
+            start: '../lib/tasks/start/index.js',
+            build: '../lib/tasks/build/index.js',
+            TEST: '../lib/tasks/start/index.js'
+          };
+          if (!(arg !== 'TEST' && !alloweds[arg])) {
+            _context.next = 12;
+            break;
+          }
+          console.error("Command \"".concat(arg, "\" not found.").concat(EOL, "Use \"init\", \"start\" or \"build\".").concat(EOL));
+          return _context.abrupt("return");
+        case 12:
+          importing = new draft("Importing required local modules: ".concat(sh$1.green).concat(sh$1.dim, "[ ").concat(sh$1.italic, "autoprefixer, babel, postcss, sass and uglifyjs").concat(sh$1.reset).concat(sh$1.green).concat(sh$1.dim, " ]"));
+          _iterator = _createForOfIteratorHelper(requires.dirs);
+          _context.prev = 14;
+          _iterator.s();
+        case 16:
+          if ((_step = _iterator.n()).done) {
+            _context.next = 27;
+            break;
+          }
+          require = _step.value;
+          if (!isWindows) {
+            _context.next = 23;
+            break;
+          }
+          _context.next = 21;
+          return exec('xcopy ' + normalize("".concat(__dirname, "/").concat(require, "\\")) + ' ' + normalize("./".concat(require, "\\")) + ' /s /e /y');
+        case 21:
+          _context.next = 25;
+          break;
+        case 23:
+          _context.next = 25;
+          return exec('cp -r ' + normalize("".concat(__dirname, "/").concat(require)) + ' ' + normalize("./".concat(require)));
+        case 25:
+          _context.next = 16;
+          break;
+        case 27:
+          _context.next = 32;
+          break;
+        case 29:
+          _context.prev = 29;
+          _context.t2 = _context["catch"](14);
+          _iterator.e(_context.t2);
+        case 32:
+          _context.prev = 32;
+          _iterator.f();
+          return _context.finish(32);
+        case 35:
+          requires.files.forEach(function (require) {
+            fs.copyFileSync(normalize("".concat(__dirname, "/resources/").concat(require)), normalize("./".concat(require)));
+          });
+
+          // if (!fs.existsSync(normalize('./package.json'))) {
+          //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_package.json`), normalize('./package.json'));
+          //    await exec('npm i');
+          // }
+
+          // if (!fs.existsSync(normalize('./.swrc.js')))
+          //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_swrc.js`), normalize('./.swrc.js'));
+
+          // if (!fs.existsSync(normalize('./rollup.config.js')))
+          //    fs.copyFileSync(
+          //       normalize(`${__dirname}/.github/workflows/resources/_rollup.config.js`),
+          //       normalize('./rollup.config.js')
+          //    );
+
+          // if (!fs.existsSync(normalize('./jsconfig.json')))
+          //    fs.copyFileSync(
+          //       normalize(`${__dirname}/.github/workflows/resources/_jsconfig.json`),
+          //       normalize('./jsconfig.json')
+          //    );
+
+          // if (!fs.existsSync(normalize('./.gitignore')))
+          //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
+          // else {
+          //    let gitignore = fs.readFileSync(normalize('./.gitignore'), 'utf-8');
+          //    const toIgnore = [
+          //       'dist',
+          //       'release',
+          //       'src/exit',
+          //       '.library/addEventListener',
+          //       '.library/selector',
+          //       '.library/package.json',
+          //       'node_modules',
+          //       'package-lock.json',
+          //       'yarn.lock',
+          //    ];
+
+          //    toIgnore.forEach((ignore) => {
+          //       const regex = RegExp(ignore, 'gm');
+
+          //       if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
+          //    });
+
+          //    fs.writeFileSync(normalize('./.gitignore'), gitignore);
+          // }
+          _context.next = 38;
+          return rebuildFiles(arg);
+        case 38:
+          rebuilded = _context.sent;
+          importing.stop(1);
+          if (rebuilded) {
+            _context.next = 42;
+            break;
+          }
+          return _context.abrupt("return");
+        case 42:
+          _context.prev = 42;
+          if (!fs.existsSync('./.swrc.js')) {
+            _context.next = 51;
+            break;
+          }
+          _context.next = 46;
+          return import('./config-ed0f415e.js');
+        case 46:
+          _yield$import = _context.sent;
+          options = _yield$import.options;
+          if (!(arg === 'start' && options !== null && options !== void 0 && options.initalCommit && !fs.existsSync('./.git'))) {
+            _context.next = 51;
+            break;
+          }
+          _context.next = 51;
+          return exec("git init && git add . && git commit -m \"Initial Commit\"");
+        case 51:
+          _context.next = 55;
+          break;
+        case 53:
+          _context.prev = 53;
+          _context.t3 = _context["catch"](42);
+        case 55:
+          if (!(typeof alloweds[arg] === 'string')) {
+            _context.next = 58;
+            break;
+          }
+          _context.next = 58;
+          return import(alloweds[arg]);
+        case 58:
+          /* Calls to script */
+
+          /* Reserved to tests */
+          args.includes('--TEST') && console.log('PASSED');
+        case 59:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee, null, [[14, 29, 32, 35], [42, 53]]);
+}))();
 
 export { _typeof as _, _asyncToGenerator as a, _regeneratorRuntime as b, _objectSpread2 as c, _toArray as d, cwd as e };

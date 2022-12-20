@@ -5,6 +5,7 @@
    "main": "./bin/init.js",
    "scripts": {
       "build": "rm -rf ./bin ./lib; npx rollup -c; sed -i '' $'1s/^/#! \\/usr\\/bin\\/env node\\\n\\\n/' bin/init.js;",
+      "build:soft": "npx rollup -c rollup.config.soft.js;",
       "patch": "npm run update; npm run test-services && npm version patch --no-git-tag-version;",
       "minor": "npm run update; npm run test-services && npm version minor --no-git-tag-version;",
       "major": "npm run update; npm run test-services && npm version major --no-git-tag-version;",
@@ -40,8 +41,6 @@
       "uglifycss": "^0.0.29"
    },
    "devDependencies": {
-      "@babel/cli": "^7.19.3",
-      "@babel/core": "^7.20.5",
       "@babel/preset-env": "^7.20.2",
       "@rollup/plugin-babel": "^6.0.3",
       "autoprefixer": "^10.4.13",

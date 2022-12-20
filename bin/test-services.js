@@ -362,4 +362,498 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-_asyncToGenerator(_regeneratorRuntime().mark(function _callee9(){var sh,pass,results,tests,errors,expecteds,test,prove,passed,source,regex,swrc,result,FTP,_passed;return _regeneratorRuntime().wrap(function _callee9$(_context10){while(1){switch(_context10.prev=_context10.next){case 0:sh=function(){var _ref2=_asyncToGenerator(_regeneratorRuntime().mark(function _callee(command){return _regeneratorRuntime().wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:return _context.abrupt("return",new Promise(function(resolve,reject){return exec(command,function(error,stdout){return !!error?reject(error):resolve(stdout)})}));case 1:case"end":return _context.stop();}}},_callee)}));return function sh(_x){return _ref2.apply(this,arguments)}}();pass=function pass(stdout){var regex=arguments.length>1&&arguments[1]!==undefined?arguments[1]:/PASSED/gm;return regex.test(stdout)};results={passed:"\u2796 \x1B[32mPASSED\x1B[0m\n",failed:"\u2796 \x1B[31mFAILED\x1B[0m\n"};tests={"Environment preparation":function(){var _EnvironmentPreparation=_asyncToGenerator(_regeneratorRuntime().mark(function _callee2(){return _regeneratorRuntime().wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.prev=0;if(!fs.existsSync(resolve("./temp"))){_context2.next=5;break}console.log("   \u2795 Removing previous temporary files...");_context2.next=5;return sh("rm -r \"temp\"");case 5:console.log("   \u2795 Creating temporary folder...");_context2.next=8;return sh("mkdir \"temp\"");case 8:_context2.next=10;return sh("mkdir \"temp/.resources\"");case 10:console.log("   \u2795 Importing modules...");_context2.next=13;return sh("npm i");case 13:console.log("   \u2795 Linking service...");_context2.next=16;return sh("npm link");case 16:return _context2.abrupt("return","PASSED");case 19:_context2.prev=19;_context2.t0=_context2["catch"](0);return _context2.abrupt("return",_context2.t0);case 22:case"end":return _context2.stop();}}},_callee2,null,[[0,19]])}));function EnvironmentPreparation(){return _EnvironmentPreparation.apply(this,arguments)}return EnvironmentPreparation}(),"Executing service \"init\"":function(){var _ExecutingServiceInit=_asyncToGenerator(_regeneratorRuntime().mark(function _callee3(){var init,source,toTrue,toFalse,toUncomment,swrc,result;return _regeneratorRuntime().wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:_context3.prev=0;_context3.next=3;return sh("cd \"temp\" && sw init --TEST");case 3:init=_context3.sent;source="temp/.swrc.js";toTrue=/start: (false)/gm;toFalse=/(initialCommit): (true)/gm;toUncomment=/\/\/\s{0,}(chmod|dir|file|recursive|})/gm;swrc=fs.readFileSync(resolve(source),"utf-8");result=swrc.replace(toTrue,function(a){return a.replace(/false/,"true")}).replace(toFalse,function(a){return a.replace(/true/,"false")}).replace(toUncomment,function(a){return a.replace(/\/\/ /,"")});fs.writeFileSync(resolve(source),result);_context3.next=13;return sh("cp \"./.github/workflows/resources/tests/.resources/test-resource-replace.html\" \"./temp/.resources/test-resource-replace.html\"");case 13:return _context3.abrupt("return",init);case 16:_context3.prev=16;_context3.t0=_context3["catch"](0);return _context3.abrupt("return",_context3.t0);case 19:case"end":return _context3.stop();}}},_callee3,null,[[0,16]])}));function ExecutingServiceInit(){return _ExecutingServiceInit.apply(this,arguments)}return ExecutingServiceInit}(),"Executing service \"start\"":function(){var _ExecutingServiceStart=_asyncToGenerator(_regeneratorRuntime().mark(function _callee7(){var result,start_errors;return _regeneratorRuntime().wrap(function _callee7$(_context8){while(1){switch(_context8.prev=_context8.next){case 0:result=sh("cd \"temp\" && sw start --TEST");start_errors=0;_context8.prev=2;if(process.platform!=="win32"){expecteds["test.zip"]={name:"Zip file: No compile (just copy) and extract to test content",cb:function(){var _cb=_asyncToGenerator(_regeneratorRuntime().mark(function _callee4(){return _regeneratorRuntime().wrap(function _callee4$(_context4){while(1){switch(_context4.prev=_context4.next){case 0:if(fs.existsSync(resolve("./temp/dist/test.txt"))){_context4.next=3;break}_context4.next=3;return sh("cd \"./temp/dist\" && unzip \"./test.zip\"");case 3:case"end":return _context4.stop();}}},_callee4)}));function cb(){return _cb.apply(this,arguments)}return cb}(),ext:"txt",output:"Success"};}setTimeout(_asyncToGenerator(_regeneratorRuntime().mark(function _callee6(){var _loop,expected,_ret;return _regeneratorRuntime().wrap(function _callee6$(_context7){while(1){switch(_context7.prev=_context7.next){case 0:_loop=_regeneratorRuntime().mark(function _loop(expected){var _expecteds$expected,_expecteds$expected3,copied,resourcesPath,destPath,_expecteds$expected2,name,output,file,compare;return _regeneratorRuntime().wrap(function _loop$(_context6){while(1){switch(_context6.prev=_context6.next){case 0:_context6.prev=0;copied=true;_context6.prev=2;resourcesPath=resolve("./.github/workflows/resources/tests");destPath=resolve("./temp/src");_context6.next=7;return sh("cp \"".concat(join(resourcesPath,expected),"\" \"").concat(join(destPath,expected),"\""));case 7:_context6.next=12;break;case 9:_context6.prev=9;_context6.t0=_context6["catch"](2);copied=false;case 12:if(!((_expecteds$expected=expecteds[expected])!==null&&_expecteds$expected!==void 0&&_expecteds$expected.src)){_context6.next=14;break}return _context6.abrupt("return","continue");case 14:_expecteds$expected2=expecteds[expected],name=_expecteds$expected2.name,output=_expecteds$expected2.output;file=(_expecteds$expected3=expecteds[expected])!==null&&_expecteds$expected3!==void 0&&_expecteds$expected3.ext?expected.replace(extname(expected),".".concat(expecteds[expected].ext)):expected;_context6.next=18;return new Promise(function(resolve$1){var count=0;var limit=100;var attemp=setInterval(_asyncToGenerator(_regeneratorRuntime().mark(function _callee5(){var _expecteds$expected4,_expecteds$expected5,_fs$readFileSync,_fs$readFileSync$trim;return _regeneratorRuntime().wrap(function _callee5$(_context5){while(1){switch(_context5.prev=_context5.next){case 0:count++;if(count>=limit){clearInterval(attemp);resolve$1();}if(!(!fs.existsSync(resolve("./temp/src/".concat(file)))&&!fs.existsSync(resolve("./temp/src/".concat(expected))))){_context5.next=4;break}return _context5.abrupt("return");case 4:if(!(!fs.existsSync(resolve("./temp/dist/".concat(file)))&&!fs.existsSync(resolve("./temp/dist/".concat(expected))))){_context5.next=6;break}return _context5.abrupt("return");case 6:if(!((_expecteds$expected4=expecteds[expected])!==null&&_expecteds$expected4!==void 0&&_expecteds$expected4.cb)){_context5.next=9;break}_context5.next=9;return (_expecteds$expected5=expecteds[expected])===null||_expecteds$expected5===void 0?void 0:_expecteds$expected5.cb();case 9:if(!(((_fs$readFileSync=fs.readFileSync(resolve("./temp/dist/".concat(file)),"utf-8"))===null||_fs$readFileSync===void 0?void 0:(_fs$readFileSync$trim=_fs$readFileSync.trim())===null||_fs$readFileSync$trim===void 0?void 0:_fs$readFileSync$trim.length)===0)){_context5.next=11;break}return _context5.abrupt("return");case 11:clearInterval(attemp);resolve$1();case 13:case"end":return _context5.stop();}}},_callee5)})),100);});case 18:compare=fs.readFileSync(resolve("./temp/dist/".concat(file)),"utf-8");console.log(copied&&compare===output?"   \x1B[32m\u2714\x1B[0m":"   \x1B[31m\u2716\x1B[0m",name);if(!copied||compare!==output){errors.push(_defineProperty({},name,compare));start_errors++;}_context6.next=27;break;case 23:_context6.prev=23;_context6.t1=_context6["catch"](0);console.log("   \x1B[31m\u2716\x1B[0m ".concat(_context6.t1.message));start_errors++;case 27:case"end":return _context6.stop();}}},_loop,null,[[0,23],[2,9]])});_context7.t0=_regeneratorRuntime().keys(expecteds);case 2:if((_context7.t1=_context7.t0()).done){_context7.next=10;break}expected=_context7.t1.value;return _context7.delegateYield(_loop(expected),"t2",5);case 5:_ret=_context7.t2;if(!(_ret==="continue")){_context7.next=8;break}return _context7.abrupt("continue",2);case 8:_context7.next=2;break;case 10:_context7.next=12;return sh("cd \"temp\" && touch \"./src/exit\"");case 12:case"end":return _context7.stop();}}},_callee6)})),5000);if(pass(result)){_context8.next=7;break}return _context8.abrupt("return",result);case 7:return _context8.abrupt("return",start_errors===0?"PASSED":"FAILED to building files");case 10:_context8.prev=10;_context8.t0=_context8["catch"](2);return _context8.abrupt("return",_context8.t0);case 13:case"end":return _context8.stop();}}},_callee7,null,[[2,10]])}));function ExecutingServiceStart(){return _ExecutingServiceStart.apply(this,arguments)}return ExecutingServiceStart}(),"Executing service \"build\"":function(){var _ExecutingServiceBuild=_asyncToGenerator(_regeneratorRuntime().mark(function _callee8(){return _regeneratorRuntime().wrap(function _callee8$(_context9){while(1){switch(_context9.prev=_context9.next){case 0:_context9.prev=0;_context9.next=3;return sh("cd \"./temp\" && sw build --TEST");case 3:return _context9.abrupt("return",_context9.sent);case 6:_context9.prev=6;_context9.t0=_context9["catch"](0);return _context9.abrupt("return",_context9.t0);case 9:case"end":return _context9.stop();}}},_callee8,null,[[0,6]])}));function ExecutingServiceBuild(){return _ExecutingServiceBuild.apply(this,arguments)}return ExecutingServiceBuild}()};errors=[];expecteds={"test-file.html":{name:"Building HTML",output:"<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Document</title></head><body></body></html>"},"test-file.css":{name:"Building CSS",output:"div{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}"},"test-file.scss":{name:"Building SCSS",output:"div{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}",ext:"css"},"test-file.js":{name:"Building JS",output:"\"use strict\";console.log(\"Hello World\");"},"test-file.php":{name:"Building PHP",output:"<?php echo 123;"},"test-file.phtml":{name:"Building PHTML",output:"<?php echo 123?>"},"_header.html":{src:true},"test-import.html":{name:"Testing Feature: HTML Import",output:"<html><body><header></header></body></html>"},"test-string-replace.html":{name:"Testing Plug-in: String Replace",output:"<html><body>my-start-output</body></html>"},"test-resource-replace.html":{name:"Testing Plug-in: Resource Replace",output:"<html><body>456</body></html>"}};_context10.t0=_regeneratorRuntime().keys(tests);case 7:if((_context10.t1=_context10.t0()).done){_context10.next=18;break}test=_context10.t1.value;console.log("\u2796 ".concat(test,"..."));_context10.next=12;return tests[test]();case 12:prove=_context10.sent;passed=pass(prove);if(!passed)errors.push(_defineProperty({},test,prove));console.log(results[passed?"passed":"failed"]);_context10.next=7;break;case 18:if(!(process.platform==="linux")){_context10.next=37;break}console.log("\u2796 Testing FTP service...");source="temp/.swrc.js";regex={root:/root: '',/gim,host:/host: '',/gim,user:/user: '',/gim,pass:/pass: '',/gim,secure:/secure: true\s\|\|\s/gim};swrc=fs.readFileSync(source,"utf-8");result="";result=swrc.replace(regex.root,function(a){return a.replace(/''/,"'/'")});result=result.replace(regex.host,function(a){return a.replace(/''/,"'127.0.0.1'")});result=result.replace(regex.user,function(a){return a.replace(/''/,"'test'")});result=result.replace(regex.pass,function(a){return a.replace(/''/,"'test'")});result=result.replace(regex.secure,function(a){return a.replace(/true\s\|\|\s/,"")});fs.writeFileSync(source,result);setTimeout(function(){return sh("cd \"./temp\" && touch \"./src/exit\"")},5000);_context10.next=33;return sh("cd \"temp\" && sw --TEST");case 33:FTP=_context10.sent;_passed=pass(FTP,/Connected/gm);if(!_passed)errors.push({"Testing FTP service:":FTP});console.log(results[_passed?"passed":"failed"]);case 37:if(!fs.existsSync("temp")){_context10.next=47;break}_context10.prev=38;_context10.next=41;return sh("rm -r \"temp\"");case 41:console.log("\u2796 Removing temporary files...");console.log(results.passed);_context10.next=47;break;case 45:_context10.prev=45;_context10.t2=_context10["catch"](38);case 47:if(!(errors.length===0)){_context10.next=49;break}return _context10.abrupt("return",true);case 49:console.log("\n--- LOGS ---\n");errors.forEach(function(error){return console.log(error)});console.log("\n--- LOGS ---\n");process.exit(1);case 53:case"end":return _context10.stop();}}},_callee9,null,[[38,45]])}))();
+_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+  var sh, pass, results, tests, errors, expecteds, test, prove, passed, source, regex, swrc, result, FTP, _passed;
+  return _regeneratorRuntime().wrap(function _callee9$(_context10) {
+    while (1) {
+      switch (_context10.prev = _context10.next) {
+        case 0:
+          sh = /*#__PURE__*/function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(command) {
+              return _regeneratorRuntime().wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      return _context.abrupt("return", new Promise(function (resolve, reject) {
+                        return exec(command, function (error, stdout) {
+                          return !!error ? reject(error) : resolve(stdout);
+                        });
+                      }));
+                    case 1:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee);
+            }));
+            return function sh(_x) {
+              return _ref2.apply(this, arguments);
+            };
+          }();
+          pass = function pass(stdout) {
+            var regex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : /PASSED/gm;
+            return regex.test(stdout);
+          };
+          results = {
+            passed: '➖ \x1b[32mPASSED\x1b[0m\n',
+            failed: '➖ \x1b[31mFAILED\x1b[0m\n'
+          };
+          tests = {
+            'Environment preparation': function () {
+              var _EnvironmentPreparation = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+                return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        _context2.prev = 0;
+                        if (!fs.existsSync(resolve('./temp'))) {
+                          _context2.next = 5;
+                          break;
+                        }
+                        console.log('   ➕ Removing previous temporary files...');
+                        _context2.next = 5;
+                        return sh('rm -r "temp"');
+                      case 5:
+                        console.log('   ➕ Creating temporary folder...');
+                        _context2.next = 8;
+                        return sh('mkdir "temp"');
+                      case 8:
+                        _context2.next = 10;
+                        return sh('mkdir "temp/.resources"');
+                      case 10:
+                        console.log('   ➕ Importing modules...');
+                        _context2.next = 13;
+                        return sh('npm i');
+                      case 13:
+                        console.log('   ➕ Linking service...');
+                        _context2.next = 16;
+                        return sh('npm link');
+                      case 16:
+                        return _context2.abrupt("return", 'PASSED');
+                      case 19:
+                        _context2.prev = 19;
+                        _context2.t0 = _context2["catch"](0);
+                        return _context2.abrupt("return", _context2.t0);
+                      case 22:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }
+                }, _callee2, null, [[0, 19]]);
+              }));
+              function EnvironmentPreparation() {
+                return _EnvironmentPreparation.apply(this, arguments);
+              }
+              return EnvironmentPreparation;
+            }(),
+            'Executing service "init"': function () {
+              var _ExecutingServiceInit = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+                var init, source, toTrue, toFalse, toUncomment, swrc, result;
+                return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+                  while (1) {
+                    switch (_context3.prev = _context3.next) {
+                      case 0:
+                        _context3.prev = 0;
+                        _context3.next = 3;
+                        return sh('cd "temp" && sw init --TEST');
+                      case 3:
+                        init = _context3.sent;
+                        source = 'temp/.swrc.js';
+                        toTrue = /start: (false)/gm;
+                        toFalse = /(initialCommit): (true)/gm;
+                        toUncomment = /\/\/\s{0,}(chmod|dir|file|recursive|})/gm;
+                        swrc = fs.readFileSync(resolve(source), 'utf-8');
+                        result = swrc.replace(toTrue, function (a) {
+                          return a.replace(/false/, 'true');
+                        }).replace(toFalse, function (a) {
+                          return a.replace(/true/, 'false');
+                        }).replace(toUncomment, function (a) {
+                          return a.replace(/\/\/ /, '');
+                        });
+                        fs.writeFileSync(resolve(source), result);
+                        _context3.next = 13;
+                        return sh('cp "./.github/workflows/resources/tests/.resources/test-resource-replace.html" "./temp/.resources/test-resource-replace.html"');
+                      case 13:
+                        return _context3.abrupt("return", init);
+                      case 16:
+                        _context3.prev = 16;
+                        _context3.t0 = _context3["catch"](0);
+                        return _context3.abrupt("return", _context3.t0);
+                      case 19:
+                      case "end":
+                        return _context3.stop();
+                    }
+                  }
+                }, _callee3, null, [[0, 16]]);
+              }));
+              function ExecutingServiceInit() {
+                return _ExecutingServiceInit.apply(this, arguments);
+              }
+              return ExecutingServiceInit;
+            }(),
+            'Executing service "start"': function () {
+              var _ExecutingServiceStart = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+                var result, start_errors;
+                return _regeneratorRuntime().wrap(function _callee7$(_context8) {
+                  while (1) {
+                    switch (_context8.prev = _context8.next) {
+                      case 0:
+                        result = sh('cd "temp" && sw start --TEST');
+                        start_errors = 0;
+                        _context8.prev = 2;
+                        if (process.platform !== 'win32') {
+                          expecteds['test.zip'] = {
+                            name: 'Zip file: No compile (just copy) and extract to test content',
+                            cb: function () {
+                              var _cb = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+                                return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+                                  while (1) {
+                                    switch (_context4.prev = _context4.next) {
+                                      case 0:
+                                        if (fs.existsSync(resolve('./temp/dist/test.txt'))) {
+                                          _context4.next = 3;
+                                          break;
+                                        }
+                                        _context4.next = 3;
+                                        return sh('cd "./temp/dist" && unzip "./test.zip"');
+                                      case 3:
+                                      case "end":
+                                        return _context4.stop();
+                                    }
+                                  }
+                                }, _callee4);
+                              }));
+                              function cb() {
+                                return _cb.apply(this, arguments);
+                              }
+                              return cb;
+                            }(),
+                            ext: 'txt',
+                            output: 'Success'
+                          };
+                        }
+                        setTimeout( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+                          var _loop, expected, _ret;
+                          return _regeneratorRuntime().wrap(function _callee6$(_context7) {
+                            while (1) {
+                              switch (_context7.prev = _context7.next) {
+                                case 0:
+                                  _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop(expected) {
+                                    var _expecteds$expected, _expecteds$expected3, copied, resourcesPath, destPath, _expecteds$expected2, name, output, file, compare;
+                                    return _regeneratorRuntime().wrap(function _loop$(_context6) {
+                                      while (1) {
+                                        switch (_context6.prev = _context6.next) {
+                                          case 0:
+                                            _context6.prev = 0;
+                                            copied = true;
+                                            _context6.prev = 2;
+                                            resourcesPath = resolve('./.github/workflows/resources/tests');
+                                            destPath = resolve('./temp/src');
+                                            _context6.next = 7;
+                                            return sh("cp \"".concat(join(resourcesPath, expected), "\" \"").concat(join(destPath, expected), "\""));
+                                          case 7:
+                                            _context6.next = 12;
+                                            break;
+                                          case 9:
+                                            _context6.prev = 9;
+                                            _context6.t0 = _context6["catch"](2);
+                                            copied = false;
+                                          case 12:
+                                            if (!((_expecteds$expected = expecteds[expected]) !== null && _expecteds$expected !== void 0 && _expecteds$expected.src)) {
+                                              _context6.next = 14;
+                                              break;
+                                            }
+                                            return _context6.abrupt("return", "continue");
+                                          case 14:
+                                            _expecteds$expected2 = expecteds[expected], name = _expecteds$expected2.name, output = _expecteds$expected2.output;
+                                            file = (_expecteds$expected3 = expecteds[expected]) !== null && _expecteds$expected3 !== void 0 && _expecteds$expected3.ext ? expected.replace(extname(expected), ".".concat(expecteds[expected].ext)) : expected;
+                                            _context6.next = 18;
+                                            return new Promise(function (resolve$1) {
+                                              var count = 0;
+                                              var limit = 100;
+                                              var attemp = setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+                                                var _expecteds$expected4, _expecteds$expected5, _fs$readFileSync, _fs$readFileSync$trim;
+                                                return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+                                                  while (1) {
+                                                    switch (_context5.prev = _context5.next) {
+                                                      case 0:
+                                                        count++;
+                                                        if (count >= limit) {
+                                                          clearInterval(attemp);
+                                                          resolve$1();
+                                                        }
+                                                        if (!(!fs.existsSync(resolve("./temp/src/".concat(file))) && !fs.existsSync(resolve("./temp/src/".concat(expected))))) {
+                                                          _context5.next = 4;
+                                                          break;
+                                                        }
+                                                        return _context5.abrupt("return");
+                                                      case 4:
+                                                        if (!(!fs.existsSync(resolve("./temp/dist/".concat(file))) && !fs.existsSync(resolve("./temp/dist/".concat(expected))))) {
+                                                          _context5.next = 6;
+                                                          break;
+                                                        }
+                                                        return _context5.abrupt("return");
+                                                      case 6:
+                                                        if (!((_expecteds$expected4 = expecteds[expected]) !== null && _expecteds$expected4 !== void 0 && _expecteds$expected4.cb)) {
+                                                          _context5.next = 9;
+                                                          break;
+                                                        }
+                                                        _context5.next = 9;
+                                                        return (_expecteds$expected5 = expecteds[expected]) === null || _expecteds$expected5 === void 0 ? void 0 : _expecteds$expected5.cb();
+                                                      case 9:
+                                                        if (!(((_fs$readFileSync = fs.readFileSync(resolve("./temp/dist/".concat(file)), 'utf-8')) === null || _fs$readFileSync === void 0 ? void 0 : (_fs$readFileSync$trim = _fs$readFileSync.trim()) === null || _fs$readFileSync$trim === void 0 ? void 0 : _fs$readFileSync$trim.length) === 0)) {
+                                                          _context5.next = 11;
+                                                          break;
+                                                        }
+                                                        return _context5.abrupt("return");
+                                                      case 11:
+                                                        clearInterval(attemp);
+                                                        resolve$1();
+                                                      case 13:
+                                                      case "end":
+                                                        return _context5.stop();
+                                                    }
+                                                  }
+                                                }, _callee5);
+                                              })), 100);
+                                            });
+                                          case 18:
+                                            compare = fs.readFileSync(resolve("./temp/dist/".concat(file)), 'utf-8');
+                                            console.log(copied && compare === output ? "   \x1B[32m\u2714\x1B[0m" : "   \x1B[31m\u2716\x1B[0m", name);
+                                            if (!copied || compare !== output) {
+                                              errors.push(_defineProperty({}, name, compare));
+                                              start_errors++;
+                                            }
+                                            _context6.next = 27;
+                                            break;
+                                          case 23:
+                                            _context6.prev = 23;
+                                            _context6.t1 = _context6["catch"](0);
+                                            console.log("   \x1B[31m\u2716\x1B[0m ".concat(_context6.t1.message));
+                                            start_errors++;
+                                          case 27:
+                                          case "end":
+                                            return _context6.stop();
+                                        }
+                                      }
+                                    }, _loop, null, [[0, 23], [2, 9]]);
+                                  });
+                                  _context7.t0 = _regeneratorRuntime().keys(expecteds);
+                                case 2:
+                                  if ((_context7.t1 = _context7.t0()).done) {
+                                    _context7.next = 10;
+                                    break;
+                                  }
+                                  expected = _context7.t1.value;
+                                  return _context7.delegateYield(_loop(expected), "t2", 5);
+                                case 5:
+                                  _ret = _context7.t2;
+                                  if (!(_ret === "continue")) {
+                                    _context7.next = 8;
+                                    break;
+                                  }
+                                  return _context7.abrupt("continue", 2);
+                                case 8:
+                                  _context7.next = 2;
+                                  break;
+                                case 10:
+                                  _context7.next = 12;
+                                  return sh('cd "temp" && touch "./src/exit"');
+                                case 12:
+                                case "end":
+                                  return _context7.stop();
+                              }
+                            }
+                          }, _callee6);
+                        })), 5000);
+                        if (pass(result)) {
+                          _context8.next = 7;
+                          break;
+                        }
+                        return _context8.abrupt("return", result);
+                      case 7:
+                        return _context8.abrupt("return", start_errors === 0 ? 'PASSED' : 'FAILED to building files');
+                      case 10:
+                        _context8.prev = 10;
+                        _context8.t0 = _context8["catch"](2);
+                        return _context8.abrupt("return", _context8.t0);
+                      case 13:
+                      case "end":
+                        return _context8.stop();
+                    }
+                  }
+                }, _callee7, null, [[2, 10]]);
+              }));
+              function ExecutingServiceStart() {
+                return _ExecutingServiceStart.apply(this, arguments);
+              }
+              return ExecutingServiceStart;
+            }(),
+            'Executing service "build"': function () {
+              var _ExecutingServiceBuild = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+                return _regeneratorRuntime().wrap(function _callee8$(_context9) {
+                  while (1) {
+                    switch (_context9.prev = _context9.next) {
+                      case 0:
+                        _context9.prev = 0;
+                        _context9.next = 3;
+                        return sh('cd "./temp" && sw build --TEST');
+                      case 3:
+                        return _context9.abrupt("return", _context9.sent);
+                      case 6:
+                        _context9.prev = 6;
+                        _context9.t0 = _context9["catch"](0);
+                        return _context9.abrupt("return", _context9.t0);
+                      case 9:
+                      case "end":
+                        return _context9.stop();
+                    }
+                  }
+                }, _callee8, null, [[0, 6]]);
+              }));
+              function ExecutingServiceBuild() {
+                return _ExecutingServiceBuild.apply(this, arguments);
+              }
+              return ExecutingServiceBuild;
+            }()
+          };
+          errors = [];
+          expecteds = {
+            'test-file.html': {
+              name: 'Building HTML',
+              output: '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Document</title></head><body></body></html>'
+            },
+            'test-file.css': {
+              name: 'Building CSS',
+              output: 'div{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}'
+            },
+            'test-file.scss': {
+              name: 'Building SCSS',
+              output: 'div{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}',
+              ext: 'css'
+            },
+            'test-file.js': {
+              name: 'Building JS',
+              output: '!function(){"use strict";console.log("Hello World")}();'
+            },
+            'test-file.php': {
+              name: 'Building PHP',
+              output: '<?php echo 123;'
+            },
+            'test-file.phtml': {
+              name: 'Building PHTML',
+              output: '<?php echo 123?>'
+            },
+            '_header.html': {
+              src: true
+            },
+            'test-import.html': {
+              name: 'Testing Feature: HTML Import',
+              output: '<html><body><header></header></body></html>'
+            },
+            'test-string-replace.html': {
+              name: 'Testing Plug-in: String Replace',
+              output: '<html><body>my-start-output</body></html>'
+            },
+            'test-resource-replace.html': {
+              name: 'Testing Plug-in: Resource Replace',
+              output: '<html><body>456</body></html>'
+            }
+          };
+          _context10.t0 = _regeneratorRuntime().keys(tests);
+        case 7:
+          if ((_context10.t1 = _context10.t0()).done) {
+            _context10.next = 18;
+            break;
+          }
+          test = _context10.t1.value;
+          console.log("\u2796 ".concat(test, "..."));
+          _context10.next = 12;
+          return tests[test]();
+        case 12:
+          prove = _context10.sent;
+          passed = pass(prove);
+          if (!passed) errors.push(_defineProperty({}, test, prove));
+          console.log(results[passed ? 'passed' : 'failed']);
+          _context10.next = 7;
+          break;
+        case 18:
+          if (!(process.platform === 'linux')) {
+            _context10.next = 37;
+            break;
+          }
+          console.log('➖ Testing FTP service...');
+          source = 'temp/.swrc.js';
+          regex = {
+            root: /root: '',/gim,
+            host: /host: '',/gim,
+            user: /user: '',/gim,
+            pass: /pass: '',/gim,
+            secure: /secure: true\s\|\|\s/gim
+          };
+          swrc = fs.readFileSync(source, 'utf-8');
+          result = '';
+          result = swrc.replace(regex.root, function (a) {
+            return a.replace(/''/, "'/'");
+          });
+          result = result.replace(regex.host, function (a) {
+            return a.replace(/''/, "'127.0.0.1'");
+          });
+          result = result.replace(regex.user, function (a) {
+            return a.replace(/''/, "'test'");
+          });
+          result = result.replace(regex.pass, function (a) {
+            return a.replace(/''/, "'test'");
+          });
+          result = result.replace(regex.secure, function (a) {
+            return a.replace(/true\s\|\|\s/, '');
+          });
+          fs.writeFileSync(source, result);
+          setTimeout(function () {
+            return sh('cd "./temp" && touch "./src/exit"');
+          }, 5000);
+          _context10.next = 33;
+          return sh('cd "temp" && sw --TEST');
+        case 33:
+          FTP = _context10.sent;
+          _passed = pass(FTP, /Connected/gm);
+          if (!_passed) errors.push({
+            'Testing FTP service:': FTP
+          });
+          console.log(results[_passed ? 'passed' : 'failed']);
+        case 37:
+          if (!fs.existsSync('temp')) {
+            _context10.next = 47;
+            break;
+          }
+          _context10.prev = 38;
+          _context10.next = 41;
+          return sh('rm -r "temp"');
+        case 41:
+          console.log('➖ Removing temporary files...');
+          console.log(results.passed);
+          _context10.next = 47;
+          break;
+        case 45:
+          _context10.prev = 45;
+          _context10.t2 = _context10["catch"](38);
+        case 47:
+          if (!(errors.length === 0)) {
+            _context10.next = 49;
+            break;
+          }
+          return _context10.abrupt("return", true);
+        case 49:
+          console.log('\n--- LOGS ---\n');
+          errors.forEach(function (error) {
+            return console.log(error);
+          });
+          console.log('\n--- LOGS ---\n');
+          process.exit(1);
+        case 53:
+        case "end":
+          return _context10.stop();
+      }
+    }
+  }, _callee9, null, [[38, 45]]);
+}))();
