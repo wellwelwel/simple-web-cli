@@ -55,16 +55,11 @@ import listFiles from './modules/listFiles.js';
       }
    });
 
-   let gitignore = fs.readFileSync(normalize('./.gitignore'), 'utf-8');
-   const toIgnore = ['dist', 'release', 'src/exit', 'node_modules', 'package-lock.json', 'yarn.lock'];
+   if (!fs.existsSync(normalize('./.gitignore'))) {
+      const gitignore = ['temp_*', 'dist', 'release', '*.zip', 'src/exit', 'node_modules'].join(EOL);
 
-   toIgnore.forEach((ignore) => {
-      const regex = RegExp(ignore, 'gm');
-
-      if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
-   });
-
-   fs.writeFileSync(normalize('./.gitignore'), gitignore);
+      fs.writeFileSync(normalize('./.gitignore'), gitignore);
+   }
 
    const rebuilded = await rebuildFiles(arg);
 
