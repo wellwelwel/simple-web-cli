@@ -57,6 +57,10 @@ const rebuildFiles = async (arg) => {
    /* package.json */
    try {
       if (!packageFile?.devDependencies) packageFile.devDependencies = {};
+      if (!packageFile?.scripts) packageFile.scripts = {};
+
+      if (packageFile?.type !== 'module') packageFile.type = 'module';
+      if (!packageFile.scripts?.update) packageFile.scripts.update = 'npx npu; npm i --ignore-scripts';
 
       for (const dependence of dependencies) {
          if (
