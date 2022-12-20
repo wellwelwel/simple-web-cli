@@ -36,7 +36,7 @@ import { __dirname } from '../.web/modules/root.js';
    for (const require of requires.dirs)
       isWindows
          ? await exec(
-              'xcopy ' + normalize(`${__dirname}/${require}\\`) + ' ' + normalize(`./${require}\\`) + ' /s /e'
+              'xcopy ' + normalize(`${__dirname}/${require}\\`) + ' ' + normalize(`./${require}\\`) + ' /s /e /y'
            )
          : await exec('cp -r ' + normalize(`${__dirname}/${require}`) + ' ' + normalize(`./${require}`));
 

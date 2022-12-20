@@ -237,13 +237,13 @@ import { extname, resolve as normalize, join } from 'path';
       console.log(results[passed ? 'passed' : 'failed']);
    }
 
-   // if (fs.existsSync('temp')) {
-   //    try {
-   //       await sh('rm -r "temp"');
-   //       console.log('➖ Removing temporary files...');
-   //       console.log(results.passed);
-   //    } catch (error) {}
-   // }
+   if (fs.existsSync('temp')) {
+      try {
+         await sh('rm -r "temp"');
+         console.log('➖ Removing temporary files...');
+         console.log(results.passed);
+      } catch (error) {}
+   }
 
    /* Exit if success */
    if (errors.length === 0) return true;
