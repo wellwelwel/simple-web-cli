@@ -1,9 +1,0 @@
-{
-  "name": "web",
-  "version": "1.0.0",
-  "description": "",
-  "main": "./selector/index.js",
-  "scripts": { },
-  "author": "",
-  "license": "MIT"
-}

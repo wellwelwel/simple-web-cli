@@ -1,0 +1,10 @@
+{
+   "compilerOptions": {
+      "module": "CommonJS",
+      "target": "ESNext",
+      "paths": {
+         "#helpers/*": ["./helpers/*.js"],
+         "#utils/*": ["./utils/*.js"]
+      }
+   }
+}
