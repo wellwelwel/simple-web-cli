@@ -21,7 +21,10 @@ const setConfig = (input, dir) => ({
    ],
    plugins: [
       babel({
-         babelHelpers: 'bundled',
+         comments: false,
+         compact: true,
+         minified: true,
+         babelHelpers: 'inline',
          presets: ['@babel/preset-env'],
          exclude: 'node_modules/**',
       }),

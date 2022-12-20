@@ -7,7 +7,7 @@ export default {
          entries: [{ find: /#helpers\/(.+)/, replacement: './helpers/$1/index.js' }],
       }),
       babel({
-         babelHelpers: 'bundled',
+         babelHelpers: 'inline',
          comments: false,
          compact: true,
          minified: true,
