@@ -33,7 +33,6 @@ useBabel &&
                exclude: ['transform-regenerator'],
             },
          ],
-         include: 'node_modules/**',
       })
    );
 
