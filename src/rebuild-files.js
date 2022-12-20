@@ -1,6 +1,6 @@
 import fs from 'fs';
-import exec from '../.web/modules/execShellCommand.js';
-import latest from '../.web/modules/get-latest-version.js';
+import exec from './modules/execShellCommand.js';
+import latest from './modules/get-latest-version.js';
 
 const rebuildFiles = async (arg) => {
    const readJSON = (file) => JSON.parse(fs.readFileSync(file, 'utf-8'));

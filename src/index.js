@@ -1,11 +1,13 @@
+#! /usr/bin/env node
+
 import fs from 'fs';
 import { EOL, platform } from 'os';
 import { normalize, basename } from 'path';
-import exec from '../.web/modules/execShellCommand.js';
-import { sh, draft } from '../.web/modules/sh.js';
+import exec from './modules/execShellCommand.js';
+import { sh, draft } from './modules/sh.js';
 import rebuildFiles from './rebuild-files.js';
-import { __dirname } from '../.web/modules/root.js';
-import listFiles from '../.web/modules/listFiles.js';
+import { __dirname } from './modules/root.js';
+import listFiles from './modules/listFiles.js';
 
 (async () => {
    const [, , ...args] = process.argv;
@@ -72,7 +74,7 @@ import listFiles from '../.web/modules/listFiles.js';
 
    try {
       if (fs.existsSync(normalize('./.swrc.js'))) {
-         const { options } = await import('../.web/modules/config.js');
+         const { options } = await import('./modules/config.js');
 
          if (arg === 'start' && options?.initalCommit && !fs.existsSync(normalize('./.git')))
             await exec(`git init && git add . && git commit -m "Initial Commit"`);

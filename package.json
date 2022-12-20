@@ -2,9 +2,9 @@
    "name": "simple-web-cli",
    "type": "module",
    "version": "4.0.0-next",
-   "main": "./bin/init.js",
+   "main": "./bin/index.js",
    "scripts": {
-      "build": "rm -rf ./bin ./lib; npx rollup -c; sed -i '' $'1s/^/#! \\/usr\\/bin\\/env node\\\n\\\n/' bin/init.js;",
+      "build": "rm -rf ./bin ./lib; npx rollup -c; sed -i '' $'1s/^/#! \\/usr\\/bin\\/env node\\\n\\\n/' bin/index.js;",
       "build:soft": "npx rollup -c rollup.config.soft.js;",
       "patch": "npm run update; npm run test-services && npm version patch --no-git-tag-version;",
       "minor": "npm run update; npm run test-services && npm version minor --no-git-tag-version;",
@@ -14,9 +14,9 @@
       "reinstall": "npm run build; npm uninstall simple-web-cli -g; npm link ./; npm run test-services;"
    },
    "bin": {
-      "sw": "./bin/init.js",
-      "simple-web": "./bin/init.js",
-      "simple-web-cli": "./bin/init.js"
+      "sw": "./bin/index.js",
+      "simple-web": "./bin/index.js",
+      "simple-web-cli": "./bin/index.js"
    },
    "keywords": [
       "ftp-service",
