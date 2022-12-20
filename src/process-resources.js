@@ -19,9 +19,9 @@ import { __dirname } from '../.web/modules/root.js';
 
    const alloweds = {
       init: true,
-      start: '../.web/tasks/start/index.js',
-      build: '../.web/tasks/build/index.js',
-      TEST: '../.web/tasks/start/index.js',
+      start: '../lib/tasks/start/index.js',
+      build: '../lib/tasks/build/index.js',
+      TEST: '../lib/tasks/start/index.js',
    };
 
    if (arg !== 'TEST' && !alloweds[arg]) {
@@ -46,10 +46,7 @@ import { __dirname } from '../.web/modules/root.js';
    });
 
    if (!fs.existsSync(normalize('./package.json'))) {
-      fs.copyFileSync(
-         normalize(`${__dirname}/.github/workflows/resources/_package.json`),
-         normalize('./package.json')
-      );
+      fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_package.json`), normalize('./package.json'));
       await exec('npm i');
    }
    if (!fs.existsSync(normalize('./.swrc.js')))

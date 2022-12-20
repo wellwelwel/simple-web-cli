@@ -37,7 +37,6 @@
       "draftlog": "^1.0.13",
       "html-minifier": "^4.0.0",
       "node-watch": "^0.7.3",
-      "packages-update": "^1.2.1",
       "uglifycss": "^0.0.29"
    },
    "devDependencies": {
@@ -45,8 +44,8 @@
       "@babel/core": "^7.20.5",
       "@babel/preset-env": "^7.20.2",
       "@rollup/plugin-babel": "^6.0.3",
-      "@rollup/plugin-commonjs": "^24.0.0",
       "autoprefixer": "^10.4.13",
+      "packages-update": "^1.2.1",
       "postcss-cli": "^10.1.0",
       "prettier": "^2.8.1",
       "rollup": "^3.7.5",
