@@ -1,24 +1,21 @@
-"use strict";
+'use strict';
 
 import { process_files } from '../config.js';
 
-const processPHP = content => {
-
+const processPHP = (content) => {
    if (!content || content?.trim().length === 0) return '';
    else if (!process_files?.php?.minify) return content;
 
    try {
-
       /* Gera uma cópia do conteúdo original a ser processado */
       let new_content = content;
 
       /* Guarda strings do conteúdo na memória */
       const strings_PHP = new_content.match(/(('.*?')|(".*?")|(`.*?`))/gim);
-      const backup_strings_PHP = { };
+      const backup_strings_PHP = {};
 
       /* Gera e substitui cada string por um ID */
       for (const key in strings_PHP) {
-
          const id = `"${Math.random().toString(36).substr(2, 9)}${Math.random().toString(36).substr(2, 9)}"`;
 
          backup_strings_PHP[id] = strings_PHP[key];
@@ -56,30 +53,25 @@ const processPHP = content => {
          .replace(/\s\|\s|\s\||\|\s/gim, '|') // remove espaços entre |
          .replace(/\s\.\s|\s\.|\.\s/gim, '.') // remove espaços entre .
          .replace(/\s,\s|\s,|,\s/gim, ',') // remove espaços entre ,
-         .replace(/\s'\s|\s'|'\s/gim, '\'') // remove espaços entre '
+         .replace(/\s'\s|\s'|'\s/gim, "'") // remove espaços entre '
          .replace(/\s"\s|\s"|"\s/gim, '"') // remove espaços entre "
          .replace(/\s`\s|\s`|`\s/gim, '`') // remove espaços entre `
          .replace(/<\?=\s/gim, '<?=') // remove espaço após <?=
          .replace(/ \?>/gim, '?>') // remove espaço antes de ?>
          .replace(/<\?php/gim, '<?php ') // corrige espaço após <?php
          .replace(/(?:\s)\s/gim, ' ') // remove espaços duplicados
-         .replace(/^\s.?\s|[\s]{1,}$/gim, '') // regex similar à função trim()
-      ;
+         .replace(/^\s.?\s|[\s]{1,}$/gim, ''); // regex similar à função trim()
 
       /* Recupera os dados das strings */
       for (const id in backup_strings_PHP) new_content = new_content.replace(id, backup_strings_PHP[id]);
 
       /* Recupera novo conteúdo se tudo ocorreu corretamente */
       if (!!new_content) content = new_content.trim();
-   }
-   catch(e) {
-
+   } catch (e) {
       /* Em caso de erro, será retornado o conteúdo original */
-   }
-   finally {
-
+   } finally {
       return content;
    }
-}
+};
 
 export default processPHP;

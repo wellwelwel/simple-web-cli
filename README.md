@@ -15,137 +15,180 @@
 ```shell
    npm i simple-web-cli -D  # to download the dependencies
 ```
+
 ```shell
    npx sw  # to start the service
 ```
+
 <hr />
 
 ### Development
-* **`scr`** is the directory of development
-* **`dist`** is the directory with the compiled code
+
+-  **`scr`** is the directory of development
+-  **`dist`** is the directory with the compiled code
 <hr />
 
 ### Commands
-   * `npx sw` or `npx sw start`: prepares the environment and starts the service
-   * `npx sw init`: prepares the environment without starting the service
-   * `npx sw build`: compiles the contents from `src` and zips it to `release.zip`
+
+-  `npx sw` or `npx sw start`: prepares the environment and starts the service
+-  `npx sw init`: prepares the environment without starting the service
+-  `npx sw build`: compiles the contents from `src` and zips it to `release.zip`
 <hr />
 
 ### Using
-   * Once the process is started, the event occurs by **saving any file** into `src`.
+
+-  Once the process is started, the event occurs by **saving any file** into `src`.
 <hr />
 
 ### <img src="/.github/assets/readme/logo.svg" width="20" /> Features
 
-   #### HTML Import
-   * You can import `.html` files recursively, based on the `scss` import, for example:
-      
-      ```html
-         <html>
-            <body>
-               <!-- import('./views/_header.html') -->
-               <section>
-                  <!-- import('./views/_main.html') -->
-               </section>
-               <!-- import('../_footer.html') -->
-            </body>
-         </html>
-      ```
+#### HTML Import
+
+-  You can import `.html` files recursively, based on the `scss` import, for example:
+   ```html
+   <html>
+      <body>
+         <!-- import('./views/_header.html') -->
+         <section>
+            <!-- import('./views/_main.html') -->
+         </section>
+         <!-- import('../_footer.html') -->
+      </body>
+   </html>
+   ```
    <hr />
 
-   #### Local Modules - Browser
-   * In **JavaScript** (web), it's possible to import local modules saved into `.library`, for example:
-   
-      <ins>`.library/my-script/index.js`</ins>
-      
-      ```javascript
-         /* for entire file import */
-         require('web/my-script');
+#### Local Modules - Browser
 
-         /* to import the default module into a variable */
-         const my_script = require('web/my-script');
+-  In **JavaScript** (web), it's possible to import local modules saved into `.library`, for example:
 
-         /* to import the modules by destronstuct variables */
-         const { my_script1, my_script2 }  = require('web/my-script');
+   <ins>`.library/my-script/index.js`</ins>
 
-         /* to import the module into a variable with a custom name */
-         const my_name_var = require('web/my-script').my_script1;
-      ```
+   ```javascript
+   /* for entire file import */
+   require('web/my-script');
+
+   /* to import the default module into a variable */
+   const my_script = require('web/my-script');
+
+   /* to import the modules by destronstuct variables */
+   const { my_script1, my_script2 } = require('web/my-script');
+
+   /* to import the module into a variable with a custom name */
+   const my_name_var = require('web/my-script').my_script1;
+   ```
+
    <hr />
 
-   #### Enable the FTP
-   * In the file **`.swrc.js`**, just insert the acess infos:
-      ```javascript
-      {
-         ftp: {
-            root: '_ROOT_DIRECTORY_',
-            host: '_IP_',
-            user: '_USER_',
-            pass: '_PASSWORD_',
-            secure: true || 'explict'
-         }
+#### Enable the FTP
+
+-  In the file **`.swrc.js`**, just insert the acess infos:
+
+   ```javascript
+   {
+      ftp: {
+         root: '_ROOT_DIRECTORY_',
+         host: '_IP_',
+         user: '_USER_',
+         pass: '_PASSWORD_',
+         secure: true || 'explict'
       }
-      ```
+   }
+   ```
 
-   * Assuming the **`root`** directory is <ins>`/var/www`</ins>, the input and output of the directories would be:
+-  Assuming the **`root`** directory is <ins>`/var/www`</ins>, the input and output of the directories would be:
 
-      - **Development:** <ins>`src/html/index.html`</ins>  
-      - **Distribution:** <ins>`dist/html/index.html`</ins>  
-      - **FTP:** <ins>`/var/www/html/index.html`</ins>  
+   -  **Development:** <ins>`src/html/index.html`</ins>
+   -  **Distribution:** <ins>`dist/html/index.html`</ins>
+   -  **FTP:** <ins>`/var/www/html/index.html`</ins>
    <hr />
-
 
 ### <img src="/.github/assets/readme/logo.svg" width="20" /> Some Examples
+
 <details>
 <summary>View examples</summary>
 
 #### HTML
+
 `INPUT`
+
 ```html
-   <div>
-      <h1>Title</h1>
-      <p>Paragraph</p>
-   </div>
+<div>
+   <h1>Title</h1>
+   <p>Paragraph</p>
+</div>
 ```
+
 `OUTPUT`
+
 ```html
-   <div><h1>Title</h1><p>Paragraph</p></div>
+<div>
+   <h1>Title</h1>
+   <p>Paragraph</p>
+</div>
 ```
+
 <hr />
 
 #### CSS | Sass
-`INPUT` 
+
+`INPUT`
+
 ```css
-   div {
-      display: flex;
-   }
+div {
+   display: flex;
+}
 ```
+
 `OUTPUT`
+
 ```css
-   div{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}
+div {
+   display: -webkit-box;
+   display: -webkit-flex;
+   display: -moz-box;
+   display: -ms-flexbox;
+   display: flex;
+}
 ```
+
 <hr />
 
 #### JavaScript
-`INPUT`
-```javascript
-   (() => {
-      require('web/selector');
 
-      const element = s('body');
-      const inElement = sEl(element, 'div');
-      const elements = sAll('.class');
-      const elementsInElement = sElAll(element, '.class');
-   })();
-```
-`OUTPUT`
+`INPUT`
+
 ```javascript
-   "use strict";!function(){var e,c,l,r,t=(e="body",document.querySelector(e));c="div",t.querySelector(c),l=".class",document.querySelectorAll(l),r=".class",t.querySelectorAll(r)}();
+(() => {
+   require('web/selector');
+
+   const element = s('body');
+   const inElement = sEl(element, 'div');
+   const elements = sAll('.class');
+   const elementsInElement = sElAll(element, '.class');
+})();
 ```
+
+`OUTPUT`
+
+```javascript
+'use strict';
+!(function () {
+   var e,
+      c,
+      l,
+      r,
+      t = ((e = 'body'), document.querySelector(e));
+   (c = 'div'), t.querySelector(c), (l = '.class'), document.querySelectorAll(l), (r = '.class'), t.querySelectorAll(r);
+})();
+```
+
 <hr />
 
 #### PHP | PHTML
+
 `INPUT`
+
 ```php
 <?
    $var = 'text'
@@ -155,14 +198,19 @@
    <?=$var?>
 </div>
 ```
+
 `OUTPUT`
+
 ```php
   <?php $var='text'?><div><?=$var?></div>
 ```
+
 <hr />
 
 #### Apache (.htaccess, php.ini)
+
 `INPUT`
+
 ```apache
 # comment
 <Directory /var/www/>
@@ -170,56 +218,64 @@
    Options Indexes FollowSymLinks MultiViews
 </Directory>
 ```
+
 `OUTPUT`
+
 ```apache
 <Directory /var/www/>
 Options Indexes FollowSymLinks MultiViews
 </Directory>
 ```
+
 <hr />
 
 #### Strings Replacement
-   * You can create an easy to read code and on compiling, replace the specified strings, for example:
- 
-   <ins>`.swrc.js`</ins>
-   
-   ```javascript
-   {
-      strings: {
-         '*token*': {
-            start: '0cfcda42c340dad5616e0b7449a5634b',
-            build: '0cfcda42c340dad5616e0b7449a5634b'
-         },
-         '*site-name*': {
-            start: 'dev.weslley.io',
-            build: 'weslley.io'
-         }
+
+-  You can create an easy to read code and on compiling, replace the specified strings, for example:
+
+<ins>`.swrc.js`</ins>
+
+```javascript
+{
+   strings: {
+      '*token*': {
+         start: '0cfcda42c340dad5616e0b7449a5634b',
+         build: '0cfcda42c340dad5616e0b7449a5634b'
+      },
+      '*site-name*': {
+         start: 'dev.weslley.io',
+         build: 'weslley.io'
       }
    }
-   ```
+}
+```
 
-   `INPUT`
-   ```php
-   <?
-      $_POST['*token*'];
-      $site = '*site-name*';
-   ```
+`INPUT`
 
-   `OUTPUT DEV (npx sw)`
-   ```php
-   <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
-   ```
+```php
+<?
+   $_POST['*token*'];
+   $site = '*site-name*';
+```
 
-   `OUTPUT BUILD (npx sw build)`
-   ```php
-   <?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
-   ```
+`OUTPUT DEV (npx sw)`
 
-   * Works for any language that is enabled in `.swrc.js`
+```php
+<?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='dev.weslley.io';
+```
+
+`OUTPUT BUILD (npx sw build)`
+
+```php
+<?php $_POST['0cfcda42c340dad5616e0b7449a5634b'];$site='weslley.io';
+```
+
+-  Works for any language that is enabled in `.swrc.js`
 <hr />
 
 #### Miscellaneous Files
- * Only uploads the original file to the output directories
+
+-  Only uploads the original file to the output directories
 </details>
 <hr />
 
@@ -230,24 +286,30 @@ Options Indexes FollowSymLinks MultiViews
 ![Windows](/.github/assets/readme/windows.svg)
 ![node](/.github/assets/readme/node.svg)
 ![npm](/.github/assets/readme/npm.svg)
+
 <hr />
 
 ### License
+
 [![License](/.github/assets/readme/license.svg)](/LICENSE)
 [![3rd-Party Software License](/.github/assets/readme/3rd-license.svg)](/docs/LICENSE_THIRD_PARTY.md)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web?ref=badge_small)
+
 <hr />
 
 ### Credits
-| Contributors | GitHub |
-|-|-|
-| Author | [![wellwelwel](/.github/assets/readme/author.svg)](https://github.com/wellwelwel) |
-| Translate en-US | [![SrLaco](/.github/assets/readme/translate.svg)](https://github.com/SrLaco) |
+
+| Contributors     | GitHub                                                                                          |
+| ---------------- | ----------------------------------------------------------------------------------------------- |
+| Author           | [![wellwelwel](/.github/assets/readme/author.svg)](https://github.com/wellwelwel)               |
+| Translate en-US  | [![SrLaco](/.github/assets/readme/translate.svg)](https://github.com/SrLaco)                    |
 | Translate Review | [![micaele-mags](/.github/assets/readme/translate-review.svg)](https://github.com/micaele-mags) |
+
 <hr />
 
 <p>
 
-__Made with *sadness* and *sorrow* in rainy nights by [Weslley Araújo](https://github.com/wellwelwel)__ 🥺
+**Made with _sadness_ and _sorrow_ in rainy nights by [Weslley Araújo](https://github.com/wellwelwel)** 🥺
+
 </p>

@@ -5,10 +5,8 @@ import empty from '../empty.js';
 import resourceReplace from '../resource-replace.js';
 import exec from '../execShellCommand.js';
 
-const post_process = async (options = { }) => {
-
+const post_process = async (options = {}) => {
    const rejectTypes = [
-
       // Images
       /\.tiff$/i,
       /\.tif$/i,
@@ -114,34 +112,28 @@ const post_process = async (options = { }) => {
    ];
 
    const config = {
-
       src: options.src || false,
       to: options.to || false,
       local: options.local || 'start',
-      response: options.response || false
+      response: options.response || false,
    };
    const { src, to, local, response } = config;
 
    if (!response) {
-
       if (!src || !to) return false;
       if (!fs.existsSync(src)) return false;
    }
 
    const get_replaces = post_replace();
-   const isValid = !rejectTypes.some(regex => regex.test(extname(src)));
+   const isValid = !rejectTypes.some((regex) => regex.test(extname(src)));
    const fileType = src.split('.').pop().toLowerCase();
    const isReplaceable = () => {
-
       try {
-
          if (get_replaces.config === true) return true;
          if (get_replaces.config[fileType] === true) return true;
          if (get_replaces.config.others === true) return true;
          return false;
-      }
-      catch(e) {
-
+      } catch (e) {
          return false;
       }
    };
@@ -149,7 +141,6 @@ const post_process = async (options = { }) => {
    const sampleContent = resourceReplace(src, local) || src;
 
    if (!isValid) {
-
       await exec(`mkdir -p ${dirname(to)} && cp ${sampleContent} ${to}`);
 
       return 'skip-this-file';
@@ -158,22 +149,23 @@ const post_process = async (options = { }) => {
    let content = fs.readFileSync(sampleContent, 'utf8');
 
    try {
-
       if (isReplaceable()) {
-
          let new_content = content;
 
          for (const string in get_replaces.strings) {
-
-            if (string.split('*').length === 3 && string.substring(0, 1) === '*' && string.substring(string.length, string.length - 1) === '*') {
-
-               const regex = RegExp(string.replace(/\*/gim, '\\\*'), 'gim');
+            if (
+               string.split('*').length === 3 &&
+               string.substring(0, 1) === '*' &&
+               string.substring(string.length, string.length - 1) === '*'
+            ) {
+               const regex = RegExp(string.replace(/\*/gim, '\\*'), 'gim');
                let stringToReplace = get_replaces?.strings[string][local];
 
                if (!stringToReplace || empty(stringToReplace)) {
-
-                  if (local === 'start' && !empty(get_replaces.strings[string]['build'])) stringToReplace = get_replaces.strings[string]['build'];
-                  else if (local === 'build' && !empty(get_replaces.strings[string]['start'])) stringToReplace = get_replaces.strings[string]['start'];
+                  if (local === 'start' && !empty(get_replaces.strings[string]['build']))
+                     stringToReplace = get_replaces.strings[string]['build'];
+                  else if (local === 'build' && !empty(get_replaces.strings[string]['start']))
+                     stringToReplace = get_replaces.strings[string]['start'];
                   else stringToReplace = '';
                }
 
@@ -183,13 +175,11 @@ const post_process = async (options = { }) => {
 
          if (!!new_content) content = new_content;
       }
-   }
-   catch(e) { }
-   finally {
-
-      if (response === true) return content
+   } catch (e) {
+   } finally {
+      if (response === true) return content;
       else fs.writeFileSync(to, content);
    }
-}
+};
 
 export default post_process;

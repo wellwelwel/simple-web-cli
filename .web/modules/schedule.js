@@ -1,55 +1,44 @@
 /* Schedules a async services queue */
 
 class Schedule {
-
    constructor() {
-
       this.scheduling = {
-
          /* Attendance status */
          busy: false,
          /* Store queued services */
-         queuing: [ ],
+         queuing: [],
          started: false,
          /**
           * Service (function)
           * Name of current service in attendance (optional)
-         **/
+          **/
          current: '',
-         exceed: [ ]
+         exceed: [],
       };
 
-      this.queue = function(callback, name = '') {
-
+      this.queue = function (callback, name = '') {
          const { queuing, exceed } = this.scheduling;
 
          /* Add to queue */
          if (this.scheduling.started === false) {
-
             queuing.push({
-
                name: name,
-               service: callback
+               service: callback,
             });
-         }
-         else {
-
+         } else {
             exceed.push({
-
                name: name,
-               service: callback
+               service: callback,
             });
          }
       };
 
       /* Starts attendance */
-      this.start = async function(options) {
-
+      this.start = async function (options) {
          const set_options = {
-
             type: options?.type || 'recursive',
             timeInterval: options?.timeInterval || 0,
-            recursive: options?.recursive || true
+            recursive: options?.recursive || true,
          };
 
          this.scheduling.started = true;
@@ -57,11 +46,8 @@ class Schedule {
          const { queuing, exceed } = this.scheduling;
 
          const recursive = async () => {
-
             const waiting = setInterval(async () => {
-
                for (const key in queuing) {
-
                   /* Wait if another service is already in attendance */
                   if (this.scheduling.busy === true) return;
 
@@ -80,11 +66,8 @@ class Schedule {
                }
 
                if (queuing.length === 0) {
-
                   if (exceed.length > 0) queuing.push(exceed.shift());
-                  /* Ends attendance if the queue is empty */
-                  else if (exceed.length === 0) {
-
+                  /* Ends attendance if the queue is empty */ else if (exceed.length === 0) {
                      this.scheduling.started = false;
                      clearInterval(waiting);
 
@@ -95,14 +78,14 @@ class Schedule {
          };
 
          const timeInterval = () => {
-
             let timer = 0;
-            for (const key in queuing) setTimeout(async () => await queuing[key].service(), timer += set_options.timeInterval);
+            for (const key in queuing)
+               setTimeout(async () => await queuing[key].service(), (timer += set_options.timeInterval));
          };
 
-         set_options.type === 'recursive' === true ? await recursive() : timeInterval();
+         (set_options.type === 'recursive') === true ? await recursive() : timeInterval();
       };
-   };
+   }
 }
 
 export default Schedule;

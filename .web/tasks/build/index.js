@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import fs from 'fs';
 import archiver from 'archiver';
@@ -21,7 +21,6 @@ import postProcess from '../../modules/process-files/post-process-replace.js';
 import rmTemp from '../../modules/rmTemp.js';
 
 (async () => {
-
    const loading = new draft(`${sh.bold}Building`, 'circle');
 
    await deleteDS_Store();
@@ -32,9 +31,7 @@ import rmTemp from '../../modules/rmTemp.js';
    await watchClose();
 
    try {
-
       async function buildFiles() {
-
          const files = await listFiles(source);
          const types = [];
          const typesOver = [];
@@ -43,11 +40,9 @@ import rmTemp from '../../modules/rmTemp.js';
          let blacklistCount = 0;
 
          for (const file of files) {
-
             const type = `.${file.split('.').pop()}`;
 
             if (type.length >= 10 || types.length >= 10) {
-
                if (!typesOver.includes(type)) typesOver.push(type);
                continue;
             }
@@ -57,21 +52,19 @@ import rmTemp from '../../modules/rmTemp.js';
 
          const moreTypes = typesOver.length > 0 ? ` and ${typesOver.length} more` : '';
          const loading = new draft('', `dots`, false);
-         const prefix = () => `Compiling ${sh.bold}${sh.blue}${count}${sh.reset}${sh.dim}${sh.white} of ${sh.reset}${sh.bold}${sh.blue}${files.length}${sh.reset} files: `;
+         const prefix = () =>
+            `Compiling ${sh.bold}${sh.blue}${count}${sh.reset}${sh.dim}${sh.white} of ${sh.reset}${sh.bold}${sh.blue}${files.length}${sh.reset} files: `;
 
          loading.start();
 
          if (files.length === 0) {
-
             loading.stop(1, 'Nothing to compile');
             return;
          }
 
          for (const file of files) {
-
-            const inBlacklist = blacklist.some(item => !!file.match(vReg(item, 'gi')));
+            const inBlacklist = blacklist.some((item) => !!file.match(vReg(item, 'gi')));
             if (inBlacklist) {
-
                blacklistCount++;
 
                continue;
@@ -82,29 +75,27 @@ import rmTemp from '../../modules/rmTemp.js';
             const fileType = file.split('.').pop().toLowerCase();
             const finalFile = file.replace(source, to);
 
-            let pathFile = file.split(sep); pathFile.pop(); pathFile = pathFile.join(sep);
+            let pathFile = file.split(sep);
+            pathFile.pop();
+            pathFile = pathFile.join(sep);
 
             /* pre processed files */
             if (fileType === 'js') await processJS(file, to, 'build', false);
             else if (fileType === 'scss' || fileType === 'css') await processCSS(file, to, 'build');
             else {
-
                /* post process */
                const original = await postProcess({ src: file, response: true, local: 'build', to: finalFile });
                let minified = false;
 
                if (original !== 'skip-this-file') {
-
                   /* specials */
                   if (!no_process(file)) {
-
                      if (fileType === 'php' || fileType === 'phtml') minified = await processPHP(original);
-                     else if (fileType === 'html')  minified = await processHTML(original, file);
-                     else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
+                     else if (fileType === 'html') minified = await processHTML(original, file);
+                     else if (fileType === 'htaccess') minified = await processHTACCESS(original);
                   }
 
                   if (minified !== 'skip-this-file') {
-
                      createDir(pathFile.replace(source, to));
                      fs.writeFileSync(finalFile, !minified ? original : minified);
                   }
@@ -115,11 +106,11 @@ import rmTemp from '../../modules/rmTemp.js';
          }
 
          loading.stop(1, `${prefix()}${sh.blue}${types.join(', ')}${moreTypes}`);
-         if (blacklistCount > 0) console.log(`${sh.blue}ℹ ${sh.reset}${sh.bold}${blacklistCount}${sh.reset} file(s) in Blacklist`);
+         if (blacklistCount > 0)
+            console.log(`${sh.blue}ℹ ${sh.reset}${sh.bold}${blacklistCount}${sh.reset} file(s) in Blacklist`);
       }
 
       async function resolveConflicts() {
-
          const loading = new draft(`Resolving possible conflicts`);
 
          if (fs.existsSync(`${final}.zip`)) fs.unlinkSync(`${final}.zip`);
@@ -129,12 +120,10 @@ import rmTemp from '../../modules/rmTemp.js';
       }
 
       async function gerarDeploy() {
-
          const loading = new draft(`Compressing built files`);
 
          try {
-
-            const files = await listFiles(to) || [];
+            const files = (await listFiles(to)) || [];
             const output = fs.createWriteStream(`${final}.zip`);
             const archive = archiver('zip', { zlib: { level: build?.level || 0 } });
 
@@ -143,15 +132,12 @@ import rmTemp from '../../modules/rmTemp.js';
             await archive.finalize();
 
             loading.stop(1, `Successfully compressed into: ${sh.underscore}${sh.blue}${sh.bold}./${final}.zip`);
-         }
-         catch (error) {
-
+         } catch (error) {
             loading.stop(1, `Nothing to compress`);
          }
       }
 
       async function clearTemp() {
-
          const loading = new draft(`Deleting temporary files`);
 
          await rmTemp();
@@ -163,9 +149,7 @@ import rmTemp from '../../modules/rmTemp.js';
       }
 
       function msToTime(s) {
-
          function pad(n, z) {
-
             z = z || 2;
 
             return ('00' + n).slice(-z);
@@ -192,9 +176,7 @@ import rmTemp from '../../modules/rmTemp.js';
 
       console.log();
       loading.stop(1, `Finished in ${sh.green}${msToTime(performance.now() - startTime)}`);
-   }
-   catch(e) {
-
+   } catch (e) {
       loading.stop(0, `${sh.red}Error: ${sh.reset}${e}`);
       process.exit(1);
    }

@@ -870,7 +870,7 @@ _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
           console.error("Command \"".concat(arg, "\" not found.").concat(EOL, "Use \"init\", \"start\" or \"build\".").concat(EOL));
           return _context.abrupt("return");
         case 12:
-          importing = new draft("Importing required local modules: ".concat(sh$1.green).concat(sh$1.dim, "[ ").concat(sh$1.italic, "autoprefixer, babel, postcss, sass and uglifyjs").concat(sh$1.reset).concat(sh$1.green).concat(sh$1.dim, " ]"));
+          importing = new draft("Importing required local modules: ".concat(sh$1.green).concat(sh$1.dim, "[ ").concat(sh$1.italic, "autoprefixer, rollup, postcss, sass and uglifyjs").concat(sh$1.reset).concat(sh$1.green).concat(sh$1.dim, " ]"));
           _iterator = _createForOfIteratorHelper(requires.dirs);
           _context.prev = 14;
           _iterator.s();

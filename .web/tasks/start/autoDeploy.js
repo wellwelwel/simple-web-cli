@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import fs from 'fs';
 import watch from 'node-watch';
@@ -23,9 +23,8 @@ import Schedule from '../../modules/schedule.js';
 import serverOSNormalize from '../../modules/server-os-normalize.js';
 
 export default async () => {
-
    const loading = {
-      ftp: new draft('', `circle`, false)
+      ftp: new draft('', `circle`, false),
    };
 
    console.log();
@@ -33,16 +32,13 @@ export default async () => {
    loading.ftp.start();
    loading.ftp.string = `${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`;
 
-
    const { host, user, pass } = dev.ftp;
    const pre_connect = !empty(host) || !empty(user) || !empty(pass);
    const conn = pre_connect ? await FTP.connect(dev.ftp) : false;
    if (!conn) {
-
       FTP.client.close();
       loading.ftp.stop(3, `${sh.dim}${sh.bold}FTP:${sh.reset}${sh.dim} No connected`);
-   }
-   else loading.ftp.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.dim}Connected`);
+   } else loading.ftp.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.dim}Connected`);
 
    const deploy = new Schedule();
    const watcherSource = watch(source, { recursive: true });
@@ -50,15 +46,12 @@ export default async () => {
    const watcherModules = watch('.library', { recursive: true });
 
    const onSrc = async (event, file) => {
-
       if (!!file.match(/DS_Store/)) {
-
          await deleteDS_Store();
          return;
       }
 
       if (file === `${source}${sep}exit`) {
-
          FTP.client.close();
          watcherSource.close();
          watcherMain.close();
@@ -66,9 +59,8 @@ export default async () => {
          process.exit(0);
       }
 
-      const inBlacklist = blacklist.some(item => !!file.match(vReg(item, 'gi')));
+      const inBlacklist = blacklist.some((item) => !!file.match(vReg(item, 'gi')));
       if (inBlacklist) {
-
          console.log(`${sh.blue}ℹ${sh.reset} Ignoring file in blacklist: "${sh.bold}${file}${sh.reset}"`);
          return;
       }
@@ -85,10 +77,11 @@ export default async () => {
       const fileType = file.split('.').pop().toLowerCase();
       const finalFile = file.replace(source, to);
 
-      let pathFile = file.split(sep); pathFile.pop(); pathFile = pathFile.join(sep);
+      let pathFile = file.split(sep);
+      pathFile.pop();
+      pathFile = pathFile.join(sep);
 
       if (event === 'update') {
-
          log.building.start();
          log.building.string = `Building ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
 
@@ -96,35 +89,27 @@ export default async () => {
 
          /* pre processed files */
          if (fileType === 'js') {
-
             const request = await processJS(file);
 
             if (!request) status = 0;
-         }
-         else if (fileType === 'scss' || fileType === 'css') {
-
+         } else if (fileType === 'scss' || fileType === 'css') {
             const request = await processCSS(file);
 
             if (!request) status = 0;
-         }
-         else {
-
+         } else {
             /* post process */
             const original = await postProcess({ src: file, response: true, to: finalFile });
             let minified = false;
 
             if (original !== 'skip-this-file') {
-
                /* specials */
                if (!no_process(file)) {
-
                   if (fileType === 'php' || fileType === 'phtml') minified = await processPHP(original);
-                  else if (fileType === 'html')  minified = await processHTML(original, file);
-                  else if (fileType === 'htaccess')  minified = await processHTACCESS(original);
+                  else if (fileType === 'html') minified = await processHTML(original, file);
+                  else if (fileType === 'htaccess') minified = await processHTACCESS(original);
                }
 
                if (minified !== 'skip-this-file') {
-
                   createDir(pathFile.replace(source, to));
                   fs.writeFileSync(finalFile, !minified ? original : minified);
                }
@@ -132,18 +117,14 @@ export default async () => {
          }
 
          log.building.stop(status);
-      }
-      else if (event === 'remove') {
-
+      } else if (event === 'remove') {
          log.building.start();
          log.building.string = `Removed ${sh.dim}from${sh.reset} "${sh.bold}${type(file)}${file}${sh.reset}"`;
 
          if (isDir) fs.rmSync(finalFile, { recursive: true, force: true });
          else {
-
             if (fs.existsSync(finalFile)) fs.unlinkSync(finalFile);
             if (fileType === 'scss') {
-
                if (fs.existsSync(finalFile.replace('.scss', '.css'))) fs.unlinkSync(finalFile.replace('.scss', '.css'));
             }
          }
@@ -155,9 +136,7 @@ export default async () => {
    watcherSource.on('change', (event, file) => onSrc(event, file));
 
    watcherMain.on('change', async (event, file) => {
-
       if (!!file.match(/DS_Store/)) {
-
          await deleteDS_Store();
          return;
       }
@@ -165,7 +144,6 @@ export default async () => {
       const connected = await isConnected();
 
       async function deployFile() {
-
          const log = { status: new draft('', `dots`, false) };
          if (connected && conn) log.deploy = new draft('', `dots`, false);
 
@@ -174,18 +152,30 @@ export default async () => {
 
          /* shows file or directory that is in attendance */
          if (event == 'update') {
-
-            log.status.stop(1, `Copied ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
-            if (connected && conn) log.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
-         }
-         else {
-
-            log.status.stop(1, `Removed ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${deploy.scheduling.current}${sh.reset}"`);
-            if (connected && conn) log.deploy.string = `Removing ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
+            log.status.stop(
+               1,
+               `Copied ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${
+                  deploy.scheduling.current
+               }${sh.reset}"`
+            );
+            if (connected && conn)
+               log.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${
+                  sh.bold
+               }${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
+         } else {
+            log.status.stop(
+               1,
+               `Removed ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${sh.bold}${
+                  deploy.scheduling.current
+               }${sh.reset}"`
+            );
+            if (connected && conn)
+               log.deploy.string = `Removing ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${
+                  sh.bold
+               }${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
          }
 
          if (connected && conn) {
-
             const action = event == 'update' ? await FTP.send(file, deploy) : await FTP.remove(file, isDir);
 
             log.deploy.stop(!!action ? 1 : 0, FTP.client.error);
@@ -200,9 +190,7 @@ export default async () => {
    });
 
    watcherModules.on('change', async (event, file) => {
-
       if (!!file.match(/DS_Store/)) {
-
          await deleteDS_Store();
          return;
       }
@@ -216,11 +204,10 @@ export default async () => {
       const js = await listFiles(source, 'js', requiredResources);
 
       for (const dependence of js) {
-
          const file_dependence = fs.readFileSync(dependence, 'utf8');
          const to_process = !!file_dependence.match(required);
 
-         to_process && await onSrc('update', dependence);
+         to_process && (await onSrc('update', dependence));
       }
    });
 

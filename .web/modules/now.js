@@ -1,7 +1,6 @@
 'use strict';
 
 export default () => {
-
    const d = new Date();
 
    let n = '';

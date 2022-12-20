@@ -6,7 +6,6 @@ release
 src/exit
 .library/addEventListener
 .library/selector
-.library/package.json
 
 # Node.js
 node_modules

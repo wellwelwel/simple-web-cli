@@ -14,7 +14,6 @@ import vReg from '../vReg.js';
 import { sh } from '../sh.js';
 
 const requiredResources = process_files.js.require;
-const packageName = JSON.parse(fs.readFileSync('.library/package.json', 'utf8'));
 
 function getLine(search, content) {
    const index = content.indexOf(search);
@@ -24,128 +23,7 @@ function getLine(search, content) {
 }
 
 async function recursive_require(file, replace) {
-   const backup = await postProcess({ src: file, response: true, local: replace });
-   const requireds = backup.match(/((const|let|var).*?{?(.*)}?.*)?require\((.*?)\)(.\w+)?;?/gim);
-
-   let content = backup;
-
-   for (const required in requireds) {
-      try {
-         let fixPath = requireds[required].replace(/\.\.\//gim, '').replace('./', '');
-         const origins = requiredResources.split(sep);
-         if (origins.length > 1) origins.forEach((folder) => (fixPath = fixPath.replace(folder, '')));
-         else fixPath = fixPath.replace(requiredResources, '');
-
-         const regex = /(require\([''`])(.+?)([''`]\);?)/;
-         const requiredName = regex.exec(fixPath)[2].replace(RegExp(packageName.name.replace(/\//, '\\/'), 'gim'), '');
-         const exist_require = () => {
-            const required_path = normalize(`${requiredResources}${sep}${requiredName}`);
-
-            if (fs.existsSync(`${required_path}${sep}index.js`)) return `${required_path}${sep}index.js`;
-
-            throw `The file "${sh.yellow}${required_path}${sep}index.js${
-               sh.reset
-            }" was not found in the library. Line ${getLine(requireds[required], backup)} from "${sh.yellow}${file}${
-               sh.reset
-            }"`;
-         };
-
-         const require = exist_require();
-
-         // Check module
-         let current = fs.readFileSync(require, 'utf-8');
-         let outputContent = '';
-
-         const outputModule = /module|exports/;
-         const isModule = outputModule.test(current) ? outputModule.exec(current)[2] : false;
-
-         if (typeof isModule !== 'boolean') {
-            const evalResources = eval(current);
-
-            if (typeof evalResources === 'object') {
-               const pipeModules = [];
-               const isPipe =
-                  /require.*\.(?<getModules>\w+)/gim.exec(requireds[required].replace(/\s/gm, ''))?.groups
-                     ?.getModules || false;
-               const nameVarPipe =
-                  /(const|let|var).*?(?<getPipeModule>\w+).*?require/.exec(requireds[required])?.groups
-                     ?.getPipeModule || false;
-
-               if (isPipe) pipeModules.push(isPipe);
-
-               const requiredModules = isPipe
-                  ? pipeModules
-                  : /{\s?(?<getModules>.*)\s?}.*?=.*?require/gim
-                       .exec(requireds[required].replace(/\s/gm, ''))
-                       ?.groups?.getModules.split(',') || [];
-
-               for (const key in evalResources) {
-                  const typeVAR = requireds[required].match(/const|let|var/gim);
-
-                  if (requiredModules.includes(key)) {
-                     if (typeof evalResources[key] !== 'function') {
-                        current = current
-                           .replace(/([^:\/\/])(\/{2}.*?)|((\/\*[\s\S]*?\*\/|^\s*$)|(module|exports).+;?)/gim, '')
-                           .trim();
-                        outputContent += `// Imported from '${require}'${EOL}${current}${EOL}`;
-
-                        continue;
-                     }
-
-                     if (!!typeVAR)
-                        outputContent += `// Imported from '${require}'${EOL}${typeVAR} ${
-                           isPipe ? nameVarPipe : key
-                        } = ${evalResources[key]};${EOL}`;
-                     else
-                        console.log(
-                           `${sh.red}⚠${sh.reset} Bad module call in "${sh.yellow}${file}${sh.reset}": ${getLine(
-                              requireds[required],
-                              backup
-                           )}`
-                        );
-                  } else if (!typeVAR) {
-                     console.log(
-                        `${sh.red}⚠${sh.reset} No variable type defined for the module in "${sh.yellow}${file}${
-                           sh.reset
-                        }": ${getLine(requireds[required], backup)}`
-                     );
-                  }
-               }
-
-               requiredModules.forEach((wrongModule) => {
-                  if (evalResources[wrongModule]) return;
-
-                  console.log(
-                     `${sh.red}⚠${sh.reset} "${wrongModule}" not found in "${sh.yellow}${require}${
-                        sh.reset
-                     }". Line: ${getLine(wrongModule, backup)} from "${sh.yellow}${file}${sh.reset}"`
-                  );
-               });
-            } else if (typeof evalResources === 'function') {
-               const typeVAR = requireds[required].match(/const|let|var/gim) || false;
-               const nameVAR = /(const|let|var).*?(?<nameVAR>\w+)/.exec(requireds[required])?.groups?.nameVAR || false;
-
-               if (!!typeVAR && !!nameVAR)
-                  outputContent += `// Imported from '${require}'${EOL}${typeVAR} ${nameVAR} = ${evalResources};`;
-               else {
-                  outputContent += `// Imported from '${require}'${EOL}${evalResources.toString()}${EOL}`;
-               }
-            }
-         } else {
-            current = current.replace(/([^:\/\/])(\/{2}.*?)|((\/\*[\s\S]*?\*\/|^\s*$))/gim, '').trim();
-            outputContent += `// Imported from '${require}'${EOL}${current}${EOL}`;
-         }
-
-         /* Recursive Library */
-         if (regex.test(outputContent)) outputContent = await recursive_require(require, replace);
-
-         content = content.replace(requireds[required], outputContent);
-      } catch (e) {
-         console.log(`${sh.red}⚠${sh.reset} ${e}`);
-      }
-   }
-
-   return content;
+   return await postProcess({ src: file, response: true, local: replace });
 }
 
 async function processJS(file, local = false, replace = 'start') {

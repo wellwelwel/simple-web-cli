@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import { normalize, dirname, basename, sep } from 'path';
 import { EOL } from 'os';
@@ -10,7 +10,6 @@ import { sh } from '../sh.js';
 import listFiles from '../listFiles.js';
 
 function getLine(search, content) {
-
    const index = content.indexOf(search);
    const tempString = content.substring(0, index);
 
@@ -18,23 +17,25 @@ function getLine(search, content) {
 }
 
 const putHTML = (content, file) => {
-
    const importRegex = /<!--.*?import\(("|')(.*)("|')\).*?-->/gim;
-   const getImports = content.match(importRegex) || [ ];
+   const getImports = content.match(importRegex) || [];
 
    if (getImports.length > 0) {
-
       const backup = content;
 
-      getImports.forEach(importHTML => {
-
-         const extractPath = /<!--.*?import\(("|')(?<import>.*)("|')\).*?-->/gim.exec(importHTML)?.groups?.import || false;
+      getImports.forEach((importHTML) => {
+         const extractPath =
+            /<!--.*?import\(("|')(?<import>.*)("|')\).*?-->/gim.exec(importHTML)?.groups?.import || false;
          const finalPath = normalize(`${dirname(file)}/${extractPath.replace(/(^\.?\/)/gm, '')}`);
          const toReplace = vReg(importHTML, 'gim');
 
          if (!fs.existsSync(finalPath)) {
-
-            console.log(`${sh.red}⚠${sh.reset} "${sh.cyan}${extractPath}${sh.reset}" not found. Line ${getLine(importHTML, backup)} from "${sh.cyan}${file}${sh.reset}"`);
+            console.log(
+               `${sh.red}⚠${sh.reset} "${sh.cyan}${extractPath}${sh.reset}" not found. Line ${getLine(
+                  importHTML,
+                  backup
+               )} from "${sh.cyan}${file}${sh.reset}"`
+            );
             return;
          }
 
@@ -50,17 +51,13 @@ const putHTML = (content, file) => {
 };
 
 const processHTML = async (content, file) => {
-
    const exclude_require = process_files?.html?.exclude?.htmlImport || false;
 
    let doImport = true;
 
    if (exclude_require) {
-
       for (const exclude of exclude_require) {
-
          if (RegExp(exclude, 'gm').test(basename(file))) {
-
             doImport = false;
             break;
          }
@@ -69,22 +66,21 @@ const processHTML = async (content, file) => {
 
    /* Check if other files need this file */
    (async () => {
-
       if (!doImport) return;
 
       const dirs = dirname(file).split(sep);
       const srcFile = basename(file);
-      const preRegex = dirs.map(dir => `(${dir}\/)?`);
+      const preRegex = dirs.map((dir) => `(${dir}\/)?`);
       const finalRegex = new RegExp(`${preRegex.join('')}${srcFile}`, 'gim');
       const files = await listFiles(source, 'html');
 
       for (const searchFile of files) {
-
          if (searchFile === file) continue;
 
          const searchContent = fs.readFileSync(searchFile, 'utf-8');
 
-         if (searchContent.match(finalRegex)) fs.writeFileSync(searchFile.replace(source, to), await processHTML(searchContent, searchFile));
+         if (searchContent.match(finalRegex))
+            fs.writeFileSync(searchFile.replace(source, to), await processHTML(searchContent, searchFile));
       }
    })();
 
@@ -93,9 +89,7 @@ const processHTML = async (content, file) => {
    if (!process_files?.html?.minify) return content;
 
    try {
-
       const new_content = minify(content, {
-
          removeAttributeQuotes: false,
          removeComments: true,
          minifyCSS: true,
@@ -106,13 +100,9 @@ const processHTML = async (content, file) => {
       });
 
       if (!!new_content) content = new_content.trim();
-   }
-   catch(e) {
-
+   } catch (e) {
       /* In case of error, the original content will be returned */
-   }
-   finally {
-
+   } finally {
       const import_like_scss = process_files?.html?.htmlImportLikeSass || false;
 
       if (import_like_scss && /^_(.*).html$/.test(basename(file))) return 'skip-this-file';
