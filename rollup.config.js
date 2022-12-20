@@ -1,4 +1,4 @@
-import { babel } from '@rollup/plugin-babel';
+// import { babel } from '@rollup/plugin-babel';
 
 const setConfig = (input, dir) => ({
    input,
@@ -19,13 +19,13 @@ const setConfig = (input, dir) => ({
       'archiver',
       'perf_hooks',
    ],
-   plugins: [
-      babel({
-         babelHelpers: 'bundled',
-         // presets: ['@babel/preset-env'],
-         // exclude: 'node_modules/**',
-      }),
-   ],
+   // plugins: [
+   //    babel({
+   //       babelHelpers: 'bundled',
+   //       // presets: ['@babel/preset-env'],
+   //       // exclude: 'node_modules/**',
+   //    }),
+   // ],
 });
 
 export default [
