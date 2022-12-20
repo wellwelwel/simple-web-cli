@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
 import fs from 'fs';
-import { extname } from 'path';
+import { extname, resolve as normalize, join } from 'path';
 
 (async () => {
    const sh = async (command) =>
@@ -13,7 +13,7 @@ import { extname } from 'path';
    const tests = {
       'Environment preparation': async () => {
          try {
-            if (fs.existsSync('temp')) {
+            if (fs.existsSync(normalize('./temp'))) {
                console.log('   ➕ Removing previous temporary files...');
                await sh('rm -r "temp"');
             }
@@ -40,17 +40,15 @@ import { extname } from 'path';
             const toTrue = /start: (false)/gm;
             const toFalse = /(initialCommit): (true)/gm;
             const toUncomment = /\/\/\s{0,}(chmod|dir|file|recursive|})/gm;
-            const swrc = fs.readFileSync(source, 'utf-8');
+            const swrc = fs.readFileSync(normalize(source), 'utf-8');
             const result = swrc
                .replace(toTrue, (a) => a.replace(/false/, 'true'))
                .replace(toFalse, (a) => a.replace(/true/, 'false'))
                .replace(toUncomment, (a) => a.replace(/\/\/ /, ''));
 
-            fs.writeFileSync(source, result);
-            fs.copyFileSync(
-               '.github/workflows/resources/tests/.resources/test-resource-replace.html',
-               'temp/.resources/test-resource-replace.html'
-            );
+            fs.writeFileSync(normalize(source), result);
+
+            await sh('cp "./.github/workflows/resources/tests/.resources/test-resource-replace.html" "./temp/.resources/test-resource-replace.html"');
 
             return init;
          } catch (error) {
@@ -67,7 +65,7 @@ import { extname } from 'path';
                expecteds['test.zip'] = {
                   name: 'Zip file: No compile (just copy) and extract to test content',
                   cb: async () => {
-                     if (!fs.existsSync('temp/dist/test.txt')) await sh('cd "temp/dist" && unzip test.zip');
+                     if (!fs.existsSync(normalize('./temp/dist/test.txt'))) await sh('cd "./temp/dist" && unzip "./test.zip"');
                   },
                   ext: 'txt',
                   output: 'Success',
@@ -80,7 +78,11 @@ import { extname } from 'path';
                      let copied = true;
 
                      try {
-                        fs.copyFileSync(`.github/workflows/resources/tests/${expected}`, `temp/src/${expected}`);
+                        const resourcesPath = normalize('./.github/workflows/resources/tests');
+                        const destPath = normalize('./temp/src');
+
+                        await sh(`cp "${join(resourcesPath, expected)}" "${join(destPath, expected)}"`);
+                        // fs.copyFileSync(join(resourcesPath, expected), join(destPath, expected));
                      } catch (error) {
                         copied = false;
                      }
@@ -103,19 +105,19 @@ import { extname } from 'path';
                               resolve();
                            }
 
-                           if (!fs.existsSync(`temp/src/${file}`) && !fs.existsSync(`temp/src/${expected}`)) return;
-                           if (!fs.existsSync(`temp/dist/${file}`) && !fs.existsSync(`temp/dist/${expected}`)) return;
+                           if (!fs.existsSync(normalize(`./temp/src/${file}`)) && !fs.existsSync(normalize(`./temp/src/${expected}`))) return;
+                           if (!fs.existsSync(normalize(`./temp/dist/${file}`)) && !fs.existsSync(normalize(`./temp/dist/${expected}`))) return;
 
                            if (expecteds[expected]?.cb) await expecteds[expected]?.cb();
 
-                           if (fs.readFileSync(`temp/dist/${file}`, 'utf-8')?.trim()?.length === 0) return;
+                           if (fs.readFileSync(normalize(`./temp/dist/${file}`), 'utf-8')?.trim()?.length === 0) return;
 
                            clearInterval(attemp);
                            resolve();
                         }, 100);
                      });
 
-                     const compare = fs.readFileSync(`temp/dist/${file}`, 'utf-8');
+                     const compare = fs.readFileSync(normalize(`./temp/dist/${file}`), 'utf-8');
 
                      console.log(copied && compare === output ? `   \x1b[32m✔\x1b[0m` : `   \x1b[31m✖\x1b[0m`, name);
                      if (!copied || compare !== output) {
@@ -128,7 +130,7 @@ import { extname } from 'path';
                   }
                }
 
-               await sh('cd "temp" && touch "src/exit"');
+               await sh('cd "temp" && touch "./src/exit"');
             }, 5000);
 
             if (!pass(result)) return result;
@@ -139,7 +141,7 @@ import { extname } from 'path';
       },
       'Executing service "build"': async () => {
          try {
-            return await sh('cd "temp" && sw build --TEST');
+            return await sh('cd "./temp" && sw build --TEST');
          } catch (error) {
             return error;
          }
@@ -225,7 +227,7 @@ import { extname } from 'path';
 
       fs.writeFileSync(source, result);
 
-      setTimeout(() => sh('cd "temp" && touch "src/exit"'), 5000);
+      setTimeout(() => sh('cd "./temp" && touch "./src/exit"'), 5000);
 
       const FTP = await sh('cd "temp" && sw --TEST');
       const passed = pass(FTP, /Connected/gm);
@@ -235,13 +237,13 @@ import { extname } from 'path';
       console.log(results[passed ? 'passed' : 'failed']);
    }
 
-   if (fs.existsSync('temp')) {
-      try {
-         await sh('rm -r "temp"');
-         console.log('➖ Removing temporary files...');
-         console.log(results.passed);
-      } catch (error) {}
-   }
+   // if (fs.existsSync('temp')) {
+   //    try {
+   //       await sh('rm -r "temp"');
+   //       console.log('➖ Removing temporary files...');
+   //       console.log(results.passed);
+   //    } catch (error) {}
+   // }
 
    /* Exit if success */
    if (errors.length === 0) return true;
