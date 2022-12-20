@@ -301,6 +301,22 @@ Options Indexes FollowSymLinks MultiViews
 
 <hr />
 
+-  `Create` dependencies
+   -  [@babel/preset-env](https://babel.dev/docs/en/next/babel-preset-env)
+   -  [@rollup/plugin-alias](https://github.com/rollup/plugins/tree/master/packages/alias#readme)
+   -  [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel#readme)
+   -  [@rollup/plugin-commonjs](https://github.com/rollup/plugins/tree/master/packages/commonjs/#readme)
+   -  [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve/#readme)
+   -  [autoprefixer](https://github.com/postcss/autoprefixer#readme)
+   -  [node-and-vite-helpers](https://github.com/wellwelwel/node-and-vite-helpers#readme)
+   -  [packages-update](https://github.com/wellwelwel/packages-update#readme)
+   -  [postcss-cli](https://github.com/postcss/postcss-cli#readme)
+   -  [rollup](https://rollupjs.org/)
+   -  [sass](https://github.com/sass/dart-sass)
+   -  [uglify-js](https://github.com/mishoo/UglifyJS#readme)
+
+<hr />
+
 <p>
 
 **Made with _sadness_ and _sorrow_ in rainy nights by [Weslley Araújo](https://github.com/wellwelwel)** 🥺
