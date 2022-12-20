@@ -59,7 +59,7 @@
    "browserslist": [
       "> 0%"
    ],
-   "description": "⚡ A simple compiler to automate the development in HTML, CSS, Sass, JavaScript and PHP languages focused on Shared Hosts and using FTP to deploy files processed automatically to final server.",
+   "description": "⚡ A simple compiler to automate the development in HTML, CSS, Sass, JavaScript and PHP languages, focused on Shared Hosts and using FTP to deploy files processed automatically to final server.",
    "repository": {
       "type": "git",
       "url": "git+https://github.com/wellwelwel/simple-web-cli.git"

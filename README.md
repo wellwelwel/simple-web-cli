@@ -1,7 +1,7 @@
 <p align="center">
  <img width="100px" src="/.github/assets/readme/logo.svg" align="center" alt="simple-web-cli" />
  <h1 align="center">Simple Web CLI</h1>
- <p align="center">A simple compiler to automate the development in <b>HTML</b>, <b>CSS</b>, <b>Sass</b>, <b>JavaScript</b> and <b>PHP</b> languages focused on <b>Shared Hosts</b> and using FTP to deploy files processed automatically to final server.</p>
+ <p align="center">⚡ A simple compiler to automate the development in <b>HTML</b>, <b>CSS</b>, <b>Sass</b>, <b>JavaScript</b> and <b>PHP</b> languages, focused on <b>Shared Hosts</b> and using <b>FTP</b> to deploy files processed automatically to final server.</p>
 </p>
 
 ## Install
