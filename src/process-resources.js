@@ -49,8 +49,16 @@ import { __dirname } from '../.web/modules/root.js';
       fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_package.json`), normalize('./package.json'));
       await exec('npm i');
    }
+
    if (!fs.existsSync(normalize('./.swrc.js')))
       fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_swrc.js`), normalize('./.swrc.js'));
+
+   if (!fs.existsSync(normalize('./rollup.config.js')))
+      fs.copyFileSync(
+         normalize(`${__dirname}/.github/workflows/resources/_rollup.config.js`),
+         normalize('./rollup.config.js')
+      );
+
    if (!fs.existsSync(normalize('./.gitignore')))
       fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
    else {

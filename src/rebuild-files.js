@@ -35,8 +35,11 @@ const rebuildFiles = async (arg) => {
       '@babel/cli',
       '@babel/core',
       '@babel/preset-env',
+      '@rollup/plugin-babel',
       'autoprefixer',
+      'packages-update',
       'postcss-cli',
+      'rollup',
       'sass',
       'uglify-js',
    ];

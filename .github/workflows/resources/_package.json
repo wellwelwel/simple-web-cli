@@ -1,7 +1,10 @@
 {
-  "type": "module",
-  "browserslist": "> 0%",
-  "devDependencies": {
-    "web": "file:.library"
-  }
+   "type": "module",
+   "browserslist": "> 0%",
+   "devDependencies": {
+      "web": "file:.library"
+   },
+   "scripts": {
+      "update": "npx npu; npm i --ignore-scripts"
+   }
 }
