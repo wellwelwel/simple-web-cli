@@ -14,8 +14,12 @@ import listFiles from '../.web/modules/listFiles.js';
    const isWindows = platform() === 'win32';
 
    const requires = {
-      dirs: ['.library'],
+      dirs: ['helpers'],
       files: (await listFiles(`${__dirname}/resources`)).map((file) => basename(file)),
+   };
+
+   const filesCallback = {
+      'package.json': async () => await exec('npm i'),
    };
 
    const alloweds = {
@@ -39,56 +43,26 @@ import listFiles from '../.web/modules/listFiles.js';
          ? await exec(
               'xcopy ' + normalize(`${__dirname}/${require}\\`) + ' ' + normalize(`./${require}\\`) + ' /s /e /y'
            )
-         : await exec('cp -r ' + normalize(`${__dirname}/${require}`) + ' ' + normalize(`./${require}`));
+         : await exec('cp -rnf ' + normalize(`${__dirname}/${require}`) + ' ' + normalize(`./${require}`));
 
    requires.files.forEach((require) => {
-      fs.copyFileSync(normalize(`${__dirname}/resources/${require}`), normalize(`./${require}`));
+      if (!fs.existsSync(normalize(`./${require}`))) {
+         fs.copyFileSync(normalize(`${__dirname}/resources/${require}`), normalize(`./${require}`));
+
+         if (filesCallback?.[require]) filesCallback[require]();
+      }
    });
 
-   // if (!fs.existsSync(normalize('./package.json'))) {
-   //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_package.json`), normalize('./package.json'));
-   //    await exec('npm i');
-   // }
+   let gitignore = fs.readFileSync(normalize('./.gitignore'), 'utf-8');
+   const toIgnore = ['dist', 'release', 'src/exit', 'node_modules', 'package-lock.json', 'yarn.lock'];
 
-   // if (!fs.existsSync(normalize('./.swrc.js')))
-   //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_swrc.js`), normalize('./.swrc.js'));
+   toIgnore.forEach((ignore) => {
+      const regex = RegExp(ignore, 'gm');
 
-   // if (!fs.existsSync(normalize('./rollup.config.js')))
-   //    fs.copyFileSync(
-   //       normalize(`${__dirname}/.github/workflows/resources/_rollup.config.js`),
-   //       normalize('./rollup.config.js')
-   //    );
+      if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
+   });
 
-   // if (!fs.existsSync(normalize('./jsconfig.json')))
-   //    fs.copyFileSync(
-   //       normalize(`${__dirname}/.github/workflows/resources/_jsconfig.json`),
-   //       normalize('./jsconfig.json')
-   //    );
-
-   // if (!fs.existsSync(normalize('./.gitignore')))
-   //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
-   // else {
-   //    let gitignore = fs.readFileSync(normalize('./.gitignore'), 'utf-8');
-   //    const toIgnore = [
-   //       'dist',
-   //       'release',
-   //       'src/exit',
-   //       '.library/addEventListener',
-   //       '.library/selector',
-   //       '.library/package.json',
-   //       'node_modules',
-   //       'package-lock.json',
-   //       'yarn.lock',
-   //    ];
-
-   //    toIgnore.forEach((ignore) => {
-   //       const regex = RegExp(ignore, 'gm');
-
-   //       if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
-   //    });
-
-   //    fs.writeFileSync(normalize('./.gitignore'), gitignore);
-   // }
+   fs.writeFileSync(normalize('./.gitignore'), gitignore);
 
    const rebuilded = await rebuildFiles(arg);
 
@@ -97,10 +71,10 @@ import listFiles from '../.web/modules/listFiles.js';
    if (!rebuilded) return;
 
    try {
-      if (fs.existsSync('./.swrc.js')) {
+      if (fs.existsSync(normalize('./.swrc.js'))) {
          const { options } = await import('../.web/modules/config.js');
 
-         if (arg === 'start' && options?.initalCommit && !fs.existsSync('./.git'))
+         if (arg === 'start' && options?.initalCommit && !fs.existsSync(normalize('./.git')))
             await exec(`git init && git add . && git commit -m "Initial Commit"`);
       }
    } catch (quiet) {

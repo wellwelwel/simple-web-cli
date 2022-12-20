@@ -836,26 +836,50 @@ var listFiles = /*#__PURE__*/function () {
   };
 }();
 
-_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
   var _args$;
-  var _process$argv, args, arg, isWindows, requires, alloweds, importing, _iterator, _step, require, rebuilded, _yield$import, options;
-  return _regeneratorRuntime().wrap(function _callee$(_context) {
+  var _process$argv, args, arg, isWindows, requires, filesCallback, alloweds, importing, _iterator, _step, require, gitignore, toIgnore, rebuilded, _yield$import, options;
+  return _regeneratorRuntime().wrap(function _callee2$(_context2) {
     while (1) {
-      switch (_context.prev = _context.next) {
+      switch (_context2.prev = _context2.next) {
         case 0:
           _process$argv = _toArray(process.argv), args = _process$argv.slice(2);
           arg = ((_args$ = args[0]) === null || _args$ === void 0 ? void 0 : _args$.replace(/-/g, '')) || 'start';
           isWindows = platform() === 'win32';
-          _context.t0 = ['.library'];
-          _context.next = 6;
+          _context2.t0 = ['helpers'];
+          _context2.next = 6;
           return listFiles("".concat(__dirname, "/resources"));
         case 6:
-          _context.t1 = _context.sent.map(function (file) {
+          _context2.t1 = _context2.sent.map(function (file) {
             return basename(file);
           });
           requires = {
-            dirs: _context.t0,
-            files: _context.t1
+            dirs: _context2.t0,
+            files: _context2.t1
+          };
+          filesCallback = {
+            'package.json': function () {
+              var _packageJson = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+                return _regeneratorRuntime().wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return exec('npm i');
+                      case 2:
+                        return _context.abrupt("return", _context.sent);
+                      case 3:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee);
+              }));
+              function packageJson() {
+                return _packageJson.apply(this, arguments);
+              }
+              return packageJson;
+            }()
           };
           alloweds = {
             init: true,
@@ -864,148 +888,113 @@ _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
             TEST: '../lib/tasks/start/index.js'
           };
           if (!(arg !== 'TEST' && !alloweds[arg])) {
-            _context.next = 12;
+            _context2.next = 13;
             break;
           }
           console.error("Command \"".concat(arg, "\" not found.").concat(EOL, "Use \"init\", \"start\" or \"build\".").concat(EOL));
-          return _context.abrupt("return");
-        case 12:
+          return _context2.abrupt("return");
+        case 13:
           importing = new draft("Importing required local modules: ".concat(sh$1.green).concat(sh$1.dim, "[ ").concat(sh$1.italic, "autoprefixer, rollup, postcss, sass and uglifyjs").concat(sh$1.reset).concat(sh$1.green).concat(sh$1.dim, " ]"));
           _iterator = _createForOfIteratorHelper(requires.dirs);
-          _context.prev = 14;
+          _context2.prev = 15;
           _iterator.s();
-        case 16:
+        case 17:
           if ((_step = _iterator.n()).done) {
-            _context.next = 27;
+            _context2.next = 28;
             break;
           }
           require = _step.value;
           if (!isWindows) {
-            _context.next = 23;
+            _context2.next = 24;
             break;
           }
-          _context.next = 21;
+          _context2.next = 22;
           return exec('xcopy ' + normalize("".concat(__dirname, "/").concat(require, "\\")) + ' ' + normalize("./".concat(require, "\\")) + ' /s /e /y');
-        case 21:
-          _context.next = 25;
+        case 22:
+          _context2.next = 26;
           break;
-        case 23:
-          _context.next = 25;
-          return exec('cp -r ' + normalize("".concat(__dirname, "/").concat(require)) + ' ' + normalize("./".concat(require)));
-        case 25:
-          _context.next = 16;
+        case 24:
+          _context2.next = 26;
+          return exec('cp -rnf ' + normalize("".concat(__dirname, "/").concat(require)) + ' ' + normalize("./".concat(require)));
+        case 26:
+          _context2.next = 17;
           break;
-        case 27:
-          _context.next = 32;
+        case 28:
+          _context2.next = 33;
           break;
-        case 29:
-          _context.prev = 29;
-          _context.t2 = _context["catch"](14);
-          _iterator.e(_context.t2);
-        case 32:
-          _context.prev = 32;
+        case 30:
+          _context2.prev = 30;
+          _context2.t2 = _context2["catch"](15);
+          _iterator.e(_context2.t2);
+        case 33:
+          _context2.prev = 33;
           _iterator.f();
-          return _context.finish(32);
-        case 35:
+          return _context2.finish(33);
+        case 36:
           requires.files.forEach(function (require) {
-            fs.copyFileSync(normalize("".concat(__dirname, "/resources/").concat(require)), normalize("./".concat(require)));
+            if (!fs.existsSync(normalize("./".concat(require)))) {
+              fs.copyFileSync(normalize("".concat(__dirname, "/resources/").concat(require)), normalize("./".concat(require)));
+              if (filesCallback !== null && filesCallback !== void 0 && filesCallback[require]) filesCallback[require]();
+            }
           });
-
-          // if (!fs.existsSync(normalize('./package.json'))) {
-          //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_package.json`), normalize('./package.json'));
-          //    await exec('npm i');
-          // }
-
-          // if (!fs.existsSync(normalize('./.swrc.js')))
-          //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_swrc.js`), normalize('./.swrc.js'));
-
-          // if (!fs.existsSync(normalize('./rollup.config.js')))
-          //    fs.copyFileSync(
-          //       normalize(`${__dirname}/.github/workflows/resources/_rollup.config.js`),
-          //       normalize('./rollup.config.js')
-          //    );
-
-          // if (!fs.existsSync(normalize('./jsconfig.json')))
-          //    fs.copyFileSync(
-          //       normalize(`${__dirname}/.github/workflows/resources/_jsconfig.json`),
-          //       normalize('./jsconfig.json')
-          //    );
-
-          // if (!fs.existsSync(normalize('./.gitignore')))
-          //    fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
-          // else {
-          //    let gitignore = fs.readFileSync(normalize('./.gitignore'), 'utf-8');
-          //    const toIgnore = [
-          //       'dist',
-          //       'release',
-          //       'src/exit',
-          //       '.library/addEventListener',
-          //       '.library/selector',
-          //       '.library/package.json',
-          //       'node_modules',
-          //       'package-lock.json',
-          //       'yarn.lock',
-          //    ];
-
-          //    toIgnore.forEach((ignore) => {
-          //       const regex = RegExp(ignore, 'gm');
-
-          //       if (!regex.test(gitignore)) gitignore += `${EOL}${ignore}`;
-          //    });
-
-          //    fs.writeFileSync(normalize('./.gitignore'), gitignore);
-          // }
-          _context.next = 38;
+          gitignore = fs.readFileSync(normalize('./.gitignore'), 'utf-8');
+          toIgnore = ['dist', 'release', 'src/exit', 'node_modules', 'package-lock.json', 'yarn.lock'];
+          toIgnore.forEach(function (ignore) {
+            var regex = RegExp(ignore, 'gm');
+            if (!regex.test(gitignore)) gitignore += "".concat(EOL).concat(ignore);
+          });
+          fs.writeFileSync(normalize('./.gitignore'), gitignore);
+          _context2.next = 43;
           return rebuildFiles(arg);
-        case 38:
-          rebuilded = _context.sent;
+        case 43:
+          rebuilded = _context2.sent;
           importing.stop(1);
           if (rebuilded) {
-            _context.next = 42;
+            _context2.next = 47;
             break;
           }
-          return _context.abrupt("return");
-        case 42:
-          _context.prev = 42;
-          if (!fs.existsSync('./.swrc.js')) {
-            _context.next = 51;
+          return _context2.abrupt("return");
+        case 47:
+          _context2.prev = 47;
+          if (!fs.existsSync(normalize('./.swrc.js'))) {
+            _context2.next = 56;
             break;
           }
-          _context.next = 46;
-          return import('./config-ed0f415e.js');
-        case 46:
-          _yield$import = _context.sent;
-          options = _yield$import.options;
-          if (!(arg === 'start' && options !== null && options !== void 0 && options.initalCommit && !fs.existsSync('./.git'))) {
-            _context.next = 51;
-            break;
-          }
-          _context.next = 51;
-          return exec("git init && git add . && git commit -m \"Initial Commit\"");
+          _context2.next = 51;
+          return import('./config-a03b0ceb.js');
         case 51:
-          _context.next = 55;
-          break;
-        case 53:
-          _context.prev = 53;
-          _context.t3 = _context["catch"](42);
-        case 55:
-          if (!(typeof alloweds[arg] === 'string')) {
-            _context.next = 58;
+          _yield$import = _context2.sent;
+          options = _yield$import.options;
+          if (!(arg === 'start' && options !== null && options !== void 0 && options.initalCommit && !fs.existsSync(normalize('./.git')))) {
+            _context2.next = 56;
             break;
           }
-          _context.next = 58;
-          return import(alloweds[arg]);
+          _context2.next = 56;
+          return exec("git init && git add . && git commit -m \"Initial Commit\"");
+        case 56:
+          _context2.next = 60;
+          break;
         case 58:
+          _context2.prev = 58;
+          _context2.t3 = _context2["catch"](47);
+        case 60:
+          if (!(typeof alloweds[arg] === 'string')) {
+            _context2.next = 63;
+            break;
+          }
+          _context2.next = 63;
+          return import(alloweds[arg]);
+        case 63:
           /* Calls to script */
 
           /* Reserved to tests */
           args.includes('--TEST') && console.log('PASSED');
-        case 59:
+        case 64:
         case "end":
-          return _context.stop();
+          return _context2.stop();
       }
     }
-  }, _callee, null, [[14, 29, 32, 35], [42, 53]]);
+  }, _callee2, null, [[15, 30, 33, 36], [47, 58]]);
 }))();
 
 export { _typeof as _, _asyncToGenerator as a, _regeneratorRuntime as b, _objectSpread2 as c, _toArray as d, cwd as e };

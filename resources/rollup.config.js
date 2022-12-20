@@ -4,7 +4,7 @@ import { babel } from '@rollup/plugin-babel';
 export default {
    plugins: [
       alias({
-         entries: [{ find: /#helpers\/(.+)/, replacement: './.library/$1/index.js' }],
+         entries: [{ find: /#helpers\/(.+)/, replacement: './helpers/$1/index.js' }],
       }),
       babel({
          babelHelpers: 'bundled',

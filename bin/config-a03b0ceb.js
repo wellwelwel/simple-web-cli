@@ -52,7 +52,7 @@ var setConfig = /*#__PURE__*/function () {
             }
             source = normalize(output.workspaces.src.replace('./', ''));
             to = normalize(output.workspaces.dist.replace('./', ''));
-            required = normalize('.library/');
+            required = normalize('helpers/');
             if (source.substring(source.length - 1, source.length) === sep) source = source.substring(0, source.length - 1);
             if (to.substring(to.length - 1, to.length) === sep) to = to.substring(0, to.length - 1);
             if (required.substring(required.length - 1, required.length) === sep) required = required.substring(0, required.length - 1);

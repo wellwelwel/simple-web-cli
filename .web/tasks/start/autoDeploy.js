@@ -43,7 +43,7 @@ export default async () => {
    const deploy = new Schedule();
    const watcherSource = watch(source, { recursive: true });
    const watcherMain = watch(to, { recursive: true });
-   const watcherModules = watch('.library', { recursive: true });
+   const watcherModules = watch('helpers', { recursive: true });
 
    const onSrc = async (event, file) => {
       if (!!file.match(/DS_Store/)) {
@@ -198,7 +198,7 @@ export default async () => {
       const isDir = file.split(sep).pop().includes('.') ? false : true;
       if (event == 'update' && isDir) return;
 
-      const library = file.replace(/(\.library\/)|(\/index.js)/gim, '', file);
+      const library = file.replace(/(helpers\/)|(\/index.js)/gim, '', file);
       const required = RegExp(`require.*?${library}`, 'gim');
       const requiredResources = process_files.js.require;
       const js = await listFiles(source, 'js', requiredResources);

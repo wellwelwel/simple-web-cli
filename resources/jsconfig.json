@@ -1,7 +1,7 @@
 {
    "compilerOptions": {
       "paths": {
-         "#helpers/*": ["./.library/*/index.js"]
+         "#helpers/*": ["./helpers/*/index.js"]
       }
    }
 }
