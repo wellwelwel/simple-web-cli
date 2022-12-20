@@ -1,7 +1,7 @@
 {
    "name": "simple-web-cli",
    "type": "module",
-   "version": "4.0.0-next",
+   "version": "4.0.0",
    "main": "./bin/index.js",
    "scripts": {
       "build": "rm -rf ./bin ./lib; npx rollup -c; sed -i '' $'1s/^/#! \\/usr\\/bin\\/env node\\\n\\\n/' bin/index.js;",
@@ -19,16 +19,21 @@
       "simple-web-cli": "./bin/index.js"
    },
    "keywords": [
-      "ftp-service",
-      "html-import",
-      "html-include",
-      "html-require",
-      "require-browser",
-      "web-automation",
-      "web-bundle",
-      "web-compiler",
-      "web-modules",
-      "web-require"
+      "ftp",
+      "ftps",
+      "watch",
+      "watcher",
+      "import",
+      "modules",
+      "browser",
+      "dom",
+      "automation",
+      "hotsync",
+      "sync",
+      "build",
+      "bundle",
+      "compiler",
+      "pipeline"
    ],
    "author": "https://github.com/wellwelwel",
    "license": "MIT",
