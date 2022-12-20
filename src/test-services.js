@@ -33,9 +33,9 @@ import { extname, resolve as normalize, join } from 'path';
             return error;
          }
       },
-      'Executing service "init"': async () => {
+      'Executing service "create"': async () => {
          try {
-            const init = await sh('cd "temp" && sw init --TEST');
+            const create = await sh('cd "temp" && sw create --TEST');
             const source = 'temp/.swrc.js';
             const toTrue = /start: (false)/gm;
             const toFalse = /(initialCommit): (true)/gm;
@@ -52,7 +52,7 @@ import { extname, resolve as normalize, join } from 'path';
                'cp "./.github/workflows/resources/tests/.resources/test-resource-replace.html" "./temp/.resources/test-resource-replace.html"'
             );
 
-            return init;
+            return create;
          } catch (error) {
             return error;
          }

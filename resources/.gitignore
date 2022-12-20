@@ -4,8 +4,6 @@ dist
 release
 *.zip
 src/exit
-helpers/addEventListener
-helpers/selector
 
 # Node.js
 node_modules

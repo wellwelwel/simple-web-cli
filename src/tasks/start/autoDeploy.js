@@ -3,11 +3,10 @@ import watch from 'node-watch';
 import { sep } from 'path';
 import { sh, type, draft } from '../../modules/sh.js';
 import FTP from '../../modules/ftp.js';
-import { dev, source, to, process_files, blacklist } from '../../modules/config.js';
+import { dev, source, to, blacklist } from '../../modules/config.js';
 import createDir from '../../modules/create-dir.js';
 import empty from '../../modules/empty.js';
 import isConnected from '../../modules/check-connection.js';
-import listFiles from '../../modules/listFiles.js';
 import deleteDS_Store from '../../modules/deleteDS_Store.js';
 import vReg from '../../modules/vReg.js';
 import processCSS from '../../modules/process-files/process-scss.js';
@@ -41,7 +40,6 @@ export default async () => {
    const deploy = new Schedule();
    const watcherSource = watch(source, { recursive: true });
    const watcherMain = watch(to, { recursive: true });
-   const watcherModules = watch('helpers', { recursive: true });
 
    const onSrc = async (event, file) => {
       if (!!file.match(/DS_Store/)) {
@@ -53,7 +51,6 @@ export default async () => {
          FTP.client.close();
          watcherSource.close();
          watcherMain.close();
-         watcherModules.close();
          process.exit(0);
       }
 
@@ -185,28 +182,6 @@ export default async () => {
 
       deploy.queue(deployFile, file);
       await deploy.start();
-   });
-
-   watcherModules.on('change', async (event, file) => {
-      if (!!file.match(/DS_Store/)) {
-         await deleteDS_Store();
-         return;
-      }
-
-      const isDir = file.split(sep).pop().includes('.') ? false : true;
-      if (event == 'update' && isDir) return;
-
-      const library = file.replace(/(helpers\/)|(\/index.js)/gim, '', file);
-      const required = RegExp(`require.*?${library}`, 'gim');
-      const requiredResources = process_files.js.require;
-      const js = await listFiles(source, 'js', requiredResources);
-
-      for (const dependence of js) {
-         const file_dependence = fs.readFileSync(dependence, 'utf8');
-         const to_process = !!file_dependence.match(required);
-
-         to_process && (await onSrc('update', dependence));
-      }
    });
 
    return true;

@@ -1,10 +1,10 @@
 {
    "compilerOptions": {
-      "module": "ES2022",
-      "target": "ES6",
+      "module": "CommonJS",
+      "target": "ESNext",
       "paths": {
-         "#helpers/*": ["./helpers/*/index.js"]
+         "#helpers/*": ["./helpers/*.js"],
+         "#utils/*": ["./utils/*.js"]
       }
-   },
-   "exclude": ["node_modules"]
+   }
 }

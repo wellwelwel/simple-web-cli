@@ -36,12 +36,9 @@ const setConfig = async () => {
 
    let source = normalize(output.workspaces.src.replace('./', ''));
    let to = normalize(output.workspaces.dist.replace('./', ''));
-   let required = normalize('helpers/');
 
    if (source.substring(source.length - 1, source.length) === sep) source = source.substring(0, source.length - 1);
    if (to.substring(to.length - 1, to.length) === sep) to = to.substring(0, to.length - 1);
-   if (required.substring(required.length - 1, required.length) === sep)
-      required = required.substring(0, required.length - 1);
 
    const dev = { ftp: output.ftp.start };
    const dist = { ftp: output.ftp.build };
@@ -51,9 +48,7 @@ const setConfig = async () => {
    const options = output?.options || false;
    const blacklist = output.hasOwnProperty('blacklist') ? output.blacklist : [] || [];
 
-   process_files.js.require = required;
-
-   createDir([source, to, required]);
+   createDir([source, to]);
 
    return { source, to, dev, dist, process_files, build, options, plugins, blacklist };
 };

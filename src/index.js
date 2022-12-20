@@ -16,7 +16,7 @@ import listFiles from './modules/listFiles.js';
    const isWindows = platform() === 'win32';
 
    const requires = {
-      dirs: ['helpers'],
+      dirs: [],
       files: (await listFiles(`${__dirname}/resources`)).map((file) => basename(file)),
    };
 
@@ -25,19 +25,19 @@ import listFiles from './modules/listFiles.js';
    };
 
    const alloweds = {
-      init: true,
+      create: true,
       start: '../lib/tasks/start/index.js',
       build: '../lib/tasks/build/index.js',
       TEST: '../lib/tasks/start/index.js',
    };
 
    if (arg !== 'TEST' && !alloweds[arg]) {
-      console.error(`Command "${arg}" not found.${EOL}Use "init", "start" or "build".${EOL}`);
+      console.error(`Command "${arg}" not found.${EOL}Use "create", "start" or "build".${EOL}`);
       return;
    }
 
    const importing = new draft(
-      `Importing required local modules: ${sh.green}${sh.dim}[ ${sh.italic}autoprefixer, rollup, postcss, sass and uglifyjs${sh.reset}${sh.green}${sh.dim} ]`
+      `Importing dependencies: ${sh.green}${sh.dim}[ ${sh.italic}autoprefixer, postcss, rollup, sass, uglifyjs, ... ]${sh.reset}`
    );
 
    for (const require of requires.dirs)

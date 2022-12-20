@@ -1,4 +1,6 @@
 import alias from '@rollup/plugin-alias';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import { babel } from '@rollup/plugin-babel';
 import swrc from './.swrc.js';
 
@@ -8,8 +10,13 @@ const useUglify = swrc.start.compile.js.uglify;
 const defineConfig = {
    plugins: [
       alias({
-         entries: [{ find: /#helpers\/(.+)/, replacement: './helpers/$1/index.js' }],
+         entries: [
+            { find: /#helpers\/(.+)/, replacement: './helpers/$1.js' },
+            { find: /#utils\/(.+)/, replacement: './utils/$1.js' },
+         ],
       }),
+      nodeResolve({ jsnext: true }),
+      commonjs(),
    ],
 };
 
@@ -26,7 +33,7 @@ useBabel &&
                exclude: ['transform-regenerator'],
             },
          ],
-         exclude: 'node_modules/**',
+         include: 'node_modules/**',
       })
    );
 
