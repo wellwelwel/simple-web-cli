@@ -915,7 +915,7 @@ _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
           break;
         case 24:
           _context2.next = 26;
-          return exec('cp -rnf ' + normalize("".concat(__dirname, "/").concat(require)) + ' ' + normalize("./".concat(require)));
+          return exec('cp -rnf ' + normalize("".concat(__dirname, "/").concat(require, "/")) + ' ' + normalize("./".concat(require)));
         case 26:
           _context2.next = 17;
           break;

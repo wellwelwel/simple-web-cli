@@ -45,7 +45,7 @@ import listFiles from './modules/listFiles.js';
          ? await exec(
               'xcopy ' + normalize(`${__dirname}/${require}\\`) + ' ' + normalize(`./${require}\\`) + ' /s /e /y'
            )
-         : await exec('cp -rnf ' + normalize(`${__dirname}/${require}`) + ' ' + normalize(`./${require}`));
+         : await exec('cp -rnf ' + normalize(`${__dirname}/${require}/`) + ' ' + normalize(`./${require}`));
 
    requires.files.forEach((require) => {
       if (!fs.existsSync(normalize(`./${require}`))) {
