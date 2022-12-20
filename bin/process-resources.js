@@ -19,9 +19,9 @@ import { __dirname } from '../.web/modules/root.js';
 
    const alloweds = {
       init: true,
-      start: '../lib/tasks/start/index.js',
-      build: '../lib/tasks/build/index.js',
-      TEST: '../lib/tasks/start/index.js',
+      start: '../.web/tasks/start/index.js',
+      build: '../.web/tasks/build/index.js',
+      TEST: '../.web/tasks/start/index.js',
    };
 
    if (arg !== 'TEST' && !alloweds[arg]) {
@@ -36,26 +36,26 @@ import { __dirname } from '../.web/modules/root.js';
    for (const require of requires.dirs)
       isWindows
          ? await exec(
-              'xcopy ' + normalize(`${__dirname}/../${require}\\`) + ' ' + normalize(`./${require}\\`) + ' /s /e'
+              'xcopy ' + normalize(`${__dirname}/${require}\\`) + ' ' + normalize(`./${require}\\`) + ' /s /e'
            )
-         : await exec('cp -r ' + normalize(`${__dirname}/../${require}`) + ' ' + normalize(`./${require}`));
+         : await exec('cp -r ' + normalize(`${__dirname}/${require}`) + ' ' + normalize(`./${require}`));
 
    requires.files.forEach((require) => {
       if (!fs.existsSync(normalize(`./${require}`)))
-         fs.copyFileSync(normalize(`${__dirname}/../${require}`), normalize(`./${require}`));
+         fs.copyFileSync(normalize(`${__dirname}/${require}`), normalize(`./${require}`));
    });
 
    if (!fs.existsSync(normalize('./package.json'))) {
       fs.copyFileSync(
-         normalize(`${__dirname}/../.github/workflows/resources/_package.json`),
+         normalize(`${__dirname}/.github/workflows/resources/_package.json`),
          normalize('./package.json')
       );
       await exec('npm i');
    }
    if (!fs.existsSync(normalize('./.swrc.js')))
-      fs.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_swrc.js`), normalize('./.swrc.js'));
+      fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_swrc.js`), normalize('./.swrc.js'));
    if (!fs.existsSync(normalize('./.gitignore')))
-      fs.copyFileSync(normalize(`${__dirname}/../.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
+      fs.copyFileSync(normalize(`${__dirname}/.github/workflows/resources/_gitignore`), normalize('./.gitignore'));
    else {
       let gitignore = fs.readFileSync(normalize('./.gitignore'), 'utf-8');
       const toIgnore = [

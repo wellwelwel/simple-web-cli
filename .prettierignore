@@ -1,16 +1,6 @@
-.github
-.library
-.web
 docs
 node_modules
 test
-.babelrc
-.eslintignore
-CODE_OF_CONDUCT.md
-LICENSE
 package-lock.json
-package.json
-README_pt-BR.md
-README.md
 bin
 lib

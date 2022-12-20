@@ -3,17 +3,15 @@ import createDir from './create-dir.js';
 import { cwd } from './root.js';
 
 const setConfig = async () => {
-   const [ ,, ...args ] = process.argv;
+   const [, , ...args] = process.argv;
    const arg = args[0]?.replace(/-/g, '') || 'start';
 
    const config = await import(join(`./${cwd}`, '.swrc.js'));
    const output = { ...{}, ...config.default };
 
-   const isValid = arr => !arr.some(validation => validation === false);
+   const isValid = (arr) => !arr.some((validation) => validation === false);
    const validations = {
-
       ftp: [
-
          !!output?.ftp,
          !!output?.ftp?.start,
          typeof output?.ftp?.start?.root === 'string',
@@ -25,17 +23,14 @@ const setConfig = async () => {
    };
 
    if (!isValid(validations.ftp)) {
-
       output.ftp = {
-
          start: {
-
             root: '',
             host: '',
             user: '',
             pass: '',
-            secure: ''
-         }
+            secure: '',
+         },
       };
    }
 
@@ -45,7 +40,8 @@ const setConfig = async () => {
 
    if (source.substring(source.length - 1, source.length) === sep) source = source.substring(0, source.length - 1);
    if (to.substring(to.length - 1, to.length) === sep) to = to.substring(0, to.length - 1);
-   if (required.substring(required.length - 1, required.length) === sep) required = required.substring(0, required.length - 1);
+   if (required.substring(required.length - 1, required.length) === sep)
+      required = required.substring(0, required.length - 1);
 
    const dev = { ftp: output.ftp.start };
    const dist = { ftp: output.ftp.build };
@@ -57,9 +53,9 @@ const setConfig = async () => {
 
    process_files.js.require = required;
 
-   createDir([ source, to, required ]);
+   createDir([source, to, required]);
 
    return { source, to, dev, dist, process_files, build, options, plugins, blacklist };
-}
+};
 
 export const { source, to, dev, dist, process_files, build, options, plugins, blacklist } = await setConfig();
