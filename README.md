@@ -322,6 +322,6 @@ Options Indexes FollowSymLinks MultiViews
 
 <p>
 
-**Made with _sadness_ and _sorrow_ in rainy nights by [Weslley Araújo](https://github.com/wellwelwel)** 🥺
+**Made with _sadness_ and _sorrow_ in rainy nights by [Weslley Araújo](https://github.com/wellwelwel)** 🌌
 
 </p>
