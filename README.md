@@ -110,7 +110,7 @@
 
 <hr />
 
-#### FTP Hotsync
+#### FTP HotSync
 
 -  In the file **`.swrc.js`**, just insert the access infos:
 
@@ -143,7 +143,7 @@
    > ```
 
 -  In <ins>rollup.config.js</ins>:
-   > -  Import the pluguin module:
+   > -  Import the plugin module:
    >    ```js
    >    import typescript from '@rollup/plugin-typescript';
    >    ```
