@@ -78,7 +78,7 @@ import rmTemp from '../../modules/rmTemp.js';
             pathFile = pathFile.join(sep);
 
             /* pre processed files */
-            if (fileType === 'js') await processJS(file, to, 'build', false);
+            if (fileType === 'js' || fileType === 'ts') await processJS(file, to, 'build', false);
             else if (fileType === 'scss' || fileType === 'css') await processCSS(file, to, 'build');
             else {
                /* post process */
