@@ -16,7 +16,7 @@ async function processJS(file, local = false, replace = 'start') {
    const tempDIR = `temp_${new Date().valueOf().toString()}`;
    const pre = file.replace(source, tempDIR);
    const tempJS = path(pre);
-   const final = file.replace(source, localTo);
+   const final = file.replace(source, localTo).replace(/\.ts$/, '.js');
 
    createDir([tempDIR, tempJS, tempJS.replace(tempDIR, localTo)]);
 

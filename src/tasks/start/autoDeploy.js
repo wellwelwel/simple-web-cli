@@ -83,7 +83,7 @@ export default async () => {
          let status = 1;
 
          /* pre processed files */
-         if (fileType === 'js') {
+         if (fileType === 'js' || fileType === 'ts') {
             const request = await processJS(file);
 
             if (!request) status = 0;

@@ -54,7 +54,6 @@ export default {
       '.jsx',
       '.less',
       '.pug',
-      '.ts',
       '.tsx',
       '.git/',
       'node_modules',

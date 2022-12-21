@@ -110,7 +110,7 @@
 
 <hr />
 
-#### Enable the FTP
+#### FTP Hotsync
 
 -  In the file **`.swrc.js`**, just insert the access infos:
 
@@ -131,6 +131,33 @@
    -  **Development:** <ins>`./src`<b>`/html/index.html`</b></ins>
    -  **Distribution:** <ins>`./dist`<b>`/html/index.html`</b></ins>
    -  **Server:** <ins>`/var/www`<b>`/html/index.html`</b></ins>
+
+<hr />
+
+#### Using TypeScript
+
+-  Install TypeScript modules
+
+   > ```
+   > npm i tslib @rollup/plugin-typescript -D
+   > ```
+
+-  In <ins>rollup.config.js</ins>:
+   > -  Import the pluguin module:
+   >    ```js
+   >    import typescript from '@rollup/plugin-typescript';
+   >    ```
+   > -  Add the plugin to `defineConfig`:
+   >    ```js
+   >    {
+   >       ...,
+   >       plugins: [
+   >          ...,
+   >          typescript(),
+   >       ],
+   >    };
+   >    ```
+-  It's done! 😉
 
 <hr />
 
