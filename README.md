@@ -110,7 +110,7 @@
 
 <hr />
 
-#### FTP HotSync
+#### Using FTP HotSync
 
 -  In the file **`.swrc.js`**, just insert the access infos:
 
