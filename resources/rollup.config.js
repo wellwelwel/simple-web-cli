@@ -1,3 +1,6 @@
+// @ts-check
+
+import { defineConfig } from 'rollup';
 import alias from '@rollup/plugin-alias';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
@@ -7,7 +10,7 @@ import swrc from './.swrc.js';
 const useBabel = swrc.start.compile.js.babel;
 const useUglify = swrc.start.compile.js.uglify;
 
-const defineConfig = {
+const configs = defineConfig({
    plugins: [
       alias({
          entries: [
@@ -15,13 +18,13 @@ const defineConfig = {
             { find: /#utils\/(.+)/, replacement: './utils/$1.js' },
          ],
       }),
-      nodeResolve({ jsnext: true }),
+      nodeResolve(),
       commonjs(),
    ],
-};
+});
 
-useBabel &&
-   defineConfig.plugins.push(
+if (useBabel && Array.isArray(configs.plugins)) {
+   configs.plugins.push(
       babel({
          babelHelpers: 'inline',
          comments: !useUglify,
@@ -35,5 +38,6 @@ useBabel &&
          ],
       })
    );
+}
 
-export default defineConfig;
+export default configs;

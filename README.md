@@ -147,12 +147,12 @@
    >    ```js
    >    import typescript from '@rollup/plugin-typescript';
    >    ```
-   > -  Add the plugin to `defineConfig`:
+   > -  Then, add the plugin to `configs`:
    >    ```js
    >    {
-   >       ...,
+   >       // ...,
    >       plugins: [
-   >          ...,
+   >          // ...,
    >          typescript(),
    >       ],
    >    };
