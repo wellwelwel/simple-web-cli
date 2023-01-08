@@ -42,7 +42,7 @@
 
 ### Development
 
--  **`scr`** is the default directory of development to watch
+-  **`src`** is the default directory of development to watch
 -  **`dist`** is the default directory with the compiled code
 -  Once the process is started, the event occurs by **saving any file** into `src`.
 
