@@ -27,6 +27,7 @@ import { extname, resolve as normalize, join } from 'path';
             // await sh('npm i');
 
             console.log('   ➕ Linking service...');
+            await sh('npm i');
             await sh('cd temp && npm i file:../');
             // await sh('npm link');
 
