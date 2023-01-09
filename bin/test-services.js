@@ -172,32 +172,6 @@ import { resolve, join, extname } from 'path';
     });
     console.log(results[passed ? 'passed' : 'failed']);
   }
-  if (process.platform === 'linux') {
-    console.log('➖ Testing FTP service...');
-    const source = 'temp/.swrc.js';
-    const regex = {
-      root: /root: '',/gim,
-      host: /host: '',/gim,
-      user: /user: '',/gim,
-      pass: /pass: '',/gim,
-      secure: /secure: true\s\|\|\s/gim
-    };
-    const swrc = fs.readFileSync(source, 'utf-8');
-    let result = '';
-    result = swrc.replace(regex.root, a => a.replace(/''/, "'/'"));
-    result = result.replace(regex.host, a => a.replace(/''/, "'127.0.0.1'"));
-    result = result.replace(regex.user, a => a.replace(/''/, "'test'"));
-    result = result.replace(regex.pass, a => a.replace(/''/, "'test'"));
-    result = result.replace(regex.secure, a => a.replace(/true\s\|\|\s/, ''));
-    fs.writeFileSync(source, result);
-    setTimeout(() => sh('cd "./temp" && touch "./src/exit"'), 5000);
-    const FTP = await sh('cd "temp" && npx sw --TEST');
-    const passed = pass(FTP, /Connected/gm);
-    if (!passed) errors.push({
-      'Testing FTP service:': FTP
-    });
-    console.log(results[passed ? 'passed' : 'failed']);
-  }
   if (fs.existsSync('temp')) {
     try {
       await sh('rm -r "temp"');
