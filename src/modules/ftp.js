@@ -7,17 +7,10 @@ import serverOSNormalize from './server-os-normalize.js';
 
 const client = new Client();
 const publicCachedAccess = {};
-
 const privateCachedAccess = {};
 
 async function reconnect() {
    await connect();
-}
-
-function showCHMOD(path) {
-   console.log(
-      `${sh.red}${sh.dim}${sh.bold}⚠ ${sh.reset}${sh.dim}CHMOD no applied to "${sh.red}${sh.bold}${path}${sh.reset}${sh.dim}"`
-   );
 }
 
 async function connect(access = false) {
@@ -26,7 +19,6 @@ async function connect(access = false) {
    if (access !== false) {
       Object.assign(privateCachedAccess, access);
       publicCachedAccess.root = access.root;
-      if (access?.chmod) publicCachedAccess.chmod = access.chmod;
    }
 
    try {
@@ -52,14 +44,14 @@ async function connect(access = false) {
 }
 
 async function send(file, waiting) {
+   const receiver = file.replace(`${to}${sep}`, '');
+
    try {
       client.error = false;
 
       if (client.closed) await reconnect();
 
-      const receiver = file.replace(`${to}${sep}`, '');
       const dir = serverOSNormalize(dirname(`${privateCachedAccess.root}${sep}${receiver}`));
-      const remoteFile = serverOSNormalize(`${privateCachedAccess.root}${sep}${receiver}`);
       const exists = async () => {
          try {
             return (await client?.list(dir))?.length > 0 || false;
@@ -68,57 +60,22 @@ async function send(file, waiting) {
          }
       };
 
-      if (!(await exists())) {
-         await client.ensureDir(dir);
-
-         if (publicCachedAccess?.chmod?.dir) {
-            try {
-               await client.ftp.request(`SITE CHMOD ${publicCachedAccess?.chmod?.dir} ${dir}`);
-            } catch (error) {
-               showCHMOD(dir);
-            }
-         }
-      }
-
-      if (publicCachedAccess?.chmod?.recursive) {
-         const dirs = dirname(receiver).split(sep);
-         const dirsLenght = dirs.length;
-
-         let path = privateCachedAccess.root;
-
-         for (let i = 0; i < dirsLenght; i++) {
-            path += `/${dirs[i]}`;
-
-            try {
-               await client.ftp.request(`SITE CHMOD ${publicCachedAccess?.chmod?.dir} ${path}`);
-            } catch (error) {
-               showCHMOD(path);
-            }
-         }
-      }
+      if (!(await exists())) await client.ensureDir(dir);
 
       await client.uploadFrom(file, serverOSNormalize(`${privateCachedAccess.root}${sep}${receiver}`));
 
-      if (publicCachedAccess?.chmod?.file) {
-         try {
-            await client.ftp.request(`SITE CHMOD ${publicCachedAccess?.chmod?.file} ${remoteFile}`);
-         } catch (error) {
-            showCHMOD(remoteFile);
-         }
-      }
-
-      await new Promise(async (resolve) => {
-         const timer = setInterval(resolve);
-
-         if (!waiting?.scheduling?.started) {
-            clearInterval(timer);
-            resolve();
-         }
+      await new Promise((resolve) => {
+         const timer = setInterval(() => {
+            if (!waiting?.scheduling?.started) {
+               clearInterval(timer);
+               resolve();
+            }
+         });
       });
 
       return true;
    } catch (err) {
-      client.error = `${sh.dim}${sh.red}${err}`;
+      client.error = `${sh.dim}${sh.red}${err} > ` + serverOSNormalize(`${privateCachedAccess.root}${sep}${receiver}`);
       return false;
    }
 }

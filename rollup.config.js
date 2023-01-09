@@ -3,11 +3,13 @@
 import { defineConfig } from 'rollup';
 import { babel } from '@rollup/plugin-babel';
 
-const setConfig = (/** @type {string} */ input, /** @type {string} */ dir) =>
+const setConfig = (/** @type {string} */ input, /** @type {string} */ outputFile) =>
    defineConfig({
       input,
       output: {
-         dir,
+         file: outputFile,
+         format: 'es',
+         inlineDynamicImports: true,
       },
       external: [
          'fs',
@@ -26,18 +28,14 @@ const setConfig = (/** @type {string} */ input, /** @type {string} */ dir) =>
       plugins: [
          babel({
             comments: false,
-            compact: true,
-            minified: true,
-            babelHelpers: 'inline',
-            presets: ['@babel/preset-env'],
-            exclude: 'node_modules/**',
+            babelHelpers: 'bundled',
          }),
       ],
    });
 
 export default [
-   setConfig('./src/index.js', './bin'),
-   setConfig('./src/test-services.js', './bin'),
-   setConfig('./src/tasks/start/index.js', './lib/tasks/start'),
-   setConfig('./src/tasks/build/index.js', './lib/tasks/build'),
+   setConfig('./src/index.js', './bin/index.js'),
+   setConfig('./src/test-services.js', './bin/test-services.js'),
+   setConfig('./src/tasks/start/index.js', './lib/tasks/start/index.js'),
+   setConfig('./src/tasks/build/index.js', './lib/tasks/build/index.js'),
 ];
