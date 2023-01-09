@@ -69,6 +69,7 @@
    "files": [
       "bin",
       "lib",
-      "resources"
+      "resources",
+      ".swrc.d.ts"
    ]
 }
