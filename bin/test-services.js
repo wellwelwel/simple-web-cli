@@ -20,6 +20,8 @@ import { resolve, join, extname } from 'path';
         await sh('mkdir "temp"');
         await sh('mkdir "temp/.resources"');
         await sh('cp "resources/package.json" "temp/package.json"');
+        console.log('   ➕ Importing modules...');
+        await sh('npm i');
         console.log('   ➕ Linking service...');
         await sh('cd temp && npm i file:../');
         return 'PASSED';

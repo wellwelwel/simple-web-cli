@@ -23,13 +23,11 @@ import { extname, resolve as normalize, join } from 'path';
             await sh('mkdir "temp/.resources"');
             await sh('cp "resources/package.json" "temp/package.json"');
 
-            // console.log('   ➕ Importing modules...');
-            // await sh('npm i');
+            console.log('   ➕ Importing modules...');
+            await sh('npm i');
 
             console.log('   ➕ Linking service...');
-            // await sh('npm i');
             await sh('cd temp && npm i file:../');
-            // await sh('npm link');
 
             return 'PASSED';
          } catch (error) {
