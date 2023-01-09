@@ -126,7 +126,7 @@ export interface Options {
                  };
               };
          languages: {
-            [key: string]: booelan;
+            [key: string]: boolean;
             others: boolean;
          };
       };
