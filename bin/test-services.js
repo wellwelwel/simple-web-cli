@@ -19,10 +19,9 @@ import { resolve, join, extname } from 'path';
         console.log('   ➕ Creating temporary folder...');
         await sh('mkdir "temp"');
         await sh('mkdir "temp/.resources"');
-        console.log('   ➕ Importing modules...');
-        await sh('npm i');
+        await sh('cp "resources/package.json" "temp/package.json"');
         console.log('   ➕ Linking service...');
-        await sh('npm link');
+        await sh('cd temp && npm i file:../');
         return 'PASSED';
       } catch (error) {
         return error;
@@ -30,7 +29,7 @@ import { resolve, join, extname } from 'path';
     },
     'Executing service "create"': async () => {
       try {
-        const create = await sh('cd "temp" && sw create --TEST');
+        const create = await sh('cd "temp" && npx sw create --TEST');
         const source = 'temp/.swrc.js';
         const toTrue = /start: (false)/gm;
         const toFalse = /(initialCommit): (true)/gm;
@@ -45,7 +44,7 @@ import { resolve, join, extname } from 'path';
       }
     },
     'Executing service "start"': async () => {
-      const result = sh('cd "temp" && sw start --TEST');
+      const result = sh('cd "temp" && npx sw start --TEST');
       let start_errors = 0;
       try {
         if (process.platform !== 'win32') {
@@ -115,7 +114,7 @@ import { resolve, join, extname } from 'path';
     },
     'Executing service "build"': async () => {
       try {
-        return await sh('cd "./temp" && sw build --TEST');
+        return await sh('cd "./temp" && npx sw build --TEST');
       } catch (error) {
         return error;
       }
@@ -192,7 +191,7 @@ import { resolve, join, extname } from 'path';
     result = result.replace(regex.secure, a => a.replace(/true\s\|\|\s/, ''));
     fs.writeFileSync(source, result);
     setTimeout(() => sh('cd "./temp" && touch "./src/exit"'), 5000);
-    const FTP = await sh('cd "temp" && sw --TEST');
+    const FTP = await sh('cd "temp" && npx sw --TEST');
     const passed = pass(FTP, /Connected/gm);
     if (!passed) errors.push({
       'Testing FTP service:': FTP

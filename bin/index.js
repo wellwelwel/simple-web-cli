@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 import { platform, EOL } from 'os';
-import { dirname, resolve, sep, normalize, basename, join } from 'path';
+import { dirname, resolve, sep, normalize, basename } from 'path';
 import { exec as exec$1 } from 'child_process';
 import DraftLog from 'draftlog';
 
@@ -208,7 +208,7 @@ const listFiles = async (directory, type = false, excludeDir = false, excludeTyp
     if (fs.existsSync(normalize('./.swrc.js'))) {
       const {
         options
-      } = await Promise.resolve().then(function () { return config; });
+      } = await import('./config-62bcf75a.js');
       if (arg === 'start' && options?.initalCommit && !fs.existsSync(normalize('./.git'))) await exec(`git init && git add . && git commit -m "Initial Commit"`);
     }
   } catch (quiet) {}
@@ -216,89 +216,4 @@ const listFiles = async (directory, type = false, excludeDir = false, excludeTyp
   args.includes('--TEST') && console.log('PASSED');
 })();
 
-var createDir = (directory => {
-  const directorys = [];
-  if (typeof directory === 'string') directorys.push(directory);else if (typeof directory === 'object') Object.assign(directorys, directory);
-  directorys.forEach(dir => {
-    dir = normalize(dir);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, {
-      recursive: true
-    });
-  });
-});
-
-const setConfig = async () => {
-  const [,, ...args] = process.argv;
-  const arg = args[0]?.replace(/-/g, '') || 'start';
-  const config = await import(join(`./${cwd}`, '.swrc.js'));
-  const output = {
-    ...{},
-    ...config.default
-  };
-  const isValid = arr => !arr.some(validation => validation === false);
-  const validations = {
-    ftp: [!!output?.ftp, !!output?.ftp?.start, typeof output?.ftp?.start?.root === 'string', typeof output?.ftp?.start?.host === 'string' && output?.ftp?.start?.host?.trim().length > 0, typeof output?.ftp?.start?.user === 'string' && output?.ftp?.start?.user?.trim().length > 0, typeof output?.ftp?.start?.pass === 'string' && output?.ftp?.start?.pass?.trim().length > 0, output?.ftp?.start?.secure === 'explict' || output?.ftp?.start?.secure === true]
-  };
-  if (!isValid(validations.ftp)) {
-    output.ftp = {
-      start: {
-        root: '',
-        host: '',
-        user: '',
-        pass: '',
-        secure: ''
-      }
-    };
-  }
-  let source = normalize(output.workspaces.src.replace('./', ''));
-  let to = normalize(output.workspaces.dist.replace('./', ''));
-  if (source.substring(source.length - 1, source.length) === sep) source = source.substring(0, source.length - 1);
-  if (to.substring(to.length - 1, to.length) === sep) to = to.substring(0, to.length - 1);
-  const dev = {
-    ftp: output.ftp.start
-  };
-  const dist = {
-    ftp: output.ftp.build
-  };
-  const process_files = arg === 'build' && output?.build?.compile ? output.build.compile : output.start.compile;
-  const build = output?.build || false;
-  const plugins = output?.plugins || false;
-  const options = output?.options || false;
-  const blacklist = output.hasOwnProperty('blacklist') ? output.blacklist : [] || [];
-  createDir([source, to]);
-  return {
-    source,
-    to,
-    dev,
-    dist,
-    process_files,
-    build,
-    options,
-    plugins,
-    blacklist
-  };
-};
-const {
-  source,
-  to,
-  dev,
-  dist,
-  process_files,
-  build,
-  options,
-  plugins,
-  blacklist
-} = await setConfig();
-
-var config = /*#__PURE__*/Object.freeze({
-   __proto__: null,
-   blacklist: blacklist,
-   build: build,
-   dev: dev,
-   dist: dist,
-   options: options,
-   plugins: plugins,
-   process_files: process_files,
-   source: source,
-   to: to
-});
+export { cwd as c };
