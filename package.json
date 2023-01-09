@@ -9,7 +9,7 @@
       "minor": "npm run update; npm run test-services && npm version minor --no-git-tag-version;",
       "major": "npm run update; npm run test-services && npm version major --no-git-tag-version;",
       "update": "npx npu; npm i --ignore-scripts; npm audit fix;",
-      "test-services": "node \"bin/test-services.js\""
+      "test-services": "node \"src/test-services.js\""
    },
    "bin": {
       "sw": "./bin/index.js",
@@ -65,5 +65,10 @@
    "engines": {
       "node": ">=14.5.0",
       "npm": ">=7.0.2"
-   }
+   },
+   "files": [
+      "bin",
+      "lib",
+      "resources"
+   ]
 }

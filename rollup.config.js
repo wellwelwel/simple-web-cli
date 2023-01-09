@@ -8,6 +8,7 @@ const setConfig = (/** @type {string} */ input, /** @type {string} */ dir) =>
       input,
       output: {
          dir,
+         format: 'es',
       },
       external: [
          'fs',
@@ -34,7 +35,6 @@ const setConfig = (/** @type {string} */ input, /** @type {string} */ dir) =>
 
 export default [
    setConfig('./src/index.js', './bin'),
-   setConfig('./src/test-services.js', './bin'),
    setConfig('./src/tasks/start/index.js', './lib/tasks/start'),
    setConfig('./src/tasks/build/index.js', './lib/tasks/build'),
 ];
