@@ -45,6 +45,7 @@
 -  **`src`** is the default directory of development to watch
 -  **`dist`** is the default directory with the compiled code
 -  Once the process is started, the event occurs by **saving any file** into `src`.
+-  All options are preconfigured and you can customize them 😉
 
 <hr />
 
@@ -90,23 +91,6 @@
       >
       >    !function(){"use strict";console.log(3)}();
       >    ```
-
-<hr />
-
-#### HTML Import
-
--  You can import `.html` files recursively, based on the `scss` import, for example:
-   ```html
-   <html>
-      <body>
-         <!-- import('./views/_header.html') -->
-         <section>
-            <!-- import('./views/_main.html') -->
-         </section>
-         <!-- import('../_footer.html') -->
-      </body>
-   </html>
-   ```
 
 <hr />
 
@@ -228,6 +212,23 @@
 <!-- prettier-ignore -->
    ```html
    <div><h1>Title</h1><p>Paragraph</p></div>
+   ```
+
+<hr />
+
+#### HTML Import
+
+-  You can import `.html` files recursively, based on the `scss` import, for example:
+   ```html
+   <html>
+      <body>
+         <!-- import('./views/_header.html') -->
+         <section>
+            <!-- import('./views/_main.html') -->
+         </section>
+         <!-- import('../_footer.html') -->
+      </body>
+   </html>
    ```
 
 <hr />
@@ -394,6 +395,6 @@ Options Indexes FollowSymLinks MultiViews
 
 <p>
 
-**Made with _sadness_ and _sorrow_ in rainy nights by [Weslley Araújo](https://github.com/wellwelwel)** 🌌
+**Made with _sadness_ and _sorrow_ in rainy nights by [Weslley Araújo](https://github.com/wellwelwel)** 💜
 
 </p>
