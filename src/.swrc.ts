@@ -105,6 +105,8 @@ export interface Local {
 
 export interface SFTPAccess extends ConnectConfig {
    root: string;
+   /** 🖥️ Hostname or IP address of the server */
+   host: string;
    isWindowsServer?: boolean;
 }
 
