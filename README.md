@@ -1,7 +1,7 @@
 <p align="center">
  <img width="100px" src="/.github/assets/readme/logo.svg" align="center" alt="simple-web-cli" />
  <h1 align="center">Simple Web CLI</h1>
- <p align="center">⚡ A simple compiler to automate the development in <b>HTML</b>, <b>CSS</b>, <b>Sass</b>, <b>JavaScript</b> and <b>PHP</b> languages, focused on <b>Shared Hosts</b> and using <b>FTP</b> to deploy files processed automatically to final server.</p>
+ <p align="center">⚡ A simple compiler to automate the development in <b>HTML</b>, <b>CSS</b>, <b>Sass</b>, <b>JavaScript</b> and <b>PHP</b> languages, focused on <b>Shared Hosts</b> and using <b>SFTP</b> or <b>FTP</b> to deploy files processed automatically to final server.</p>
 </p>
 
 ## Install
@@ -110,27 +110,73 @@
 
 <hr />
 
-#### Using FTP HotSync
+#### Using SFTP or FTP HotSync
 
 -  In the file **`.swrc.js`**, just insert the access infos:
 
-   ```javascript
-   {
-      ftp: {
+<table width="100%">
+<tr>
+<td>SFTP</td>
+<td>FTP</td>
+</tr>
+<tr>
+<td>
+
+```javascript
+{
+   // ...
+
+   sftp: {
+      start: {
          root: '',
          host: '',
-         user: '',
-         pass: '',
-         secure: true | 'explict'
-      }
+         username: '',
+         password: '',
+      },
+   },
+}
+```
+
+</td>
+<td>
+
+```javascript
+{
+   // ...
+
+   ftp: {
+      root: '',
+      host: '',
+      user: '',
+      pass: '',
+      secure: true
    }
-   ```
+}
+```
 
--  Assuming the **`root`** directory is <ins>`/var/www`</ins>, the input and output of the directories would be:
+</td>
+</tr>
+<tr>
+<td>
 
-   -  **Development:** <ins>`./src`<b>`/html/index.html`</b></ins>
-   -  **Distribution:** <ins>`./dist`<b>`/html/index.html`</b></ins>
-   -  **Server:** <ins>`/var/www`<b>`/html/index.html`</b></ins>
+-  The [`sftp`](https://github.com/wellwelwel/basic-sftp) connection options extends all the [`ssh2`](https://github.com/mscdex/ssh2) options
+
+</td>
+<td>
+
+-  If the server doesn't use SSL certification, set `explict` or `implict`
+
+</td>
+</tr>
+</table>
+
+-  Assuming the **`root`** option is `/` and the _remote directory_ is `/var/www`, the input and output of the directories would be:
+
+   -  **Development:** <ins>`./src/`</ins> <b>`html/index.html`</b>
+   -  **Distribution:** <ins>`./dist/`</ins> <b>`html/index.html`</b>
+   -  **Server:** <ins>`/var/www/`</ins> <b>`html/index.html`</b>
+
+-  You can only use one protocol at a time: `SFTP` or `FTP`
 
 <hr />
 
@@ -314,8 +360,6 @@ Options Indexes FollowSymLinks MultiViews
 [![License](/.github/assets/readme/license.svg)](/LICENSE)
 [![3rd-Party Software License](/.github/assets/readme/3rd-license.svg)](/docs/LICENSE_THIRD_PARTY.md)
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web?ref=badge_small)
-
 <hr />
 
 ### Credits
@@ -337,6 +381,7 @@ Options Indexes FollowSymLinks MultiViews
 -  [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel#readme)
 -  [@rollup/plugin-commonjs](https://github.com/rollup/plugins/tree/master/packages/commonjs/#readme)
 -  [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve/#readme)
+-  [@types/ssh2](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/ssh2)
 -  [autoprefixer](https://github.com/postcss/autoprefixer#readme)
 -  [node-and-vite-helpers](https://github.com/wellwelwel/node-and-vite-helpers#readme)
 -  [packages-update](https://github.com/wellwelwel/packages-update#readme)

@@ -4,7 +4,7 @@ import latest from './modules/get-latest-version.js';
 
 const rebuildFiles = async (arg) => {
    const readJSON = (file) => JSON.parse(fs.readFileSync(file, 'utf-8'));
-   const buildJSON = (obj) => orderJSON(obj, 2);
+   const buildJSON = (obj) => orderJSON(obj, 3);
    const packageFile = readJSON('package.json') || {};
 
    const stage = {
@@ -36,6 +36,7 @@ const rebuildFiles = async (arg) => {
       '@rollup/plugin-babel',
       '@rollup/plugin-commonjs',
       '@rollup/plugin-node-resolve',
+      '@types/ssh2',
       'autoprefixer',
       'node-and-vite-helpers',
       'packages-update',

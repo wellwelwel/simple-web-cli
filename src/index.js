@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 
 import fs from 'fs';
-import { EOL, platform } from 'os';
-import { normalize, basename } from 'path';
+import { EOL } from 'os';
+import { normalize } from 'path';
 import exec from './modules/execShellCommand.js';
 import { sh, draft } from './modules/sh.js';
 import rebuildFiles from './rebuild-files.js';
@@ -13,11 +13,9 @@ import listFiles from './modules/listFiles.js';
    const [, , ...args] = process.argv;
    const arg = args[0]?.replace(/-/g, '') || 'start';
 
-   const isWindows = platform() === 'win32';
-
    const requires = {
-      dirs: [],
-      files: (await listFiles(`${__dirname}/resources`)).map((file) => basename(file)),
+      dirs: ['.vscode'],
+      files: (await listFiles(`${__dirname}/resources`)).map((file) => file.split('resources/').pop()),
    };
 
    const filesCallback = {
@@ -40,12 +38,7 @@ import listFiles from './modules/listFiles.js';
       `Importing dependencies: ${sh.green}${sh.dim}[ ${sh.italic}autoprefixer, postcss, rollup, sass, uglifyjs, ... ]${sh.reset}`
    );
 
-   for (const require of requires.dirs)
-      isWindows
-         ? await exec(
-              'xcopy ' + normalize(`${__dirname}/${require}\\`) + ' ' + normalize(`./${require}\\`) + ' /s /e /y'
-           )
-         : await exec('cp -rnf ' + normalize(`${__dirname}/${require}/`) + ' ' + normalize(`./${require}`));
+   for (const dir of requires.dirs) fs.mkdirSync(dir, { recursive: true });
 
    requires.files.forEach((require) => {
       if (!fs.existsSync(normalize(`./${require}`))) {

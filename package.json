@@ -2,9 +2,9 @@
    "name": "simple-web-cli",
    "type": "module",
    "version": "4.2.0",
-   "main": "./bin/index.js",
+   "main": "./.swrc.js",
    "scripts": {
-      "build": "rm -rf ./bin ./lib; npx rollup -c; sed -i '' $'1s/^/#! \\/usr\\/bin\\/env node\\\n\\\n/' bin/index.js;",
+      "build": "rm -rf ./bin ./lib ./.swrc.d.ts ./.swrc.js && npx rollup -c && sed -i '' $'1s/^/#! \\/usr\\/bin\\/env node\\\n\\\n/' bin/index.js && npx tsc;",
       "patch": "npm run update; npm run test-services && npm version patch --no-git-tag-version;",
       "minor": "npm run update; npm run test-services && npm version minor --no-git-tag-version;",
       "major": "npm run update; npm run test-services && npm version major --no-git-tag-version;",
@@ -19,6 +19,7 @@
    "keywords": [
       "ftp",
       "ftps",
+      "sftp",
       "watch",
       "watcher",
       "import",
@@ -38,6 +39,7 @@
    "dependencies": {
       "archiver": "^5.3.1",
       "basic-ftp": "^5.0.2",
+      "basic-sftp": "^0.1.1",
       "draftlog": "^1.0.13",
       "html-minifier": "^4.0.0",
       "node-watch": "^0.7.3",
@@ -46,14 +48,16 @@
    "devDependencies": {
       "@babel/preset-env": "^7.20.2",
       "@rollup/plugin-babel": "^6.0.3",
+      "@types/ssh2": "^1.11.7",
       "packages-update": "^1.2.1",
       "prettier": "^2.8.2",
-      "rollup": "^3.9.1"
+      "rollup": "^3.9.1",
+      "typescript": "^4.9.4"
    },
    "browserslist": [
       "> 0%"
    ],
-   "description": "⚡ A simple compiler to automate the development in HTML, CSS, Sass, JavaScript and PHP languages, focused on Shared Hosts and using FTP to deploy files processed automatically to final server.",
+   "description": "⚡ A simple compiler to automate the development in HTML, CSS, Sass, JavaScript and PHP languages, focused on Shared Hosts and using SFTP or FTP to deploy files processed automatically to final server.",
    "repository": {
       "type": "git",
       "url": "git+https://github.com/wellwelwel/simple-web-cli.git"
@@ -70,6 +74,7 @@
       "bin",
       "lib",
       "resources",
-      ".swrc.d.ts"
+      ".swrc.d.ts",
+      ".swrc.js"
    ]
 }

@@ -1,0 +1,15 @@
+{
+   "files.exclude": {
+      "node_modules": true,
+      "package-lock.json": true,
+      ".prettierrc": true,
+      "lib": true,
+      "bin": true,
+      "docs": true,
+      "LICENSE": true,
+      "CODE_OF_CONDUCT.md": true,
+      "rollup.config.js": true,
+      ".swrc.js": true,
+      ".swrc.d.ts": true
+   }
+}

@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 import { platform, EOL } from 'os';
-import { dirname, resolve, sep, normalize, basename } from 'path';
+import { dirname, resolve, sep, normalize } from 'path';
 import { exec as exec$1 } from 'child_process';
 import DraftLog from 'draftlog';
 
@@ -65,7 +65,7 @@ const latestVersion = async packageName => (await sh(`npm view ${packageName?.tr
 
 const rebuildFiles = async arg => {
   const readJSON = file => JSON.parse(fs.readFileSync(file, 'utf-8'));
-  const buildJSON = obj => orderJSON(obj, 2);
+  const buildJSON = obj => orderJSON(obj, 3);
   const packageFile = readJSON('package.json') || {};
   const stage = {
     package: false,
@@ -86,7 +86,7 @@ const rebuildFiles = async arg => {
     allKeys.sort();
     return JSON.stringify(obj, allKeys, space);
   };
-  const dependencies = ['@babel/preset-env', '@rollup/plugin-alias', '@rollup/plugin-babel', '@rollup/plugin-commonjs', '@rollup/plugin-node-resolve', 'autoprefixer', 'node-and-vite-helpers', 'packages-update', 'postcss-cli', 'rollup', 'sass', 'uglify-js'];
+  const dependencies = ['@babel/preset-env', '@rollup/plugin-alias', '@rollup/plugin-babel', '@rollup/plugin-commonjs', '@rollup/plugin-node-resolve', '@types/ssh2', 'autoprefixer', 'node-and-vite-helpers', 'packages-update', 'postcss-cli', 'rollup', 'sass', 'uglify-js'];
   const compatibility = {
     node: +process.version.split('.').shift().replace(/[^0-9]/, '') <= 14,
     dependencies: {
@@ -171,10 +171,9 @@ const listFiles = async (directory, type = false, excludeDir = false, excludeTyp
 (async () => {
   const [,, ...args] = process.argv;
   const arg = args[0]?.replace(/-/g, '') || 'start';
-  const isWindows = platform() === 'win32';
   const requires = {
-    dirs: [],
-    files: (await listFiles(`${__dirname}/resources`)).map(file => basename(file))
+    dirs: ['.vscode'],
+    files: (await listFiles(`${__dirname}/resources`)).map(file => file.split('resources/').pop())
   };
   const filesCallback = {
     'package.json': async () => await exec('npm i')
@@ -190,7 +189,9 @@ const listFiles = async (directory, type = false, excludeDir = false, excludeTyp
     return;
   }
   const importing = new draft(`Importing dependencies: ${sh$1.green}${sh$1.dim}[ ${sh$1.italic}autoprefixer, postcss, rollup, sass, uglifyjs, ... ]${sh$1.reset}`);
-  for (const require of requires.dirs) isWindows ? await exec('xcopy ' + normalize(`${__dirname}/${require}\\`) + ' ' + normalize(`./${require}\\`) + ' /s /e /y') : await exec('cp -rnf ' + normalize(`${__dirname}/${require}/`) + ' ' + normalize(`./${require}`));
+  for (const dir of requires.dirs) fs.mkdirSync(dir, {
+    recursive: true
+  });
   requires.files.forEach(require => {
     if (!fs.existsSync(normalize(`./${require}`))) {
       fs.copyFileSync(normalize(`${__dirname}/resources/${require}`), normalize(`./${require}`));
@@ -208,7 +209,7 @@ const listFiles = async (directory, type = false, excludeDir = false, excludeTyp
     if (fs.existsSync(normalize('./.swrc.js'))) {
       const {
         options
-      } = await import('./config-62bcf75a.js');
+      } = await import('./config-9bd41bac.js');
       if (arg === 'start' && options?.initalCommit && !fs.existsSync(normalize('./.git'))) await exec(`git init && git add . && git commit -m "Initial Commit"`);
     }
   } catch (quiet) {}

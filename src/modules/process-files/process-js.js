@@ -6,6 +6,7 @@ import path from '../get-path.js';
 import no_process from './no-process.js';
 import postProcess from './post-process-replace.js';
 import vReg from '../vReg.js';
+import tokenGenerate from '../token-generate.js';
 
 async function recursive_require(file, replace) {
    return await postProcess({ src: file, response: true, local: replace });
@@ -13,7 +14,7 @@ async function recursive_require(file, replace) {
 
 async function processJS(file, local = false, replace = 'start') {
    const localTo = !local ? to : local;
-   const tempDIR = `temp_${new Date().valueOf().toString()}`;
+   const tempDIR = `temp_${new Date().valueOf().toString()}_${tokenGenerate(8)}_${tokenGenerate(4)}`;
    const pre = file.replace(source, tempDIR);
    const tempJS = path(pre);
    const final = file.replace(source, localTo).replace(/\.ts$/, '.js');
