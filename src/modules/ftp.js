@@ -34,6 +34,16 @@ async function connect(access = false) {
             passvTimeout: 10000,
             keepalive: 30000,
          });
+
+         const exists = async () => {
+            try {
+               return (await client?.list(privateCachedAccess.root))?.length > 0 || false;
+            } catch (e) {
+               return false;
+            }
+         };
+
+         if (!(await exists(privateCachedAccess.root))) await client.ensureDir(privateCachedAccess.root);
       }
 
       return true;
@@ -43,7 +53,7 @@ async function connect(access = false) {
    }
 }
 
-async function send(file, waiting) {
+async function send(file) {
    const receiver = file.replace(`${to}${sep}`, '');
 
    try {
@@ -63,15 +73,6 @@ async function send(file, waiting) {
       if (!(await exists())) await client.ensureDir(dir);
 
       await client.uploadFrom(file, serverOSNormalize(`${privateCachedAccess.root}${sep}${receiver}`));
-
-      await new Promise((resolve) => {
-         const timer = setInterval(() => {
-            if (!waiting?.scheduling?.started) {
-               clearInterval(timer);
-               resolve();
-            }
-         });
-      });
 
       return true;
    } catch (err) {

@@ -3,9 +3,9 @@ import watch from 'node-watch';
 import { sep } from 'path';
 import { sh, type, draft } from '../../modules/sh.js';
 import FTP from '../../modules/ftp.js';
+import SFTP from '../../modules/sftp.js';
 import { dev, source, to, blacklist } from '../../modules/config.js';
 import createDir from '../../modules/create-dir.js';
-import empty from '../../modules/empty.js';
 import isConnected from '../../modules/check-connection.js';
 import deleteDS_Store from '../../modules/deleteDS_Store.js';
 import vReg from '../../modules/vReg.js';
@@ -17,6 +17,7 @@ import processHTACCESS from '../../modules/process-files/process-htaccess.js';
 import postProcess from '../../modules/process-files/post-process-replace.js';
 import no_process from '../../modules/process-files/no-process.js';
 import Schedule from '../../modules/schedule.js';
+import empty from '../../modules/empty.js';
 import serverOSNormalize from '../../modules/server-os-normalize.js';
 
 export default async () => {
@@ -24,18 +25,38 @@ export default async () => {
       ftp: new draft('', `circle`, false),
    };
 
+   const verifyClients = {
+      ftp: dev?.ftp && !empty(dev?.ftp?.host) && !empty(dev?.ftp?.root),
+      sftp: dev?.sftp && !empty(dev?.sftp?.host) && !empty(dev?.sftp?.root),
+   };
+
+   const ambiguousProtocols = verifyClients.ftp && verifyClients.sftp;
+   const protocolType =
+      ambiguousProtocols || (!verifyClients.ftp && !verifyClients.sftp)
+         ? 'FTP or SFTP'
+         : verifyClients.ftp
+         ? 'FTP'
+         : 'SFTP';
+   const Protocol = ambiguousProtocols || protocolType === 'FTP or SFTP' ? false : verifyClients.ftp ? FTP : SFTP;
+
    console.log();
 
    loading.ftp.start();
-   loading.ftp.string = `${sh.bold}FTP:${sh.reset} ${sh.dim}Connecting`;
+   loading.ftp.string = `${sh.bold}${protocolType}:${sh.reset} ${sh.dim}Connecting`;
 
-   const { host, user, pass } = dev.ftp;
-   const pre_connect = !empty(host) || !empty(user) || !empty(pass);
-   const conn = pre_connect ? await FTP.connect(dev.ftp) : false;
+   const conn =
+      !ambiguousProtocols && protocolType !== 'FTP or SFTP'
+         ? await Protocol.connect(protocolType === 'FTP' ? dev.ftp : dev.sftp)
+         : false;
    if (!conn) {
-      FTP.client.close();
-      loading.ftp.stop(3, `${sh.dim}${sh.bold}FTP:${sh.reset}${sh.dim} No connected`);
-   } else loading.ftp.stop(1, `${sh.bold}FTP:${sh.reset} ${sh.dim}Connected`);
+      Protocol?.client?.close && Protocol.client.close();
+      loading.ftp.stop(
+         3,
+         `${sh.dim}${sh.bold}${protocolType}:${sh.reset}${sh.dim} ${
+            ambiguousProtocols ? 'Only one protocol is accept, choose between one of them' : 'No connected'
+         }`
+      );
+   } else loading.ftp.stop(1, `${sh.bold}${protocolType}:${sh.reset} ${sh.dim}Connected`);
 
    const deploy = new Schedule();
    const watcherSource = watch(source, { recursive: true });
@@ -48,7 +69,7 @@ export default async () => {
       }
 
       if (file === `${source}${sep}exit`) {
-         FTP.client.close();
+         Protocol?.client?.close && Protocol.client.close();
          watcherSource.close();
          watcherMain.close();
          process.exit(0);
@@ -156,7 +177,9 @@ export default async () => {
             if (connected && conn)
                log.deploy.string = `Deploying ${sh.dim}to${sh.reset} "${type(deploy.scheduling.current)}${
                   sh.bold
-               }${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
+               }${serverOSNormalize(deploy.scheduling.current.replace(to, Protocol.publicCachedAccess.root))}${
+                  sh.reset
+               }"`;
          } else {
             log.status.stop(
                1,
@@ -167,13 +190,15 @@ export default async () => {
             if (connected && conn)
                log.deploy.string = `Removing ${sh.dim}from${sh.reset} "${type(deploy.scheduling.current)}${
                   sh.bold
-               }${serverOSNormalize(deploy.scheduling.current.replace(to, FTP.publicCachedAccess.root))}${sh.reset}"`;
+               }${serverOSNormalize(deploy.scheduling.current.replace(to, Protocol.publicCachedAccess.root))}${
+                  sh.reset
+               }"`;
          }
 
          if (connected && conn) {
-            const action = event == 'update' ? await FTP.send(file, deploy) : await FTP.remove(file, isDir);
+            const action = event == 'update' ? await Protocol.send(file, deploy) : await Protocol.remove(file, isDir);
 
-            log.deploy.stop(!!action ? 1 : 0, FTP.client.error);
+            log.deploy.stop(!!action ? 1 : 0, Protocol.client.error);
          }
       }
 

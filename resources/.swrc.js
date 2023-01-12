@@ -45,45 +45,44 @@ const options = {
    /* ----   A D V A N C E D   O P T I O N S   ---- */
    /* --------------------------------------------- */
 
-   /**
-    * 👮🏻‍♂️ Don't process neither copy source file to dist path
-    */
+   // 👮🏻‍♂️ Don't process neither copy source file to dist path
    blacklist: ['.coffee', '.jsx', '.less', '.pug', '.tsx', '.git/', 'node_modules'],
 
-   ftp: {
-      /**
-       * ℹ️ Keeps empty to ignore the FTP connection
-       * ❗️ Becareful: set access FTP data in an external .env or add the “.swrc.js” to .gitignore
-       */
+   /**
+    * ℹ️ Keeps empty to ignore the FTP connection
+    * ❗️ Becareful: set access FTP data in an external .env or add the “.swrc.js” to .gitignore
+    */
+   sftp: {
       start: {
          root: '',
          host: '',
-         port: 21,
+         username: '',
+         password: '',
+      },
+   },
+   // or
+   ftp: {
+      start: {
+         root: '',
+         host: '',
          user: '',
          pass: '',
          secure: true,
-         isWindowsServer: false,
       },
    },
 
    plugins: {
-      /**
-       * ℹ️ You can create an easy to read code and on compiling, replace the specified strings
-       */
+      // ℹ️ You can create an easy to read code and on compiling, replace the specified strings
       stringReplace: {
          strings: {
-            /**
-             * ❗️ always starts and ends the key string with: *
-             */
+            // ❗️ Always starts and ends the key string with: *
             '*your-code-string*': {
                start: 'my-start-output',
                build: 'my-build-output',
             },
          },
 
-         /**
-          * ℹ️ If you want more specific extensions, you can add them here
-          */
+         // ℹ️ If you want more specific extensions, you can add them here
          languages: {
             html: true,
             php: true,
@@ -97,9 +96,7 @@ const options = {
          },
       },
 
-      /**
-       * 🔄 You can create a mirror project folder and add static resource files to replace temporary development files by this on compiling
-       */
+      // 🔄 You can create a mirror project folder and add static resource files to replace temporary development files by this on compiling
       resourceReplace: {
          src: '.resources',
          replace: {

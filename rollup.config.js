@@ -18,6 +18,7 @@ const setConfig = (/** @type {string} */ input, /** @type {string} */ dir) =>
          'child_process',
          'html-minifier',
          'basic-ftp',
+         'basic-sftp',
          'http2',
          'uglifycss',
          'node-watch',

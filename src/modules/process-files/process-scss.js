@@ -8,11 +8,12 @@ import path from '../get-path.js';
 import listFiles from '../listFiles.js';
 import no_process from './no-process.js';
 import postProcess from './post-process-replace.js';
+import tokenGenerate from '../token-generate.js';
 
 async function processCSS(file, local = false, replace = 'start') {
    const _ = file.split(sep).pop().substr(0, 1) === '_' ? true : false;
    const fileType = file.split('.').pop().toLowerCase();
-   const tempDIR = `temp_${new Date().valueOf().toString()}`;
+   const tempDIR = `temp_${new Date().valueOf().toString()}_${tokenGenerate(8)}_${tokenGenerate(4)}`;
 
    if (fileType === 'scss' && process_files.hasOwnProperty('scss') && process_files.scss === false) {
       createDir([path(file.replace(source, to))]);
