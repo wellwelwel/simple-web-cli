@@ -360,8 +360,6 @@ Options Indexes FollowSymLinks MultiViews
 [![License](/.github/assets/readme/license.svg)](/LICENSE)
 [![3rd-Party Software License](/.github/assets/readme/3rd-license.svg)](/docs/LICENSE_THIRD_PARTY.md)
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwellwelwel%2Fsimple-web?ref=badge_small)
-
 <hr />
 
 ### Credits
