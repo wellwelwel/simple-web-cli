@@ -8,6 +8,8 @@
       "docs": true,
       "LICENSE": true,
       "CODE_OF_CONDUCT.md": true,
-      "rollup.config.js": true
+      "rollup.config.js": true,
+      ".swrc.js": true,
+      ".swrc.d.ts": true
    }
 }

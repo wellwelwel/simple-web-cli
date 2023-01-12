@@ -1,0 +1,27 @@
+{
+   "include": ["src/.swrc.ts"],
+   "compilerOptions": {
+      "target": "ESNext",
+      "module": "ESNext",
+      "moduleResolution": "NodeNext",
+
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+
+      "allowJs": false,
+      "strict": true,
+      "alwaysStrict": true,
+      "strictFunctionTypes": false,
+      "noUnusedLocals": true,
+      "noImplicitAny": true,
+
+      "removeComments": false,
+      "sourceMap": false,
+      "declaration": true,
+
+      "outDir": "",
+      "declarationDir": ""
+   }
+}

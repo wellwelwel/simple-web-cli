@@ -1,7 +1,8 @@
 // @ts-check
-/** @type {import('simple-web-cli/.swrc.d.js').Options} */
 
-const options = {
+import { defineConfig } from 'simple-web-cli';
+
+export default defineConfig({
    workspaces: {
       src: 'src',
       dist: 'dist',
@@ -49,27 +50,30 @@ const options = {
    blacklist: ['.coffee', '.jsx', '.less', '.pug', '.tsx', '.git/', 'node_modules'],
 
    /**
-    * ℹ️ Keeps empty to ignore the FTP connection
+    * 🔒 You can only use one protocol: `SFTP` or `FTP`
     * ❗️ Becareful: set access FTP data in an external .env or add the “.swrc.js” to .gitignore
     */
-   sftp: {
-      start: {
-         root: '',
-         host: '',
-         username: '',
-         password: '',
-      },
-   },
-   // or
-   ftp: {
-      start: {
-         root: '',
-         host: '',
-         user: '',
-         pass: '',
-         secure: true,
-      },
-   },
+
+   // sftp: {
+   //    start: {
+   //       root: '',
+   //       host: '',
+   //       username: '',
+   //       password: '',
+   //    },
+   // },
+
+   /** or */
+
+   // ftp: {
+   //    start: {
+   //       root: '',
+   //       host: '',
+   //       user: '',
+   //       pass: '',
+   //       secure: true,
+   //    },
+   // },
 
    plugins: {
       // ℹ️ You can create an easy to read code and on compiling, replace the specified strings
@@ -105,6 +109,4 @@ const options = {
          },
       },
    },
-};
-
-export default options;
+});

@@ -176,6 +176,8 @@
    -  **Distribution:** <ins>`./dist/`</ins> <b>`html/index.html`</b>
    -  **Server:** <ins>`/var/www/`</ins> <b>`html/index.html`</b>
 
+-  You can only use one protocol at a time: `SFTP` or `FTP`
+
 <hr />
 
 #### Using TypeScript
@@ -381,6 +383,7 @@ Options Indexes FollowSymLinks MultiViews
 -  [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel#readme)
 -  [@rollup/plugin-commonjs](https://github.com/rollup/plugins/tree/master/packages/commonjs/#readme)
 -  [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve/#readme)
+-  [@types/ssh2](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/ssh2)
 -  [autoprefixer](https://github.com/postcss/autoprefixer#readme)
 -  [node-and-vite-helpers](https://github.com/wellwelwel/node-and-vite-helpers#readme)
 -  [packages-update](https://github.com/wellwelwel/packages-update#readme)

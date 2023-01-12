@@ -40,12 +40,10 @@ import { extname, resolve as normalize, join } from 'path';
             const source = 'temp/.swrc.js';
             const toTrue = /start: (false)/gm;
             const toFalse = /(initialCommit): (true)/gm;
-            const toUncomment = /\/\/\s{0,}(chmod|dir|file|recursive|})/gm;
             const swrc = fs.readFileSync(normalize(source), 'utf-8');
             const result = swrc
                .replace(toTrue, (a) => a.replace(/false/, 'true'))
-               .replace(toFalse, (a) => a.replace(/true/, 'false'))
-               .replace(toUncomment, (a) => a.replace(/\/\/ /, ''));
+               .replace(toFalse, (a) => a.replace(/true/, 'false'));
 
             fs.writeFileSync(normalize(source), result);
 
