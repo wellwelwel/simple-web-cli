@@ -48,7 +48,7 @@ async function processJS(file, local = false, replace = 'start') {
       if (no_process(pre)) return;
 
       if (process_files?.js?.babel) {
-         const request = await exec(`npx --quiet rollup -i "${pre}" -o "${pre}" -f "iife" -c`); // Rollup
+         const request = await exec(`npx --quiet rollup -i "${pre}" -o "${pre}" -c`); // Rollup
          if (!request) error = true;
       }
 

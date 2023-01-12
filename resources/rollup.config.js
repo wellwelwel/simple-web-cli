@@ -21,6 +21,11 @@ const configs = defineConfig({
       nodeResolve(),
       commonjs(),
    ],
+   output: {
+      strict: true,
+      format: 'iife',
+      inlineDynamicImports: true,
+   },
 });
 
 if (useBabel && Array.isArray(configs.plugins)) {
