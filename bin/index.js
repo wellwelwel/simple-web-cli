@@ -86,7 +86,7 @@ const rebuildFiles = async arg => {
     allKeys.sort();
     return JSON.stringify(obj, allKeys, space);
   };
-  const dependencies = ['@babel/preset-env', '@rollup/plugin-alias', '@rollup/plugin-babel', '@rollup/plugin-commonjs', '@rollup/plugin-node-resolve', '@types/ssh2', 'autoprefixer', 'node-and-vite-helpers', 'packages-update', 'postcss-cli', 'rollup', 'sass', 'uglify-js'];
+  const dependencies = ['@babel/preset-env', '@rollup/plugin-alias', '@rollup/plugin-babel', '@rollup/plugin-commonjs', '@rollup/plugin-node-resolve', 'autoprefixer', 'node-and-vite-helpers', 'packages-update', 'postcss-cli', 'rollup', 'sass', 'uglify-js'];
   const compatibility = {
     node: +process.version.split('.').shift().replace(/[^0-9]/, '') <= 14,
     dependencies: {
