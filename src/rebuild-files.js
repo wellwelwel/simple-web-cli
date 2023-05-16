@@ -35,6 +35,7 @@ const rebuildFiles = async (arg) => {
       '@rollup/plugin-babel',
       '@rollup/plugin-commonjs',
       '@rollup/plugin-node-resolve',
+      '@rollup/plugin-terser',
       '@rollup/plugin-typescript',
       'autoprefixer',
       'node-and-vite-helpers',

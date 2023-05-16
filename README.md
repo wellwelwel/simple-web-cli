@@ -353,6 +353,7 @@ Options Indexes FollowSymLinks MultiViews
 -  [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel#readme)
 -  [@rollup/plugin-commonjs](https://github.com/rollup/plugins/tree/master/packages/commonjs/#readme)
 -  [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve/#readme)
+-  [@rollup/plugin-terser](https://github.com/rollup/plugins/tree/master/packages/terser#readme)
 -  [@rollup/plugin-typescript](https://github.com/rollup/plugins/tree/master/packages/typescript/#readme)
 -  [@types/ssh2](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/ssh2)
 -  [autoprefixer](https://github.com/postcss/autoprefixer#readme)
