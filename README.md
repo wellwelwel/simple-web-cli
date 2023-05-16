@@ -350,7 +350,6 @@ Options Indexes FollowSymLinks MultiViews
 #### `Create` dependencies
 
 -  [@babel/preset-env](https://babel.dev/docs/en/next/babel-preset-env)
--  [@rollup/plugin-alias](https://github.com/rollup/plugins/tree/master/packages/alias#readme)
 -  [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel#readme)
 -  [@rollup/plugin-commonjs](https://github.com/rollup/plugins/tree/master/packages/commonjs/#readme)
 -  [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve/#readme)

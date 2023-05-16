@@ -32,7 +32,6 @@ const rebuildFiles = async (arg) => {
    };
    const dependencies = [
       '@babel/preset-env',
-      '@rollup/plugin-alias',
       '@rollup/plugin-babel',
       '@rollup/plugin-commonjs',
       '@rollup/plugin-node-resolve',

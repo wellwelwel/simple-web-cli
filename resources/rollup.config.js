@@ -1,7 +1,6 @@
 // @ts-check
 
 import { defineConfig } from 'rollup';
-import alias from '@rollup/plugin-alias';
 import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
@@ -13,12 +12,6 @@ const useUglify = swrc.start.compile.js.uglify;
 
 const configs = defineConfig({
    plugins: [
-      alias({
-         entries: [
-            { find: /#helpers\/(.+)/, replacement: './helpers/$1.js' },
-            { find: /#utils\/(.+)/, replacement: './utils/$1.js' },
-         ],
-      }),
       nodeResolve(),
       commonjs(),
       typescript({
