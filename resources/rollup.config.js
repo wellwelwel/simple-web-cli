@@ -12,7 +12,9 @@ const useUglify = swrc.start.compile.js.uglify;
 
 const configs = defineConfig({
    plugins: [
-      nodeResolve(),
+      nodeResolve({
+         browser: true,
+      }),
       commonjs(),
       typescript({
          tsconfig: './tsconfig.json',
