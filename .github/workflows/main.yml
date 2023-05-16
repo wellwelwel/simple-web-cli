@@ -17,7 +17,7 @@ jobs:
       strategy:
          matrix:
             os: [ubuntu-latest]
-            node-version: ['20.x', '18.x', '16.x']
+            node-version: ['20.x', '18.x', '16.0.0']
       if: ${{ !startsWith(github.event.head_commit.message, 'no-ci') }}
       steps:
          - name: ➕ Actions - Checkout
