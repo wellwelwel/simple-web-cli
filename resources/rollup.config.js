@@ -21,7 +21,11 @@ const configs = defineConfig({
       }),
       nodeResolve(),
       commonjs(),
-      typescript(),
+      typescript({
+         allowJs: true,
+         skipLibCheck: true,
+         forceConsistentCasingInFileNames: true,
+      }),
    ],
    output: {
       strict: true,
