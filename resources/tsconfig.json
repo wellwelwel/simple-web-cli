@@ -1,9 +1,10 @@
 {
+   "exclude": ["node_modules"],
    "compilerOptions": {
       "lib": ["DOM", "DOM.Iterable", "ESNext"],
       "target": "ESNext",
       "module": "ESNext",
-      "moduleResolution": "node",
+      "moduleResolution": "bundler",
       "resolveJsonModule": true,
       "isolatedModules": true,
       "esModuleInterop": true,
