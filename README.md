@@ -347,7 +347,7 @@ Options Indexes FollowSymLinks MultiViews
 
 <hr />
 
-#### `Create` dependencies
+#### `Create` dev dependencies
 
 -  [@babel/preset-env](https://babel.dev/docs/en/next/babel-preset-env)
 -  [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel#readme)
