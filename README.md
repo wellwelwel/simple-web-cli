@@ -1,7 +1,7 @@
 <p align="center">
  <img width="100px" src="/.github/assets/readme/logo.svg" align="center" alt="simple-web-cli" />
  <h1 align="center">Simple Web CLI</h1>
- <p align="center">⚡ A simple compiler to automate the development in <b>HTML</b>, <b>CSS</b>, <b>Sass</b>, <b>JavaScript</b> and <b>PHP</b> languages, focused on <b>Shared Hosts</b> and using <b>SFTP</b> or <b>FTP</b> to deploy files processed automatically to final server.</p>
+ <p align="center">⚡ A simple compiler to automate the development in <code><b>HTML</b></code>, <code><b>CSS | SCSS</b></code>, <code><b>JS | TS</b></code> and <code><b>PHP</b></code> languages, focused on <b>Shared Hosts</b> and using <b>SFTP</b> or <b>FTP</b> to deploy files processed automatically to final server.</p>
 </p>
 
 ## Install
@@ -161,33 +161,6 @@
    -  **Server:** <ins>`/var/www/`</ins> <b>`html/index.html`</b>
 
 -  You can only use one protocol at a time: `SFTP` or `FTP`
-
-<hr />
-
-#### Using TypeScript
-
--  Install TypeScript modules
-
-   > ```
-   > npm i tslib @rollup/plugin-typescript -D
-   > ```
-
--  In <ins>rollup.config.js</ins>:
-   > -  Import the plugin module:
-   >    ```js
-   >    import typescript from '@rollup/plugin-typescript';
-   >    ```
-   > -  Then, add the plugin to `configs`:
-   >    ```js
-   >    {
-   >       // ...,
-   >       plugins: [
-   >          // ...,
-   >          typescript(),
-   >       ],
-   >    };
-   >    ```
--  It's done! 😉
 
 <hr />
 
@@ -381,6 +354,7 @@ Options Indexes FollowSymLinks MultiViews
 -  [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel#readme)
 -  [@rollup/plugin-commonjs](https://github.com/rollup/plugins/tree/master/packages/commonjs/#readme)
 -  [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve/#readme)
+-  [@rollup/plugin-typescript](https://github.com/rollup/plugins/tree/master/packages/typescript/#readme)
 -  [@types/ssh2](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/ssh2)
 -  [autoprefixer](https://github.com/postcss/autoprefixer#readme)
 -  [node-and-vite-helpers](https://github.com/wellwelwel/node-and-vite-helpers#readme)
@@ -388,6 +362,7 @@ Options Indexes FollowSymLinks MultiViews
 -  [postcss-cli](https://github.com/postcss/postcss-cli#readme)
 -  [rollup](https://rollupjs.org/)
 -  [sass](https://github.com/sass/dart-sass)
+-  [tslib](https://www.typescriptlang.org)
 -  [uglify-js](https://github.com/mishoo/UglifyJS#readme)
 
 <hr />

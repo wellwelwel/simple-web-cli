@@ -2,9 +2,10 @@
 
 import { defineConfig } from 'rollup';
 import alias from '@rollup/plugin-alias';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import { babel } from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
 import swrc from './.swrc.js';
 
 const useBabel = swrc.start.compile.js.babel;
@@ -20,6 +21,7 @@ const configs = defineConfig({
       }),
       nodeResolve(),
       commonjs(),
+      typescript(),
    ],
    output: {
       strict: true,
