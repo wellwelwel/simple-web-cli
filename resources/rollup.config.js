@@ -32,9 +32,9 @@ if (Array.isArray(configs.plugins)) {
       configs.plugins.push(
          babel({
             babelHelpers: 'inline',
-            comments: !useUglify,
-            compact: useUglify,
-            minified: useUglify,
+            comments: false,
+            compact: true,
+            minified: true,
             presets: [
                '@babel/preset-env',
                {
