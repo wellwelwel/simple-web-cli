@@ -153,31 +153,49 @@ export default async () => {
 
    watcherSource.on('change', (event, file) => onSrc(event, file));
 
-   watcherRoot.on('change', async (event, file) => {
+   watcherRoot.on('change', (event, file) => {
       if (event !== 'update') return;
 
-      const filteredModule = file.replace(/\.\.\//g, '').replace(/\//g, '\\/');
+      const alreadyChecked = [];
 
-      if (new RegExp(`^(${source}|${to}|node_modules|temp_)`).test(filteredModule)) return;
+      const searchImports = async (module) => {
+         const filteredModule = module.replace(/\.\.\//g, '').replace(/\//g, '\\/');
 
-      const { tree: dependencies } = await madge(source, {
-         extensions: ['js', 'ts'],
-         fileExtensions: ['js', 'ts'],
-         excludeRegExp: ['node_modules'],
-      });
+         if (new RegExp(`^(${source}|${to}|node_modules|temp_)`).test(filteredModule)) return;
 
-      const filteredDependencies = Object.fromEntries(
-         Object.entries(dependencies).filter(([key]) => !new RegExp(filteredModule).test(key))
-      );
+         const { tree: dependencies } = await madge(source, {
+            extensions: ['js', 'ts'],
+            fileExtensions: ['js', 'ts'],
+            excludeRegExp: ['node_modules'],
+         });
 
-      for (const [resource, dependecy] of Object.entries(filteredDependencies)) {
-         const hasThisModule = dependecy.some((key) =>
-            new RegExp(`^${filteredModule}`).test(key.replace(/\.\.\//g, ''))
+         const filteredDependencies = Object.fromEntries(
+            Object.entries(dependencies).filter(([key]) => !new RegExp(filteredModule).test(key))
          );
 
-         if (!hasThisModule) continue;
-         else onSrc(event, `${source}/${resource}`);
-      }
+         for (const [resource, dependecy] of Object.entries(filteredDependencies)) {
+            const hasThisModule = dependecy.some((key) =>
+               new RegExp(`^${filteredModule}`).test(key.replace(/\.\.\//g, ''))
+            );
+
+            if (!hasThisModule) continue;
+            else {
+               if (/\.\//.test(resource)) {
+                  searchImports(resource);
+               } else {
+                  const finalSource = `${source}/${resource}`;
+
+                  if (alreadyChecked.includes(finalSource)) continue;
+                  else {
+                     alreadyChecked.push(finalSource);
+                     onSrc(event, finalSource);
+                  }
+               }
+            }
+         }
+      };
+
+      searchImports(file);
    });
 
    watcherMain.on('change', async (event, file) => {
