@@ -352,7 +352,6 @@ Options Indexes FollowSymLinks MultiViews
 ![Linux](/.github/assets/readme/linux.svg)
 ![Windows](/.github/assets/readme/windows.svg)
 ![node](/.github/assets/readme/node.svg)
-![npm](/.github/assets/readme/npm.svg)
 
 <hr />
 
