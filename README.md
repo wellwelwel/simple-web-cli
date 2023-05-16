@@ -79,7 +79,7 @@
    export default sum;
 
    // File: ./src/index.js
-   import sum from '#helpers/sum';
+   import sum from '../helpers/sum';
 
    console.log(sum(1, 2));
    ```
