@@ -24,6 +24,7 @@ const setConfig = (/** @type {string} */ input, /** @type {string} */ dir) =>
          'node-watch',
          'archiver',
          'perf_hooks',
+         'madge',
       ],
       plugins: [
          babel({
