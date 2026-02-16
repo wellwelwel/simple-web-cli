@@ -44,6 +44,7 @@ const rebuildFiles = async (arg) => {
     'rollup',
     'sass',
     'tslib',
+    'typescript',
     'uglify-js',
   ];
 

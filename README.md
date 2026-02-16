@@ -362,6 +362,7 @@ Options Indexes FollowSymLinks MultiViews
 - [rollup](https://rollupjs.org/)
 - [sass](https://github.com/sass/dart-sass)
 - [tslib](https://www.typescriptlang.org)
+- [typescript](https://www.typescriptlang.org)
 - [uglify-js](https://github.com/mishoo/UglifyJS#readme)
 
 <hr />
