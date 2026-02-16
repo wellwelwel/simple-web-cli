@@ -56,7 +56,7 @@ async function processJS(file, local = false, replace = 'start') {
         `npx --quiet rollup -i "${pre}" -o "${final}" -c`
       ); // Rollup
       if (!request) error = true;
-      processedToFinal = true;
+      else processedToFinal = true;
     }
 
     if (process_files?.js?.uglify) {
@@ -65,7 +65,7 @@ async function processJS(file, local = false, replace = 'start') {
         `npx --quiet uglifyjs "${input}" -o "${final}" -c -m`
       ); // Uglify
       if (!request) error = true;
-      processedToFinal = true;
+      else processedToFinal = true;
     }
 
     return error;

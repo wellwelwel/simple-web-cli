@@ -140,8 +140,15 @@ import watchClose from '../../modules/watch-close.js';
         const output = fs.createWriteStream(`${final}.zip`);
         const archive = archiver('zip', { zlib: { level: build?.level || 0 } });
 
+        new Promise((resolve, reject) => {
+          output.on('close', resolve);
+          archive.on('error', reject);
+        });
+
         archive.pipe(output);
+
         for (const file of files) archive.file(file, { name: file });
+
         await archive.finalize();
 
         loading.stop(

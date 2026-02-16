@@ -36,14 +36,14 @@ export default async () => {
     ambiguousProtocols || (!verifyClients.ftp && !verifyClients.sftp)
       ? 'FTP or SFTP'
       : verifyClients.ftp
-      ? 'FTP'
-      : 'SFTP';
+        ? 'FTP'
+        : 'SFTP';
   const Protocol =
     ambiguousProtocols || protocolType === 'FTP or SFTP'
       ? false
       : verifyClients.ftp
-      ? FTP
-      : SFTP;
+        ? FTP
+        : SFTP;
 
   console.log();
 

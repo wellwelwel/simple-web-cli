@@ -155,7 +155,6 @@
 </table>
 
 - Assuming the **`root`** option is `/` and the _remote directory_ is `/var/www`, the input and output of the directories would be:
-
   - **Development:** <ins>`./src/`</ins> <b>`html/index.html`</b>
   - **Distribution:** <ins>`./dist/`</ins> <b>`html/index.html`</b>
   - **Server:** <ins>`/var/www/`</ins> <b>`html/index.html`</b>
