@@ -1,6 +1,5 @@
 import fs from 'fs';
 import { sep } from 'path';
-import madge from 'madge';
 import watch from 'node-watch';
 import isConnected from '../../modules/check-connection.js';
 import { blacklist, dev, source, to } from '../../modules/config.js';
@@ -73,7 +72,6 @@ export default async () => {
   const deploy = new Schedule();
   const watcherSource = watch(source, { recursive: true });
   const watcherMain = watch(to, { recursive: true });
-  const watcherRoot = watch('./', { recursive: true });
 
   const onSrc = async (event, file) => {
     if (!!file.match(/DS_Store/)) {
@@ -179,60 +177,6 @@ export default async () => {
   };
 
   watcherSource.on('change', (event, file) => onSrc(event, file));
-
-  watcherRoot.on('change', (event, file) => {
-    if (event !== 'update') return;
-
-    const alreadyChecked = [];
-
-    const searchImports = async (module) => {
-      const filteredModule = module
-        .replace(/\.\.\//g, '')
-        .replace(/\//g, '\\/');
-
-      if (
-        new RegExp(`^(${source}|${to}|node_modules|temp_)`).test(filteredModule)
-      )
-        return;
-
-      const { tree: dependencies } = await madge(source, {
-        extensions: ['js', 'ts'],
-        fileExtensions: ['js', 'ts'],
-        excludeRegExp: ['node_modules'],
-      });
-
-      const filteredDependencies = Object.fromEntries(
-        Object.entries(dependencies).filter(
-          ([key]) => !new RegExp(filteredModule).test(key)
-        )
-      );
-
-      for (const [resource, dependecy] of Object.entries(
-        filteredDependencies
-      )) {
-        const hasThisModule = dependecy.some((key) =>
-          new RegExp(`^${filteredModule}`).test(key.replace(/\.\.\//g, ''))
-        );
-
-        if (!hasThisModule) continue;
-        else {
-          if (/\.\//.test(resource)) {
-            searchImports(resource);
-          } else {
-            const finalSource = `${source}/${resource}`;
-
-            if (alreadyChecked.includes(finalSource)) continue;
-            else {
-              alreadyChecked.push(finalSource);
-              onSrc(event, finalSource);
-            }
-          }
-        }
-      }
-    };
-
-    searchImports(file);
-  });
 
   watcherMain.on('change', async (event, file) => {
     if (!!file.match(/DS_Store/)) {

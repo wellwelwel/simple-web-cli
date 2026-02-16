@@ -1,4 +1,6 @@
 import fs from 'fs';
+import nodePath from 'node:path';
+import madge from 'madge';
 import { process_files, source, to } from '../config.js';
 import createDir from '../create-dir.js';
 import exec from '../execShellCommand.js';
@@ -12,7 +14,35 @@ async function recursive_require(file, replace) {
   return await postProcess({ src: file, response: true, local: replace });
 }
 
+const processing = new Set();
+
 async function processJS(file, local = false, replace = 'start') {
+  if (processing.has(file)) return true;
+
+  processing.add(file);
+
+  try {
+    const instance = await madge(source, {
+      fileExtensions: ['js', 'ts'],
+      excludeRegExp: ['node_modules'],
+    });
+
+    const deps = instance.obj();
+    const relFile = file.replace(`${source}/`, '');
+
+    const parents = Object.entries(deps)
+      .filter(([, imports]) => imports.includes(relFile))
+      .map(([key]) => `${source}/${key}`);
+
+    if (parents.length > 0) {
+      for (const parent of parents) await processJS(parent, local, replace);
+      return true;
+    }
+  } catch {
+  } finally {
+    processing.delete(file);
+  }
+
   const localTo = !local ? to : local;
   const tempDIR = `temp_${new Date().valueOf().toString()}_${tokenGenerate(
     8
@@ -81,6 +111,32 @@ async function processJS(file, local = false, replace = 'start') {
   /* ------------------------------------------------------------- */
 
   await pre_process();
+
+  /* Symlink source contents to resolve relative imports */
+  const relFile = file.replace(source, '').replace(/^\//, '');
+  const segments = relFile.split('/');
+
+  let curSource = source;
+  let curTemp = tempDIR;
+
+  for (let i = 0; i < segments.length; i++) {
+    if (fs.existsSync(curSource)) {
+      for (const item of fs.readdirSync(curSource)) {
+        if (item === segments[i]) continue;
+
+        const linkPath = `${curTemp}/${item}`;
+
+        if (!fs.existsSync(linkPath))
+          fs.symlinkSync(nodePath.resolve(curSource, item), linkPath);
+      }
+    }
+
+    if (i < segments.length - 1) {
+      curSource += '/' + segments[i];
+      curTemp += '/' + segments[i];
+    }
+  }
+
   const request = await process();
   await post_process();
 

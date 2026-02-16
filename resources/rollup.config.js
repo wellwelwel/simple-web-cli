@@ -18,7 +18,6 @@ const configs = defineConfig({
     commonjs(),
     typescript({
       tsconfig: './tsconfig.json',
-      outDir: swrc.workspaces.dist,
     }),
   ],
   output: {

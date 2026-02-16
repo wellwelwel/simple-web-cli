@@ -4,7 +4,8 @@
   "version": "4.4.7",
   "main": "./.swrc.js",
   "scripts": {
-    "build": "rm -rf ./bin ./lib ./.swrc.d.ts ./.swrc.js && rollup -c && tsc;",
+    "lint:fix": "prettier --write .",
+    "build": "rm -rf ./bin ./lib ./.swrc.d.ts ./.swrc.js && npm run lint:fix && rollup -c && tsc;",
     "patch": "npm run update; npm test && npm version patch --no-git-tag-version;",
     "minor": "npm run update; npm test && npm version minor --no-git-tag-version;",
     "major": "npm run update; npm test && npm version major --no-git-tag-version;",
@@ -42,7 +43,7 @@
     "basic-sftp": "^0.1.2",
     "draftlog": "^1.0.13",
     "html-minifier-next": "^5.1.1",
-    "madge": "^6.1.0",
+    "madge": "^8.0.0",
     "node-watch": "^0.7.4",
     "uglifycss": "^0.0.29"
   },

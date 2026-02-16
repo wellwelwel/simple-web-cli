@@ -82,7 +82,7 @@ import watchClose from '../../modules/watch-close.js';
 
         /* pre processed files */
         if (fileType === 'js' || fileType === 'ts')
-          await processJS(file, to, 'build', false);
+          await processJS(file, to, 'build');
         else if (fileType === 'scss' || fileType === 'css')
           await processCSS(file, to, 'build');
         else {

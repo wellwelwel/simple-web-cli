@@ -5,7 +5,10 @@ import { sep, dirname, resolve, normalize } from 'path';
 import { exec as exec$1 } from 'child_process';
 import DraftLog from 'draftlog';
 
-var exec = cmd => new Promise(resolve => exec$1(cmd, error => resolve(!!error ? false : true)));
+var exec = cmd => new Promise(resolve => exec$1(cmd, (error, _stdout, stderr) => {
+  if (error) console.error(stderr || error.message);
+  resolve(!error);
+}));
 
 class ListFiles {
   constructor() {

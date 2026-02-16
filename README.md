@@ -53,44 +53,44 @@
 
 #### ES Modules to Native Browser Javascript
 
-- Import from external modules
+##### Import from external modules
 
-  ```javascript
-  // File: ./src/index.js
+```javascript
+// File: ./src/index.js
 
-  import { s } from 'node-and-vite-helpers';
+import { s } from 'node-and-vite-helpers';
 
-  const body = s('body');
-  ```
+const body = s('body');
+```
 
-  <!-- prettier-ignore -->
-     >
-      >    ```javascript
-      >    // Output to ./dist/index.js:
-      >
-      >    !function(){"use strict";var e="body";document.querySelector(e)}();
-      >    ```
+<!-- prettier-ignore -->
+   >
+   >    ```javascript
+   >    // Output to ./dist/index.js:
+   >
+   >    !function(){"use strict";var e="body";document.querySelector(e)}();
+   >    ```
 
-- Import from local modules
+##### Import from local modules
 
-  ```javascript
-  // File: ./src/index.js
-  import sum from '../helpers/sum';
+```javascript
+// File: ./src/index.js
+import sum from '../helpers/sum';
 
-  // File ./helpers/sum.js
-  const sum = (a, b) => a + b;
-  export default sum;
+// File ./helpers/sum.js
+const sum = (a, b) => a + b;
+export default sum;
 
-  console.log(sum(1, 2));
-  ```
+console.log(sum(1, 2));
+```
 
-  <!-- prettier-ignore -->
-     >
-      >    ```javascript
-      >    // Output to ./dist/index.js:
-      >
-      >    !function(){"use strict";console.log(3)}();
-      >    ```
+<!-- prettier-ignore -->
+   >
+   >    ```javascript
+   >    // Output to ./dist/index.js:
+   >
+   >    !function(){"use strict";console.log(3)}();
+   >    ```
 
 <hr />
 

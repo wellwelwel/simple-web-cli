@@ -14,6 +14,7 @@ const setConfig = (/** @type {string} */ input, /** @type {string} */ dir) =>
       'fs',
       'os',
       'path',
+      'node:path',
       'draftlog',
       'child_process',
       'html-minifier-next',

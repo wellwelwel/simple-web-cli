@@ -21,6 +21,7 @@
     "sourceMap": false,
     "declaration": false,
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "outDir": ""
   }
 }
