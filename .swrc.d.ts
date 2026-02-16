@@ -15,7 +15,7 @@ export interface Compile {
             uglifycss: boolean;
         };
         html: {
-            /** 🎲 Enable or disable `html-minifier` in compilation */
+            /** 🎲 Enable or disable `html-minifier-next` in compilation */
             minify: boolean;
             /** ℹ️ If true, ignores the compilation when a HTML file name starts with _ */
             htmlImportLikeSass: boolean;

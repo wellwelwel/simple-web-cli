@@ -1,79 +1,80 @@
 {
-   "name": "simple-web-cli",
-   "type": "module",
-   "version": "4.4.3",
-   "main": "./.swrc.js",
-   "scripts": {
-      "build": "rm -rf ./bin ./lib ./.swrc.d.ts ./.swrc.js && npx rollup -c && sed -i '' $'1s/^/#! \\/usr\\/bin\\/env node\\\n\\\n/' bin/index.js && npx tsc;",
-      "patch": "npm run update; npm run test-services && npm version patch --no-git-tag-version;",
-      "minor": "npm run update; npm run test-services && npm version minor --no-git-tag-version;",
-      "major": "npm run update; npm run test-services && npm version major --no-git-tag-version;",
-      "update": "npx npu; npm i --ignore-scripts; npm audit fix;",
-      "test-services": "node \"src/test-services.js\""
-   },
-   "bin": {
-      "sw": "./bin/index.js",
-      "simple-web": "./bin/index.js",
-      "simple-web-cli": "./bin/index.js"
-   },
-   "keywords": [
-      "ftp",
-      "ftps",
-      "sftp",
-      "watch",
-      "watcher",
-      "import",
-      "modules",
-      "browser",
-      "dom",
-      "automation",
-      "hotsync",
-      "sync",
-      "build",
-      "bundle",
-      "compiler",
-      "pipeline"
-   ],
-   "author": "https://github.com/wellwelwel",
-   "license": "MIT",
-   "dependencies": {
-      "archiver": "^5.3.1",
-      "basic-ftp": "^5.0.3",
-      "basic-sftp": "^0.1.2",
-      "draftlog": "^1.0.13",
-      "html-minifier": "^4.0.0",
-      "madge": "^6.0.0",
-      "node-watch": "^0.7.3",
-      "uglifycss": "^0.0.29"
-   },
-   "devDependencies": {
-      "@babel/preset-env": "^7.21.5",
-      "@rollup/plugin-babel": "^6.0.3",
-      "packages-update": "^1.2.1",
-      "prettier": "^2.8.8",
-      "rollup": "^3.21.8",
-      "typescript": "^5.0.4"
-   },
-   "browserslist": [
-      "> 0%"
-   ],
-   "description": "⚡ A simple compiler to automate the development in HTML, CSS, SCSS, JavaScript, TypeScript and PHP languages, focused on Shared Hosts and using SFTP or FTP to deploy files processed automatically to final server.",
-   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/wellwelwel/simple-web-cli.git"
-   },
-   "bugs": {
-      "url": "https://github.com/wellwelwel/simple-web-cli/issues"
-   },
-   "homepage": "https://github.com/wellwelwel/simple-web-cli#readme",
-   "engines": {
-      "node": ">=16.0.0"
-   },
-   "files": [
-      "bin",
-      "lib",
-      "resources",
-      ".swrc.d.ts",
-      ".swrc.js"
-   ]
+  "name": "simple-web-cli",
+  "type": "module",
+  "version": "4.4.3",
+  "main": "./.swrc.js",
+  "scripts": {
+    "build": "rm -rf ./bin ./lib ./.swrc.d.ts ./.swrc.js && rollup -c && tsc;",
+    "patch": "npm run update; npm test && npm version patch --no-git-tag-version;",
+    "minor": "npm run update; npm test && npm version minor --no-git-tag-version;",
+    "major": "npm run update; npm test && npm version major --no-git-tag-version;",
+    "update": "pu minor; npm i --ignore-scripts; npm audit fix;",
+    "test": "node \"src/test.js\""
+  },
+  "bin": {
+    "sw": "./bin/index.js",
+    "simple-web": "./bin/index.js",
+    "simple-web-cli": "./bin/index.js"
+  },
+  "keywords": [
+    "ftp",
+    "ftps",
+    "sftp",
+    "watch",
+    "watcher",
+    "import",
+    "modules",
+    "browser",
+    "dom",
+    "automation",
+    "hotsync",
+    "sync",
+    "build",
+    "bundle",
+    "compiler",
+    "pipeline"
+  ],
+  "author": "https://github.com/wellwelwel",
+  "license": "MIT",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "basic-ftp": "^5.1.0",
+    "basic-sftp": "^0.1.2",
+    "draftlog": "^1.0.13",
+    "html-minifier-next": "^5.1.1",
+    "madge": "^6.0.0",
+    "node-watch": "^0.7.4",
+    "uglifycss": "^0.0.29"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.29.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+    "@rollup/plugin-babel": "^6.1.0",
+    "packages-update": "^2.0.0",
+    "prettier": "^3.8.1",
+    "rollup": "^4.57.1",
+    "typescript": "^5.9.3"
+  },
+  "browserslist": [
+    "> 0%"
+  ],
+  "description": "⚡ A simple compiler to automate the development in HTML, CSS, SCSS, JavaScript, TypeScript and PHP languages, focused on Shared Hosts and using SFTP or FTP to deploy files processed automatically to final server.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wellwelwel/simple-web-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wellwelwel/simple-web-cli/issues"
+  },
+  "homepage": "https://github.com/wellwelwel/simple-web-cli#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "resources",
+    ".swrc.d.ts",
+    ".swrc.js"
+  ]
 }

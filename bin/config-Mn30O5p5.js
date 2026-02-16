@@ -5,7 +5,7 @@ import 'os';
 import 'child_process';
 import 'draftlog';
 
-var createDir = (directory => {
+var createDir = directory => {
   const directorys = [];
   if (typeof directory === 'string') directorys.push(directory);else if (typeof directory === 'object') Object.assign(directorys, directory);
   directorys.forEach(dir => {
@@ -14,7 +14,7 @@ var createDir = (directory => {
       recursive: true
     });
   });
-});
+};
 
 const setConfig = async () => {
   const [,, ...args] = process.argv;

@@ -20,7 +20,7 @@
    npx sw create
 ```
 
--  `npx sw create`: prepares the environment without starting the service
+- `npx sw create`: prepares the environment without starting the service
 
 #### Start | Watch
 
@@ -28,7 +28,7 @@
    npx sw
 ```
 
--  `npx sw` or `npx sw start`: prepares the environment and starts the service
+- `npx sw` or `npx sw start`: prepares the environment and starts the service
 
 #### Build
 
@@ -36,16 +36,16 @@
    npx sw build
 ```
 
--  `npx sw build`: compiles the contents from `src` and zips it to `release.zip`
+- `npx sw build`: compiles the contents from `src` and zips it to `release.zip`
 
 <hr />
 
 ### Development
 
--  **`src`** is the default directory of development to watch
--  **`dist`** is the default directory with the compiled code
--  Once the process is started, the event occurs by **saving any file** into `src`.
--  All options are preconfigured and you can customize them 😉
+- **`src`** is the default directory of development to watch
+- **`dist`** is the default directory with the compiled code
+- Once the process is started, the event occurs by **saving any file** into `src`.
+- All options are preconfigured and you can customize them 😉
 
 <hr />
 
@@ -53,39 +53,39 @@
 
 #### ES Modules to Native Browser Javascript
 
--  Import from external modules
+- Import from external modules
 
-   ```javascript
-   // File: ./src/index.js
+  ```javascript
+  // File: ./src/index.js
 
-   import { s } from 'node-and-vite-helpers';
+  import { s } from 'node-and-vite-helpers';
 
-   const body = s('body');
-   ```
+  const body = s('body');
+  ```
 
-   <!-- prettier-ignore -->
-      >
+  <!-- prettier-ignore -->
+     >
       >    ```javascript
       >    // Output to ./dist/index.js:
       >
       >    !function(){"use strict";var e="body";document.querySelector(e)}();
       >    ```
 
--  Import from local modules
+- Import from local modules
 
-   ```javascript
-   // File ./helpers/sum.js
-   const sum = (a, b) => a + b;
-   export default sum;
+  ```javascript
+  // File: ./src/index.js
+  import sum from '../helpers/sum';
 
-   // File: ./src/index.js
-   import sum from '../helpers/sum';
+  // File ./helpers/sum.js
+  const sum = (a, b) => a + b;
+  export default sum;
 
-   console.log(sum(1, 2));
-   ```
+  console.log(sum(1, 2));
+  ```
 
-   <!-- prettier-ignore -->
-      >
+  <!-- prettier-ignore -->
+     >
       >    ```javascript
       >    // Output to ./dist/index.js:
       >
@@ -96,7 +96,7 @@
 
 #### Using SFTP or FTP HotSync
 
--  In the file **`.swrc.js`**, just insert the access infos:
+- In the file **`.swrc.js`**, just insert the access infos:
 
 <table width="100%">
 <tr>
@@ -143,24 +143,24 @@
 <tr>
 <td>
 
--  The [`sftp`](https://github.com/wellwelwel/basic-sftp) connection options extends all the [`ssh2`](https://github.com/mscdex/ssh2) options
+- The [`sftp`](https://github.com/wellwelwel/basic-sftp) connection options extends all the [`ssh2`](https://github.com/mscdex/ssh2) options
 
 </td>
 <td>
 
--  If the server doesn't use SSL certification, set `explict` or `implict`
+- If the server doesn't use SSL certification, set `explict` or `implict`
 
 </td>
 </tr>
 </table>
 
--  Assuming the **`root`** option is `/` and the _remote directory_ is `/var/www`, the input and output of the directories would be:
+- Assuming the **`root`** option is `/` and the _remote directory_ is `/var/www`, the input and output of the directories would be:
 
-   -  **Development:** <ins>`./src/`</ins> <b>`html/index.html`</b>
-   -  **Distribution:** <ins>`./dist/`</ins> <b>`html/index.html`</b>
-   -  **Server:** <ins>`/var/www/`</ins> <b>`html/index.html`</b>
+  - **Development:** <ins>`./src/`</ins> <b>`html/index.html`</b>
+  - **Distribution:** <ins>`./dist/`</ins> <b>`html/index.html`</b>
+  - **Server:** <ins>`/var/www/`</ins> <b>`html/index.html`</b>
 
--  You can only use one protocol at a time: `SFTP` or `FTP`
+- You can only use one protocol at a time: `SFTP` or `FTP`
 
 <hr />
 
@@ -175,8 +175,8 @@
 
 ```html
 <div>
-   <h1>Title</h1>
-   <p>Paragraph</p>
+  <h1>Title</h1>
+  <p>Paragraph</p>
 </div>
 ```
 
@@ -191,18 +191,18 @@
 
 #### HTML Import
 
--  You can import `.html` files recursively, based on the `scss` import, for example:
-   ```html
-   <html>
-      <body>
-         <!-- import('./views/_header.html') -->
-         <section>
-            <!-- import('./views/_main.html') -->
-         </section>
-         <!-- import('../_footer.html') -->
-      </body>
-   </html>
-   ```
+- You can import `.html` files recursively, based on the `scss` import, for example:
+  ```html
+  <html>
+    <body>
+      <!-- import('./views/_header.html') -->
+      <section>
+        <!-- import('./views/_main.html') -->
+      </section>
+      <!-- import('../_footer.html') -->
+    </body>
+  </html>
+  ```
 
 <hr />
 
@@ -212,7 +212,7 @@
 
 ```css
 div {
-   display: flex;
+  display: flex;
 }
 ```
 
@@ -271,7 +271,7 @@ Options Indexes FollowSymLinks MultiViews
 
 #### Strings Replacement
 
--  You can create an easy to read code and on compiling, replace the specified strings, for example:
+- You can create an easy to read code and on compiling, replace the specified strings, for example:
 
 <ins>`.swrc.js`</ins>
 
@@ -310,12 +310,12 @@ Options Indexes FollowSymLinks MultiViews
 <?php $_POST['456'];$site='weslley.io';
 ```
 
--  Works for any language that is enabled in `.swrc.js`
+- Works for any language that is enabled in `.swrc.js`
 <hr />
 
 #### Miscellaneous Files
 
--  Only uploads the original file to the output directories
+- Only uploads the original file to the output directories
 </details>
 <hr />
 
@@ -331,7 +331,6 @@ Options Indexes FollowSymLinks MultiViews
 ### License
 
 [![License](/.github/assets/readme/license.svg)](/LICENSE)
-[![3rd-Party Software License](/.github/assets/readme/3rd-license.svg)](/docs/LICENSE_THIRD_PARTY.md)
 
 <hr />
 
@@ -349,21 +348,21 @@ Options Indexes FollowSymLinks MultiViews
 
 #### `Create` dev dependencies
 
--  [@babel/preset-env](https://babel.dev/docs/en/next/babel-preset-env)
--  [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel#readme)
--  [@rollup/plugin-commonjs](https://github.com/rollup/plugins/tree/master/packages/commonjs/#readme)
--  [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve/#readme)
--  [@rollup/plugin-terser](https://github.com/rollup/plugins/tree/master/packages/terser#readme)
--  [@rollup/plugin-typescript](https://github.com/rollup/plugins/tree/master/packages/typescript/#readme)
--  [@types/ssh2](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/ssh2)
--  [autoprefixer](https://github.com/postcss/autoprefixer#readme)
--  [node-and-vite-helpers](https://github.com/wellwelwel/node-and-vite-helpers#readme)
--  [packages-update](https://github.com/wellwelwel/packages-update#readme)
--  [postcss-cli](https://github.com/postcss/postcss-cli#readme)
--  [rollup](https://rollupjs.org/)
--  [sass](https://github.com/sass/dart-sass)
--  [tslib](https://www.typescriptlang.org)
--  [uglify-js](https://github.com/mishoo/UglifyJS#readme)
+- [@babel/preset-env](https://babel.dev/docs/en/next/babel-preset-env)
+- [@rollup/plugin-babel](https://github.com/rollup/plugins/tree/master/packages/babel#readme)
+- [@rollup/plugin-commonjs](https://github.com/rollup/plugins/tree/master/packages/commonjs/#readme)
+- [@rollup/plugin-node-resolve](https://github.com/rollup/plugins/tree/master/packages/node-resolve/#readme)
+- [@rollup/plugin-terser](https://github.com/rollup/plugins/tree/master/packages/terser#readme)
+- [@rollup/plugin-typescript](https://github.com/rollup/plugins/tree/master/packages/typescript/#readme)
+- [@types/ssh2](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/ssh2)
+- [autoprefixer](https://github.com/postcss/autoprefixer#readme)
+- [node-and-vite-helpers](https://github.com/wellwelwel/node-and-vite-helpers#readme)
+- [packages-update](https://github.com/wellwelwel/packages-update#readme)
+- [postcss-cli](https://github.com/postcss/postcss-cli#readme)
+- [rollup](https://rollupjs.org/)
+- [sass](https://github.com/sass/dart-sass)
+- [tslib](https://www.typescriptlang.org)
+- [uglify-js](https://github.com/mishoo/UglifyJS#readme)
 
 <hr />
 

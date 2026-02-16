@@ -1,20 +1,20 @@
 function vReg(string, options = 'g') {
-   const validate_string = string
-      .replace(/\//g, '\\/')
-      .replace(/\./g, '\\.')
-      .replace(/\*/g, '\\*')
-      .replace(/\$/g, '\\$')
-      .replace(/\+/g, '\\+')
-      .replace(/\?/g, '\\?')
-      .replace(/\|/g, '\\|')
-      .replace(/\[/g, '\\[')
-      .replace(/\]/g, '\\]')
-      .replace(/\(/g, '\\(')
-      .replace(/\)/g, '\\)')
-      .replace(/\{/g, '\\{')
-      .replace(/\}/g, '\\}');
+  const validate_string = string
+    .replace(/\//g, '\\/')
+    .replace(/\./g, '\\.')
+    .replace(/\*/g, '\\*')
+    .replace(/\$/g, '\\$')
+    .replace(/\+/g, '\\+')
+    .replace(/\?/g, '\\?')
+    .replace(/\|/g, '\\|')
+    .replace(/\[/g, '\\[')
+    .replace(/\]/g, '\\]')
+    .replace(/\(/g, '\\(')
+    .replace(/\)/g, '\\)')
+    .replace(/\{/g, '\\{')
+    .replace(/\}/g, '\\}');
 
-   return new RegExp(validate_string, options);
+  return new RegExp(validate_string, options);
 }
 
 export default vReg;

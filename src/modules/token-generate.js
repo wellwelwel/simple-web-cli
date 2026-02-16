@@ -1,11 +1,13 @@
-const generateRandomHexadecimal = () => Math.floor(Math.random() * 16).toString(16);
+const generateRandomHexadecimal = () =>
+  Math.floor(Math.random() * 16).toString(16);
 
 const tokenGenerate = (tokenSize = 32) => {
-   const token = [];
+  const token = [];
 
-   for (let size = 0; size < tokenSize; size++) token.push(generateRandomHexadecimal());
+  for (let size = 0; size < tokenSize; size++)
+    token.push(generateRandomHexadecimal());
 
-   return token.join('');
+  return token.join('');
 };
 
 export default tokenGenerate;

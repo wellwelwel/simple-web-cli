@@ -1,8 +1,8 @@
 {
-   "type": "module",
-   "browserslist": "> 0%",
-   "devDependencies": {},
-   "scripts": {
-      "update": "npx npu; npm i --ignore-scripts"
-   }
+  "type": "module",
+  "browserslist": "> 0%",
+  "devDependencies": {},
+  "scripts": {
+    "update": "npx npu; npm i --ignore-scripts"
+  }
 }

@@ -1,30 +1,69 @@
 #! /usr/bin/env node
-
 import fs from 'fs';
 import { platform, EOL } from 'os';
-import { dirname, resolve, sep, normalize } from 'path';
+import { sep, dirname, resolve, normalize } from 'path';
 import { exec as exec$1 } from 'child_process';
 import DraftLog from 'draftlog';
 
-var exec = (cmd => new Promise(resolve => exec$1(cmd, error => resolve(!!error ? false : true))));
+var exec = cmd => new Promise(resolve => exec$1(cmd, error => resolve(!!error ? false : true)));
+
+class ListFiles {
+  constructor() {
+    this.files = [];
+    this.excludeDir = [];
+    this.isTypeExpected = (file, expected) => {
+      if (expected === false) return true;
+      let isValid = false;
+      const types = [];
+      const currentFileType = file.split('.').pop();
+      if (typeof expected === 'string') types.push(expected);else if (typeof expected === 'object') Object.assign(types, expected);
+      for (const type in types) {
+        if (currentFileType.includes(types[type])) {
+          isValid = true;
+          break;
+        }
+      }
+      return isValid;
+    };
+    this.getFiles = async (directory, type, excludeDir = false, excludeType = false) => {
+      if (excludeDir) this.excludeDir.push(excludeDir.replace('./', ''));
+      const filesList = fs.readdirSync(directory);
+      for (const file in filesList) {
+        const stat = fs.statSync(`${directory}${sep}${filesList[file]}`);
+        if (this.excludeDir.includes(directory)) return false;else if (stat.isDirectory()) await this.getFiles(`${directory}${sep}${filesList[file]}`, type);else if (this.isTypeExpected(filesList[file], type)) this.files.push(`${directory}${sep}${filesList[file]}`);
+      }
+      return this.files;
+    };
+  }
+}
+const listFiles = async (directory, type = false, excludeDir = false, excludeType = false) => {
+  const files = new ListFiles();
+  const list = await files.getFiles(directory, type, excludeDir);
+  files.files = [];
+  return list;
+};
+
+const isWindows = platform() === 'win32';
+const __dirname$1 = (() => {
+  const meta = dirname(decodeURI(new URL(import.meta.url).pathname));
+  const currentPath = isWindows ? meta.substring(1) : meta;
+  const paths = currentPath.split('/');
+  const rootIndex = paths.lastIndexOf('simple-web-cli');
+  return resolve(paths.splice(0, rootIndex + 1).join(sep));
+})();
+const cwd = normalize(`file:///${process.cwd()}`);
 
 DraftLog(console);
 const sh$1 = {
   yellow: '\x1b[33m',
   green: '\x1b[32m',
-  cyan: '\x1b[36m',
-  white: '\x1b[37m',
   blue: '\x1b[34m',
-  magenta: '\x1b[35m',
   red: '\x1b[31m',
   dim: '\x1b[2m',
-  underscore: '\x1b[4m',
   bright: '\x1b[22m',
   reset: '\x1b[0m',
   bold: '\x1b[1m',
-  italic: '\x1b[3m',
-  clear: '\x1Bc'
-};
+  italic: '\x1b[3m'};
 class draft {
   constructor(string, style = 'dots', start = true) {
     this.string = string;
@@ -122,58 +161,12 @@ const rebuildFiles = async arg => {
   return !stage.error;
 };
 
-const isWindows = platform() === 'win32';
-const __dirname = (() => {
-  const meta = dirname(decodeURI(new URL(import.meta.url).pathname));
-  const currentPath = isWindows ? meta.substring(1) : meta;
-  const paths = currentPath.split('/');
-  const rootIndex = paths.lastIndexOf('simple-web-cli');
-  return resolve(paths.splice(0, rootIndex + 1).join(sep));
-})();
-const cwd = normalize(`file:///${process.cwd()}`);
-
-class ListFiles {
-  constructor() {
-    this.files = [];
-    this.excludeDir = [];
-    this.isTypeExpected = (file, expected) => {
-      if (expected === false) return true;
-      let isValid = false;
-      const types = [];
-      const currentFileType = file.split('.').pop();
-      if (typeof expected === 'string') types.push(expected);else if (typeof expected === 'object') Object.assign(types, expected);
-      for (const type in types) {
-        if (currentFileType.includes(types[type])) {
-          isValid = true;
-          break;
-        }
-      }
-      return isValid;
-    };
-    this.getFiles = async (directory, type, excludeDir = false, excludeType = false) => {
-      if (excludeDir) this.excludeDir.push(excludeDir.replace('./', ''));
-      const filesList = fs.readdirSync(directory);
-      for (const file in filesList) {
-        const stat = fs.statSync(`${directory}${sep}${filesList[file]}`);
-        if (this.excludeDir.includes(directory)) return false;else if (stat.isDirectory()) await this.getFiles(`${directory}${sep}${filesList[file]}`, type);else if (this.isTypeExpected(filesList[file], type)) this.files.push(`${directory}${sep}${filesList[file]}`);
-      }
-      return this.files;
-    };
-  }
-}
-const listFiles = async (directory, type = false, excludeDir = false, excludeType = false) => {
-  const files = new ListFiles();
-  const list = await files.getFiles(directory, type, excludeDir);
-  files.files = [];
-  return list;
-};
-
 (async () => {
   const [,, ...args] = process.argv;
   const arg = args[0]?.replace(/-/g, '') || 'start';
   const requires = {
     dirs: ['.vscode'],
-    files: (await listFiles(`${__dirname}/resources`)).map(file => file.split('resources/').pop())
+    files: (await listFiles(`${__dirname$1}/resources`)).map(file => file.split('resources/').pop())
   };
   const filesCallback = {
     'package.json': async () => await exec('npm i')
@@ -194,7 +187,7 @@ const listFiles = async (directory, type = false, excludeDir = false, excludeTyp
   });
   requires.files.forEach(require => {
     if (!fs.existsSync(normalize(`./${require}`))) {
-      fs.copyFileSync(normalize(`${__dirname}/resources/${require}`), normalize(`./${require}`));
+      fs.copyFileSync(normalize(`${__dirname$1}/resources/${require}`), normalize(`./${require}`));
       if (filesCallback?.[require]) filesCallback[require]();
     }
   });
@@ -209,7 +202,7 @@ const listFiles = async (directory, type = false, excludeDir = false, excludeTyp
     if (fs.existsSync(normalize('./.swrc.js'))) {
       const {
         options
-      } = await import('./config-9bd41bac.js');
+      } = await import('./config-Mn30O5p5.js');
       if (arg === 'start' && options?.initalCommit && !fs.existsSync(normalize('./.git'))) await exec(`git init && git add . && git commit -m "Initial Commit"`);
     }
   } catch (quiet) {}

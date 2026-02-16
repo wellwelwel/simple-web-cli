@@ -1,17 +1,17 @@
 import fs from 'fs';
-import { source, plugins } from './config.js';
+import { plugins, source } from './config.js';
 
 export default (file, local) => {
-   if (!plugins) return false;
+  if (!plugins) return false;
 
-   const resources = plugins?.resourceReplace || false;
+  const resources = plugins?.resourceReplace || false;
 
-   if (!resources?.replace?.[local]) return false;
+  if (!resources?.replace?.[local]) return false;
 
-   const src = resources?.src || '.resources';
-   const dest = file.replace(source, src);
+  const src = resources?.src || '.resources';
+  const dest = file.replace(source, src);
 
-   if (!fs.existsSync(dest)) return false;
+  if (!fs.existsSync(dest)) return false;
 
-   return dest;
+  return dest;
 };
