@@ -10,6 +10,10 @@ on:
       - '.github/assets/**/**'
       - 'docs/**'
       - 'LICENSE'
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
 jobs:
   test-node-os-coverage:
     name: Node ${{ matrix.node-version }}
